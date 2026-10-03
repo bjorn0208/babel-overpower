@@ -1,0 +1,11 @@
+{
+  "name": "bmail-api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "imapflow": "^1.0.191",
+    "mailparser": "^3.7.4",
+    "nodemailer": "^7.0.9",
+    "undici": "^7.0.0"
+  }
+}

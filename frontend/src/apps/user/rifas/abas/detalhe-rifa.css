@@ -1,0 +1,43 @@
+/* Detalhe da rifa + grade de números — complementos da biblioteca ar-* (skill design-rifas). */
+
+/* Hero: mídia ao fundo, degradê pro fundo do app embaixo, texto por cima. */
+.ar-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ar-r-xl);
+  background: var(--ar-cartao);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.ar-hero__veu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11, 11, 16, 0.96) 0%, rgba(11, 11, 16, 0.55) 45%, rgba(11, 11, 16, 0.15) 100%);
+}
+.ar-hero--sem-midia .ar-hero__veu {
+  background: linear-gradient(160deg, var(--ar-roxo-baixo) 0%, var(--ar-cartao) 60%, var(--ar-fundo-2) 100%);
+}
+.ar-hero__conteudo { position: relative; padding: var(--ar-s-5); color: #fff; }
+@media (min-width: 768px) { html:not(.modo-celular) .ar-hero__conteudo { padding: var(--ar-s-8); } }
+.ar-hero__miniatura {
+  width: 48px; height: 48px; border-radius: var(--ar-r-sm); object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(0, 0, 0, 0.3);
+}
+
+/* Célula da grade: os dois estados que a biblioteca não tem. */
+.ar-celula--marcado {
+  background: var(--ar-roxo-vidro);
+  color: var(--ar-roxo-alto);
+  box-shadow: 0 0 0 2px var(--ar-roxo-alto);
+  transform: scale(1.04);
+}
+.ar-celula--sem-comprovante {
+  background: var(--ar-filete);
+  color: var(--ar-txt-4);
+  cursor: not-allowed;
+}
+
+/* Campo de número sorteado: curto, alinhado com o botão. */
+.ar-campo-sorteio { width: 128px; }

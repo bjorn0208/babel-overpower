@@ -1,0 +1,487 @@
+project_id = "sistemababel-local"
+
+[db]
+major_version = 17
+
+[db.seed]
+enabled = false
+
+[functions.admin-ativar-cliente]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/admin-ativar-cliente/pacote/admin-ativar-cliente/index.ts"
+
+[functions.admin-criar-usuario]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/admin-criar-usuario/pacote/admin-criar-usuario/index.ts"
+
+[functions.admin-excluir-tenant]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/admin-excluir-tenant/pacote/admin-excluir-tenant/index.ts"
+
+[functions.admin-redefinir-senha]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/admin-redefinir-senha/pacote/admin-redefinir-senha/index.ts"
+
+[functions.agente-mestre-chat]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/agente-mestre-chat/pacote/agente-mestre-chat/index.ts"
+
+[functions.analisar-conversas-fechamento]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/analisar-conversas-fechamento/pacote/analisar-conversas-fechamento/index.ts"
+
+[functions.analisar-reuniao]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/analisar-reuniao/pacote/analisar-reuniao/index.ts"
+
+[functions.anunciar-resultado-rifa]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/anunciar-resultado-rifa/pacote/anunciar-resultado-rifa/index.ts"
+
+[functions.aprender-conversa-whatsapp]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/aprender-conversa-whatsapp/pacote/aprender-conversa-whatsapp/index.ts"
+
+[functions.buscar-empresa-google]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/buscar-empresa-google/pacote/buscar-empresa-google/index.ts"
+
+[functions.chat-publico]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/chat-publico/pacote/chat-publico/index.ts"
+
+[functions.chat-treino-analisar]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/chat-treino-analisar/pacote/chat-treino-analisar/index.ts"
+
+[functions.consultar-documento]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/consultar-documento/pacote/consultar-documento/index.ts"
+
+[functions.contratos-propor-estrutura]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/contratos-propor-estrutura/pacote/contratos-propor-estrutura/index.ts"
+
+[functions.convidar-membro]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/convidar-membro/pacote/convidar-membro/index.ts"
+
+[functions.criar-bloco-da-pergunta]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/criar-bloco-da-pergunta/pacote/criar-bloco-da-pergunta/index.ts"
+
+[functions.cron-atomizar-contrato]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-atomizar-contrato/pacote/cron-atomizar-contrato/index.ts"
+
+[functions.cron-atomizar-empresa]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-atomizar-empresa/pacote/cron-atomizar-empresa/index.ts"
+
+[functions.cron-aviso-sorteio-rifa]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-aviso-sorteio-rifa/pacote/cron-aviso-sorteio-rifa/index.ts"
+
+[functions.cron-bom-dia-rifa]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-bom-dia-rifa/pacote/cron-bom-dia-rifa/index.ts"
+
+[functions.cron-canario-monitor]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-canario-monitor/pacote/cron-canario-monitor/index.ts"
+
+[functions.cron-cluster-lacunas]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-cluster-lacunas/pacote/cron-cluster-lacunas/index.ts"
+
+[functions.cron-coletar-custos-llm]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-coletar-custos-llm/pacote/cron-coletar-custos-llm/index.ts"
+
+[functions.cron-curadoria-llm]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/cron-curadoria-llm/pacote/cron-curadoria-llm/index.ts"
+
+[functions.cron-destilar-memoria]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-destilar-memoria/pacote/cron-destilar-memoria/index.ts"
+
+[functions.cron-destilar-perfil-empresa-llm]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-destilar-perfil-empresa-llm/pacote/cron-destilar-perfil-empresa-llm/index.ts"
+
+[functions.cron-detectar-meta-padroes]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-detectar-meta-padroes/pacote/cron-detectar-meta-padroes/index.ts"
+
+[functions.cron-lembretes-financeiro]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-lembretes-financeiro/pacote/cron-lembretes-financeiro/index.ts"
+
+[functions.cron-quebrar-blocos-misturados]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-quebrar-blocos-misturados/pacote/cron-quebrar-blocos-misturados/index.ts"
+
+[functions.cron-recategorizar-blocos]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-recategorizar-blocos/pacote/cron-recategorizar-blocos/index.ts"
+
+[functions.cron-reflexao-metacognitiva]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-reflexao-metacognitiva/pacote/cron-reflexao-metacognitiva/index.ts"
+
+[functions.cron-retomar-agente]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-retomar-agente/pacote/cron-retomar-agente/index.ts"
+
+[functions.cron-sono-do-agente]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-sono-do-agente/pacote/cron-sono-do-agente/index.ts"
+
+[functions.cron-status-rifa]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-status-rifa/pacote/cron-status-rifa/index.ts"
+
+[functions.cron-sync-feriados]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-sync-feriados/pacote/cron-sync-feriados/index.ts"
+
+[functions.cron-tags-curadoria]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-tags-curadoria/pacote/cron-tags-curadoria/index.ts"
+
+[functions.cron-varrer-gatilhos-temporais]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/cron-varrer-gatilhos-temporais/pacote/cron-varrer-gatilhos-temporais/index.ts"
+
+[functions.detalhar-empresa-google]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/detalhar-empresa-google/pacote/detalhar-empresa-google/index.ts"
+
+[functions.embedar-persona-campanha]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/embedar-persona-campanha/pacote/embedar-persona-campanha/index.ts"
+
+[functions.embedar-tags]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/embedar-tags/pacote/embedar-tags/index.ts"
+
+[functions.entregar-lead-babel]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/entregar-lead-babel/pacote/entregar-lead-babel/index.ts"
+
+[functions.enviar-mensagem]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/enviar-mensagem/pacote/enviar-mensagem/index.ts"
+
+[functions.evento-publico]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/evento-publico/pacote/evento-publico/index.ts"
+
+[functions.excluir-mensagem]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/excluir-mensagem/pacote/excluir-mensagem/index.ts"
+
+[functions.executor-padrao]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/executor-padrao/pacote/executor-padrao/index.ts"
+
+[functions.extrair-contrato-de-arquivo]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/extrair-contrato-de-arquivo/pacote/extrair-contrato-de-arquivo/index.ts"
+
+[functions.extrair-fatos-lead]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/extrair-fatos-lead/pacote/extrair-fatos-lead/index.ts"
+
+[functions.extrair-observacoes-tag]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/extrair-observacoes-tag/pacote/extrair-observacoes-tag/index.ts"
+
+[functions.extrair-tenant-pdf]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/extrair-tenant-pdf/pacote/extrair-tenant-pdf/index.ts"
+
+[functions.gerar-arte-rifa]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/gerar-arte-rifa/pacote/gerar-arte-rifa/index.ts"
+
+[functions.gerar-embedding]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/gerar-embedding/pacote/gerar-embedding/index.ts"
+
+[functions.gerar-pdf-consulta]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/gerar-pdf-consulta/pacote/gerar-pdf-consulta/index.ts"
+
+[functions.gerar-pdf-contrato]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/gerar-pdf-contrato/pacote/gerar-pdf-contrato/index.ts"
+
+[functions.gerar-rifa-ia]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/gerar-rifa-ia/pacote/gerar-rifa-ia/index.ts"
+
+[functions.gestao-indicacao]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/gestao-indicacao/pacote/gestao-indicacao/index.ts"
+
+[functions.gestao-venda]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/gestao-venda/pacote/gestao-venda/index.ts"
+
+[functions.google-agendar-evento]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/google-agendar-evento/pacote/google-agendar-evento/index.ts"
+
+[functions.google-conectar]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/google-conectar/pacote/google-conectar/index.ts"
+
+[functions.google-oauth-retorno]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/google-oauth-retorno/pacote/google-oauth-retorno/index.ts"
+
+[functions.impersonate-user]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/impersonate-user/pacote/impersonate-user/index.ts"
+
+[functions.instagram-testar-conexao]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/instagram-testar-conexao/pacote/instagram-testar-conexao/index.ts"
+
+[functions.integracao-comercial]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/integracao-comercial/pacote/integracao-comercial/index.ts"
+
+[functions.login-commandbar]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/login-commandbar/pacote/login-commandbar/index.ts"
+
+[functions.melhorar-prompt]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/melhorar-prompt/pacote/melhorar-prompt/index.ts"
+
+[functions.mentor-chat]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/mentor-chat/pacote/mentor-chat/index.ts"
+
+[functions.mentor-resposta-rapida]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/mentor-resposta-rapida/pacote/mentor-resposta-rapida/index.ts"
+
+[functions.notificar-analise]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/notificar-analise/pacote/notificar-analise/index.ts"
+
+[functions.notificar-boleto]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/notificar-boleto/pacote/notificar-boleto/index.ts"
+
+[functions.notificar-contratacao]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/notificar-contratacao/pacote/notificar-contratacao/index.ts"
+
+[functions.notificar-pedido-rifa]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/notificar-pedido-rifa/pacote/notificar-pedido-rifa/index.ts"
+
+[functions.notificar-venda]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/notificar-venda/pacote/notificar-venda/index.ts"
+
+[functions.obter-perfil-publico]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/obter-perfil-publico/pacote/obter-perfil-publico/index.ts"
+
+[functions.porteiro-fala]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/porteiro-fala/pacote/porteiro-fala/index.ts"
+
+[functions.postar-imagem-status]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/postar-imagem-status/pacote/postar-imagem-status/index.ts"
+
+[functions.processar-acompanhamentos]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/processar-acompanhamentos/pacote/processar-acompanhamentos/index.ts"
+
+[functions.processar-campanhas]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/processar-campanhas/pacote/processar-campanhas/index.ts"
+
+[functions.processar-conversas-zip]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/processar-conversas-zip/pacote/processar-conversas-zip/index.ts"
+
+[functions.processar-disparos-lead]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/processar-disparos-lead/pacote/processar-disparos-lead/index.ts"
+
+[functions.processar-disparos-rifa]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/processar-disparos-rifa/pacote/processar-disparos-rifa/index.ts"
+
+[functions.ragentic-processar-inline]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/ragentic-processar-inline/pacote/ragentic-processar-inline/index.ts"
+
+[functions.ragentic-retornar-resposta-mentor]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/ragentic-retornar-resposta-mentor/pacote/ragentic-retornar-resposta-mentor/index.ts"
+
+[functions.ragentic-tick]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/ragentic-tick/pacote/ragentic-tick/index.ts"
+
+[functions.reenviar-disparo-rifa]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/reenviar-disparo-rifa/pacote/reenviar-disparo-rifa/index.ts"
+
+[functions.reflexao-tempo-execucao]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/reflexao-tempo-execucao/pacote/reflexao-tempo-execucao/index.ts"
+
+[functions.remover-membro]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/remover-membro/pacote/remover-membro/index.ts"
+
+[functions.resolver-lista-disparo]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/resolver-lista-disparo/pacote/resolver-lista-disparo/index.ts"
+
+[functions.sala-reuniao]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/sala-reuniao/pacote/sala-reuniao/index.ts"
+
+[functions.saldo-openrouter]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/saldo-openrouter/pacote/saldo-openrouter/index.ts"
+
+[functions.salvar-blocos-importados]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/salvar-blocos-importados/pacote/salvar-blocos-importados/index.ts"
+
+[functions.sincronizar-blocos]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/sincronizar-blocos/pacote/sincronizar-blocos/index.ts"
+
+[functions.transcrever-audio-mentor]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/transcrever-audio-mentor/pacote/transcrever-audio-mentor/index.ts"
+
+[functions.validar-comprovante-consulta]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/validar-comprovante-consulta/pacote/validar-comprovante-consulta/index.ts"
+
+[functions.vigia-canais-zapi]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/vigia-canais-zapi/pacote/vigia-canais-zapi/index.ts"
+
+[functions.webhook]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/webhook/pacote/webhook/index.ts"
+
+[functions.webhook-instagram]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/webhook-instagram/pacote/webhook-instagram/index.ts"
+
+[functions.webhook-whatsapp-oficial]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/webhook-whatsapp-oficial/pacote/webhook-whatsapp-oficial/index.ts"

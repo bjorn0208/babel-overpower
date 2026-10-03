@@ -1,0 +1,121 @@
+/*
+ * Bridge: tokens shadcn → tokens aurora
+ * ------------------------------------------------------------------
+ * Use APENAS dentro de um wrapper com a classe `.aurora-shadcn-bridge`.
+ * Tudo que estiver dentro dele recebe as variáveis CSS do shadcn
+ * (--background, --foreground, --primary, --muted, --border, etc.)
+ * remapeadas para os tokens aurora do OS Ragentic (--os-*).
+ *
+ * Objetivo: permitir adoção incremental de bibliotecas que esperam
+ * o sistema de tokens shadcn (@assistant-ui/react, dockview-react, etc.)
+ * sem que elas briguem com o tema aurora nem contaminem o resto do app.
+ *
+ * IMPORTANTE: as cores shadcn usam o formato HSL "H S% L%" (sem hsl()).
+ * Os tokens aurora são oklch(). Mantemos os --os-* nativos e expomos
+ * apenas as variáveis shadcn como aliases color-mix/raw quando
+ * possível. Para variáveis que o shadcn consome via hsl(var(--x)),
+ * fornecemos valores HSL aproximados equivalentes ao tema aurora.
+ */
+
+.aurora-shadcn-bridge {
+  /* HSL approximations of aurora oklch tokens (dark glass theme) */
+  --background: 252 30% 10%;          /* ~ --os-fundo-1 */
+  --foreground: 0 0% 98%;             /* --txt-1 */
+
+  --card: 270 20% 14%;                /* ~ --os-fundo-2 */
+  --card-foreground: 0 0% 98%;
+
+  --popover: 270 20% 14%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 210 70% 60%;             /* ~ --os-acento-1 */
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 0 0% 100%;             /* base white, alpha via opacity */
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 0 0% 100%;
+  --muted-foreground: 0 0% 60%;
+
+  --accent: 280 65% 55%;              /* ~ --os-acento-2 */
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 12 80% 55%;          /* ~ --os-erro */
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 0 0% 100%;
+  --input: 0 0% 100%;
+  --ring: 210 70% 60%;
+
+  --radius: 0.75rem;
+
+  /* Componentes que leem tokens diretos (sem hsl()) recebem aurora cru */
+  background: var(--os-vidro);
+  color: var(--txt-1);
+}
+
+/* Vidro aurora para superfícies internas (cards, inputs) */
+.aurora-shadcn-bridge [data-slot="card"],
+.aurora-shadcn-bridge .bg-card,
+.aurora-shadcn-bridge .bg-popover {
+  background: var(--os-vidro-forte) !important;
+  border-color: var(--os-vidro-borda) !important;
+  backdrop-filter: blur(20px) saturate(140%);
+}
+
+.aurora-shadcn-bridge .bg-background {
+  background: transparent !important;
+}
+
+.aurora-shadcn-bridge .border,
+.aurora-shadcn-bridge .border-border,
+.aurora-shadcn-bridge .border-input {
+  border-color: var(--os-vidro-borda) !important;
+}
+
+/* Botão primário usa o gradiente aurora */
+.aurora-shadcn-bridge .bg-primary {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2)) !important;
+}
+
+.aurora-shadcn-bridge .text-muted-foreground {
+  color: var(--txt-3) !important;
+}
+
+/* Handle do react-resizable-panels com vibe aurora */
+.rp-handle {
+  width: 6px;
+  background: transparent;
+  position: relative;
+  cursor: col-resize;
+  transition: background 200ms;
+}
+.rp-handle:hover,
+.rp-handle[data-resize-handle-state="hover"],
+.rp-handle[data-resize-handle-state="drag"] {
+  background: linear-gradient(180deg, var(--os-acento-1-soft), var(--os-acento-2-soft));
+}
+.rp-handle::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  width: 2px; height: 32px; border-radius: 2px;
+  background: var(--os-vidro-borda);
+}
+
+/* Tema dockview alinhado com aurora glass */
+.dockview-theme-abyss {
+  --dv-background-color: transparent;
+  --dv-paneview-active-outline-color: var(--os-acento-1);
+  --dv-tabs-and-actions-container-background-color: rgba(255,255,255,0.04);
+  --dv-tab-divider-color: var(--os-vidro-borda);
+  --dv-activegroup-visiblepanel-tab-background-color: var(--os-vidro-forte);
+  --dv-inactivegroup-visiblepanel-tab-background-color: rgba(255,255,255,0.02);
+  --dv-activegroup-hiddenpanel-tab-background-color: transparent;
+  --dv-inactivegroup-hiddenpanel-tab-background-color: transparent;
+  --dv-tab-color: var(--txt-2);
+  --dv-active-sash-color: var(--os-acento-1);
+  --dv-separator-border: var(--os-vidro-borda);
+  --dv-icon-hover-background-color: rgba(255,255,255,0.08);
+  --dv-floating-box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+  height: 100%;
+}

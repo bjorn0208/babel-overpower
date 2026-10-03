@@ -1,0 +1,16 @@
+{
+  "project": "site-plano-rifas",
+  "deployment": "dpl_ARFvApCWAMPVrFozmHJe7EqxDfP8",
+  "files": 1,
+  "excluded": [],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/site-plano-rifas/source-manifest.json",
+  "copied": [
+    {
+      "path": "index.html",
+      "remote_uid": "42ce2b1815931e17377674054a2b20eb512e4da7",
+      "bytes": 23293,
+      "sha256": "22a4bfec90fca7c92a31a9e01cefd3124573b10832f38d795c3debabaa618aef",
+      "verified_sha1": true
+    }
+  ]
+}

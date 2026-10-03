@@ -1,0 +1,253 @@
+/* Post-its flutuantes no Desktop — papel amarelado, alfinete vermelho,
+ * sombra suave, leve rotação. Drag pelo header, resize por bordas.
+ */
+
+.postits-camada {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.postit {
+  position: absolute;
+  pointer-events: auto;
+  background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+  color: oklch(0.28 0.06 80);
+  border-radius: 4px 6px 8px 6px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: rotate(var(--postit-rot, 0deg));
+  transform-origin: center top;
+  transition: box-shadow 200ms ease;
+  user-select: none;
+  will-change: transform, left, top, width, height;
+  font-family: 'Caveat', 'Patrick Hand', 'Bradley Hand', 'Comic Sans MS', cursive, system-ui;
+}
+
+.postit:hover {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 12px 26px rgba(0, 0, 0, 0.42),
+    0 4px 8px rgba(0, 0, 0, 0.22);
+}
+
+.postit.arrastando {
+  cursor: grabbing;
+  transition: none;
+  z-index: 40;
+}
+
+.postit-alfinete {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #f87171 0%, #b91c1c 70%, #7f1d1d 100%);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.4);
+  z-index: 2;
+}
+
+.postit-alfinete::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 5px;
+  background: #4b5563;
+  border-radius: 1px;
+}
+
+.postit-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px 6px;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.postit-header:active {
+  cursor: grabbing;
+}
+
+.postit-titulo {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 600;
+  color: oklch(0.24 0.07 60);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.postit-acao {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: oklch(0.36 0.07 60);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  padding: 0;
+  transition: background 120ms ease;
+}
+
+.postit-acao:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.postit-acao.concluir:hover { color: oklch(0.55 0.18 145); }
+.postit-acao.arquivar:hover { color: oklch(0.5 0.05 60); }
+.postit-acao.abrir:hover    { color: oklch(0.5 0.18 250); }
+
+.postit-corpo {
+  flex: 1;
+  overflow: hidden;
+  padding: 2px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+}
+
+.postit-lembrete {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(180, 83, 9, 0.12);
+  color: oklch(0.42 0.16 60);
+  align-self: flex-start;
+}
+
+.postit-lembrete.atrasado {
+  background: rgba(220, 38, 38, 0.14);
+  color: oklch(0.42 0.18 30);
+}
+
+.postit-texto {
+  font-size: 15px;
+  line-height: 1.4;
+  color: oklch(0.28 0.06 70);
+  white-space: pre-wrap;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  padding-right: 4px;
+}
+
+.postit-texto::-webkit-scrollbar { width: 5px; }
+.postit-texto::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 3px; }
+
+.postit-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.postit-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.postit-check-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1.5px solid oklch(0.4 0.05 60);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.postit-check-box.marcado {
+  background: oklch(0.5 0.12 145);
+  border-color: oklch(0.5 0.12 145);
+}
+
+.postit-check-box.marcado::after {
+  content: '✓';
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.postit-check-texto {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.postit-check.marcado .postit-check-texto {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* Resize handles */
+.postit-resize {
+  position: absolute;
+  background: transparent;
+  z-index: 3;
+}
+
+.postit-resize.lateral-direita {
+  right: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 6px;
+  cursor: ew-resize;
+}
+
+.postit-resize.lateral-inferior {
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 6px;
+  cursor: ns-resize;
+}
+
+.postit-resize.canto-inferior-direito {
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+}
+
+.postit-resize.canto-inferior-direito::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+}

@@ -1,0 +1,378 @@
+{
+  "project": "comercial-babel",
+  "deployment": "dpl_GKES3Ccz84Ksey4hUnjJRy9QzfCr",
+  "files": 52,
+  "excluded": [
+    {
+      "path": ".env",
+      "reason": "configuration_private"
+    }
+  ],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/comercial-babel/source-manifest.json",
+  "copied": [
+    {
+      "path": "dist/assets/anotacoes.png",
+      "remote_uid": "4640e51782eb4c37fb2af29a23ca5a036fe2fc05",
+      "bytes": 169236,
+      "sha256": "a33af08cb1088960a20f58022ff97ab6591185e62aad66f61b49f146c45934a1",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/atendimento.jpeg",
+      "remote_uid": "589f3de2fdbc99ee2b796c03cea55274518555ee",
+      "bytes": 143990,
+      "sha256": "d9f5428467292ac3052f17d730f0c7c04fe968881a35f32e37cdd36b80386a01",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b-claro.png",
+      "remote_uid": "c8c7a6b2a7228e42203d65f00145db7fc0688ddb",
+      "bytes": 65502,
+      "sha256": "22e29d0a38d6ebc9bbb83470d381c4eed87a25a714617c77140ffa8dbab6ee0d",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b-erro.png",
+      "remote_uid": "34fe82b83edf60a11984e518d228fd2afb1f1b5d",
+      "bytes": 65997,
+      "sha256": "94b79108e9a4bd29a3386e81c3287576dbc11962b1d83570a2ce146b05f74285",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b-joia.png",
+      "remote_uid": "00767815bbef82b6c19cb54454e2f5c914b6e4c7",
+      "bytes": 222843,
+      "sha256": "3e4e90520692ea3f14a614154630e35315a4f5ef5b73296e3b07e72111dd0de9",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b-marfim.jpeg",
+      "remote_uid": "0996a7bc8b97aed96235afd7ac2f9f738dbc68a1",
+      "bytes": 44665,
+      "sha256": "8db7acfa1e88d07db1d65e2864842e6664dc70067cfeb55f82e56c3c214ae629",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b-onix.jpeg",
+      "remote_uid": "6cf357b05f5de04c11045861012d8ce133df3c94",
+      "bytes": 51531,
+      "sha256": "903f8734849514915c1f9030a1ba66c8354f3efe4cac9d33d50fcbcfe5c3ca3d",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b-ouro.png",
+      "remote_uid": "ad9c07a63263a5ea13863ef8ba470320e9c64c5f",
+      "bytes": 170694,
+      "sha256": "a5306b4d458bb27044a7092a1a614aec8a78a46e110c1cf323b2003a29a78328",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/b.png",
+      "remote_uid": "165581eea776cacbbcdac7eeb66ec0f8fafaf927",
+      "bytes": 55898,
+      "sha256": "8bd98d7ecd9d8bf92b61054c1b4d4fa0468f0303bd8220004ccbfb01fcbab7bb",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/cartoes.jpeg",
+      "remote_uid": "21359a133d400abbcb91b9654652e473c68ae7cf",
+      "bytes": 195744,
+      "sha256": "b72a7d2aa77747683c60f6ce369de79d4285b862d510ec18e30b8b8b5ef7f58a",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/fachada.jpeg",
+      "remote_uid": "78ae75c46a380eb3f63f09fe9cb78f454c51515b",
+      "bytes": 177000,
+      "sha256": "866179d046c6239d6f1efab4557c108c0b683680e27e94a982c83ab53d77a327",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/index-BQFqgbgk.js",
+      "remote_uid": "8c5d22ddaaee5f69b313a07556038687e060b88e",
+      "bytes": 474449,
+      "sha256": "0e5df9889de1a5fb1e51b66821330ece643883633903c97f6f719634c8b2382c",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/index-DvCU_m2_.css",
+      "remote_uid": "fde1f6f9a1e4d0cbedb9f483eb0f194c02be2d02",
+      "bytes": 34159,
+      "sha256": "ccb585412425b0572f91b9a94997ca6d4e4fa1d59a00e0f9dfcd9a572eedf2bb",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/suspiro.mp3",
+      "remote_uid": "2ff4f201c6c187d2aa7c3b4e859592427be0c94c",
+      "bytes": 64512,
+      "sha256": "f5cff66c2dd5967cf39ed5c64179117c8405103244c87029cb932d31381fdadc",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/torre.jpeg",
+      "remote_uid": "1b62aa50928c6c6a24013b411c34a20fca7ef88f",
+      "bytes": 253511,
+      "sha256": "d2bfd9e49e529dcd3dd305fe164caee4667f5829a8f1b935c0958d3c1a25b060",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/formulario.html",
+      "remote_uid": "e536045758f4a459011765a6f28cb50b249e906b",
+      "bytes": 98378,
+      "sha256": "f214c7ee8dee4d132c707eac79a0ab96dc2611f47fb712e94222740de784c53d",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/index.html",
+      "remote_uid": "dffe34e25705f64ca49c1ccd80c061bfef41f7a4",
+      "bytes": 1218,
+      "sha256": "fe9423b7c2a5bbceb072e82ebe864b2799ca10703354ba3aa696692b35449413",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/ponte-babel.js",
+      "remote_uid": "14d801c08f484adf8fe1c72570e12050954bc40b",
+      "bytes": 6474,
+      "sha256": "f202acda77d751e899f70ddf7491a466115b561a6286c858b0037d57cbacac38",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/support.js",
+      "remote_uid": "2e38395c4a4ac9dd45b360554b9b99ba5a509250",
+      "bytes": 69150,
+      "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/anotacoes.png",
+      "remote_uid": "4640e51782eb4c37fb2af29a23ca5a036fe2fc05",
+      "bytes": 169236,
+      "sha256": "a33af08cb1088960a20f58022ff97ab6591185e62aad66f61b49f146c45934a1",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/atendimento.jpeg",
+      "remote_uid": "589f3de2fdbc99ee2b796c03cea55274518555ee",
+      "bytes": 143990,
+      "sha256": "d9f5428467292ac3052f17d730f0c7c04fe968881a35f32e37cdd36b80386a01",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b-claro.png",
+      "remote_uid": "c8c7a6b2a7228e42203d65f00145db7fc0688ddb",
+      "bytes": 65502,
+      "sha256": "22e29d0a38d6ebc9bbb83470d381c4eed87a25a714617c77140ffa8dbab6ee0d",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b-erro.png",
+      "remote_uid": "34fe82b83edf60a11984e518d228fd2afb1f1b5d",
+      "bytes": 65997,
+      "sha256": "94b79108e9a4bd29a3386e81c3287576dbc11962b1d83570a2ce146b05f74285",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b-joia.png",
+      "remote_uid": "00767815bbef82b6c19cb54454e2f5c914b6e4c7",
+      "bytes": 222843,
+      "sha256": "3e4e90520692ea3f14a614154630e35315a4f5ef5b73296e3b07e72111dd0de9",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b-marfim.jpeg",
+      "remote_uid": "0996a7bc8b97aed96235afd7ac2f9f738dbc68a1",
+      "bytes": 44665,
+      "sha256": "8db7acfa1e88d07db1d65e2864842e6664dc70067cfeb55f82e56c3c214ae629",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b-onix.jpeg",
+      "remote_uid": "6cf357b05f5de04c11045861012d8ce133df3c94",
+      "bytes": 51531,
+      "sha256": "903f8734849514915c1f9030a1ba66c8354f3efe4cac9d33d50fcbcfe5c3ca3d",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b-ouro.png",
+      "remote_uid": "ad9c07a63263a5ea13863ef8ba470320e9c64c5f",
+      "bytes": 170694,
+      "sha256": "a5306b4d458bb27044a7092a1a614aec8a78a46e110c1cf323b2003a29a78328",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/b.png",
+      "remote_uid": "165581eea776cacbbcdac7eeb66ec0f8fafaf927",
+      "bytes": 55898,
+      "sha256": "8bd98d7ecd9d8bf92b61054c1b4d4fa0468f0303bd8220004ccbfb01fcbab7bb",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/cartoes.jpeg",
+      "remote_uid": "21359a133d400abbcb91b9654652e473c68ae7cf",
+      "bytes": 195744,
+      "sha256": "b72a7d2aa77747683c60f6ce369de79d4285b862d510ec18e30b8b8b5ef7f58a",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/fachada.jpeg",
+      "remote_uid": "78ae75c46a380eb3f63f09fe9cb78f454c51515b",
+      "bytes": 177000,
+      "sha256": "866179d046c6239d6f1efab4557c108c0b683680e27e94a982c83ab53d77a327",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/suspiro.mp3",
+      "remote_uid": "2ff4f201c6c187d2aa7c3b4e859592427be0c94c",
+      "bytes": 64512,
+      "sha256": "f5cff66c2dd5967cf39ed5c64179117c8405103244c87029cb932d31381fdadc",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/assets/torre.jpeg",
+      "remote_uid": "1b62aa50928c6c6a24013b411c34a20fca7ef88f",
+      "bytes": 253511,
+      "sha256": "d2bfd9e49e529dcd3dd305fe164caee4667f5829a8f1b935c0958d3c1a25b060",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/formulario.html",
+      "remote_uid": "e536045758f4a459011765a6f28cb50b249e906b",
+      "bytes": 98378,
+      "sha256": "f214c7ee8dee4d132c707eac79a0ab96dc2611f47fb712e94222740de784c53d",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/ponte-babel.js",
+      "remote_uid": "14d801c08f484adf8fe1c72570e12050954bc40b",
+      "bytes": 6474,
+      "sha256": "f202acda77d751e899f70ddf7491a466115b561a6286c858b0037d57cbacac38",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/support.js",
+      "remote_uid": "2e38395c4a4ac9dd45b360554b9b99ba5a509250",
+      "bytes": 69150,
+      "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe",
+      "verified_sha1": true
+    },
+    {
+      "path": "index.html",
+      "remote_uid": "46340435af19e5e6a1f9851d304e9b483206a206",
+      "bytes": 1120,
+      "sha256": "7543615278a4e58d2f047a93f691bcd2f88b88a57fa9fc871beb38e12eded69b",
+      "verified_sha1": true
+    },
+    {
+      "path": "package-lock.json",
+      "remote_uid": "a1ce60098078e6fe6d1f0cd1acb91d9389a1c0b6",
+      "bytes": 51944,
+      "sha256": "6ec14dc13f36876c4ae64cfd797b4cf56905f946a75eedb9d8bc1dc93c3337e7",
+      "verified_sha1": true
+    },
+    {
+      "path": "package.json",
+      "remote_uid": "09a73f91b872764ab6035881efb092998ff7f465",
+      "bytes": 457,
+      "sha256": "5d4a677362f157911473b5377545e2209258b57d3063a4e6f919a4ccd9ab8eb3",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/App.jsx",
+      "remote_uid": "696f205305b9faddd14de9f5924729a010330514",
+      "bytes": 2675,
+      "sha256": "8f0891b0bb9b9f1e490b971adbcc8b73501ab5e9bd13412549dc38730fdbf2de",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/componentes/Agenda.jsx",
+      "remote_uid": "7a1da98a1447883e49ad7c1f0bb3d5460e69dc09",
+      "bytes": 6992,
+      "sha256": "005d0f918f474062d9d31f1c4aa7d9cdc8ceafa0ce0ff9b05e773141376a2188",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/componentes/Calendario.jsx",
+      "remote_uid": "22677f1781cd77df3ed53580dd0290a21b0778e7",
+      "bytes": 14612,
+      "sha256": "a0a41dcde8a1f4ff48149ec07a7c5cd75bde185b301b6dd2d9ba0ea928772165",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/componentes/EditorPerfil.jsx",
+      "remote_uid": "161e88cc0d2d244f0f39035fd5e7fb75a81483d9",
+      "bytes": 6029,
+      "sha256": "6b2054f03dc61092eab61866cc27b00869cd15b5a884ccd7b1ec6b002c5bc052",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/componentes/Graficos.jsx",
+      "remote_uid": "2a29af007ca48be74c6ea5fe01f115831ac46c87",
+      "bytes": 13803,
+      "sha256": "321e631887cad1933490ef95f1206c9214cca494a50dd0905f4f657056571e8a",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/componentes/Marca.jsx",
+      "remote_uid": "2cfdb54fb8e8c59340fddc692f78ff659624a603",
+      "bytes": 2008,
+      "sha256": "1683ed0d8420a6c56f9fbc7edad916f1949bd4dd9a10adbaa01bc9e769669893",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/index.css",
+      "remote_uid": "2864e0accc7048b289efe79e03df8f31629c87ce",
+      "bytes": 5157,
+      "sha256": "7bf8e7612ddf1be60cda5b40f7b866c0df74195b0cf934a0a44eeb80ca5abca8",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/lib/supabase.js",
+      "remote_uid": "1ab0177cc54e8ee8dde740080c02772979d56fc4",
+      "bytes": 1239,
+      "sha256": "369ef869154b2a6ce8ec869f9e7c6c16af00e13024904683d185dd2f117baf10",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/main.jsx",
+      "remote_uid": "67a0c88532b3256ce4006984bcfbc7643e296458",
+      "bytes": 221,
+      "sha256": "c9462d9949fa1ba31fdfa0922fde00f7a2d24c3af2a21da2bc06c7f84c76a543",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/paginas/Cadastro.jsx",
+      "remote_uid": "f496293db1df34b03a9a99d34d6671c7fc9e6c58",
+      "bytes": 5120,
+      "sha256": "c70d717b34556672c3593dc1a6ea96abadaeff27deec384bdd3b28dc4997e18d",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/paginas/Painel.jsx",
+      "remote_uid": "0cca9648ae099e93a99508f33862949967055c13",
+      "bytes": 33436,
+      "sha256": "2f3bdf250e6120771729a6b27e7d13cde9a3c27f59a52a5d2a0805d359aaf3d5",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/paginas/Resultado.jsx",
+      "remote_uid": "c41846edafa4d264611f90648f2a140e562f783b",
+      "bytes": 26805,
+      "sha256": "6c822587a8859a1e2796cb34f3a62e23b621395c572e74855788c3bca1d9b713",
+      "verified_sha1": true
+    },
+    {
+      "path": "vercel.json",
+      "remote_uid": "5227b5d7f4467c0643526634bdf22cb398ace6e5",
+      "bytes": 151,
+      "sha256": "0a4d48896fb182cb102d8d25f15c4f21a151dd63a5e7575e2a8ba71fabde5de7",
+      "verified_sha1": true
+    },
+    {
+      "path": "vite.config.js",
+      "remote_uid": "e4152b74289a3840892c5adc22d4e9f0eafa9945",
+      "bytes": 189,
+      "sha256": "576a3e99f2c68788965a7e3af200686e7eca9b77323ab042558e0ecedce8d7ca",
+      "verified_sha1": true
+    }
+  ]
+}

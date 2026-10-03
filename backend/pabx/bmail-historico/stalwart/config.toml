@@ -1,0 +1,47 @@
+# B-mail — Stalwart local, só para desenvolvimento.
+# Sem TLS e preso ao 127.0.0.1: nada aqui fala com a internet. A configuração
+# de produção (porta 25, DKIM, PTR) é outra e mora na VPS de e-mail.
+
+[server.listener.http]
+bind = ["127.0.0.1:8090"]
+protocol = "http"
+
+[server.listener.smtp]
+bind = ["127.0.0.1:2525"]
+protocol = "smtp"
+
+[server.listener.imap]
+bind = ["127.0.0.1:1143"]
+protocol = "imap"
+
+[store."db"]
+type = "rocksdb"
+path = "/Users/matheussilveirapro/Desktop/PABX/bmail/dados/db"
+compression = "lz4"
+
+[storage]
+data = "db"
+blob = "db"
+fts = "db"
+lookup = "db"
+directory = "interno"
+
+[directory."interno"]
+type = "internal"
+store = "db"
+
+[authentication.fallback-admin]
+user = "admin"
+secret = "bmail-dev"
+
+[tracer.stdout]
+type = "stdout"
+level = "info"
+enable = true
+
+[session.rcpt]
+directory = "interno"
+relay = false
+
+[jmap.protocol.upload]
+max-size = 26214400   # 25 MB, o padrão de mercado

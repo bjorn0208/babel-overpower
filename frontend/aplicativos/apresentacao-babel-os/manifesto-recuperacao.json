@@ -1,0 +1,16 @@
+{
+  "project": "apresentacao-babel-os",
+  "deployment": "dpl_6SiT3VHmoPofGXoFGfTCPLXs5xDr",
+  "files": 1,
+  "excluded": [],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/apresentacao-babel-os/source-manifest.json",
+  "copied": [
+    {
+      "path": "index.html",
+      "remote_uid": "9aa79d2a4a14f4e23a44f552263e7651d79c6229",
+      "bytes": 59387,
+      "sha256": "c60efd4a35f29fb7923ec451572646042d4de0d130ba3de2b68ed1bde09104fc",
+      "verified_sha1": true
+    }
+  ]
+}

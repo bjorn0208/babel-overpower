@@ -1,0 +1,14 @@
+[Unit]
+Description=Transcritor Reuniao BABEL — whisper por faixa + dossie ao vivo
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/babel/transcritor_reuniao.py
+Restart=always
+RestartSec=5
+Nice=10
+CPUWeight=50
+CPUQuota=60%
+
+[Install]
+WantedBy=multi-user.target

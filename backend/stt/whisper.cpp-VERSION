@@ -1,0 +1,4 @@
+whisper.cpp upstream (ignorado no git; rebuild a partir daqui):
+commit 60c0be6 — whisper: add check for ttype (#4091)
+origem: https://github.com/ggml-org/whisper.cpp
+build neste Mac: só CPU (Metal trava) — ver backend/stt/build-cpu.log

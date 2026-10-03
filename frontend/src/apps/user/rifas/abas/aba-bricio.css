@@ -1,0 +1,86 @@
+/* Bancadas de conversa do app Rifas (Arena): aba Bricio e aba Testar.
+   Só o que as classes ar-* não cobrem — moldura da conversa, balões e composer.
+   Prefixo `brc-` pra não colidir com o `.ar-balao` do Balcão. */
+
+/* ── Moldura da conversa: rola sozinha, altura em dvh ─────────────── */
+.brc-conversa {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ar-s-3);
+  height: 46dvh;
+  min-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+@media (min-width: 768px) {
+  html:not(.modo-celular) .brc-conversa { height: 52dvh; }
+}
+@media (min-width: 1024px) {
+  html:not(.modo-celular) .brc-conversa { height: 56dvh; }
+}
+
+.brc-linha { display: flex; }
+.brc-linha--voce { justify-content: flex-end; }
+
+/* ── Balões ───────────────────────────────────────────────────────── */
+.brc-balao {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: var(--ar-r-lg);
+  font-size: var(--ar-t-sm);
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+/* lead / dono falando: cartão alto */
+.brc-balao--voce { background: var(--ar-cartao-alto); color: var(--ar-txt-1); }
+/* agente respondendo: roxo, tinta branca */
+.brc-balao--agente { background: var(--ar-roxo); color: var(--ar-roxo-tinta); }
+.brc-balao--sistema { background: var(--ar-aviso-vidro); color: var(--ar-aviso); }
+.brc-balao--erro { background: var(--ar-erro-vidro); color: var(--ar-erro); }
+
+.brc-balao img { border-radius: var(--ar-r-md); max-height: 260px; width: auto; display: block; }
+
+.brc-tempo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-family: var(--ar-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  opacity: 0.66;
+}
+
+.brc-digitando {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--ar-t-xs);
+  color: var(--ar-txt-3);
+}
+.brc-digitando::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-roxo-alto);
+  animation: brcPulsa 1s ease-in-out infinite;
+}
+@keyframes brcPulsa { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+/* ── Composer (dentro de .ar-sticky-bottom) ───────────────────────── */
+.ar-sticky-bottom.brc-composer { flex-direction: column; align-items: stretch; }
+.brc-composer__linha { display: flex; align-items: flex-end; gap: var(--ar-s-3); }
+/* o botão de anexo mora na mesma altura do campo, com o mesmo tom */
+.brc-composer__linha .ar-icone-btn { width: 48px; height: 48px; background: var(--ar-cartao-alto); }
+/* a AreaTexto nasce com 100px pra formulário; aqui é uma linha que cresce */
+.rifas-app .brc-composer textarea {
+  min-height: 48px;
+  max-height: 132px;
+  resize: none;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}

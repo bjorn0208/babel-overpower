@@ -1,0 +1,27 @@
+[Unit]
+Description=B-Mail API (ponte IMAP/SMTP entre o PABX e a caixa na Hostinger)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/bmail
+Environment=BMAIL_PORTA=3311
+Environment=BMAIL_IMAP_HOST=imap.hostinger.com
+Environment=BMAIL_SMTP_HOST=smtp.hostinger.com
+Environment=BMAIL_CAIXA=comercial@babel-os.com
+Environment=BMAIL_NOME=Grupo Babel
+# senha da caixa comercial@ no painel da Hostinger — preencher na VPS, nunca no git
+Environment=BMAIL_SENHA=<senha-da-caixa>
+Environment=BMAIL_SUPABASE=https://fimfdajfjorevsfcsywh.supabase.co
+Environment=BMAIL_SUPABASE_ANON=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZpbWZkYWpmam9yZXZzZmNzeXdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5OTk1MjUsImV4cCI6MjA5OTU3NTUyNX0.vRlqzJ8NVc2u2yk6fpzhrPfhhy-t8PuWE3kLqLc28uY
+ExecStart=/opt/node20/bin/node /opt/bmail/bmail.js
+Restart=on-failure
+RestartSec=10
+
+# a ligação vem primeiro; o e-mail nunca pode disputar a máquina com ela
+CPUQuota=40%
+MemoryMax=400M
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

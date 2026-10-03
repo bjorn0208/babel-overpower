@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1020" viewBox="0 0 1920 1020" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#9c1017"></stop>
+      <stop offset="0.55" stop-color="#4a0a0e"></stop>
+      <stop offset="1" stop-color="#150a0b"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1020" fill="#fafafa"></rect>
+
+  
+  <rect width="1920" height="96" fill="#ffffff"></rect>
+  <line x1="0" y1="96" x2="1920" y2="96" stroke="#ececec" stroke-width="1"></line>
+  
+  <circle cx="146" cy="48" r="22" fill="#e11d2e"></circle>
+  <circle cx="146" cy="48" r="13" fill="#ffffff"></circle>
+  <circle cx="146" cy="48" r="6" fill="#e11d2e"></circle>
+  <text x="182" y="44" font-size="22" font-weight="700" fill="#111111">Rifas</text>
+  <text x="182" y="66" font-size="11" letter-spacing="1.5" fill="#8a8a8a">VENDA · VALIDAÇÃO · SORTEIO</text>
+
+  
+  <rect x="600" y="26" width="88" height="44" rx="22" fill="#111111"></rect>
+  <text x="644" y="54" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle">Início</text>
+  <text x="724" y="54" font-size="16" fill="#444444">Criar rifa</text>
+  <text x="828" y="54" font-size="16" fill="#444444">Minhas rifas</text>
+  <text x="958" y="54" font-size="16" fill="#444444">Pedidos</text>
+  <text x="1056" y="54" font-size="16" fill="#444444">Dívidas</text>
+  <text x="1152" y="54" font-size="16" fill="#444444">Resultados</text>
+  <text x="1274" y="54" font-size="16" fill="#444444">Dashboard</text>
+  <text x="1396" y="54" font-size="16" fill="#444444">Imagens</text>
+  <text x="1500" y="54" font-size="16" fill="#444444">Disparo</text>
+  <text x="1598" y="54" font-size="16" fill="#444444">Testar</text>
+  <text x="1680" y="54" font-size="16" fill="#444444">Configuração</text>
+
+  
+  <rect x="120" y="140" width="1680" height="460" rx="24" fill="url(#hero)"></rect>
+  
+  <circle cx="188" cy="356" r="8" fill="#ff4b57"></circle>
+  <circle cx="188" cy="356" r="3.5" fill="#150a0b"></circle>
+  <text x="206" y="362" font-size="15" font-weight="700" letter-spacing="3" fill="#ffb3b8">RIFAS</text>
+  
+  <text x="180" y="432" font-size="58" font-weight="800" fill="#ffffff">fabrício</text>
+  
+  <text x="182" y="482" font-size="19" fill="#ffffff"><tspan font-weight="700">R$ 10,00</tspan><tspan fill="#d9a3a7"> / número</tspan><tspan fill="#7a4a4e">   ·   </tspan><tspan fill="#f1dcdd">Sorteio em </tspan><tspan font-weight="700">1 dia</tspan><tspan fill="#7a4a4e">   ·   </tspan><tspan font-weight="700">0</tspan><tspan fill="#d9a3a7"> / 100 vendidos</tspan></text>
+  
+  <rect x="182" y="508" width="560" height="8" rx="4" fill="#ffffff" opacity="0.18"></rect>
+  <rect x="182" y="508" width="10" height="8" rx="4" fill="#ff4b57"></rect>
+  <text x="182" y="544" font-size="13" fill="#ffffff" opacity="0.65">0% vendidos</text>
+  
+  <rect x="1552" y="492" width="200" height="58" rx="29" fill="#ffffff"></rect>
+  <text x="1652" y="529" font-size="18" font-weight="700" fill="#e11d2e" text-anchor="middle">Abrir rifa</text>
+
+  
+  <rect x="722" y="648" width="238" height="58" rx="29" fill="#e11d2e"></rect>
+  <text x="841" y="685" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">Criar nova rifa</text>
+  <rect x="984" y="648" width="214" height="58" rx="29" fill="#f1f1f2"></rect>
+  <text x="1091" y="685" font-size="18" font-weight="600" fill="#333333" text-anchor="middle">Explorar rifas ↓</text>
+
+  
+  <g>
+    <rect x="120" y="770" width="396" height="180" rx="20" fill="#ffffff" stroke="#ececec"></rect>
+    <text x="318" y="856" font-size="46" font-weight="800" fill="#111111" text-anchor="middle">1</text>
+    <text x="318" y="898" font-size="17" fill="#6b6b6b" text-anchor="middle">Rifas ativas</text>
+  </g>
+  <g>
+    <rect x="548" y="770" width="396" height="180" rx="20" fill="#ffffff" stroke="#ececec"></rect>
+    <text x="746" y="856" font-size="46" font-weight="800" fill="#111111" text-anchor="middle">1</text>
+    <text x="746" y="898" font-size="17" fill="#6b6b6b" text-anchor="middle">Números vendidos</text>
+  </g>
+  <g>
+    <rect x="976" y="770" width="396" height="180" rx="20" fill="#ffffff" stroke="#ececec"></rect>
+    <text x="1174" y="856" font-size="46" font-weight="800" fill="#111111" text-anchor="middle">1</text>
+    <text x="1174" y="898" font-size="17" fill="#6b6b6b" text-anchor="middle">Participantes</text>
+  </g>
+  <g>
+    <rect x="1404" y="770" width="396" height="180" rx="20" fill="#ffffff" stroke="#ececec"></rect>
+    <text x="1602" y="856" font-size="46" font-weight="800" fill="#e11d2e" text-anchor="middle">3</text>
+    <text x="1602" y="898" font-size="17" fill="#6b6b6b" text-anchor="middle">Rifas sorteadas</text>
+  </g>
+</svg>

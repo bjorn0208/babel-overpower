@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Instalador da Plataforma Limpa LLM-OS Ragentic.
+# Atualizado até PR-25 (impersonação direta com sessão isolada).
+
+set -euo pipefail
+
+echo "==> Verificando bun"
+if ! command -v bun >/dev/null 2>&1; then
+  echo "bun não encontrado. Instale: https://bun.sh"
+  exit 1
+fi
+
+echo "==> Instalando dependências (bun install)"
+bun install
+
+echo "==> Conferindo variáveis Supabase no .env"
+if [ ! -f .env ] || ! grep -q VITE_SUPABASE_URL .env; then
+  cat <<EOF
+
+ATENÇÃO: variáveis VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY ausentes.
+No Lovable elas são auto-populadas. Em ambiente local, copie do dashboard:
+https://supabase.com/dashboard/project/pdamarjxcmkzbhqxtapl/settings/api
+
+EOF
+fi
+
+echo "==> Conferindo schema esperado (apenas leitura, exige psql + .env preenchido)"
+echo "    Tabelas usadas em runtime: branding_sistema (+ login_features jsonb, login_form_titulo,"
+echo "    login_form_subtitulo, login_copyright, mensagem_login_titulo, mensagem_login_sub),"
+echo "    profiles, empresas, user_roles, leads, assinaturas_usuario, loja_planos, contratos,"
+echo "    produtos, cargos, blocos_conhecimento, pedidos_compra, multinivel_niveis,"
+echo "    multinivel_comissoes, multinivel_saques, comissoes_indicacao_campanha, canais (Z-API),"
+echo "    loja_pacotes_extra, loja_implantacao, loja_plus, modelos_llm, impersonation_log,"
+echo "    preferencias_ui_usuario (papel de parede + widgets ativos/posições + badges zerados),"
+echo "    notificacoes (notificações por usuário com realtime e RLS própria)."
+echo "    Edge functions: convidar-membro, mentor-chat, impersonate-user."
+echo "    Buckets usados: logos (público — branding/, perfil-publico/), avatars."
+echo "    Mapa completo schema↔telas: ver Docs/MAPA-DADOS.md."
+echo "    Histórico de correções recentes: ver Docs/PR-25-fix-impersonacao-direta-sessao.md."
+echo "    Auditoria user-side (PR-24): ver Docs/auditoria/auditoria-USUARIO-2026-05-13.md."
+echo "    Paginador (>1000 linhas): src/data/paginar.ts — usado em conversas/mensagens/leads/clientes/contratos."
+echo "    Nenhuma migração roda no setup — schema é gerenciado fora do app."
+echo "    UI esperada: shell com janelas redimensionáveis por todos os lados via hit-test global e scroll interno."
+echo ""
+echo "==> Pronto. Use 'bun run dev' para iniciar (porta 8080)."

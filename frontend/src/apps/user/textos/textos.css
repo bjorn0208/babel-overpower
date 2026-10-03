@@ -1,0 +1,264 @@
+/* App Textos — editor visual com vibe de blog/diário.
+ * Design próprio (não copia WordPress) — paleta da plataforma + tipografia
+ * serif elegante na área de escrita pra dar sensação de "papel digital".
+ */
+
+.textos-root {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  min-height: 0;
+  background: var(--bg-1, #0d0a18);
+  color: var(--txt-1, #f5f4fa);
+}
+
+/* Sidebar */
+.textos-sidebar {
+  width: 280px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.textos-sidebar-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.textos-sidebar-titulo {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--txt-3, rgba(255, 255, 255, 0.55));
+  font-weight: 600;
+}
+
+.textos-sidebar-lista {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.textos-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 120ms ease;
+  border: 1px solid transparent;
+}
+
+.textos-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.textos-item.ativo {
+  background: rgba(129, 140, 248, 0.12);
+  border-color: rgba(129, 140, 248, 0.28);
+}
+
+.textos-item-titulo {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--txt-1, #f5f4fa);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.textos-item-meta {
+  font-size: 11px;
+  color: var(--txt-3, rgba(255, 255, 255, 0.5));
+  margin-top: 2px;
+}
+
+.textos-vazio-lista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 30px 16px;
+  text-align: center;
+  color: var(--txt-3, rgba(255, 255, 255, 0.5));
+  font-size: 12.5px;
+}
+
+/* Área do editor */
+.textos-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.textos-editor-vazio {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--txt-3, rgba(255, 255, 255, 0.5));
+  padding: 40px;
+  text-align: center;
+}
+
+.textos-editor-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.textos-titulo-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--txt-1, #f5f4fa);
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding: 4px 0;
+}
+
+.textos-titulo-input::placeholder {
+  color: var(--txt-3, rgba(255, 255, 255, 0.35));
+  font-style: italic;
+}
+
+.textos-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 10px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.textos-toolbar-btn {
+  width: 34px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--txt-2, rgba(255, 255, 255, 0.75));
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 100ms ease, color 100ms ease;
+}
+
+.textos-toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--txt-1, #f5f4fa);
+}
+
+.textos-toolbar-btn.ativo {
+  background: rgba(129, 140, 248, 0.15);
+  color: var(--os-acento-1, #818cf8);
+}
+
+.textos-toolbar-sep {
+  width: 1px;
+  margin: 4px 6px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.textos-conteudo {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 56px 56px;
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--txt-1, #f5f4fa);
+  outline: none;
+  min-height: 0;
+}
+
+.textos-conteudo:empty::before {
+  content: 'Comece a escrever…';
+  color: var(--txt-3, rgba(255, 255, 255, 0.35));
+  font-style: italic;
+  pointer-events: none;
+}
+
+.textos-conteudo h1,
+.textos-conteudo h2,
+.textos-conteudo h3 {
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  letter-spacing: -0.01em;
+  margin: 1.2em 0 0.5em;
+  line-height: 1.25;
+}
+
+.textos-conteudo h1 { font-size: 28px; font-weight: 700; }
+.textos-conteudo h2 { font-size: 22px; font-weight: 700; }
+.textos-conteudo h3 { font-size: 18px; font-weight: 600; }
+
+.textos-conteudo p {
+  margin: 0.6em 0;
+}
+
+.textos-conteudo blockquote {
+  border-left: 3px solid var(--os-acento-1, #818cf8);
+  padding: 4px 14px;
+  margin: 1em 0;
+  color: var(--txt-2, rgba(255, 255, 255, 0.75));
+  font-style: italic;
+}
+
+.textos-conteudo ul,
+.textos-conteudo ol {
+  padding-left: 1.6em;
+  margin: 0.6em 0;
+}
+
+.textos-conteudo a {
+  color: var(--os-acento-1, #818cf8);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.textos-conteudo code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, 'JetBrains Mono', monospace;
+  font-size: 14px;
+}
+
+.textos-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 12px;
+  color: var(--txt-3, rgba(255, 255, 255, 0.5));
+}
+
+.textos-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.textos-status.salvando { color: var(--os-acento-2, #a78bfa); }
+.textos-status.salvo { color: var(--txt-3, rgba(255, 255, 255, 0.5)); }
+.textos-status.erro { color: oklch(0.78 0.18 22); }

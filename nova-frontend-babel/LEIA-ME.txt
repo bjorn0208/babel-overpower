@@ -1,0 +1,45 @@
+BABEL OS — protótipo local com cérebro local e voz do JARVIS
+=============================================================
+
+O que tem nesta pasta
+- app.html: a ENTRADA do app (login + dados do banco). É o que você abre.
+- babel-os.html: o protótipo com as telas, carregado pelo app.html (não abrir direto).
+- bg.jpg, galaxy.jpg, globe.webp, sphere.webp: imagens que a página usa. Deixe na mesma pasta.
+- cerebro/: o cérebro local (respostas + memória). Sobe sozinho pelo iniciar-babel.
+- JARVIS/: o assistente JARVIS original, separado. Não é usado pela Babel.
+
+Como abrir (recomendado)
+- Dê dois cliques em iniciar-babel.command (Mac) ou iniciar-babel.bat (Windows).
+- Ele abre o app em http://localhost:8080/ e liga junto
+  o servidor das vozes BR e o cérebro local. Deixe a janela aberta enquanto usa.
+- No Chrome, cadeado ao lado do endereço → Microfone → Permitir.
+- Login: usuario@babel.local ou admin@babel.local · senha Teste@123456
+- Para o Babel OS local não há porta 8000: a 8080 é a do app novo.
+
+Voz
+- A Babel fala com a voz do JARVIS. Em Ajustes → Mão e voz → Voz:
+  Jarvis (masculina, a mesma do cérebro) ou Francisca (feminina),
+  além de Jovem ~30, Thalita, Luciana e Joana (navegador).
+  As neurais precisam do servidor de voz (iniciar-babel); sem ele, caem para
+  uma voz em português do navegador (nunca mais em inglês).
+- Se ela estiver muda, confira:
+  1. Ajustes → Mão e voz → "Voz da Babel" ligada.
+  2. Volume do computador e saída de áudio certa.
+  3. Chrome ou Edge (a voz é a do navegador).
+
+Cérebro local (respostas + memória)
+- A esfera pergunta primeiro ao cérebro em http://localhost:3078: ele lê
+  os dados do app, abre telas e lembra de você ("lembre que...", "o que
+  você sabe de mim?"). Funciona sem chave nenhuma.
+- Confira em Ajustes → Mão e voz → Cérebro local → Testar.
+- Sem o iniciar-babel ligado, a esfera usa a resposta local de sempre.
+
+Cérebro (Groq) — REMOVIDO em 02/10
+- A Babel não usa mais a Groq. Responde com o cérebro local e, quando a chave do LLM
+  for configurada, com o motor do agente.
+
+Servidores locais (o iniciar-babel liga todos)
+- App: qualquer servidor estático nesta pasta (ex.: python3 -m http.server 8090) → abra app.html.
+- Voz do Jarvis: edge-tts/.venv/bin/python edge-tts/server.py --port 3100
+- Cérebro local: node cerebro/server.js (porta 3078)
+- Banco: Supabase local no Docker (ver backend/local/).

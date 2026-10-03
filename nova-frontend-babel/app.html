@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Babel OS</title>
+<link rel="icon" href="b-logo.png">
+<!-- Entrada do Babel OS: login (Supabase Auth) + carga de dados reais nos mocks do babel-os.html.
+     O babel-os.html não é editado: é lido por fetch e recebe um gancho antes do primeiro render(). -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--espaco:#03050f;--vidro:rgba(14,22,52,.52);--vidro2:rgba(8,13,34,.62);--linha:rgba(140,170,255,.16);--linha2:rgba(140,170,255,.32);
+  --texto:#e8f0ff;--nevoa:#8c9bc7;--ciano:#2fd9ff;--violeta:#8a4bff;--magenta:#ff4fd8;--erro:#ff6d7a;--ok:#7dffc4}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;min-height:100vh;background:var(--espaco);color:var(--texto);font:15px/1.5 'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+#ceu{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+/* AJUSTE-MUSE 02/10: fundo roxo fosco (vídeo removido a pedido) */
+body{background:#2e1f4e}
+.nebulosa{display:none}
+.nebulosa{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(40px);opacity:.95;
+  background:radial-gradient(38% 30% at 18% 22%,rgba(138,75,255,.38),transparent 70%),linear-gradient(118deg,transparent 30%,rgba(120,140,255,.07) 48%,rgba(47,217,255,.06) 54%,transparent 70%),
+             radial-gradient(34% 28% at 82% 78%,rgba(47,217,255,.26),transparent 70%),
+             radial-gradient(26% 22% at 70% 18%,rgba(255,79,216,.12),transparent 70%),
+             radial-gradient(40% 34% at 30% 90%,rgba(60,90,255,.16),transparent 70%);
+  animation:deriva 60s ease-in-out infinite alternate}
+@keyframes deriva{to{transform:translate3d(3%,-2%,0) rotate(4deg)}}
+main{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px}
+.marca{display:flex;flex-direction:column;align-items:center;margin-bottom:14px;position:relative;z-index:2}
+.marca .halo{width:168px;height:168px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle,rgba(47,217,255,.22),rgba(138,75,255,.10) 55%,transparent 72%);animation:acende 1.6s ease-out both}
+.marca img{width:112px;height:112px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(47,217,255,.45)) drop-shadow(0 0 40px rgba(138,75,255,.35))}
+@keyframes acende{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
+.card{width:100%;max-width:420px;padding:38px 36px 28px;border-radius:24px;background:linear-gradient(180deg,var(--vidro),var(--vidro2));
+  border:1px solid var(--linha);box-shadow:0 30px 80px -30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%)}
+h1{font:400 32px/1.15 'Exo 2',system-ui,sans-serif;letter-spacing:.01em;text-align:center;margin:0;
+  background:linear-gradient(100deg,#f2f6ff 30%,#9fe9ff 70%,#c9b2ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--nevoa);text-align:center;margin:10px 0 28px;font-size:14.5px}
+.campo{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:rgba(3,6,18,.45);border:1px solid var(--linha);margin-bottom:14px;transition:border-color .2s,box-shadow .2s}
+.campo:focus-within{border-color:rgba(47,217,255,.55);box-shadow:0 0 0 3px rgba(47,217,255,.12)}
+.campo svg{flex:none;width:20px;height:20px;color:var(--nevoa)}
+.campo .t{flex:1;min-width:0}
+.campo label{display:block;font-size:12.5px;font-weight:500;color:#cfd9f5;margin-bottom:2px}
+.campo input{width:100%;border:0;outline:0;background:transparent;color:var(--texto);font:15px 'Instrument Sans',system-ui,sans-serif;padding:0}
+.campo input::placeholder{color:#5f6d96}
+.olho{background:none;border:0;padding:4px;cursor:pointer;color:var(--nevoa);border-radius:8px}
+.olho:focus-visible,.link:focus-visible,.social:focus-visible,#go:focus-visible{outline:2px solid var(--ciano);outline-offset:2px}
+.linhaacao{display:flex;justify-content:flex-end;margin:-2px 0 20px}
+.link{background:none;border:0;padding:0;font:inherit;font-size:13.5px;color:#7fe3ff;cursor:pointer;text-decoration:none}
+.link:hover{text-decoration:underline}
+#go{width:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:15px 18px;border-radius:14px;border:1px solid rgba(140,170,255,.22);cursor:pointer;
+  font:500 16px 'Instrument Sans',system-ui,sans-serif;color:#fff;
+  background:linear-gradient(95deg,rgba(18,28,62,.9) 0%,rgba(30,60,140,.85) 45%,rgba(47,217,255,.75) 78%,rgba(138,75,255,.85) 100%);box-shadow:0 10px 30px -12px rgba(47,217,255,.55)}
+#go svg{position:absolute;right:18px;width:20px;height:20px}
+#go:disabled{opacity:.6;cursor:wait}
+.ou{display:flex;align-items:center;gap:12px;color:var(--nevoa);font-size:13.5px;margin:24px 0 16px}
+.ou::before,.ou::after{content:'';flex:1;height:1px;background:var(--linha)}
+.sociais{display:flex;justify-content:center;gap:14px}
+.social{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;cursor:pointer;background:rgba(3,6,18,.45);border:1px solid var(--linha)}
+.social:hover{border-color:var(--linha2)}
+.rodape{border-top:1px solid var(--linha);margin-top:26px;padding-top:18px;text-align:center;color:var(--nevoa);font-size:14px}
+.msg{margin-top:14px;text-align:center;font-size:13.5px;color:var(--erro)}
+.msg:empty{display:none}
+.msg.ok{color:var(--ok)}
+.copy{margin:16px 0 0;font-size:12px;color:var(--nevoa);text-align:center}.copy:empty,.card.hidden~.copy{display:none}
+.hidden{display:none!important}
+#wait{display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--nevoa)}
+.pulso{width:42px;height:42px;border-radius:50%;border:2px solid rgba(47,217,255,.25);border-top-color:var(--ciano);animation:gira 1s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (max-width:480px){.card{padding:32px 22px 24px;border-radius:20px}h1{font-size:27px}.marca{margin-bottom:8px}.marca .halo{width:132px;height:132px}.marca img{width:88px;height:88px}}
+@media (prefers-reduced-motion:reduce){.nebulosa,.marca .halo,.pulso{animation:none}}
+</style>
+<script src="config.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="babel-banco.js"></script>
+</head>
+<body>
+<canvas id="ceu" aria-hidden="true"></canvas><div class="nebulosa" aria-hidden="true"></div>
+<main>
+  <div class="marca"><div class="halo"><img src="b-logo.png" alt="Babel"></div></div>
+  <form class="card hidden" id="login" novalidate>
+    <h1 id="titulo">Bem-vindo de volta</h1>
+    <p class="sub" id="subt">Entre para ver o que a Babel resolveu por você.</p>
+    <div class="campo hidden" id="cNome">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.6 4.4-5.4 8-5.4s6.5 1.8 8 5.4"/></svg>
+      <div class="t"><label for="nm">Seu nome</label><input id="nm" autocomplete="name" placeholder="Como a Babel vai te chamar"></div>
+    </div>
+    <div class="campo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+      <div class="t"><label for="em">E-mail ou usuário</label><input id="em" type="text" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="seu@email.com" required></div>
+    </div>
+    <div class="campo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.2"/></svg>
+      <div class="t"><label for="pw">Senha</label><input id="pw" type="password" autocomplete="current-password" placeholder="Sua senha" required></div>
+      <button type="button" class="olho" id="olho" aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path id="risco" d="M4 4l16 16"/></svg></button>
+    </div>
+    <div class="linhaacao" id="lEsq"><button type="button" class="link" id="esqueci">Esqueci minha senha</button></div>
+    <button id="go"><span id="goTxt">Entrar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <div class="msg" id="err" role="status" aria-live="polite"></div>
+    <div id="blocoSocial" class="hidden">
+      <div class="ou">ou entre com</div>
+      <div class="sociais"><button type="button" class="social" id="google" aria-label="Entrar com Google"><svg viewBox="0 0 48 48" width="24" height="24"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></button></div>
+    </div>
+    <div class="rodape" id="rod"><span id="rodTxt">Ainda não tem conta?</span> <button type="button" class="link" id="trocar">Criar conta</button></div>
+  </form>
+  <p class="copy" id="copy"></p>
+  <div id="wait"><div class="pulso"></div><span>Abrindo a sua Babel…</span></div>
+</main>
+<script>
+/* céu: estrelas em 3 camadas, cintilando devagar; sem planetas. Parado se o sistema pede menos movimento. */
+(function(){const c=document.getElementById('ceu'),x=c.getContext('2d');let W,H,E=[],dpr=Math.min(2,window.devicePixelRatio||1);
+const parado=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cores=['#ffffff','#cfe9ff','#9fe9ff','#d9c9ff'];
+function monta(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;const n=Math.round(innerWidth*innerHeight/2200);E=[];
+  for(let i=0;i<n;i++){const z=Math.random();E.push({x:Math.random()*W,y:Math.random()*H,r:(z<.88?.45:z<.98?.9:1.4)*dpr,a:.25+Math.random()*.75,f:Math.random()*6.28,v:.004+Math.random()*.012,d:(.02+z*.06)*dpr,c:cores[(Math.random()*cores.length)|0]});}}
+function quadro(){x.clearRect(0,0,W,H);for(const e of E){e.f+=e.v;if(!parado){e.x+=e.d;if(e.x>W)e.x=0;}const al=e.a*(.65+.35*Math.sin(e.f));x.globalAlpha=al;x.fillStyle=e.c;x.beginPath();x.arc(e.x,e.y,e.r,0,6.283);x.fill();
+  if(e.r>1.2*dpr){x.globalAlpha=al*.12;x.beginPath();x.arc(e.x,e.y,e.r*2,0,6.283);x.fill();}}x.globalAlpha=1;if(!parado)requestAnimationFrame(quadro);}
+monta();quadro();addEventListener('resize',()=>{monta();if(parado)quadro();});})();
+</script>
+<script>
+(async function(){
+'use strict';
+const SUPABASE_URL=(window.BABEL_CONFIG||{}).supabaseUrl;
+const SUPABASE_KEY=(window.BABEL_CONFIG||{}).supabaseKey;
+// leituras (GET/HEAD) que voltam 502/503/504 — comuns pelo túnel quando o login dispara muitas de uma vez — tentam de novo
+// atrás do túnel (config.proxy) no máximo 6 requisições ao mesmo tempo: o login dispara ~60 e o túnel devolvia 502
+const fila6={n:0,q:[]};const vez=()=>new Promise(r=>{if(fila6.n<6){fila6.n++;r();}else fila6.q.push(r);});const libera=()=>{const r=fila6.q.shift();if(r)r();else fila6.n--;};
+const fetchComRetentativa=async(u,o)=>{if((window.BABEL_CONFIG||{}).proxy){await vez();try{return await fetchBase(u,o);}finally{libera();}}return fetchBase(u,o);};
+const fetchBase=async(u,o)=>{const m=((o&&o.method)||'GET').toUpperCase();for(let i=0;;i++){
+  try{const r=await fetch(u,o);if(i<3&&(m==='GET'||m==='HEAD')&&[502,503,504].includes(r.status)){await new Promise(z=>setTimeout(z,400*(i+1)));continue;}return r;}
+  catch(e){if(i<3&&(m==='GET'||m==='HEAD')){await new Promise(z=>setTimeout(z,400*(i+1)));continue;}throw e;}}};
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{global:{fetch:fetchComRetentativa}});
+window.BabelSB=sb;
+const $=id=>document.getElementById(id);
+
+const pad=n=>String(n).padStart(2,'0');
+const hhmm=d=>pad(d.getHours())+':'+pad(d.getMinutes());
+const dia0=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x;};
+const difDias=d=>Math.round((dia0(d)-dia0(new Date()))/864e5);
+const quando=iso=>{const d=new Date(iso),k=difDias(d);return k===0?hhmm(d):k===-1?'ontem':pad(d.getDate())+'/'+pad(d.getMonth()+1);};
+const brl=v=>v==null?'—':'R$ '+Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0});
+const iniciais=n=>(n||'?').split(/\s+/).filter(Boolean).slice(0,2).map(p=>p[0].toUpperCase()).join('');
+const ROLE={user:'cl',assistant:'ag',human:'ag',system:'me'};
+
+async function carregar(){
+  const [cv,cl,ev]=await Promise.all([
+    sb.from('conversas').select('id,status,channel,titulo,updated_at,leads(name,canal_externo,tags,valor_conversao,dados_ficha),mensagens(role,content,created_at,deleted_at)').order('updated_at',{ascending:false}).limit(60),
+    sb.from('clientes').select('id,nome,dados').is('deleted_at',null).order('nome').limit(500),
+    sb.from('eventos_agenda').select('id,titulo,descricao,inicio_em,fim_em,origem,tipo,status').is('deleted_at',null)
+      .gte('inicio_em',new Date(Date.now()-864e5*7).toISOString()).lte('inicio_em',new Date(Date.now()+864e5*30).toISOString()).order('inicio_em')
+  ]);
+  for(const r of [cv,cl,ev])if(r.error)throw r.error;
+  const prio=c=>c.status==='humano'?0:1;
+  const convs=cv.data.slice().sort((a,b)=>prio(a)-prio(b)).map((c,i)=>{
+    const l=c.leads||{},f=l.dados_ficha||{},nome=l.name||c.titulo||'Contato';
+    const msgs=(c.mensagens||[]).filter(m=>!m.deleted_at).sort((a,b)=>a.created_at<b.created_at?-1:1)
+      .map(m=>[ROLE[m.role]||'cl',m.content,quando(m.created_at)]);
+    return {id:'c'+(i+1),uuid:c.id,tok:f.tok||(c.status==='humano'?'ciano':'mute'),word:f.word||(c.status==='humano'?'pede você':'a Aurora respondeu'),
+      who:nome+(f.codigo?' · '+f.codigo:''),sub:c.titulo||'',canal:l.canal_externo||c.channel||'WhatsApp',
+      ficha:{ini:iniciais(nome),nome,tags:l.tags||[],comprou:brl(l.valor_conversao),compras:String(f.compras??'0'),paga:f.paga||'—',mem:f.mem||[]},msgs};
+  });
+  const clientes=cl.data.map(c=>{const d=c.dados||{};return [c.nome||'—',d.ultima||'—',d.freq||'—',d.total||'—',d.word||'',d.tok||'',d.flag||''];});
+  const eventos=ev.data.filter(e=>e.status!=='cancelado').map(e=>{const a=new Date(e.inicio_em),b=e.fim_em?new Date(e.fim_em):null;
+    return {id:e.id,day:difDias(a),h:a.getHours()+a.getMinutes()/60,d:b?Math.max(15,Math.round((b-a)/6e4)):30,t:e.titulo,s:e.descricao||'',lua:e.origem==='agente'};});
+  return {convs,clientes,eventos};
+}
+
+// Chamado de dentro do babel-os.html, antes do primeiro render(): troca o conteúdo dos mocks pelos dados reais.
+function gancho(dados){return function(m){
+  m.CONVS.splice(0,m.CONVS.length,...dados.convs);
+  m.CLIENTES.splice(0,m.CLIENTES.length,...dados.clientes);
+  m.EVENTS.splice(0,m.EVENTS.length,...dados.eventos);
+  if(!m.CONVS.some(c=>c.id===m.S.chat))m.S.chat=m.CONVS[0]?m.CONVS[0].id:'c1';
+};}
+
+async function abrir(){
+  $('login').classList.add('hidden');$('wait').classList.remove('hidden');$('wait').style.display='';
+  try{
+    const [dados,,html]=await Promise.all([carregar(),window.BabelBanco.preparar(sb).then(()=>null,e=>{console.error('babel-banco preparar',e);return null;}),fetch('babel-os.html',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('babel-os.html '+r.status);return r.text();})]);
+    const ALVO='render();Leads.arm();';
+    if(!html.includes(ALVO))throw new Error('ponto de carga não encontrado no babel-os.html');
+    window.__babelHook=gancho(dados);
+    const sair='<style>@media (max-width:900px){#babelSair{top:calc(8px + env(safe-area-inset-top,0px))!important;bottom:auto!important;left:10px!important;right:auto!important}#babelSync{top:calc(44px + env(safe-area-inset-top,0px))!important;bottom:auto!important;left:12px!important;right:auto!important;font-size:10px!important;max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}</style><span id="babelSync" style="position:fixed;right:64px;bottom:16px;z-index:99999;font:11px system-ui;color:#7fa8dc"></span><button id="babelSair" title="Sair" style="position:fixed;right:10px;bottom:10px;z-index:99999;padding:6px 10px;border-radius:8px;border:1px solid rgba(56,190,255,.42);background:rgba(2,6,22,.7);color:#e8f4ff;font:12px system-ui;cursor:pointer">Sair</button>'
+      +'<script>(function(){const b=document.getElementById("babelSair"),bk=sessionStorage.getItem("babel_admin_backup");'
+      +'if(bk){b.textContent="Voltar ao admin";b.title="Sair da conta do tenant";b.style.borderColor="#ff9f43";b.style.color="#ffb86b";}'
+      +'b.onclick=async()=>{const sb=window.BabelSB;if(bk){sessionStorage.removeItem("babel_admin_backup");try{localStorage.removeItem(window.__babelEval("KEY"));}catch(e){}'
+      +'const t=JSON.parse(bk);const r=await sb.auth.setSession(t);if(!r.error){location.reload();return;}}await sb.auth.signOut();location.reload();};})();<\/script>';
+    const SAVE='function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}';
+    if(!html.includes(SAVE))throw new Error('save() não encontrado no babel-os.html');
+    const pagina=html.replace(SAVE,SAVE.slice(0,-1)+'try{window.BabelBanco.aoSalvar();}catch(e){}}')
+      .replace(ALVO,'try{window.__babelHook({CONVS,CLIENTES,EVENTS,S});window.__babelEval=e=>eval(e);window.BabelBanco.ligar({CONVS,EVENTS,S,save,render});}catch(e){console.error("babel-dados",e);}'+ALVO)
+      .replace('</body>',sair+'</body>');
+    document.open();document.write(pagina);document.close();
+  }catch(e){
+    console.error(e);$('wait').classList.add('hidden');$('login').classList.remove('hidden');
+    $('err').textContent='Falha ao carregar: '+(e.message||e);
+  }
+}
+
+let modo='entrar';
+/* marca (Aparência · branding_sistema, leitura pública): nome, textos, logo e favicon; as cores só mudam se o admin trocou as de fábrica */
+const MARCA={nome:'Babel',titulo:'Bem-vindo de volta',sub:'Entre para ver o que a Babel resolveu por você.'};
+const CORES_FABRICA=['#6366f1','#a855f7','#0b0f1a'];
+// usuário curto (sem @) = conta de teste local: babel123 → babel123@babel.local
+const emailDe=v=>{v=String(v||'').trim().toLowerCase();return v&&v.indexOf('@')<0?v+'@babel.local':v;};
+const aviso=(t,ok)=>{$('err').textContent=t||'';$('err').classList.toggle('ok',!!ok);};
+const ERROS={'Invalid login credentials':'E-mail ou senha incorretos.','Email not confirmed':'Confirme seu e-mail pelo link que enviamos antes de entrar.',
+  'User already registered':'Este e-mail já tem conta. Entre com ele ou use "Esqueci minha senha".','Password should be at least 6 characters':'A senha precisa ter pelo menos 6 caracteres.'};
+const traduz=m=>ERROS[m]||m;
+function trocarModo(m){modo=m;const novo=m==='criar';
+  $('titulo').textContent=novo?'Criar sua conta':MARCA.titulo;$('subt').textContent=novo?'Leva um minuto. Depois a '+MARCA.nome+' te guia pelo resto.':MARCA.sub;
+  $('cNome').classList.toggle('hidden',!novo);$('lEsq').classList.toggle('hidden',novo);$('goTxt').textContent=novo?'Criar conta':'Entrar';
+  $('rodTxt').textContent=novo?'Já tem conta?':'Ainda não tem conta?';$('trocar').textContent=novo?'Entrar':'Criar conta';
+  $('pw').autocomplete=novo?'new-password':'current-password';aviso('');(novo?$('nm'):$('em')).focus();}
+$('trocar').addEventListener('click',()=>trocarModo(modo==='entrar'?'criar':'entrar'));
+$('olho').addEventListener('click',()=>{const v=$('pw').type==='password';$('pw').type=v?'text':'password';$('olho').setAttribute('aria-pressed',v);$('olho').setAttribute('aria-label',v?'Esconder senha':'Mostrar senha');$('risco').style.display=v?'none':'';});
+$('esqueci').addEventListener('click',async()=>{const em=emailDe($('em').value);if(!em){aviso('Digite seu e-mail acima e toque de novo em "Esqueci minha senha".');$('em').focus();return;}
+  const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});aviso(error?traduz(error.message):'Se este e-mail tiver conta, chega um link para criar uma senha nova.',!error);});
+$('google').addEventListener('click',async()=>{const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});if(error)aviso(traduz(error.message));});
+fetch(SUPABASE_URL+'/auth/v1/settings',{headers:{apikey:SUPABASE_KEY}}).then(r=>r.json()).then(j=>{if(j&&j.external&&j.external.google)$('blocoSocial').classList.remove('hidden');}).catch(()=>{});
+$('login').addEventListener('submit',async ev=>{
+  ev.preventDefault();aviso('');const em=emailDe($('em').value),pw=$('pw').value;
+  if(!em||!pw){aviso('Preencha e-mail e senha.');return;}
+  $('go').disabled=true;
+  if(modo==='criar'){const nome=$('nm').value.trim();if(!nome){$('go').disabled=false;aviso('Diga como a Babel vai te chamar.');$('nm').focus();return;}
+    const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:nome},emailRedirectTo:location.origin+location.pathname}});$('go').disabled=false;
+    if(error){aviso(traduz(error.message));return;}if(data&&data.session){abrir();return;}
+    aviso('Conta criada. Confirme pelo link que enviamos para '+em+' e depois entre.',true);trocarModo('entrar');$('em').value=em;return;}
+  const {error}=await sb.auth.signInWithPassword({email:em,password:pw});
+  $('go').disabled=false;
+  if(error){aviso(traduz(error.message));return;}
+  abrir();
+});
+
+function aplicarMarca(b){if(!b||typeof b!=='object')return;const nome=String(b.nome_produto||'').trim()||'Babel';MARCA.nome=nome;
+  MARCA.titulo=String(b.login_form_titulo||'').trim()||'Bem-vindo de volta';MARCA.sub=String(b.login_form_subtitulo||'').trim()||('Entre para ver o que a '+nome+' resolveu por você.');
+  document.title=nome==='Babel'?'Babel OS':nome;
+  if(b.favicon_url){const l=document.querySelector('link[rel="icon"]');if(l)l.href=b.favicon_url;}
+  const im=document.querySelector('.marca img');if(im){if(b.logo_url)im.src=b.logo_url;im.alt=nome;}
+  const cor=[b.cor_acento,b.cor_acento_secundaria,b.cor_fundo].map(c=>String(c||'').trim().toLowerCase()),ok=c=>/^#[0-9a-f]{3,8}$/.test(c),R=document.documentElement.style;
+  if(cor.some((c,i)=>ok(c)&&c!==CORES_FABRICA[i])){if(ok(cor[0]))R.setProperty('--ciano',cor[0]);if(ok(cor[1]))R.setProperty('--violeta',cor[1]);if(ok(cor[2]))R.setProperty('--espaco',cor[2]);}
+  $('copy').textContent=String(b.login_copyright||'').trim();$('nm').placeholder='Como a '+nome+' vai te chamar';
+  if(modo==='entrar'){$('titulo').textContent=MARCA.titulo;$('subt').textContent=MARCA.sub;}}
+try{aplicarMarca(JSON.parse(localStorage.getItem('babel_marca')||'null'));}catch(e){}
+(async()=>{try{const {data}=await sb.from('branding_sistema').select('nome_produto,logo_url,favicon_url,cor_fundo,cor_acento,cor_acento_secundaria,login_form_titulo,login_form_subtitulo,login_copyright').eq('ativo',true).limit(1);
+  const b=data&&data[0];if(!b)return;try{localStorage.setItem('babel_marca',JSON.stringify(b));}catch(e){}aplicarMarca(b);}catch(e){}})();
+const {data:{session}}=await sb.auth.getSession();
+if(session)abrir();else{$('wait').classList.add('hidden');$('login').classList.remove('hidden');$('em').focus();}
+})();
+</script>
+</body>
+</html>

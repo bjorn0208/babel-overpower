@@ -1,0 +1,11 @@
+# Publicar a pasta nova-frontend-babel como site estático.
+[build]
+  publish = "."
+[[redirects]]
+  from = "/"
+  to = "/app.html"
+  status = 200
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "no-cache"

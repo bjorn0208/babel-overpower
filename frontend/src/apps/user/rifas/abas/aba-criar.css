@@ -1,0 +1,279 @@
+/* Criar / editar rifa + Configuração (Arena) — só o que a biblioteca ar-* não cobre.
+   Regra de especificidade: o rifas.css normaliza `.rifas-app main input|button` com
+   min-height de 44/40px. Quem precisa fugir disso (switch, x da miniatura) usa o
+   mesmo peso de seletor + a classe, nunca !important. */
+
+/* ── Switch (pílula 44×26 a partir do checkbox nativo) ──────────────
+   O input continua no DOM: foco por teclado, leitor de tela e clique no rótulo. */
+.rifas-app main input.ar-switch,
+.arp-app main input.ar-switch {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 26px;
+  min-height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-cartao-alto);
+  cursor: pointer;
+  transition: background var(--ar-dur-fast) var(--ar-ease);
+}
+.rifas-app main input.ar-switch::after,
+.arp-app main input.ar-switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--ar-r-pill);
+  background: #fff;
+  box-shadow: var(--ar-sombra-sm);
+  transition: transform var(--ar-dur-normal) var(--ar-ease);
+}
+.rifas-app main input.ar-switch:checked,
+.arp-app main input.ar-switch:checked {
+  background: var(--ar-roxo);
+}
+.rifas-app main input.ar-switch:checked::after,
+.arp-app main input.ar-switch:checked::after {
+  transform: translateX(18px);
+}
+.rifas-app main input.ar-switch:focus-visible,
+.arp-app main input.ar-switch:focus-visible {
+  outline: 2px solid var(--ar-roxo-alto);
+  outline-offset: 2px;
+}
+.rifas-app main input.ar-switch:disabled,
+.arp-app main input.ar-switch:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rifas-app main input.ar-switch::after,
+  .arp-app main input.ar-switch::after {
+    transition: none;
+  }
+}
+
+/* Alvo de toque de 44px sem inflar a pílula: a linha inteira é clicável. */
+.ar-switch-alvo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ar-toque);
+  min-height: var(--ar-toque);
+  flex-shrink: 0;
+}
+
+/* ── Área de upload / escolher imagem ───────────────────────────────── */
+.ar-upload {
+  display: flex;
+  align-items: center;
+  gap: var(--ar-s-3);
+  width: 100%;
+  min-height: 88px;
+  padding: var(--ar-s-4);
+  border: 1px dashed var(--ar-filete-forte);
+  border-radius: var(--ar-r-lg);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--ar-dur-fast), background var(--ar-dur-fast);
+}
+.ar-upload:hover {
+  border-color: var(--ar-roxo);
+  background: var(--ar-roxo-vidro);
+}
+.ar-upload:focus-within {
+  border-color: var(--ar-roxo);
+  box-shadow: 0 0 0 2px var(--ar-roxo);
+}
+.ar-upload--travado {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.ar-upload--travado:hover {
+  border-color: var(--ar-filete-forte);
+  background: transparent;
+}
+.ar-upload__icone {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--ar-r-md);
+  background: var(--ar-cartao-alto);
+  color: var(--ar-roxo-alto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+/* Input de arquivo escondido só visualmente — continua focável e acionável. */
+.rifas-app main input.ar-upload__entrada,
+.arp-app main input.ar-upload__entrada {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Miniatura quadrada de preview ──────────────────────────────────── */
+.ar-mini {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--ar-r-md);
+  overflow: hidden;
+  background: var(--ar-cartao-alto);
+  flex-shrink: 0;
+}
+.ar-mini img,
+.ar-mini video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.rifas-app main button.ar-mini__x,
+.arp-app main button.ar-mini__x {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
+  padding: 0;
+  border-radius: var(--ar-r-pill);
+  background: rgba(11, 11, 16, 0.72);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background var(--ar-dur-fast);
+}
+.rifas-app main button.ar-mini__x:hover,
+.arp-app main button.ar-mini__x:hover {
+  background: var(--ar-erro);
+}
+
+/* ── Linhas de lista dinâmica (promoções, cotas, prêmios extras) ────── */
+.ar-linha-edit {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ar-s-2);
+}
+.ar-linha-edit__prefixo {
+  min-width: 28px;
+  padding-top: 14px;
+  font-size: var(--ar-t-sm);
+  font-weight: var(--ar-peso-medium);
+  color: var(--ar-txt-3);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.ar-linha-edit__meio {
+  padding-top: 14px;
+  font-size: var(--ar-t-sm);
+  color: var(--ar-txt-3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Grade de cadastro de número fixo: empilha no celular, 4 colunas no desktop. */
+.ar-fixo-linha {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ar-s-2);
+}
+@media (min-width: 768px) {
+  html:not(.modo-celular) .ar-fixo-linha {
+    grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: start;
+  }
+}
+
+/* Chip do número fixo já cadastrado: valor + "x" pra liberar. */
+.ar-fixo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 6px 0 10px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-roxo-vidro);
+  color: var(--ar-roxo-alto);
+  font-family: var(--ar-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--ar-t-xs);
+  font-weight: var(--ar-peso-bold);
+}
+.rifas-app main button.ar-fixo-chip__x,
+.arp-app main button.ar-fixo-chip__x {
+  width: 22px;
+  height: 22px;
+  min-height: 22px;
+  padding: 0;
+  border-radius: var(--ar-r-pill);
+  color: var(--ar-txt-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--ar-dur-fast), color var(--ar-dur-fast);
+}
+.rifas-app main button.ar-fixo-chip__x:hover,
+.arp-app main button.ar-fixo-chip__x:hover {
+  background: var(--ar-erro-vidro);
+  color: var(--ar-erro);
+}
+.rifas-app main button.ar-fixo-chip__x:disabled,
+.arp-app main button.ar-fixo-chip__x:disabled {
+  opacity: 0.4;
+}
+
+/* ── Cabeçalho de seção com ícone ───────────────────────────────────── */
+.ar-secao-cab {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ar-s-3);
+}
+.ar-secao-cab__icone {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--ar-r-md);
+  background: var(--ar-roxo-vidro);
+  color: var(--ar-roxo-alto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Resumo do potencial: números grandes lado a lado, rola em X se não couber. */
+.ar-resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ar-s-3);
+}
+@media (min-width: 768px) {
+  html:not(.modo-celular) .ar-resumo-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.ar-resumo-item {
+  border-radius: var(--ar-r-lg);
+  background: var(--ar-cartao-alto);
+  padding: var(--ar-s-3) var(--ar-s-4);
+  min-width: 0;
+}

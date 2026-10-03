@@ -1,0 +1,46 @@
+CREATE OR REPLACE FUNCTION public.selecionar_conversas_amostra(p_limite integer DEFAULT 50)
+ RETURNS TABLE(conversation_id uuid, tenant_id uuid, lead_id uuid, num_messages integer, ultima_mensagem_em timestamp with time zone)
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+BEGIN
+  RETURN QUERY
+  WITH conversas_elegiveis AS (
+    SELECT
+      c.id AS conversation_id,
+      c.tenant_id,
+      c.lead_id,
+      c.updated_at AS ultima_mensagem_em
+    FROM public.conversas c
+    WHERE (
+        c.status = 'fechado'
+        OR c.updated_at < now() - interval '24 hours'
+      )
+      AND NOT EXISTS (
+        SELECT 1 FROM public.memoria_episodica em
+         WHERE em.conversation_id = c.id
+      )
+  ),
+  com_contagem AS (
+    SELECT
+      ce.conversation_id,
+      ce.tenant_id,
+      ce.lead_id,
+      ce.ultima_mensagem_em,
+      (SELECT count(*)::int FROM public.mensagens m WHERE m.conversation_id = ce.conversation_id) AS num_messages
+    FROM conversas_elegiveis ce
+  )
+  SELECT
+    cc.conversation_id,
+    cc.tenant_id,
+    cc.lead_id,
+    cc.num_messages,
+    cc.ultima_mensagem_em
+  FROM com_contagem cc
+  WHERE cc.num_messages >= 4
+  ORDER BY cc.ultima_mensagem_em DESC
+  LIMIT p_limite;
+END;
+$function$
+

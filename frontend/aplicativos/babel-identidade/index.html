@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html { scroll-behavior:smooth; scroll-snap-type:y proximity; }
+@media (prefers-reduced-motion:reduce) { html { scroll-snap-type:none; } }
+html, body { margin:0; padding:0; background:#08060F; overflow-x:hidden; }
+a { color:#9B6BFF; text-decoration:none; } a:hover { color:#39C4FF; }
+::selection { background:#7A45E8; color:#EDEAF7; }
+::-webkit-scrollbar { width:10px; } ::-webkit-scrollbar-track { background:#08060F; }
+::-webkit-scrollbar-thumb { background:linear-gradient(#7A45E8,#39C4FF); border-radius:99px; }
+@keyframes flutua { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-18px) } }
+@keyframes pulsa { 0%,100% { opacity:.28; transform:scale(1) } 50% { opacity:.6; transform:scale(1.08) } }
+@keyframes desce { 0% { transform:translateY(0); opacity:0 } 30% { opacity:1 } 100% { transform:translateY(16px); opacity:0 } }
+@keyframes corre { from { transform:translateX(0) } to { transform:translateX(-50%) } }
+@keyframes tracar { to { stroke-dashoffset:0 } }
+@keyframes faisca { 0% { offset-distance:0%; opacity:0 } 8% { opacity:1 } 92% { opacity:1 } 100% { offset-distance:100%; opacity:0 } }
+@keyframes brilho { 0%,100% { opacity:.35 } 50% { opacity:1 } }
+@keyframes varre { 0% { transform:translateX(-120%) } 100% { transform:translateX(320%) } }
+</style>
+</helmet>
+
+<div ref="{{ refRaiz }}" style="position:relative; background:#08060F; color:#EDEAF7; font-family:'Cormorant Garamond',Georgia,serif; overflow-x:hidden">
+
+  <div ref="{{ refBarra }}" style="position:fixed; top:0; left:0; height:3px; width:0%; background:linear-gradient(90deg,#7A45E8,#39C4FF); box-shadow:0 0 18px rgba(57,196,255,.7); z-index:60"></div>
+  <div ref="{{ refBrilho }}" style="position:fixed; top:0; left:0; width:620px; height:620px; margin:-310px 0 0 -310px; border-radius:50%; background:radial-gradient(circle,rgba(122,69,232,.14),rgba(122,69,232,0) 62%); pointer-events:none; z-index:1; opacity:0; transition:opacity .6s ease"></div>
+
+  <nav style="position:fixed; right:26px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:14px; z-index:55">
+    <sc-for list="{{ indice }}" as="it" hint-placeholder-count="9">
+      <a href="{{ it.alvo }}" title="{{ it.nome }}" data-ponto="{{ it.id }}" style="width:8px; height:8px; border-radius:50%; background:rgba(155,107,255,.28); transition:all .35s ease; display:block"></a>
+    </sc-for>
+  </nav>
+
+  <section id="topo" style="position:relative; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:96px 24px; text-align:center; overflow:hidden">
+    <div style="position:absolute; top:-22%; left:-14%; width:56vw; height:56vw; border-radius:50%; background:radial-gradient(circle,rgba(122,69,232,.34),rgba(122,69,232,0) 66%); animation:pulsa 11s ease-in-out infinite"></div>
+    <div style="position:absolute; bottom:-26%; right:-16%; width:62vw; height:62vw; border-radius:50%; background:radial-gradient(circle,rgba(31,121,224,.3),rgba(31,121,224,0) 66%); animation:pulsa 14s ease-in-out infinite"></div>
+    <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(155,107,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(155,107,255,.05) 1px,transparent 1px); background-size:70px 70px; mask-image:radial-gradient(circle at 50% 45%,#000 20%,transparent 72%); -webkit-mask-image:radial-gradient(circle at 50% 45%,#000 20%,transparent 72%)"></div>
+
+    <div ref="{{ refJoiaHero }}" style="position:relative; will-change:transform">
+      <img src="assets/b-joia.png" alt="Símbolo da babel" style="display:block; height:min(46vh,380px); filter:drop-shadow(0 34px 80px rgba(122,69,232,.55)) drop-shadow(0 -12px 60px rgba(57,196,255,.34)); animation:flutua 8s ease-in-out infinite">
+    </div>
+    <div style="position:relative; font-size:clamp(52px,11vw,120px); font-weight:500; letter-spacing:.3em; padding-left:.3em; line-height:1; background:linear-gradient(120deg,#B899FF,#7AD2FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent">babel</div>
+    <div style="position:relative; width:120px; height:2px; border-radius:2px; background:linear-gradient(90deg,#7A45E8,#39C4FF)"></div>
+    <div style="position:relative; font-family:'Geist',sans-serif; font-size:clamp(11px,1.4vw,15px); font-weight:500; letter-spacing:.36em; text-transform:uppercase; color:#A39CC0">Consciência Artificial</div>
+    <div style="position:relative; font-size:clamp(20px,2.4vw,30px); font-style:italic; color:#9C93BE">a babel que fala.</div>
+    <div style="position:absolute; bottom:38px; left:50%; margin-left:-9px; width:18px; height:30px; border:1px solid rgba(155,107,255,.4); border-radius:99px; display:flex; justify-content:center; padding-top:6px">
+      <div style="width:3px; height:7px; border-radius:2px; background:#39C4FF; animation:desce 2s ease-in-out infinite"></div>
+    </div>
+  </section>
+
+  <section id="manifesto" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; padding:clamp(90px,14vh,170px) clamp(24px,6vw,110px)">
+    <div style="max-width:1000px; display:flex; flex-direction:column; gap:26px">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">Manifesto</div>
+      <div data-reveal data-delay="80" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size:clamp(32px,5vw,68px); font-weight:600; line-height:1.12; text-wrap:pretty">Na Bíblia, a torre parou quando a língua se partiu.</div>
+      <div data-reveal data-delay="220" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size:clamp(32px,5vw,68px); font-weight:600; line-height:1.12; background:linear-gradient(120deg,#B899FF,#7AD2FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; text-wrap:pretty">A babel existe para devolver a língua.</div>
+      <div data-reveal data-delay="360" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size:clamp(19px,2.1vw,26px); line-height:1.55; color:#A39CC0; max-width:760px; text-wrap:pretty">Pela tecnologia, ajudar empresários a fazer até o impossível — por meio de uma única língua. Tudo neste arquivo serve a essa frase.</div>
+    </div>
+  </section>
+
+  <div style="position:relative; overflow:hidden; border-top:1px solid rgba(155,107,255,.14); border-bottom:1px solid rgba(155,107,255,.14); padding:20px 0">
+    <div style="display:flex; width:max-content; animation:corre 34s linear infinite">
+      <div style="display:flex; gap:56px; padding-right:56px; font-size:26px; font-style:italic; color:rgba(184,153,255,.5); white-space:nowrap">
+        <span>a babel que fala.</span><span>·</span><span>uma única língua.</span><span>·</span><span>até o impossível.</span><span>·</span><span>a babel que fala.</span><span>·</span><span>uma única língua.</span><span>·</span><span>até o impossível.</span><span>·</span>
+      </div>
+      <div style="display:flex; gap:56px; padding-right:56px; font-size:26px; font-style:italic; color:rgba(184,153,255,.5); white-space:nowrap">
+        <span>a babel que fala.</span><span>·</span><span>uma única língua.</span><span>·</span><span>até o impossível.</span><span>·</span><span>a babel que fala.</span><span>·</span><span>uma única língua.</span><span>·</span><span>até o impossível.</span><span>·</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="simbolo" style="position:relative; display:flex; flex-wrap:wrap; align-items:center; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:clamp(26px,4vw,70px); padding:clamp(80px,12vh,150px) clamp(24px,6vw,110px)">
+    <div style="flex:1 1 340px; min-width:0; position:sticky; top:14vh; align-self:flex-start; display:flex; flex-direction:column; align-items:center; gap:20px">
+      <div style="position:relative; display:flex; align-items:center; justify-content:center; padding:30px">
+        <div style="position:absolute; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(122,69,232,.3),rgba(122,69,232,0) 65%); animation:pulsa 9s ease-in-out infinite"></div>
+        <img src="assets/b-joia.png" alt="Símbolo da babel" style="position:relative; display:block; height:min(52vh,440px); filter:drop-shadow(0 24px 60px rgba(122,69,232,.5)); animation:flutua 9s ease-in-out infinite">
+      </div>
+    </div>
+    <div style="flex:1 1 360px; min-width:0; display:flex; flex-direction:column; gap:22px; padding-top:clamp(0px,6vh,60px)">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">01 · O símbolo</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">Um traço só, lapidado</h2>
+      <p data-reveal data-delay="120" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(18px,1.9vw,23px); line-height:1.55; color:#A39CC0; text-wrap:pretty">Um b minúsculo escrito de um gesto, sem emenda. A caneta entra em cima, desce, cruza a si mesma e fecha embaixo — e o acabamento é de joia: bisel, faceta e brilho.</p>
+      <sc-for list="{{ anatomia }}" as="a" hint-placeholder-count="4">
+        <div data-reveal data-delay="{{ a.atraso }}" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); display:flex; gap:20px; padding:20px 0; border-top:1px solid rgba(155,107,255,.16)">
+          <span style="{{ a.estiloLetra }}">{{ a.letra }}</span>
+          <div style="min-width:0">
+            <div style="font-size:clamp(21px,2.2vw,27px); color:#EDEAF7">{{ a.titulo }}</div>
+            <div style="font-family:'Geist',sans-serif; font-size:14px; line-height:1.6; color:#7D76A0; margin-top:6px">{{ a.texto }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="leituras" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:44px; padding:clamp(80px,12vh,150px) clamp(24px,6vw,110px)">
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:900px">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">02 · As leituras</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">Seis leituras, um desenho</h2>
+      <p data-reveal data-delay="120" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(18px,1.9vw,23px); line-height:1.55; color:#A39CC0; text-wrap:pretty">Um símbolo forte não explica: é reconhecido antes de ser entendido.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:22px">
+      <sc-for list="{{ leituras }}" as="l" hint-placeholder-count="6">
+        <div data-reveal data-delay="{{ l.atraso }}" style="{{ l.estilo }}" style-hover="transform:translateY(-6px); border-color:rgba(57,196,255,.5); box-shadow:0 22px 60px rgba(122,69,232,.28)">
+          <div style="{{ l.estiloRotulo }}">{{ l.rotulo }}</div>
+          <div style="font-size:clamp(24px,2.5vw,30px); color:#EDEAF7; line-height:1.22">{{ l.titulo }}</div>
+          <div style="font-family:'Geist',sans-serif; font-size:14px; line-height:1.65; color:#7D76A0">{{ l.texto }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="position:relative; scroll-snap-align:start; scroll-snap-stop:always; height:100dvh; overflow:hidden; display:flex; align-items:center">
+    <img data-parallax="0.22" src="assets/cartoes-babel.jpeg" alt="Cartões babel" style="position:absolute; inset:-14% 0; width:100%; height:128%; object-fit:cover; object-position:72% 78%; will-change:transform">
+    <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(8,6,15,.96) 0%,rgba(8,6,15,.88) 30%,rgba(8,6,15,.45) 58%,rgba(8,6,15,.05) 100%)"></div>
+    <div style="position:relative; display:flex; flex-direction:column; gap:18px; max-width:min(520px,46%); padding:0 clamp(24px,6vw,110px)">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">03 · O gesto</div>
+      <h2 data-reveal data-delay="80" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.6vw,60px); font-weight:600; line-height:1.1">A mão forma um b</h2>
+      <p data-reveal data-delay="160" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(18px,1.9vw,24px); line-height:1.5; color:#A39CC0; text-wrap:pretty">E o dedo na frente da boca mostra a babel como sistema conversacional. O gesto que pede silêncio é o mesmo que promete conversa: a marca escuta primeiro e responde numa língua só.</p>
+    </div>
+  </section>
+
+  <section id="cores" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:40px; padding:clamp(80px,12vh,150px) 0 clamp(80px,12vh,150px)">
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:900px; padding:0 clamp(24px,6vw,110px)">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">04 · Cores</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">Índigo, roxo, azul, névoa</h2>
+      <p data-reveal data-delay="120" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(18px,1.9vw,23px); line-height:1.55; color:#A39CC0; text-wrap:pretty">O índigo é o palco, o roxo é a torre, o azul é a fala, a névoa respira. A virada de roxo para azul acontece sempre no X.</p>
+    </div>
+    <div style="display:flex; height:clamp(120px,18vh,180px); width:100%">
+      <sc-for list="{{ proporcao }}" as="p" hint-placeholder-count="4">
+        <div data-barra data-largura="{{ p.largura }}" style="{{ p.estilo }}"></div>
+      </sc-for>
+    </div>
+    <div style="display:flex; padding:0 clamp(24px,6vw,110px)">
+      <sc-for list="{{ proporcao }}" as="p" hint-placeholder-count="4">
+        <div style="{{ p.estiloRotulo }}">{{ p.rotulo }}</div>
+      </sc-for>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; padding:0 clamp(24px,6vw,110px)">
+      <sc-for list="{{ cores }}" as="c" hint-placeholder-count="4">
+        <div data-reveal data-delay="{{ c.atraso }}" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); display:flex; flex-direction:column; gap:14px">
+          <div style="{{ c.amostra }}"></div>
+          <div style="font-size:26px; color:#EDEAF7">{{ c.nome }}</div>
+          <div style="font-family:'Geist',sans-serif; font-size:13px; letter-spacing:.1em; color:#B899FF">{{ c.hex }}</div>
+          <div style="font-family:'Geist',sans-serif; font-size:14px; line-height:1.6; color:#7D76A0">{{ c.uso }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="tipografia" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:40px; padding:clamp(80px,12vh,150px) clamp(24px,6vw,110px); border-top:1px solid rgba(155,107,255,.14)">
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:900px">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">05 · Tipografia</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">Duas vozes</h2>
+    </div>
+    <div data-reveal data-delay="80" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; border:1px solid rgba(155,107,255,.2); border-radius:26px; background:rgba(122,69,232,.07); padding:clamp(30px,5vw,64px); display:flex; flex-direction:column; gap:26px">
+      <div style="position:absolute; top:0; bottom:0; width:120px; background:linear-gradient(90deg,rgba(57,196,255,0),rgba(57,196,255,.09),rgba(57,196,255,0)); animation:varre 6s ease-in-out infinite; pointer-events:none"></div>
+      <div style="position:relative; font-size:clamp(56px,11vw,140px); font-weight:500; letter-spacing:.28em; padding-left:.28em; line-height:1; text-align:center; background:linear-gradient(120deg,#B899FF,#7AD2FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent">babel</div>
+      <div style="position:relative; display:flex; flex-wrap:wrap; gap:30px; border-top:1px solid rgba(155,107,255,.16); padding-top:26px">
+        <div style="flex:1 1 300px; min-width:0">
+          <div style="font-size:clamp(24px,2.6vw,32px); color:#EDEAF7">Cormorant Garamond</div>
+          <div style="font-size:20px; color:#A39CC0; margin-top:6px; overflow-wrap:anywhere">abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+          <div style="font-family:'Geist',sans-serif; font-size:13px; line-height:1.6; color:#7D76A0; margin-top:12px">Nome, títulos, destaques e texto corrido. babel nunca sobe para caixa alta.</div>
+        </div>
+        <div style="flex:1 1 300px; min-width:0">
+          <div style="font-family:'Geist',sans-serif; font-size:clamp(20px,2.2vw,26px); font-weight:500; color:#EDEAF7">Geist</div>
+          <div style="font-family:'Geist',sans-serif; font-size:16px; color:#A39CC0; margin-top:6px; overflow-wrap:anywhere">abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+          <div style="font-family:'Geist',sans-serif; font-size:13px; line-height:1.6; color:#7D76A0; margin-top:12px">Rótulos, legendas, dados e interface. Nunca em corpo grande.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="energia" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:36px; padding:clamp(80px,12vh,150px) clamp(24px,6vw,110px); overflow:hidden">
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:900px">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">06 · Energia</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">A marca conduz corrente</h2>
+      <p data-reveal data-delay="120" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(18px,1.9vw,23px); line-height:1.55; color:#A39CC0; text-wrap:pretty">A corrente sobe, vai do roxo ao azul e responde a uma ação da pessoa. Nunca ao acaso.</p>
+    </div>
+    <div style="position:relative; height:clamp(170px,22vh,230px); width:100vw; margin-left:calc(50% - 50vw)">
+      <svg viewBox="0 0 1000 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%">
+        <path id="dna-roxo" d="M0 60 L1000 60" fill="none" stroke="#9B6BFF" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 8px rgba(155,107,255,.9))"></path>
+        <path id="dna-azul" d="M0 60 L1000 60" fill="none" stroke="#39C4FF" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 8px rgba(57,196,255,.9))"></path>
+        <g id="dna-nos"></g>
+      </svg>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px">
+      <sc-for list="{{ energia }}" as="e" hint-placeholder-count="4">
+        <div data-reveal data-delay="{{ e.atraso }}" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); border-top:1px solid rgba(155,107,255,.2); padding-top:18px">
+          <div style="font-size:24px; color:#EDEAF7">{{ e.nome }}</div>
+          <div style="font-family:'Geist',sans-serif; font-size:13px; line-height:1.6; color:#7D76A0; margin-top:8px">{{ e.regra }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="aplicacoes" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start">
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:900px; padding:clamp(80px,12vh,150px) clamp(24px,6vw,110px) clamp(40px,6vh,70px)">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">07 · Aplicações</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">A marca no mundo</h2>
+      <p data-reveal data-delay="120" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(18px,1.9vw,23px); line-height:1.55; color:#A39CC0; text-wrap:pretty">Da torre ao cartão, a regra é a mesma: pedra índigo, marca acesa, muito vazio em volta. A escala muda; a temperatura, não.</p>
+    </div>
+    <sc-for list="{{ aplicacoes }}" as="a" hint-placeholder-count="3">
+      <div style="{{ a.estiloFaixa }}">
+        <div style="flex:1.4 1 340px; min-width:0; position:relative; overflow:hidden; min-height:clamp(300px,58vh,560px)">
+          <div data-parallax="{{ a.forca }}" role="img" aria-label="{{ a.titulo }}" style="{{ a.estiloImg }}"></div>
+        </div>
+        <div style="{{ a.estiloTexto }}">
+          <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#7AD2FF">{{ a.rotulo }}</div>
+          <div data-reveal data-delay="80" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size:clamp(30px,3.6vw,46px); font-weight:600; line-height:1.12; color:#EDEAF7">{{ a.titulo }}</div>
+          <div data-reveal data-delay="150" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size:clamp(17px,1.8vw,22px); line-height:1.5; color:#A39CC0; text-wrap:pretty">{{ a.texto }}</div>
+          <div data-reveal data-delay="220" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:13px; line-height:1.7; color:#7D76A0; border-top:1px solid rgba(155,107,255,.18); padding-top:14px">{{ a.nota }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <section id="voz" style="position:relative; display:flex; flex-direction:column; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:36px; padding:clamp(80px,12vh,150px) clamp(24px,6vw,110px); border-top:1px solid rgba(155,107,255,.14)">
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:900px">
+      <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.36em; text-transform:uppercase; color:#7AD2FF">08 · Tom de voz</div>
+      <h2 data-reveal data-delay="60" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin:0; font-size:clamp(34px,4.4vw,58px); font-weight:600; line-height:1.1">Fala como quem já resolveu</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:20px 44px">
+      <sc-for list="{{ voz }}" as="v" hint-placeholder-count="6">
+        <div data-reveal data-delay="{{ v.atraso }}" style="opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); display:flex; gap:18px; padding:18px 0; border-top:1px solid rgba(155,107,255,.16)">
+          <div style="{{ v.estiloTag }}">{{ v.tag }}</div>
+          <div style="{{ v.estiloTexto }}">{{ v.frase }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="fecho" style="position:relative; display:flex; flex-direction:column; align-items:center; scroll-snap-align:start; scroll-snap-stop:always; min-height:100dvh; justify-content:center; gap:24px; padding:clamp(100px,16vh,190px) clamp(24px,6vw,110px); text-align:center; overflow:hidden; border-top:1px solid rgba(155,107,255,.14)">
+    <div style="position:absolute; bottom:-40%; left:50%; width:80vw; height:80vw; margin-left:-40vw; border-radius:50%; background:radial-gradient(circle,rgba(122,69,232,.26),rgba(122,69,232,0) 62%); animation:pulsa 13s ease-in-out infinite"></div>
+    <img src="assets/b-joia.png" alt="Símbolo da babel" style="position:relative; display:block; height:min(30vh,240px); filter:drop-shadow(0 24px 60px rgba(122,69,232,.55)); animation:flutua 8s ease-in-out infinite">
+    <div data-reveal style="opacity:0; transform:translateY(30px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); position:relative; font-size:clamp(26px,3.6vw,46px); font-style:italic; font-weight:500; line-height:1.35; max-width:960px; text-wrap:pretty">Pela tecnologia, ajudar empresários a fazer até o impossível — por meio de uma única língua.</div>
+    <div style="position:relative; font-family:'Geist',sans-serif; font-size:13px; letter-spacing:.14em; color:#9B6BFF">«Toda a terra tinha uma só língua e um só falar.» — Gênesis 11:1</div>
+    <div style="position:relative; width:120px; height:2px; border-radius:2px; background:linear-gradient(90deg,#7A45E8,#39C4FF); margin-top:10px"></div>
+    <a href="#topo" style="position:relative; font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#7D76A0; margin-top:8px">voltar ao topo</a>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+const REVEAL = "opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); ";
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.raiz = React.createRef();
+    this.barra = React.createRef();
+    this.brilho = React.createRef();
+    this.joia = React.createRef();
+  }
+
+  componentDidMount() {
+    const laco = () => {
+      this._rafDna = requestAnimationFrame(laco);
+      try { this.girarDna(); } catch (err) { if (!this._avisouDna) { this._avisouDna = 1; console.error("dna", err); } }
+    };
+    this._rafDna = requestAnimationFrame(laco);
+    this._tickDna = setInterval(() => { try { this.girarDna(); } catch (e) {} }, 60);
+    const raiz = this.raiz.current;
+    if (!raiz) return;
+
+    this._io = new IntersectionObserver((entradas) => {
+      entradas.forEach(e => {
+        if (!e.isIntersecting) return;
+        const atraso = parseInt(e.target.getAttribute("data-delay") || "0", 10);
+        setTimeout(() => {
+          e.target.style.opacity = "1";
+          e.target.style.transform = "none";
+        }, atraso);
+        this._io.unobserve(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+    raiz.querySelectorAll("[data-reveal]").forEach(el => this._io.observe(el));
+
+    this._ioBarras = new IntersectionObserver((entradas) => {
+      entradas.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.style.width = e.target.getAttribute("data-largura");
+        this._ioBarras.unobserve(e.target);
+      });
+    }, { threshold: 0.4 });
+    raiz.querySelectorAll("[data-barra]").forEach(el => this._ioBarras.observe(el));
+
+    this._secoes = Array.from(raiz.querySelectorAll("section[id]"));
+    this._pontos = Array.from(raiz.querySelectorAll("[data-ponto]"));
+    this._paralaxe = Array.from(raiz.querySelectorAll("[data-parallax]"));
+
+    let agendado = false;
+    this._aoRolar = () => {
+      if (agendado) return;
+      agendado = true;
+      requestAnimationFrame(() => {
+        agendado = false;
+        this.atualizar();
+      });
+    };
+    window.addEventListener("scroll", this._aoRolar, { passive: true });
+    window.addEventListener("resize", this._aoRolar);
+
+    this._aoMover = (ev) => {
+      const b = this.brilho.current;
+      if (!b) return;
+      b.style.opacity = "1";
+      b.style.transform = "translate3d(" + ev.clientX + "px," + ev.clientY + "px,0)";
+    };
+    window.addEventListener("pointermove", this._aoMover, { passive: true });
+
+    this.atualizar();
+  }
+
+  componentWillUnmount() {
+    if (this._rafDna) cancelAnimationFrame(this._rafDna);
+    clearInterval(this._tickDna);
+    if (this._io) this._io.disconnect();
+    if (this._ioBarras) this._ioBarras.disconnect();
+    window.removeEventListener("scroll", this._aoRolar);
+    window.removeEventListener("resize", this._aoRolar);
+    window.removeEventListener("pointermove", this._aoMover);
+  }
+
+  atualizar() {
+    const alturaDoc = document.documentElement.scrollHeight - window.innerHeight;
+    const y = window.scrollY || window.pageYOffset;
+    const pct = alturaDoc > 0 ? Math.min(1, Math.max(0, y / alturaDoc)) : 0;
+
+    if (this.barra.current) this.barra.current.style.width = (pct * 100).toFixed(2) + "%";
+
+    if (this.joia.current) {
+      const f = Math.min(1, y / (window.innerHeight || 1));
+      this.joia.current.style.transform = "translateY(" + (f * 90).toFixed(1) + "px) scale(" + (1 - f * 0.16).toFixed(3) + ")";
+      this.joia.current.style.opacity = (1 - f * 0.85).toFixed(3);
+    }
+
+    const meio = y + window.innerHeight * 0.42;
+    let ativa = null;
+    this._secoes.forEach(s => {
+      if (s.offsetTop <= meio) ativa = s.id;
+    });
+    this._pontos.forEach(p => {
+      const on = p.getAttribute("data-ponto") === ativa;
+      p.style.background = on ? "#39C4FF" : "rgba(155,107,255,.28)";
+      p.style.transform = on ? "scale(1.7)" : "scale(1)";
+      p.style.boxShadow = on ? "0 0 14px rgba(57,196,255,.85)" : "none";
+    });
+
+    const vh = window.innerHeight;
+    this._paralaxe.forEach(el => {
+      const pai = el.parentElement;
+      if (!pai) return;
+      const r = pai.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      const centro = (r.top + r.height / 2 - vh / 2) / vh;
+      const forca = parseFloat(el.getAttribute("data-parallax")) || 0.2;
+      el.style.transform = "translate3d(0," + (centro * forca * 100).toFixed(1) + "px,0)";
+    });
+  }
+
+  girarDna() {
+    const roxo = document.getElementById("dna-roxo");
+    const azul = document.getElementById("dna-azul");
+    const nos = document.getElementById("dna-nos");
+    if (!roxo || !azul || !nos) return;
+    const AMP = 44, VOLTAS = 9, PASSOS = 180;
+    const g = this._fase = (this._fase || 0) + 0.02;
+    const onda = (desvio) => {
+      let d = "";
+      for (let p = 0; p <= PASSOS; p++) {
+        const t = p / PASSOS;
+        d += (p === 0 ? "M" : "L") + (t * 1000).toFixed(1) + " " +
+          (60 + Math.sin(t * Math.PI * VOLTAS + desvio + g) * AMP).toFixed(1);
+      }
+      return d;
+    };
+    roxo.setAttribute("d", onda(0));
+    azul.setAttribute("d", onda(Math.PI));
+    let marcas = "";
+    const kIni = Math.ceil(g / Math.PI), kFim = Math.floor((Math.PI * VOLTAS + g) / Math.PI);
+    for (let k = kIni; k <= kFim; k++) {
+      const t = (k * Math.PI - g) / (Math.PI * VOLTAS);
+      if (t < 0 || t > 1) continue;
+      const frente = Math.cos(k * Math.PI) > 0;
+      marcas += '<circle cx="' + (t * 1000).toFixed(1) + '" cy="60" r="' + (frente ? 5.4 : 3.4) +
+        '" fill="' + (frente ? "#EDEAF7" : "#7AD2FF") + '" opacity="' + (frente ? 1 : .6) + '"></circle>';
+    }
+    nos.innerHTML = marcas;
+  }
+
+  renderVals() {
+    const cartao = "border:1px solid rgba(155,107,255,.2); border-radius:22px; padding:30px; display:flex; flex-direction:column; gap:13px; transition:transform .45s cubic-bezier(.16,1,.3,1), border-color .45s ease, box-shadow .45s ease, opacity .9s cubic-bezier(.16,1,.3,1); ";
+
+    const leituras = [
+      ["i · a forma ascendente", "Poder, antes de qualquer explicação", "No inconsciente, a vertical que se ergue é um dos símbolos mais antigos de poder: obelisco, coluna, cetro, torre. É o que faz uma linha reta parecer autoridade antes de qualquer argumento.", "roxo"],
+      ["ii · o traço único", "Uma língua só", "Um gesto, sem emenda e sem tirar a caneta do papel: a promessa de uma língua única, entendida por todos, feita forma.", "roxo"],
+      ["iii · a torre", "A obra retomada", "Alta e estreita, a parte de cima cita a torre de Babel. Não a ruína: a construção recomeçada, com a língua de volta.", "roxo"],
+      ["iv · a espada", "A lâmina do corte", "A haste desce reta e afiada. Autoridade, decisão, corte: a marca resolve, não debate.", "azul"],
+      ["v · a caixa de conversa", "O lugar da fala", "A volta de baixo é um balão de fala, e é por isso que ela é azul. O poder de cima só existe porque embaixo há conversa.", "azul"],
+      ["vi · o b minúsculo", "Resignação por escolha", "Uma marca que pode ser maiúscula e escolhe não ser. O ego fica do lado de fora do traço.", "azul"]
+    ].map((l, i) => ({
+      rotulo: l[0], titulo: l[1], texto: l[2], atraso: String(i * 70),
+      estilo: REVEAL + cartao + (l[3] === "roxo"
+        ? "background:rgba(122,69,232,.07); border-color:rgba(155,107,255,.2)"
+        : "background:rgba(31,121,224,.07); border-color:rgba(57,196,255,.18)"),
+      estiloRotulo: "font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:" + (l[3] === "roxo" ? "#9B6BFF" : "#39C4FF")
+    }));
+
+    const anatomia = [
+      ["a", "A torre", "A parte de cima sobe alta e estreita — a torre de Babel, retomada. É onde o roxo vive.", "#9B6BFF"],
+      ["b", "A haste", "Desce firme como lâmina: autoridade e decisão, a espada do desenho.", "#9B6BFF"],
+      ["c", "O X", "Onde o traço cruza a si mesmo. É exatamente ali que o roxo vira azul — a torre encontra a fala.", "#39C4FF"],
+      ["d", "A caixa de conversa", "A volta de baixo desenha um balão de fala, em azul. É a unidade de medida do respiro da marca.", "#39C4FF"]
+    ].map((a, i) => ({
+      letra: a[0], titulo: a[1], texto: a[2], atraso: String(i * 90),
+      estiloLetra: "font-family:'Geist',sans-serif; font-size:12px; width:20px; flex:none; padding-top:9px; color:" + a[3]
+    }));
+
+    const proporcao = [
+      ["66%", "Índigo 66%", "#0C0820", "#7D76A0", "96px"],
+      ["17%", "Roxo 17%", "#7A45E8", "#EDEAF7", "20px"],
+      ["12%", "Azul 12%", "#39C4FF", "#08182A", "20px"],
+      ["5%", "Névoa 5%", "#EDEAF7", "#0C0820", "14px"]
+    ].map((p, i, todos) => ({
+      largura: p[0], rotulo: p[1],
+      estilo: "width:0%; background:" + p[2] +
+        "; transition:width 1.3s cubic-bezier(.16,1,.3,1) " + (i * 120) + "ms",
+      estiloRotulo: "width:" + p[0] + "; flex:none; white-space:nowrap; font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:" +
+        (i === 0 ? "#7D76A0" : i === 1 ? "#B899FF" : i === 2 ? "#7AD2FF" : "#EDEAF7") +
+        "; padding-top:12px" + (i === todos.length - 1 ? "; text-align:right" : "")
+    }));
+
+    const cores = [
+      ["Índigo", "#0C0820", "O palco de tudo: pedra, tecido, tela. Nunca preto puro.", "background:#0C0820; border:1px solid rgba(155,107,255,.25)"],
+      ["Roxo babel", "#7A45E8", "A torre. Claro #9B6BFF para texto sobre índigo.", "background:linear-gradient(135deg,#B899FF,#7A45E8 60%,#5B34B8)"],
+      ["Azul babel", "#39C4FF", "A fala. Profundo #1F79E0 para botões e áreas grandes.", "background:linear-gradient(135deg,#7AD2FF,#39C4FF 55%,#1F79E0)"],
+      ["Névoa", "#EDEAF7", "Texto longo e papel claro. Apoio #A39CC0 e #7D76A0.", "background:#EDEAF7"]
+    ].map((c, i) => ({
+      nome: c[0], hex: c[1], uso: c[2], atraso: String(i * 80),
+      amostra: "height:clamp(110px,14vh,150px); border-radius:16px; " + c[3]
+    }));
+
+    const energia = [
+      ["Tecla digitada", "Pulso curto nas bordas · 600 ms"],
+      ["Envio", "Halo amplo e carga que sobe · 950 ms"],
+      ["Progresso", "Hélice de DNA, roxo e azul"],
+      ["Repouso", "Flutuação de 12 px · 7 a 8 s"]
+    ].map((e, i) => ({ nome: e[0], regra: e[1], atraso: String(i * 80) }));
+
+    const faixa = "display:flex; flex-wrap:wrap; align-items:stretch; ";
+    const bloco = "flex:1 1 320px; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:16px; padding:clamp(34px,5vw,70px); ";
+    const img = "position:absolute; inset:-12% 0; width:100%; height:124%; background-repeat:no-repeat; will-change:transform; ";
+
+    const aplicacoes = [
+      ["Arquitetura", "Torre", "A obra de Babel terminada. Assinatura vertical no topo, filetes de luz roxa e azul nas quinas.", "Marca nunca acima de 1/8 da altura do prédio · luz sempre de baixo para cima", "assets/torre-babel.jpeg", "center 30%", 0.24, false],
+      ["Sede", "Fachada", "A marca em neon sobre pedra índigo, com marquise em bordô e totem vertical iluminado.", "Vidro nunca recebe marca grande · bordô só na marquise e no totem", "assets/fachada-babel.jpeg", "center 35%", 0.2, true],
+      ["Evento", "Estande", "Parede curva com a marca em neon, telas de onda sonora e vitrines acesas em roxo e azul.", "Totens verticais para inscrição, palestras e demonstração · balcão em bordô", "assets/estande-babel.png", "center 38%", 0.26, false]
+    ].map(a => ({
+      rotulo: a[0], titulo: a[1], texto: a[2], nota: a[3], img: a[4], forca: String(a[6]),
+      estiloImg: img + "background-image:url('" + a[4] + "'); background-size:cover; background-position:" + a[5],
+      estiloFaixa: faixa + "flex-direction:" + (a[7] ? "row-reverse" : "row"),
+      estiloTexto: bloco + "background:" + (a[7] ? "rgba(31,121,224,.07)" : "rgba(122,69,232,.07)")
+    }));
+
+    const voz = [
+      [true, "«Sua empresa fala uma língua só. A babel cuida do resto.»"],
+      [false, "«Plataforma omnichannel de IA conversacional com NLP proprietário.»"],
+      [true, "«A gente escuta primeiro.»"],
+      [false, "«Nossa solução disruptiva revoluciona o atendimento!»"],
+      [true, "«Até o impossível cabe numa conversa.»"],
+      [false, "«Somos líderes de mercado em soluções inovadoras.»"]
+    ].map((v, i) => ({
+      tag: v[0] ? "SIM" : "NÃO", frase: v[1], atraso: String(i * 60),
+      estiloTag: "width:44px; flex:none; padding-top:7px; font-family:'Geist',sans-serif; font-size:11px; letter-spacing:.2em; color:" + (v[0] ? "#39C4FF" : "#D98FA4"),
+      estiloTexto: "font-size:clamp(18px,1.9vw,23px); line-height:1.4; color:" + (v[0] ? "#EDEAF7" : "#7D76A0")
+    }));
+
+    const indice = [
+      ["topo", "Capa"], ["manifesto", "Manifesto"], ["simbolo", "O símbolo"],
+      ["leituras", "As leituras"], ["cores", "Cores"], ["tipografia", "Tipografia"],
+      ["energia", "Energia"], ["aplicacoes", "Aplicações"], ["voz", "Tom de voz"], ["fecho", "Fecho"]
+    ].map(i => ({ id: i[0], nome: i[1], alvo: "#" + i[0] }));
+
+    return {
+      refRaiz: this.raiz, refBarra: this.barra, refBrilho: this.brilho, refJoiaHero: this.joia,
+      leituras, anatomia, proporcao, cores, energia, aplicacoes, voz, indice
+    };
+  }
+}
+
+</script>
+</body>
+</html>

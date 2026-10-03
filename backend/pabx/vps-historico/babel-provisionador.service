@@ -1,0 +1,13 @@
+[Unit]
+Description=Provisionador de ramais do PABX Babel (Supabase -> Asterisk)
+After=network-online.target asterisk.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/babel/provisionador.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

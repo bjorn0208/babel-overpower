@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcelo Meister — Mapas Mentais com IA</title>
+  <link rel="icon" href="/marcelo.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0f1117" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-photo" src="/marcelo.png" alt="Marcelo Meister" />
+      <span class="brand-name">Marcelo Meister</span>
+    </div>
+    <form id="ai-form" class="ai-bar">
+      <input
+        id="ai-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Digite um tema e a IA cria o mapa mental… ex.: plano de lançamento do meu SaaS"
+      />
+      <button type="submit" id="ai-button">
+        <span class="btn-label">✨ Gerar</span>
+        <span class="btn-spinner" hidden></span>
+      </button>
+    </form>
+    <div class="actions">
+      <button id="new-map" title="Novo mapa em branco">＋ Novo</button>
+      <button id="import-json" title="Abrir um mapa salvo em JSON">📂 Abrir</button>
+      <input id="import-file" type="file" accept=".json,application/json" hidden />
+      <button id="export-png" title="Exportar imagem PNG">🖼 PNG</button>
+      <button id="export-json" title="Baixar o mapa como JSON">💾 JSON</button>
+    </div>
+  </header>
+  <div id="toast" class="toast" hidden></div>
+  <main id="map"></main>
+  <footer class="hints">
+    <span><b>Duplo clique</b> edita</span>
+    <span><b>Tab</b> cria filho</span>
+    <span><b>Enter</b> cria irmão</span>
+    <span><b>Arraste</b> para mover</span>
+    <span><b>Clique direito</b> abre o menu</span>
+    <span><b>Scroll</b> dá zoom</span>
+  </footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

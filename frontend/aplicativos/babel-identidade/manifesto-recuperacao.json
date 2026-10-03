@@ -1,0 +1,177 @@
+{
+  "project": "babel-identidade",
+  "deployment": "dpl_CV2boBfqz1dnbk5zufjJujH8yhXg",
+  "files": 24,
+  "excluded": [],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/babel-identidade/source-manifest.json",
+  "copied": [
+    {
+      "path": "assets/anotacoes.png",
+      "remote_uid": "4640e51782eb4c37fb2af29a23ca5a036fe2fc05",
+      "bytes": 169236,
+      "sha256": "a33af08cb1088960a20f58022ff97ab6591185e62aad66f61b49f146c45934a1",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/atendimento.jpeg",
+      "remote_uid": "589f3de2fdbc99ee2b796c03cea55274518555ee",
+      "bytes": 143990,
+      "sha256": "d9f5428467292ac3052f17d730f0c7c04fe968881a35f32e37cdd36b80386a01",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-azul.png",
+      "remote_uid": "74691fea4484b01f0dffd2b9b2222f47568c1293",
+      "bytes": 64376,
+      "sha256": "a0a76694f76d448f6df654f4308eff0dd3de234d01fc8df9a8d70d106fc4791d",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-branco.png",
+      "remote_uid": "7edafa84dbb72aa97bcc36d3d303475bd87ef3bd",
+      "bytes": 65297,
+      "sha256": "20353b109a97c4ece922b9bfd1ea20ff8dd26a007038b06c2c90632493c921d0",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-claro.png",
+      "remote_uid": "c8c7a6b2a7228e42203d65f00145db7fc0688ddb",
+      "bytes": 65502,
+      "sha256": "22e29d0a38d6ebc9bbb83470d381c4eed87a25a714617c77140ffa8dbab6ee0d",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-erro.png",
+      "remote_uid": "34fe82b83edf60a11984e518d228fd2afb1f1b5d",
+      "bytes": 65997,
+      "sha256": "94b79108e9a4bd29a3386e81c3287576dbc11962b1d83570a2ce146b05f74285",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-gradiente.png",
+      "remote_uid": "b38da8807083c485c9fd5220e3b1a9c1c3d874fa",
+      "bytes": 88667,
+      "sha256": "b9cace608f406230926e70bdafefdceb40914a35136729de7354d7edf5dcf83a",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-joia.png",
+      "remote_uid": "00767815bbef82b6c19cb54454e2f5c914b6e4c7",
+      "bytes": 222843,
+      "sha256": "3e4e90520692ea3f14a614154630e35315a4f5ef5b73296e3b07e72111dd0de9",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-marfim.jpeg",
+      "remote_uid": "0996a7bc8b97aed96235afd7ac2f9f738dbc68a1",
+      "bytes": 44665,
+      "sha256": "8db7acfa1e88d07db1d65e2864842e6664dc70067cfeb55f82e56c3c214ae629",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-onix.jpeg",
+      "remote_uid": "6cf357b05f5de04c11045861012d8ce133df3c94",
+      "bytes": 51531,
+      "sha256": "903f8734849514915c1f9030a1ba66c8354f3efe4cac9d33d50fcbcfe5c3ca3d",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-ouro.png",
+      "remote_uid": "ad9c07a63263a5ea13863ef8ba470320e9c64c5f",
+      "bytes": 170694,
+      "sha256": "a5306b4d458bb27044a7092a1a614aec8a78a46e110c1cf323b2003a29a78328",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-roxo.png",
+      "remote_uid": "8cd98a3875dfab91cbb51530f6ffcb79ce15f169",
+      "bytes": 65471,
+      "sha256": "e7687e21db3211936bbd502529d5412d596571f3597543bf599b34581c411fde",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b-tinta.png",
+      "remote_uid": "aea374b8a8841da889bc2194e49a8e1c93ee71fc",
+      "bytes": 64223,
+      "sha256": "2591b3a0608d10a0be55565179c2472312b3462421928437ff874cbb34e697ce",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/b.png",
+      "remote_uid": "165581eea776cacbbcdac7eeb66ec0f8fafaf927",
+      "bytes": 55898,
+      "sha256": "8bd98d7ecd9d8bf92b61054c1b4d4fa0468f0303bd8220004ccbfb01fcbab7bb",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/cartoes-babel.jpeg",
+      "remote_uid": "5bd0615a18cd40ecfa723f98f2f27059cbc29f97",
+      "bytes": 680414,
+      "sha256": "69e0b6916f376b4a58de47ed0d4fa7b289514c86bc1634e210919dd87dcbfc0a",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/cartoes.jpeg",
+      "remote_uid": "21359a133d400abbcb91b9654652e473c68ae7cf",
+      "bytes": 195744,
+      "sha256": "b72a7d2aa77747683c60f6ce369de79d4285b862d510ec18e30b8b8b5ef7f58a",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/estande-babel.png",
+      "remote_uid": "8d68125415c09963282b36a0b45c9cde0773c066",
+      "bytes": 2251613,
+      "sha256": "aff63fe6451aa6c1f28eb1645d10f6e3cf7e52c2382cd55aa4189a08b40e5de9",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/fachada-babel.jpeg",
+      "remote_uid": "871740712f31196b8f8c379fd823ce206d96f0e4",
+      "bytes": 702340,
+      "sha256": "8bf7359f118213566a4b33ff592f7eeafdf392af0e8340545257bb33572c40d7",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/fachada.jpeg",
+      "remote_uid": "78ae75c46a380eb3f63f09fe9cb78f454c51515b",
+      "bytes": 177000,
+      "sha256": "866179d046c6239d6f1efab4557c108c0b683680e27e94a982c83ab53d77a327",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/suspiro.mp3",
+      "remote_uid": "2ff4f201c6c187d2aa7c3b4e859592427be0c94c",
+      "bytes": 64512,
+      "sha256": "f5cff66c2dd5967cf39ed5c64179117c8405103244c87029cb932d31381fdadc",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/torre-babel.jpeg",
+      "remote_uid": "8f4be40cdb5b2da62098406cba91886b298636e1",
+      "bytes": 790254,
+      "sha256": "f01dd9c3aff3478d467ec26f77c42b79b142ee85d143aea8adfd9a0b051acb96",
+      "verified_sha1": true
+    },
+    {
+      "path": "assets/torre.jpeg",
+      "remote_uid": "1b62aa50928c6c6a24013b411c34a20fca7ef88f",
+      "bytes": 253511,
+      "sha256": "d2bfd9e49e529dcd3dd305fe164caee4667f5829a8f1b935c0958d3c1a25b060",
+      "verified_sha1": true
+    },
+    {
+      "path": "index.html",
+      "remote_uid": "0a963ac00b6f85cf265e3d1d3c26a44971a9bfe1",
+      "bytes": 43261,
+      "sha256": "b817962b8f8ebc738a03b779f46ec59f5d96081346cd3e90325b8f0b44fc2eb0",
+      "verified_sha1": true
+    },
+    {
+      "path": "support.js",
+      "remote_uid": "2e38395c4a4ac9dd45b360554b9b99ba5a509250",
+      "bytes": 69150,
+      "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe",
+      "verified_sha1": true
+    }
+  ]
+}

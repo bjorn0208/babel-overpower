@@ -1,0 +1,88 @@
+// Nós do canal interno (CommandBar → Mentor/Admin)
+// Fonte: agent-output/analises/grafo-motor-vivo.json — gerado 2026-05-18
+
+import type { NoMotorDados } from "./tipos";
+
+export const NOS_INTERNO: NoMotorDados[] = [
+  {
+    id: "commandbar",
+    label: "Frontend — CommandBar (bundle.jsx)",
+    canal: "interno",
+    faz: "Chat UI do dono no frontend. Ao enviar: sb.functions.invoke('ragentic-processar-inline', {body:{conversa_id, mensagem}}) se VITE_COMMANDBAR_MOTOR_UNICO='true', senão invoke('agente-mestre-chat') [legado]. JWT do usuário logado enviado automaticamente pelo Supabase client (Authorization header)",
+    ativa_proximo: "ragentic-processar-inline (canal interno) OU agente-mestre-chat (legado)",
+    fonte_dado_real: "nao_grava (é a entrada — invoca edge)",
+    ref: "frontend/src/bundle/bundle.jsx:~923-960",
+  },
+  {
+    id: "canal-interno-branch",
+    label: "Branch Canal Interno → processarCanalInterno",
+    canal: "interno",
+    faz: "Se ehFormatoInterno && !modo_teste && dono: consulta profiles.system_role → ehAdmin. Chama _shared/canal-interno.ts:processarCanalInterno com {mensagem, conversaId, userId, ehAdmin, tenantId}",
+    ativa_proximo: "processarCanalInterno",
+    fonte_dado_real: "profiles.system_role (SELECT — read-only para decisão)",
+    ref: "supabase/functions/ragentic-processar-inline/index.ts:163-180",
+  },
+  {
+    id: "canal-interno-msg",
+    label: "Canal Interno — Insere msg user",
+    canal: "interno",
+    faz: "Verifica mentor_conversas.owner_id = userId (segurança). INSERT mentor_mensagens papel=user",
+    ativa_proximo: "carrega histórico mentor_mensagens",
+    fonte_dado_real: "mentor_mensagens (INSERT) | mentor_conversas (SELECT verificação owner)",
+    ref: "supabase/functions/_shared/canal-interno.ts:~100-115",
+  },
+  {
+    id: "canal-interno-historico",
+    label: "Canal Interno — Histórico + Higiene",
+    canal: "interno",
+    faz: "SELECT mentor_mensagens ORDER BY criado_em LIMIT 20. Filtra conteúdo vazio, garante alternância estrita user/assistant, descarta até 1ª user (Gemini exige)",
+    ativa_proximo: "cargo RAG-first",
+    fonte_dado_real: "mentor_mensagens (SELECT — read-only)",
+    ref: "supabase/functions/_shared/canal-interno.ts:~117-145",
+  },
+  {
+    id: "cargo-rag-first-interno",
+    label: "Canal Interno — Cargo RAG-first (tipologia)",
+    canal: "interno",
+    faz: "SELECT cargos WHERE tipologia = ('admin'|'mentor') AND escopo='global' AND ativo=true ORDER BY ordem LIMIT 1. Monta system prompt = MOLDE_FORMATO + cargo.objetivo_principal + regras_livres",
+    ativa_proximo: "Loop LLM interno com TOOLS_MENTOR + recall_entidade",
+    fonte_dado_real: "cargos (SELECT — read-only para montar prompt)",
+    ref: "supabase/functions/_shared/canal-interno.ts:~148-165",
+  },
+  {
+    id: "loop-llm-interno",
+    label: "Canal Interno — Loop LLM (max_iter=3)",
+    canal: "interno",
+    faz: "chamarLlmComTools (openrouter.ts) com modelo gemini-3.1-flash-lite. Tools: TOOLS_MENTOR + recall_entidade. Intercepta recall_entidade → resolverEntidadePorNome + recuperarMemoriaLead. Demais tools → tools-mentor.ts:executarTool",
+    ativa_proximo: "persiste assistant em mentor_mensagens",
+    fonte_dado_real: "nao_grava_diretamente (tools internas podem gravar — ver tabela transversal)",
+    ref: "supabase/functions/_shared/canal-interno.ts:~200-230",
+  },
+  {
+    id: "canal-interno-persiste",
+    label: "Canal Interno — Persiste resposta assistant",
+    canal: "interno",
+    faz: "INSERT mentor_mensagens papel=assistant conteudo+tool_calls. UPDATE mentor_conversas.atualizado_em. Retorna {ok, mensagem, tool_calls}",
+    ativa_proximo: "JSON response → commandbar frontend",
+    fonte_dado_real: "mentor_mensagens (INSERT) | mentor_conversas (UPDATE atualizado_em)",
+    ref: "supabase/functions/_shared/canal-interno.ts:~232-252",
+  },
+  {
+    id: "tools-mentor",
+    label: "Tools Mentor — TOOLS_MENTOR (canal interno)",
+    canal: "interno",
+    faz: "Pool de handlers em _shared/tools-mentor.ts: abrir_app_os, abrir_app, dashboard_resumo, mostrar_kpi, listar_leads_recentes, criar_anotacao_mentor, cadastrar_produto, cadastrar_bloco_conhecimento, criar_template_contrato, criar_cliente, criar_categoria, atualizar_empresa, gerar_link_contrato_livre, mostrar_desktop. recall_entidade é adicionado pelo canal-interno.ts como SCHEMA_RECALL_ENTIDADE",
+    ativa_proximo: "Resultado retorna pro LLM → próxima iteração",
+    fonte_dado_real: "INCERTO: depende do handler invocado. Confirmado: INSERT anotacoes_mentor, INSERT produtos, INSERT blocos_conhecimento, INSERT contratos (template), INSERT clientes — ver _shared/tools-mentor.ts",
+    ref: "supabase/functions/_shared/tools-mentor.ts:TOOLS_MENTOR",
+  },
+  {
+    id: "recall-entidade",
+    label: "recall_entidade (tool do canal interno)",
+    canal: "interno",
+    faz: "Tool adicionada ao LLM interno. resolverEntidadePorNome → SELECT leads WHERE (name.ilike || nome_exibicao.ilike) + tenant_id + deleted_at IS NULL. Se único: recuperarMemoriaLead (fatos+episódios). Trata 0/1/N (ambíguo → pede desambiguação)",
+    ativa_proximo: "Retorna string resumida pro LLM → próxima iteração",
+    fonte_dado_real: "leads (SELECT — read-only) | memoria_lead (SELECT via recuperarMemoriaLead) | memoria_episodica (SELECT via recuperarMemoriaLead)",
+    ref: "supabase/functions/_shared/canal-interno.ts:~165-210 | _shared/recall-memoria.ts:resolverEntidadePorNome",
+  },
+];

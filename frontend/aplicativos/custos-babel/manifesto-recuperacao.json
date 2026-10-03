@@ -1,0 +1,16 @@
+{
+  "project": "custos-babel",
+  "deployment": "dpl_6ZqsM83EtE4xs6NxCvbK9d5gRMzs",
+  "files": 1,
+  "excluded": [],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/custos-babel/source-manifest.json",
+  "copied": [
+    {
+      "path": "index.html",
+      "remote_uid": "92bf49cde4ea7b961e167c55d15733390792e60f",
+      "bytes": 30175,
+      "sha256": "f8133b95d2623d8e9d9e274fa4d2953766ace7b0db6999695087172e857a9637",
+      "verified_sha1": true
+    }
+  ]
+}

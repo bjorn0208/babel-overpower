@@ -1,0 +1,25 @@
+/* Grade de números (Arena) — só o que a biblioteca ar-* não cobre. */
+
+/* A grade rola sozinha, e só na vertical: nada de arrastar a tela pro lado. */
+.ar-grade-rolo {
+  max-height: min(56dvh, 460px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding: 2px;
+  margin: -2px;
+}
+
+/* Célula é <button>: tira a herança do reset e mantém o quadrado. */
+.ar-grade .ar-celula {
+  border: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Reservado sem comprovante: ocupado, mas sem calor nenhum (o âmbar fica
+   reservado pra quem já mandou o PIX e espera validação). */
+.ar-celula--reserva {
+  background: var(--ar-filete);
+  color: var(--ar-txt-4);
+}

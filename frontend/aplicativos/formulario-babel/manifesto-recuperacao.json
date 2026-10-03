@@ -1,0 +1,214 @@
+{
+  "project": "formulario-babel",
+  "deployment": "dpl_6H7jPsD95WGLZFuQGvvqC2pV2TRt",
+  "files": 28,
+  "excluded": [
+    {
+      "path": ".env.example",
+      "reason": "configuration_private"
+    },
+    {
+      "path": ".token-planilha.txt",
+      "reason": "configuration_private"
+    }
+  ],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/formulario-babel/source-manifest.json",
+  "copied": [
+    {
+      "path": "README.md",
+      "remote_uid": "57e812c6cacc4d20f610dbd2b667dac60d2486fe",
+      "bytes": 7873,
+      "sha256": "6986140ec5666af327922abb1b66cdffe78bbcd12baa802f9dd18bb3925e285d",
+      "verified_sha1": true
+    },
+    {
+      "path": "api/enviar.ts",
+      "remote_uid": "105490d0cb232a765283df774dec3f7b0951f29d",
+      "bytes": 5927,
+      "sha256": "b4b9dfb4bef75d342560ac30badcd786ea9791969ca51023d32e3503b1a6154f",
+      "verified_sha1": true
+    },
+    {
+      "path": "api/whatsapp-qr.ts",
+      "remote_uid": "6bc9be020bf029f3f08cc4056f7fc61d3ac5c856",
+      "bytes": 21693,
+      "sha256": "05712c21b8820678c97137c235d141a7b8606b52c62fc76dc86fbc83ade30ae4",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/index-B2SDlxyo.js",
+      "remote_uid": "9d775c2fbf9cf0d3c0015095a8f78a3f69c789ec",
+      "bytes": 292077,
+      "sha256": "7e8c8ee26b53d4c72538ee50bf55b1dba4f3faa453b99b6340bb150fc6bf53f0",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/index-BQuR4o6w.css",
+      "remote_uid": "9be1b057be4c7e8647114c6024a9b3dd2a80593c",
+      "bytes": 14921,
+      "sha256": "2510b78ab187037f9945f63d563e0d1867adbeac64830b64e8f334f644e172a4",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/babel-logo.png",
+      "remote_uid": "376592f8635623bcc8ab82de95c1c2f0d1ea7298",
+      "bytes": 14893,
+      "sha256": "e9edbd6bc002116f8835d6f66ca5b0cbc3bdfa42150cb4f4079be2aec6f90f9d",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/favicon.png",
+      "remote_uid": "5513785670f267ba57c758ff5e5242a91dce9e98",
+      "bytes": 2544,
+      "sha256": "c123542a071168bf91d1be37eb68faa95a512f6e559f29e36709032d99cebe15",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/index.html",
+      "remote_uid": "4a0e6d4b149c8500bf9fdea0f377c54f4b469a68",
+      "bytes": 942,
+      "sha256": "aa4b8851668649b263d01fb0fed1946e8237c125b8597a23a1345248d50f6ed1",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/babel-logo.png",
+      "remote_uid": "376592f8635623bcc8ab82de95c1c2f0d1ea7298",
+      "bytes": 14893,
+      "sha256": "e9edbd6bc002116f8835d6f66ca5b0cbc3bdfa42150cb4f4079be2aec6f90f9d",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/favicon.png",
+      "remote_uid": "5513785670f267ba57c758ff5e5242a91dce9e98",
+      "bytes": 2544,
+      "sha256": "c123542a071168bf91d1be37eb68faa95a512f6e559f29e36709032d99cebe15",
+      "verified_sha1": true
+    },
+    {
+      "path": "index.html",
+      "remote_uid": "e847eb3097817df5f6781770b718fa74acaeb66e",
+      "bytes": 844,
+      "sha256": "eb19a4dbfe6aef060c985a9cff2f2060b602015038c9fae5ee97b43d9ca03b57",
+      "verified_sha1": true
+    },
+    {
+      "path": "package-lock.json",
+      "remote_uid": "5a601516ded7ef3b1031bf651c2828157f85f16d",
+      "bytes": 178042,
+      "sha256": "8df46d7a34b9b31264dfc5aa8a2e2f6c1a42c33da2ed1b953b2071f29d408fb3",
+      "verified_sha1": true
+    },
+    {
+      "path": "package.json",
+      "remote_uid": "5fb9ac41c7f34556e466f2a6a95f7cd0a419ce88",
+      "bytes": 824,
+      "sha256": "66bfa489d906de852cf03afc462821f905eb84368b325bb64ea257b9cee8889e",
+      "verified_sha1": true
+    },
+    {
+      "path": "planilha/.clasp.json",
+      "remote_uid": "d64e50043a4908e455203b78c40986e988aa943a",
+      "bytes": 87,
+      "sha256": "7aa4cdca45a2e1c0cefac1a4db60ed6c770440a150559d7bd4ef56b54168d06e",
+      "verified_sha1": true
+    },
+    {
+      "path": "planilha/Code.gs",
+      "remote_uid": "8e009af0ebf3295327e398461dd7ef2c95dce43e",
+      "bytes": 6906,
+      "sha256": "3fe2766aa540a1ce21b2026a19eec91e24c644c1fca5def45d5d531d9cb4a794",
+      "verified_sha1": true
+    },
+    {
+      "path": "planilha/appsscript.json",
+      "remote_uid": "8435c1e3dbd03db6b1fcff2158222a4f571b2f18",
+      "bytes": 209,
+      "sha256": "b3b1a4ae145bf7e4c052b296620fef1ce3225d1d83404231319e8ccc6b46e192",
+      "verified_sha1": true
+    },
+    {
+      "path": "scripts/patch-baileys.mjs",
+      "remote_uid": "1a7f04b33e5b47ece39bf95bf831036039d934af",
+      "bytes": 1670,
+      "sha256": "cd46eb509d2d17034ee45ad7b72a27a589f47167a4f09dffc8ec5e14c15993e8",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/App.tsx",
+      "remote_uid": "122c8839f9ac7d7a928519f71fddde45752ab68b",
+      "bytes": 4419,
+      "sha256": "778cd446790b3db45eb46fc37ab2b4dbd12dc9314217df77ecc41bc95ff29bdf",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/Formulario.tsx",
+      "remote_uid": "20530e89fe08a421b672087bc542d8350a625174",
+      "bytes": 18483,
+      "sha256": "b0b6e2ff66f15693b1f8ec9b17f9564989664f75405ef58346e9800e7250e539",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/TelaConexao.tsx",
+      "remote_uid": "1ebe01fad16529418d606d28cc0a9199c1cc01d9",
+      "bytes": 12563,
+      "sha256": "9ad48065d1fc886f483898c15b43caca2f5d16617123818bccbd20b0dfe50f66",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/campos.ts",
+      "remote_uid": "eaa370c705ef6589ba8e9b4a8a259e928d0140b5",
+      "bytes": 29881,
+      "sha256": "25503cd0873744bde05e611db591735e189d8c11b81d8638f9f244ac6d131961",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/estilos.css",
+      "remote_uid": "6d43dbc62f2e1d181216abe3931651ed15b1b19b",
+      "bytes": 17820,
+      "sha256": "b5b9db52dea7be0257976297fa5fadfe605c57c8e3261c20c502cf87efe0a474",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/main.tsx",
+      "remote_uid": "734ce0231c4c3c66ed2c1dd833cc2f72015e5c07",
+      "bytes": 237,
+      "sha256": "448a5eb84ca7f3eae13bba46d52d3d57cfee9a8d8e41b0ece9e8e5c193ed2abb",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/sse.ts",
+      "remote_uid": "cf3f4adaa06485c7afb616bd0bf392bd3ae19f3d",
+      "bytes": 1205,
+      "sha256": "e1f1364eecb400c87189548fa49b2d9f6150c26802249e85f4319a237278c376",
+      "verified_sha1": true
+    },
+    {
+      "path": "tsconfig.api.json",
+      "remote_uid": "f82aca1615ccfd929be3fa554c35ec1fb02f9c6c",
+      "bytes": 284,
+      "sha256": "8030b3441ecd905f154403461c5b7e765fea5a8b696a4c1983ac879b1a855070",
+      "verified_sha1": true
+    },
+    {
+      "path": "tsconfig.json",
+      "remote_uid": "d1da9bb00b20da4cb0db33fae6565cb67c606e3d",
+      "bytes": 423,
+      "sha256": "30d7c339c4afd62749171388b23aaa25353c9face301e28fc3647b662203490e",
+      "verified_sha1": true
+    },
+    {
+      "path": "vercel.json",
+      "remote_uid": "4ab59241179f94c3a1ca14d24b610dcfa191d7a9",
+      "bytes": 134,
+      "sha256": "2a6611cd00cb9e9a578876b6fcb00de44df7519272a8f03e1b39449f7f71c0ca",
+      "verified_sha1": true
+    },
+    {
+      "path": "vite.config.ts",
+      "remote_uid": "a1032e40209b97507f78ec7f75137cc369ce80d2",
+      "bytes": 162,
+      "sha256": "188ec08af36e7572768ba1f228cb1b909ebfe21a8cab23cd0ca62870703ba366",
+      "verified_sha1": true
+    }
+  ]
+}

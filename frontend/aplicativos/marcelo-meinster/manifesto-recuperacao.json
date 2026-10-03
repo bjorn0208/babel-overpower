@@ -1,0 +1,154 @@
+{
+  "project": "marcelo-meinster",
+  "deployment": "dpl_CWPNpBEXDfieJTs5jqPVuXJD1j8w",
+  "files": 20,
+  "excluded": [
+    {
+      "path": ".env",
+      "reason": "configuration_private"
+    }
+  ],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/marcelo-meinster/source-manifest.json",
+  "copied": [
+    {
+      "path": "Abrir M Master.command",
+      "remote_uid": "46a174031eba73820bebf2a6224ab63cf747a715",
+      "bytes": 952,
+      "sha256": "989466e53f5414020a4608d4322646a4027608ad3db72d55c6443e1edf2f808b",
+      "verified_sha1": true
+    },
+    {
+      "path": "README.md",
+      "remote_uid": "393b02d7f140781a911bd5dc27b1ff2b46ca4757",
+      "bytes": 2630,
+      "sha256": "1e992068be982b1a4702fe19e26f954cd8015dbb26aef9202382088c2781ae01",
+      "verified_sha1": true
+    },
+    {
+      "path": "api/generate.js",
+      "remote_uid": "625bcc6caf2ce7c68aebf2f9202d8d30dc95a4a0",
+      "bytes": 2615,
+      "sha256": "42a78247bb2ef23eabb1097082baedb6ab1c67c1bfba75748bf3af22f51f2dd4",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/index-CO8LARQY.js",
+      "remote_uid": "e97db232f9fdf98714b5a618f1d35395f78117c2",
+      "bytes": 245202,
+      "sha256": "376779d9b1b12ccc51a0ee5f96cfe1a6c93a61c58096d799369dda23f1a2ce9b",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/assets/index-wKlIfDL2.css",
+      "remote_uid": "25fb9880d0bf93e79e20cae22f4157036e9197f0",
+      "bytes": 14485,
+      "sha256": "1a824107156b2f98dc872d1549d69594fcfd88e3f85560e9cb950bef2bc00f5c",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/index.html",
+      "remote_uid": "8772568522cc9e0dc65e5ff0172d35b0a4c3e803",
+      "bytes": 1940,
+      "sha256": "3d3cccde2b9950c8bd2c58293adf38738de8527bb22ade3273eb5bb7f5d693b6",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/manifest.webmanifest",
+      "remote_uid": "16274132c491fc71b9ff1d06735219ece2a2f91a",
+      "bytes": 307,
+      "sha256": "c82727dbef84c267f0e88a63d53c41991a1335da48ae8b5859282b1585985ea8",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/marcelo.png",
+      "remote_uid": "1b45373990e26d7a365131536cde4faf4e21e6c7",
+      "bytes": 140863,
+      "sha256": "693b6ae4bfcb44aa99755b4f4bbbd59bc39f56abb8d6f7ab48c4cbfb7129028e",
+      "verified_sha1": true
+    },
+    {
+      "path": "dist/sw.js",
+      "remote_uid": "cb0866df2ce2cc27a3e97a0cf95e35986ed48e11",
+      "bytes": 1124,
+      "sha256": "195b2214cf539452d59e83ae394b121887fa1b4a0f4e66bd1d827ab8582d00f8",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "remote_uid": "16274132c491fc71b9ff1d06735219ece2a2f91a",
+      "bytes": 307,
+      "sha256": "c82727dbef84c267f0e88a63d53c41991a1335da48ae8b5859282b1585985ea8",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/marcelo.png",
+      "remote_uid": "1b45373990e26d7a365131536cde4faf4e21e6c7",
+      "bytes": 140863,
+      "sha256": "693b6ae4bfcb44aa99755b4f4bbbd59bc39f56abb8d6f7ab48c4cbfb7129028e",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/sw.js",
+      "remote_uid": "cb0866df2ce2cc27a3e97a0cf95e35986ed48e11",
+      "bytes": 1124,
+      "sha256": "195b2214cf539452d59e83ae394b121887fa1b4a0f4e66bd1d827ab8582d00f8",
+      "verified_sha1": true
+    },
+    {
+      "path": "index.html",
+      "remote_uid": "53cb2f4a84c1cf7c2f43486f3b90b089ed992f77",
+      "bytes": 1843,
+      "sha256": "af0e48c19e9c2eb291ccd21394df60f2a989a710599009c4194d654fb7417159",
+      "verified_sha1": true
+    },
+    {
+      "path": "package-lock.json",
+      "remote_uid": "739a6395934682cf34050ec47f86f86d36c5f13e",
+      "bytes": 25506,
+      "sha256": "89a27bc6763ce32c01ae401ed2f8eef30303883a1745438fbcc8bd87d0a1ca06",
+      "verified_sha1": true
+    },
+    {
+      "path": "package.json",
+      "remote_uid": "ed4f13b7b96ad63f16331b9f56e3a348cccefc78",
+      "bytes": 424,
+      "sha256": "af6c44bbcd90a469d500668e2b2ec2a53c3c2c95ee84a237ac64f165a818f3b2",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/ai-parser.js",
+      "remote_uid": "dc3d8b159fc9044a151acafc299ae5e2b47d4cc5",
+      "bytes": 2306,
+      "sha256": "b68494a475c0d782fcf3801c32c2a8648e9a1b70b454e530624d6656fb89815e",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/main.js",
+      "remote_uid": "02852de655fb83dd8ace19f82e6f0589a44af39d",
+      "bytes": 5245,
+      "sha256": "86046b427e546c402e78e4a05703a54f80d71ae4f7ec0a1698131a24d58d1b85",
+      "verified_sha1": true
+    },
+    {
+      "path": "src/style.css",
+      "remote_uid": "e9702fcb9fc1fcd85fd648f895d0741835d343ad",
+      "bytes": 2713,
+      "sha256": "271600e2470be6ebc8fa9f93d558e07693474ea49a3452ea933159f3246b4410",
+      "verified_sha1": true
+    },
+    {
+      "path": "test/ai.test.js",
+      "remote_uid": "716a592b5ed10f30c1de49ef8913384434c6a4d1",
+      "bytes": 2457,
+      "sha256": "ac3c9d1e1af6a7d031d245402c6d654dce02b2477785875732482c0fe06d1eca",
+      "verified_sha1": true
+    },
+    {
+      "path": "vite.config.js",
+      "remote_uid": "c50b3183407507862e9d3e4c7c27145398ec80b9",
+      "bytes": 3855,
+      "sha256": "df66ac2f2bbbbf0f5c54525432e2d3d395dc5be0c9e20ab4112feb28d21fb7dd",
+      "verified_sha1": true
+    }
+  ]
+}

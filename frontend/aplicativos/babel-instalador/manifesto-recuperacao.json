@@ -1,0 +1,44 @@
+{
+  "project": "babel-instalador",
+  "deployment": "dpl_7H6Joxgiq8Yy5rdwhjpchxoF4iD5",
+  "files": 5,
+  "excluded": [],
+  "source_manifest": "dados/complementos-20260926-1919/vercel/babel-instalador/source-manifest.json",
+  "copied": [
+    {
+      "path": "public/babel-ar.wasm",
+      "remote_uid": "5fde35e12b93a9e93c56006486757cb21b84aa21",
+      "bytes": 132861,
+      "sha256": "c63adc89902e6afc1396fc0d768d75c0eace4228ff1031099c7e20f95da2afbe",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/babel-chat.html",
+      "remote_uid": "9f07a5a6f51089f593de81f53929e449131c5066",
+      "bytes": 186012,
+      "sha256": "6ad655c6c14bd008ac4e1799415d7191c6e0f14b1c87ce53839770f43e343198",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/index.html",
+      "remote_uid": "1ed94272e8b67a00cafe5d67f6d81e882e625df9",
+      "bytes": 1590,
+      "sha256": "7c18da505bd781837d2b29db4e4e17387726672dec63b87f5f47ebc0fc40387c",
+      "verified_sha1": true
+    },
+    {
+      "path": "public/transistor.wasm",
+      "remote_uid": "b848243667d2cc766f2b920d95dd4d8005833248",
+      "bytes": 356661,
+      "sha256": "068e042978fbff39b821278143d3a156d9687a90587b64ea100807695beac37b",
+      "verified_sha1": true
+    },
+    {
+      "path": "vercel.json",
+      "remote_uid": "20deaad348d51af0d49dd34f94fb9f2f1394a3d7",
+      "bytes": 17,
+      "sha256": "5785e3dacaf8f52966fe2a6378f77489336859f98f4281e3247797cad812d60b",
+      "verified_sha1": true
+    }
+  ]
+}

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BABEL OS — Apresentação</title>
+<meta name="description" content="BABEL OS · O cérebro de IA que roda o seu negócio inteiro.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#05070f;
+  --fg:#e6ecff;
+  --muted:rgba(230,236,255,.62);
+  --faint:rgba(230,236,255,.4);
+  --cyan:#22d3ee;
+  --indigo:#6366f1;
+  --violet:#a78bfa;
+  --card:rgba(255,255,255,.03);
+  --border:rgba(255,255,255,.09);
+}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+/* ---------- fundo ---------- */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.o1{width:560px;height:560px;background:#312e81;top:-140px;left:-120px;opacity:.5}
+.o2{width:460px;height:460px;background:#0e7490;bottom:-140px;left:18%;opacity:.28}
+.o3{width:520px;height:520px;background:#4c1d95;top:22%;right:-160px;opacity:.3}
+#net{position:absolute;inset:0;width:100%;height:100%}
+/* ---------- barra de progresso ---------- */
+#prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:rgba(255,255,255,.04)}
+#prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--indigo));transition:width .45s cubic-bezier(.22,1,.36,1);box-shadow:0 0 12px rgba(34,211,238,.6)}
+/* ---------- topo ---------- */
+.top{position:fixed;top:3px;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.08em;font-size:14px;cursor:pointer;user-select:none}
+.logo svg{display:block}
+.logo span{color:var(--cyan);font-weight:700}
+.tools{display:flex;gap:10px}
+.tbtn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);
+  font:600 11px/1 inherit;font-family:inherit;letter-spacing:.18em;text-transform:uppercase;
+  padding:9px 16px;border-radius:999px;cursor:pointer;transition:.2s;
+}
+.tbtn:hover{color:var(--fg);border-color:rgba(34,211,238,.45);background:rgba(34,211,238,.08);box-shadow:0 0 18px rgba(34,211,238,.15)}
+.tbtn .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.6s infinite}
+.hidden{display:none!important}
+/* ---------- palco ---------- */
+#stage{position:fixed;inset:0;z-index:10;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:76px 96px 96px}
+.slide{width:100%;max-width:1060px;margin:auto}
+.slide.center{text-align:center;display:flex;flex-direction:column;align-items:center}
+/* revelação */
+.rv{opacity:0;animation:rise .65s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+/* esfera 3D */
+.orb3d{width:210px;height:210px;margin-bottom:2px;filter:drop-shadow(0 0 34px rgba(34,211,238,.35))}
+/* ---------- tipografia ---------- */
+.eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:18px;display:flex;align-items:center;gap:8px;
+}
+.slide.center .eyebrow{justify-content:center}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.6s infinite}
+.title{font-size:clamp(1.7rem,3.6vw,2.9rem);font-weight:700;letter-spacing:-.03em;line-height:1.14;max-width:940px}
+.title em{font-style:normal;color:var(--cyan)}
+.title em.v{color:var(--violet)}
+.mega{font-size:clamp(3.4rem,9vw,6.5rem);font-weight:800;letter-spacing:-.03em;line-height:1}
+.mega span{color:var(--cyan);text-shadow:0 0 46px rgba(34,211,238,.45)}
+.sub{margin-top:18px;font-size:clamp(1rem,1.6vw,1.25rem);color:var(--muted);line-height:1.6;max-width:760px}
+.sub em{font-style:normal;color:var(--cyan)}
+.sub em.v{color:var(--violet)}
+.para{margin-top:16px;font-size:clamp(1rem,1.5vw,1.15rem);color:var(--muted);line-height:1.65;max-width:820px}
+.fine{margin-top:14px;font-size:.85rem;color:var(--faint)}
+.credit{margin-top:34px;font-size:.85rem;color:var(--faint)}
+.credit b{color:var(--muted);font-weight:600}
+.pill{
+  display:inline-flex;align-items:center;gap:10px;margin-top:26px;
+  border:1px solid var(--border);background:rgba(255,255,255,.05);
+  padding:10px 20px;border-radius:999px;font-size:11px;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.6s infinite}
+/* ---------- cards ---------- */
+.grid{display:grid;gap:16px;margin-top:34px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:1fr 1fr}
+.card{
+  position:relative;border:1px solid var(--border);background:var(--card);
+  border-radius:18px;padding:24px 24px 22px;text-align:left;overflow:hidden;
+  transition:transform .18s ease,border-color .25s,box-shadow .25s;will-change:transform;
+}
+.card::after{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(320px at var(--mx,50%) var(--my,50%),rgba(255,255,255,.09),transparent 60%);
+}
+.card:hover{border-color:rgba(255,255,255,.22);box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.card:hover::after{opacity:1}
+.card h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.card h3 em{font-style:normal;color:var(--cyan)}
+.card p{margin-top:8px;font-size:.92rem;color:var(--muted);line-height:1.6}
+.card .k{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.card.hi{border-color:rgba(34,211,238,.4);background:linear-gradient(160deg,rgba(34,211,238,.08),rgba(99,102,241,.06))}
+.card.hi:hover{border-color:rgba(34,211,238,.7);box-shadow:0 18px 50px rgba(34,211,238,.12)}
+.card.hi h3{color:var(--cyan)}
+.card .big{font-size:2rem;font-weight:800;letter-spacing:-.02em;color:var(--cyan)}
+.num{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;color:var(--cyan)}
+.src{margin-top:10px;font-size:.72rem;color:var(--faint);line-height:1.45}
+/* listas +/- */
+.list{list-style:none;margin-top:12px}
+.list li{padding:7px 0;font-size:.95rem;color:var(--muted);line-height:1.5}
+.list.neg li::before{content:"—  ";color:var(--faint)}
+.list.pos li::before{content:"+  ";color:var(--cyan);font-weight:700}
+.list.dot li::before{content:"·  ";color:var(--cyan);font-weight:700}
+/* citação */
+.quote{
+  margin-top:30px;padding:18px 24px;border-left:3px solid var(--cyan);
+  background:rgba(34,211,238,.05);border-radius:0 14px 14px 0;
+  font-size:1.05rem;line-height:1.6;color:var(--fg);max-width:860px;
+}
+.quote em{font-style:normal;color:var(--cyan)}
+/* perguntas numeradas */
+.qrow{display:flex;gap:22px;align-items:flex-start;border:1px solid var(--border);background:var(--card);border-radius:16px;padding:20px 24px;margin-top:14px;text-align:left;transition:transform .18s,border-color .25s}
+.qrow:hover{border-color:rgba(34,211,238,.4);transform:translateX(6px)}
+.qrow .n{font-size:1.5rem;font-weight:800;color:var(--cyan);opacity:.9;min-width:44px}
+.qrow p{font-size:1.05rem;color:var(--fg);line-height:1.55}
+/* preços */
+.prow{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid var(--border);padding:16px 6px;font-size:1rem;color:var(--muted);text-align:left;transition:background .25s}
+.prow:hover{background:rgba(255,255,255,.03)}
+.prow b{color:var(--fg);font-weight:600;white-space:nowrap}
+.prow.total{border-bottom:none;border-top:2px solid rgba(34,211,238,.5);margin-top:6px;padding-top:20px;color:var(--fg);font-weight:700}
+.prow.total b{color:var(--cyan);font-size:1.3rem}
+/* soma do investimento */
+.sum{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.sum .amt{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;color:var(--cyan)}
+.sum .lbl{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.sum .plus{font-size:1.6rem;font-weight:700;color:var(--faint)}
+/* Q&A objeções */
+.qa{border:1px solid var(--border);background:var(--card);border-radius:16px;padding:18px 20px;text-align:left;transition:transform .18s,border-color .25s;position:relative;overflow:hidden}
+.qa::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(280px at var(--mx,50%) var(--my,50%),rgba(255,255,255,.07),transparent 60%)}
+.qa:hover{border-color:rgba(34,211,238,.35)}
+.qa:hover::after{opacity:1}
+.qa .q{font-weight:700;font-size:.98rem;color:var(--fg)}
+.qa .a{margin-top:8px;font-size:.88rem;color:var(--muted);line-height:1.55}
+/* gráfico de barras */
+.chart{margin-top:16px;text-align:left}
+.brow{margin-top:12px}
+.brow .bl{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+.brow .bl b{color:var(--fg);font-weight:600}
+.track{height:10px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden}
+.fill{height:100%;border-radius:6px;background:rgba(255,255,255,.22);width:0;animation:grow 1s .3s cubic-bezier(.22,1,.36,1) forwards}
+.brow.hl .fill{background:linear-gradient(90deg,var(--cyan),var(--indigo));box-shadow:0 0 14px rgba(34,211,238,.5)}
+.brow.hl .bl b{color:var(--cyan)}
+@keyframes grow{to{width:var(--w)}}
+/* CTA */
+.cta{
+  position:relative;display:inline-flex;align-items:center;gap:10px;margin-top:24px;
+  background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#04121a;
+  font:700 .95rem/1 inherit;font-family:inherit;padding:15px 30px;border-radius:999px;
+  border:none;cursor:pointer;letter-spacing:.02em;transition:.2s;overflow:hidden;
+}
+.cta::before{content:'';position:absolute;top:0;left:-80%;width:60%;height:100%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:sheen 3.2s 1.2s infinite}
+@keyframes sheen{0%{left:-80%}45%,100%{left:130%}}
+.cta:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08);box-shadow:0 12px 34px rgba(34,211,238,.35)}
+/* ---------- HOME ---------- */
+.homecards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:48px;width:100%;max-width:880px}
+.hcard{
+  position:relative;text-align:left;border:1px solid var(--border);background:var(--card);
+  border-radius:20px;padding:30px;cursor:pointer;transition:transform .2s ease,border-color .25s,background .25s;overflow:hidden;will-change:transform;
+}
+.hcard::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(380px at var(--mx,50%) var(--my,50%),rgba(255,255,255,.08),transparent 60%)}
+.hcard:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06)}
+.hcard:hover::after{opacity:1}
+.hcard .glow{position:absolute;right:-60px;top:-60px;width:190px;height:190px;border-radius:50%;filter:blur(60px);opacity:.35;transition:.3s}
+.hcard:hover .glow{opacity:.7}
+.hcard h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-top:14px}
+.hcard p{margin-top:10px;font-size:.92rem;color:var(--muted);line-height:1.6;min-height:66px}
+.hcard .go{margin-top:20px;font-size:.9rem;font-weight:600;color:var(--fg);display:inline-flex;align-items:center;gap:8px;transition:.25s}
+.hcard:hover .go{gap:14px;color:var(--cyan)}
+/* ---------- navegação ---------- */
+.navb{
+  position:fixed;top:50%;transform:translateY(-50%);z-index:40;
+  width:46px;height:46px;border-radius:50%;border:1px solid var(--border);
+  background:rgba(255,255,255,.04);color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.2s;font-size:0;
+}
+.navb:hover{color:var(--fg);border-color:rgba(34,211,238,.5);background:rgba(34,211,238,.1);box-shadow:0 0 22px rgba(34,211,238,.2)}
+.navb:disabled{opacity:.25;cursor:default;box-shadow:none}
+#prev{left:16px}#next{right:16px}
+#deckfoot{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;flex-direction:column;align-items:center;gap:9px;padding:14px 0 16px}
+#dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:80vw}
+.dtb{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22);border:none;cursor:pointer;padding:0;transition:.25s}
+.dtb:hover{background:rgba(255,255,255,.5)}
+.dtb.on{width:24px;border-radius:4px;background:var(--cyan);box-shadow:0 0 10px rgba(34,211,238,.6)}
+#counter{font-size:11px;letter-spacing:.3em;color:var(--faint)}
+/* dica de navegação */
+#hint{
+  position:fixed;left:50%;bottom:72px;transform:translateX(-50%);z-index:45;
+  background:rgba(10,16,32,.92);border:1px solid rgba(34,211,238,.3);border-radius:999px;
+  padding:10px 22px;font-size:12px;letter-spacing:.12em;color:var(--muted);
+  opacity:0;pointer-events:none;transition:opacity .5s;
+}
+#hint.show{opacity:1}
+#hint b{color:var(--cyan);font-weight:700}
+/* ---------- painel roteiro ---------- */
+#notes{
+  position:fixed;left:50%;bottom:0;transform:translate(-50%,105%);z-index:50;
+  width:min(860px,94vw);background:rgba(10,16,32,.97);border:1px solid rgba(34,211,238,.3);
+  border-bottom:none;border-radius:18px 18px 0 0;padding:20px 26px 26px;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:0 -12px 50px rgba(0,0,0,.5);
+}
+#notes.open{transform:translate(-50%,0)}
+#notes .nlabel{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+#notes .nlabel .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.6s infinite}
+#ncontent{font-size:.92rem;color:var(--muted);line-height:1.65;max-height:32vh;overflow-y:auto}
+#ncontent b{color:var(--fg)}
+#ncontent i{color:var(--faint)}
+/* ---------- responsivo ---------- */
+@media(max-width:860px){
+  #stage{padding:70px 22px 110px}
+  .g2,.g3,.g4,.homecards{grid-template-columns:1fr}
+  .navb{display:none}
+  .hcard p{min-height:0}
+  .orb3d{width:150px;height:150px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rv{animation-duration:.01s}
+  #net{display:none}
+  .cta::before{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <canvas id="net"></canvas>
+</div>
+<div id="prog"><i></i></div>
+
+<header class="top">
+  <div class="logo" onclick="goHome()">
+    <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+      <path d="M16 7 L26 25 L6 25 Z" stroke="url(#lg)" stroke-width="2.4" stroke-linejoin="round"/>
+      <circle cx="16" cy="7" r="3" fill="#22d3ee"/>
+      <defs><linearGradient id="lg" x1="6" y1="25" x2="26" y2="7"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+    </svg>
+    <div><b>BABEL</b> <span>OS</span></div>
+  </div>
+  <div class="tools">
+    <button id="btnRoteiro" class="tbtn hidden" onclick="toggleNotes()"><span class="dot"></span> Roteiro</button>
+    <button id="btnFull" class="tbtn" onclick="toggleFull()">⤢ Tela cheia</button>
+    <button id="btnHome" class="tbtn hidden" onclick="goHome()">← Início</button>
+  </div>
+</header>
+
+<main id="stage"></main>
+
+<button id="prev" class="navb hidden" onclick="move(-1)" aria-label="Anterior">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+</button>
+<button id="next" class="navb hidden" onclick="move(1)" aria-label="Próximo">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+</button>
+
+<footer id="deckfoot" class="hidden"><div id="dots"></div><div id="counter"></div></footer>
+<div id="hint">Use <b>←</b> <b>→</b> para navegar · <b>F</b> tela cheia</div>
+
+<div id="notes">
+  <div class="nlabel"><span class="dot"></span> Roteiro APN · o que falar nesta tela</div>
+  <div id="ncontent"></div>
+</div>
+
+<script>
+/* ============================================================
+   CONTEÚDO — copy integral de lp2.babel-os.com + Roteiro APN
+   ============================================================ */
+
+const card = (t,d,k) => `<div class="card">${k?`<div class="k">${k}</div>`:''}<h3>${t}</h3>${d?`<p>${d}</p>`:''}</div>`;
+const ORB = `<canvas class="orb3d rv" width="420" height="420"></canvas>`;
+
+const COMERCIAL = [
+{ center:true,
+  e:'Apresentação Institucional · BABEL OS',
+  html:`${ORB}
+    <div class="mega rv">BABEL <span>OS</span></div>
+    <p class="sub rv">A primeira IA que não apenas <em>atende seus clientes</em> — ela opera a <em class="v">sua empresa inteira</em>.</p>
+    <div class="pill rv"><span class="dot"></span> BABEL OS · Sistema Operacional Autônomo de Negócios</div>
+    <div class="credit rv">Carlos Machado · <b>Comercial Babel OS</b></div>`,
+  n:`<b>Etapa 1 · Saudação</b> — Fale nome e sobrenome, agradeça pelo tempo disponibilizado, diga que reconhece que o tempo é o que temos de mais valioso e que vai honrar o tempo que terão juntos.<br><br>
+     <b>Etapa 2 · Quebra-gelo (5 min)</b> — Pergunte de onde a pessoa está falando. A partir do momento em que ela disser o nome da cidade, por 5 minutos, se divirta, faça rapport, entre dentro dos assuntos que o lead gosta.`},
+
+{ e:'Antes de qualquer coisa',
+  t:`Isso aqui <em>não é uma proposta</em>.`,
+  html:`<p class="para rv">É um diagnóstico. Antes de qualquer valor, eu preciso entender como a sua operação funciona hoje — para dizer com honestidade se a BABEL faz sentido pra sua empresa ou não.</p>
+    <p class="para rv">Se em algum ponto perceber que não encaixa, eu mesmo digo. Combinado?</p>
+    <div class="pill rv"><span class="dot"></span> Conversa consultiva</div>`,
+  n:`<b>Etapa 3 · Gerar expectativa</b> — "Quero que saiba que, a partir de agora, o que vou mostrar tem força e recurso para fazer empresas crescerem vertiginosamente — é literalmente a unificação da comunicação das empresas, seja com leads, clientes, funcionários, serviços e muito mais."`},
+
+{ e:'Diagnóstico',
+  t:`Vou te fazer <em>3 perguntas</em> para entender a sua operação.`,
+  html:`<div class="rv qrow"><div class="n">01</div><p>Por quantos sistemas diferentes um lead da sua empresa passa entre chegar e virar contrato?</p></div>
+    <div class="rv qrow"><div class="n">02</div><p>Em quanto tempo, na média, sua equipe responde a primeira mensagem — e quanto isso muda no fim de semana?</p></div>
+    <div class="rv qrow"><div class="n">03</div><p>Quando alguém sai do time comercial, quanto da memória do cliente vai embora junto?</p></div>`,
+  n:`<b>Etapa 4 · Mapeamento de dor</b> — "Quais são os principais problemas que você enfrenta em seu negócio?"<br><br>
+     <b>Etapa 5 · Mapeamento do desejo</b> — "O que você imagina quando pensa em sua empresa crescendo?"<br><br>
+     <b>Etapa 6 · Fusão psicológica</b> — "Se existisse uma forma, verdadeira, inédita, de resolver a dor <i>(aí repita as dores que a própria pessoa falou)</i> e que também vai em direção aos seus principais desejos <i>(o que ele falou)</i>, isso seria bom ou ótimo?"`},
+
+{ e:'O nome da dor',
+  t:`Toda empresa que cresce trava no mesmo ponto: <em>bagunça na operação</em> + <em class="v">sobrecarga de decisões</em>.`,
+  html:`<div class="grid g3">
+    ${card('Dono virou operário','O dono trabalha dentro da engrenagem, não sobre ela. Se ele para, a empresa para.')}
+    ${card('Ferramentas espalhadas','Dezenas de abas — sistema de clientes, planilha, WhatsApp, contrato, financeiro — e nenhuma conversa com a outra.')}
+    ${card('Atendimento robotizado','Copia e cola, respostas engessadas, retorno esquecido. Leads caros esfriam num domingo à tarde.')}
+  </div>
+  <div class="quote rv">"A empresa não perde por falta de leads. Perde por falta de <em>cabeça pensante</em> por trás deles."</div>`},
+
+{ e:'Custo invisível · O que não aparece na conta',
+  t:`O que não entra na planilha — e <em>drena a margem</em> toda.`,
+  html:`<div class="grid g4">
+    <div class="card rv"><div class="num">até <span data-cu="10">10</span>× mais caro</div><p>é o que sua empresa paga hoje para manter várias ferramentas separadas — IA de atendimento, sistema de clientes, plataforma de assinatura digital e sistema de suporte — comparado a um único sistema unificado como a BABEL OS.</p></div>
+    <div class="card rv"><div class="num">R$ 4–8k</div><p>custo mensal médio por vendedor humano — que dorme, adoece, pede aumento e leva a memória do cliente quando sai.</p><div class="src">Catho · Salário de vendedor (SDR) Brasil 2025 (média + encargos)</div></div>
+    <div class="card rv"><div class="num"><span data-cu="72">72</span>h</div><p>tempo médio para um lead esfriar de vez. Ninguém volta.</p><div class="src">Harvard Business Review · "Lead Response Management Study" (Oldroyd, McElheran &amp; Elkington)</div></div>
+    <div class="card rv"><div class="num"><span data-cu="100">100</span>%</div><p>da operação depende de gente estar acordada, com humor e sem gargalo.</p></div>
+  </div>
+  <div class="quote rv">O problema não é o que a sua empresa paga pelos sistemas. É o que ela <em>não vê saindo</em> — todo mês, em silêncio.</div>`},
+
+{ e:'A transformação',
+  t:`De empresa que <em class="v">depende de gente</em> para empresa que <em>cresce sozinha</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><div class="k">Hoje · tudo depende de pessoas</div>
+      <ul class="list neg">
+        <li>Limite = horas de quem trabalha</li>
+        <li>Dono opera o sistema</li>
+        <li>Retorno ao cliente manual e inconsistente</li>
+        <li>Contratos demoram dias pra sair</li>
+        <li>Crescer = contratar mais gente</li>
+      </ul></div>
+    <div class="card hi rv"><div class="k" style="color:var(--cyan)">Com a BABEL OS</div>
+      <ul class="list pos">
+        <li>Atendimento imediato, 24 horas por dia, todos os dias</li>
+        <li>Dono comanda a inteligência que trabalha por ele</li>
+        <li>IA aprende com cada objeção respondida</li>
+        <li>Contrato assinado dentro da mesma conversa</li>
+        <li>Crescer sem inchar a folha de pagamento</li>
+      </ul></div>
+  </div>`,
+  n:`<b>Etapa 7 · Apresente o sistema</b> — Agora apresente o sistema indo exatamente nos pontos que ajudam o lead a construir o que deseja; depois vá em direção aos recursos do sistema que aliviam as dores que o cliente citou. <i>(APN personalizada)</i>`},
+
+{ e:'Nova categoria de mercado',
+  t:`BABEL não é mais um software. É a <em>BABEL OS</em>.`,
+  html:`<div class="grid g2">
+    ${card('Software tradicional','Sua empresa aluga um programa e precisa de suor humano para fazê-lo funcionar. IA grudada por cima, com integrações frágeis.')}
+    <div class="card hi rv"><h3>BABEL OS · Sistema que opera sozinho</h3><p>Sua empresa investe e o sistema devolve resultado pronto pra usar. A IA é o motor central — não um acessório.</p></div>
+  </div>
+  <div class="quote rv">Você não usa a Babel. Você a contrata como a sua <em>principal executiva de operações</em>.</div>`},
+
+{ e:'Mecanismo único',
+  t:`Uma só inteligência que <em>conversa</em> e <em class="v">executa</em>.`,
+  html:`<div class="grid g2">
+    ${card('A mesma inteligência','Conversa como uma pessoa.')}
+    ${card('Com acesso total de administradora','Executa dentro da sua empresa: vende, agenda e cobra — sozinha.')}
+  </div>
+  <div class="quote rv">Chega de conectar sistema com sistema. A IA não pede permissão para outro programa — <em>ela é o sistema</em>.</div>`},
+
+{ e:'Como a BABEL opera',
+  t:`4 alavancas que substituem <em>uma diretoria inteira</em>.`,
+  html:`<div class="grid g4">
+    ${card('Busca por intenção','"Traz os leads que têm medo de levar golpe." Ela busca pelo sentido, não pelo campo.')}
+    ${card('Vendedora, não robô de resposta','Apresenta valor, responde dúvidas e fecha na própria conversa. Zero menu, zero "digite 1".')}
+    ${card('Contrato em 1 clique','No ápice do interesse, dispara link de contrato/pagamento — dentro do mesmo chat em que vendeu.')}
+    ${card('Memória que não esquece','Lembra da conversa curta e da história inteira. Retoma o cliente onde parou — mesmo 6 meses depois, mesmo se o vendedor foi embora.')}
+  </div>`},
+
+{ e:'Ecossistema · De uma mente para sua empresa',
+  t:`BABEL, <em>de uma mente</em> para a sua empresa.`,
+  html:`<p class="sub rv">O primeiro sistema operacional pensado para empresas.</p>
+  <div class="grid g4">
+    ${card('Atendimento 24/7 no WhatsApp','Atendimento, vendas e suporte para seus clientes, a qualquer hora. O sistema se conecta ao WhatsApp e, por meio de LLMs, conversa com seus clientes quase parecendo 100% humano.')}
+    ${card('Dados que aprendem','Tudo o que você faz na BABEL vira dados que alimentam o banco do sistema — tornando-o cada vez mais inteligente.')}
+    ${card('O empresário não está mais sozinho','O sistema é capaz de conversar com você e usa toda a base de dados para responder.')}
+    ${card('Apps para todo e qualquer nicho','Novos apps o tempo todo: app de contabilidade (veja as DAS, guias de imposto e mais), consulta Serasa, app de reunião para fazer calls — e muito mais.')}
+  </div>`},
+
+{ e:'Contra o quê a BABEL compete',
+  t:`A conta que <em>não fecha</em> com o modelo tradicional.`,
+  html:`<div class="grid g4">
+    ${card('Sistema de clientes tradicional','Organiza dados. Não vende.')}
+    ${card('Chatbot / GPT no WhatsApp','Fala bonito. Não age. Não emite contrato, não lança financeiro.')}
+    ${card('Sistema de clientes + IA + assinatura digital + suporte, tudo conectado','Até 10× mais caro. Sem memória compartilhada. Quebra na primeira mudança de qualquer ferramenta.')}
+    <div class="card hi rv"><h3>BABEL OS</h3><p>Um sistema só. Clientes, contratos, atendimento e financeiro feitos para a IA operar — não para ela se encaixar depois.</p></div>
+  </div>`},
+
+{ e:'O que a sua empresa passa a ter',
+  t:`Três promessas — e nenhuma é <em>marketing</em>.`,
+  html:`<div class="grid g3">
+    ${card('Atendimento imediato, 24/7','Responde na hora, todos os dias, sem pausa e sem fila. Nenhum lead caro fica esperando.')}
+    ${card('Contrato em 1 clique','A mesma IA que vendeu emite o contrato e o link de pagamento.')}
+    ${card('Recuperação automática','Leads parados voltam sozinhos — abordados pela dúvida específica que travou cada um.')}
+  </div>`},
+
+{ center:true,
+  e:'Pausa · Demo ao vivo',
+  t:`Antes do investimento, deixa eu te mostrar <em>rodando</em>.`,
+  html:`<p class="para rv" style="margin-inline:auto">Vou compartilhar a tela e abrir a BABEL — pra você ver o produto operando uma conversa real.</p>
+    <p class="fine rv">Quando terminar a demonstração, seguimos aqui — com o plano de ativação.</p>
+    <div class="quote rv" style="text-align:left">Uma pergunta antes de continuar: o que você acabou de ver resolve o gargalo que me contou no começo?</div>`,
+  n:`<b>Etapa 8 · Perguntas de construção do fechamento</b> — "O que mais chamou a sua atenção?" · "Qual seria o primeiro problema que você iria resolver tendo a Babel?" · "Como seria a sua vida sem esse problema?"`},
+
+{ e:'O que entra na ativação',
+  t:`Vamos somar o que a sua empresa passa a <em>operar</em>.`,
+  html:`<div style="margin-top:26px">
+    <div class="prow rv"><span>BABEL OS completo · 1º mês de acesso</span><b>R$ <span data-cu="3500" data-fmt="br">3.500</span></b></div>
+    <div class="prow rv"><span>Configuração inicial + arquitetura da operação (com o Mentor)</span><b>R$ <span data-cu="2000" data-fmt="br">2.000</span></b></div>
+    <div class="prow rv"><span>Leitura inteligente de PDFs, regras e base de conhecimento</span><b>R$ <span data-cu="1500" data-fmt="br">1.500</span></b></div>
+    <div class="prow rv"><span>Personalidade customizada + tom de voz da sua marca</span><b>R$ <span data-cu="1500" data-fmt="br">1.500</span></b></div>
+    <div class="prow total rv"><span>Valor real da entrega</span><b>R$ <span data-cu="8500" data-fmt="br">8.500</span></b></div>
+  </div>`,
+  n:`<b>Etapa 9 · Gatilho da troca de autoridade</b> — Crie um cenário onde invertemos a decisão de acesso ao sistema, saindo das mãos do lead e vindo para as nossas mãos:<br><br>
+     "Como estamos lidando com uma tecnologia que vem pra mudar o mercado, precisamos garantir que nossos clientes estejam realmente decididos a avançar de fase, para uma versão da sua empresa mais tecnológica — e por isso sua resposta vai determinar se vamos poder prosseguir ou não. Você e sua empresa estão na fase de viver algo novo? Aprender o novo? Se adaptar ao novo? Existe possibilidade de em 1 ou 2 meses querer desistir?"<br><br>
+     <i>Faça um suspense e então avance para o financeiro.</i>`},
+
+{ e:'O investimento da sua empresa',
+  t:`Não são R$ 8.500. É <em>uma fração</em>.`,
+  html:`<div class="grid g2">
+    <div class="card hi rv">
+      <div class="sum">
+        <div><div class="amt">R$ <span data-cu="1000" data-fmt="br">1.000</span></div><div class="lbl">implementação</div></div>
+        <div class="plus">+</div>
+        <div><div class="amt">R$ <span data-cu="1000" data-fmt="br">1.000</span></div><div class="lbl">mensalidade</div></div>
+      </div>
+      <ul class="list dot">
+        <li>BABEL OS completo · 1º mês de acesso incluso</li>
+        <li>Leitura da sua base de conhecimento</li>
+        <li>Configuração inicial guiada pelo Mentor</li>
+        <li>Personalidade customizada da sua marca</li>
+      </ul>
+      <p style="border-top:1px solid var(--border);padding-top:12px;margin-top:12px">1º mês: <b style="color:var(--fg)">R$ 2.000</b> (implementação + 1ª mensalidade) · a partir do 2º mês: <b style="color:var(--fg)">R$ 1.000/mês</b> · cancela quando quiser</p>
+      <button class="cta">Fazer o PIX agora · R$ 2.000</button>
+    </div>
+    <div class="card rv">
+      <div class="k">Comparativo de custo mensal</div>
+      <div class="chart">
+        <div class="brow"><div class="bl"><span>Vendedor humano</span><b>R$ 6.000</b></div><div class="track"><div class="fill" style="--w:100%"></div></div></div>
+        <div class="brow"><div class="bl"><span>Agência</span><b>R$ 3.500</b></div><div class="track"><div class="fill" style="--w:58%"></div></div></div>
+        <div class="brow"><div class="bl"><span>Vários softwares + integrações</span><b>R$ 2.200</b></div><div class="track"><div class="fill" style="--w:37%"></div></div></div>
+        <div class="brow hl"><div class="bl"><span>Babel OS</span><b>R$ 1.000</b></div><div class="track"><div class="fill" style="--w:17%"></div></div></div>
+      </div>
+      <p style="margin-top:16px">Menos do que <i>uma semana</i> de vendedor humano — só que este <em style="font-style:normal;color:var(--cyan)">opera 24/7 e nunca esquece regra</em>.</p>
+      <div class="src">Catho · Salário médio de vendedor B2B Brasil 2025 (faixa R$ 4–8k com encargos)</div>
+    </div>
+  </div>`,
+  n:`<b>Etapa 10 · Valor e preço</b> — Repita os benefícios com base nas dores e desejos relatados para gerar valor, e então diga o preço sendo <b>R$ 1 mil mensal + R$ 1 mil de implementação</b> — pois falar 1 mil duas vezes parece mais barato do que falar 2 mil uma vez.<br><br>No 1º mês o total é <b>R$ 2.000</b> (implementação + 1ª mensalidade); a partir do 2º mês, <b>R$ 1.000/mês</b>.`},
+
+{ e:'Risco zero para a empresa',
+  t:`O risco fica <em>comigo</em>.`,
+  html:`<p class="para rv">Nos primeiros 30 dias, se a operação não sentir a tração combinada aqui, a sua empresa simplesmente não renova — sem multa, sem letra miúda.</p>
+    <div class="quote rv">Você não está apostando. Está <em>testando com hora marcada pra sair</em>.</div>
+    <p class="fine rv">A próxima mensalidade de R$ 1.000 só entra a partir do 31º dia — e apenas se a empresa decidir continuar.</p>`},
+
+{ e:'Sei o que passou pela sua cabeça',
+  t:`Antes de você <em>me perguntar</em>…`,
+  html:`<div class="grid g2" style="gap:12px">
+    <div class="qa rv"><div class="q">"Meus clientes vão perceber que é um robô."</div><div class="a">Ela conversa de forma fluida, com memória profunda — sem "digite 1", sem esquecer o cliente. Adapta o tom ao humor de quem está do outro lado.</div></div>
+    <div class="qa rv"><div class="q">"Vai dar muito trabalho configurar."</div><div class="a">O Mentor puxa a configuração sozinho. Sua empresa envia os PDFs e regras que já usa — a IA mastiga o conhecimento por conta própria.</div></div>
+    <div class="qa rv"><div class="q">"E se a IA errar feio com um cliente?"</div><div class="a">Ela nunca inventa resposta. Só fala com base no seu conhecimento — se não souber, avisa e passa pra pessoa certa. Tudo fica registrado, auditável e reversível.</div></div>
+    <div class="qa rv"><div class="q">"E os dados dos meus clientes? LGPD?"</div><div class="a">Dados criptografados, isolados por empresa, sob controle da sua operação. A Babel é operadora — a sua empresa segue como controladora dos dados, como manda a LGPD.</div></div>
+    <div class="qa rv" style="grid-column:1/-1"><div class="q">"Não é o momento — a operação está corrida."</div><div class="a">É exatamente por isso que é o momento. A BABEL OS entra pra tirar peso da mesa da diretoria — não pra somar tarefa.</div></div>
+  </div>`,
+  n:`<b>Etapa 11 · Contorno de objeções</b> — Se a pessoa disser que algo a impede, siga esta sequência:<br><br>
+     <b>a.</b> No momento em que a pessoa estiver dizendo a objeção de tentativa de desistência/fuga, comece a sorrir.<br>
+     <b>b.</b> Mostre e diga que compreende o problema.<br>
+     <b>c.</b> Desvie o foco do dinheiro falando sobre o problema com o lead.<br>
+     <b>d.</b> Canalize: "se existisse uma forma que te permitisse fechar, mesmo com essa questão que você comentou, você fecha?"<br>
+     <b>e.</b> Feche e conclua.`},
+
+{ e:'Por que agora',
+  t:`O custo de esperar <em>90 dias</em>.`,
+  html:`<div class="grid g3">
+    ${card('3 meses de receita perdida','Cada semana sem a BABEL OS é uma semana de conversa que esfriou — impossível de recuperar depois.')}
+    ${card('Categoria sendo tomada','A categoria BABEL OS é vazia hoje. Quem entra agora consolida uma vantagem de memória que ninguém copia depois.')}
+    ${card('Preço trava agora','R$ 1.000 de implementação + R$ 1.000/mês é a rodada atual. Quem entra agora trava a condição por 12 meses.')}
+  </div>`},
+
+{ center:true,
+  e:'Próximo passo',
+  t:`Pelo que você me contou, o gargalo é <em>exatamente isso</em>.`,
+  html:`<p class="sub rv" style="margin-inline:auto">Faz sentido pra você? Vamos implementar na sua operação?</p>
+    <div class="pill rv"><span class="dot"></span> BABEL OS · pronto pra operar</div>`,
+  n:`<b>Etapa 11 · Frase de fechamento</b> — "Tem algo que impede de você fechar hoje, tornar o dia de hoje especial, pois é o dia em que a sua empresa começa uma nova jornada?"<br><br>
+     Se disser que <b>não</b>: então fechado. Se disser que <b>sim</b>: pergunte o quê — e siga a sequência de contorno de objeções (tela anterior).`},
+
+{ center:true,
+  e:'Encerramento',
+  t:`A decisão é simples: seguir empurrando a empresa <em class="v">no braço</em> — ou virar <em>BABEL OS</em>.`,
+  html:`<p class="sub rv" style="margin-inline:auto">Vamos ativar a sua BABEL OS agora mesmo?</p>
+    <button class="cta rv">Fazer o PIX agora · R$ 2.000</button>
+    <p class="fine rv">Implementação R$ 1.000 + 1ª mensalidade R$ 1.000 · depois, R$ 1.000/mês</p>`},
+
+{ e:'Bônus · Só se fizer sentido pra você',
+  t:`De cliente a <em>parceira BABEL OS</em>.`,
+  html:`<div class="grid g2">
+    <div class="card hi rv">
+      <div class="k" style="color:var(--cyan)">Plano Representante Comercial</div>
+      <div class="big">R$ <span data-cu="5000" data-fmt="br">5.000</span></div>
+      <p>A sua empresa vira representante oficial da BABEL OS — recebe a implementação completa e o 1º mês de acesso inclusos, e passa a poder ativar a BABEL OS em outras empresas da sua rede.</p>
+      <p style="margin-top:10px">A partir do 2º mês: <b style="color:var(--fg)">R$ 1.000/mês</b> de acesso.</p>
+    </div>
+    <div class="card rv">
+      <div class="k">O que vem junto</div>
+      <p>Além de tudo que a implementação já entrega —</p>
+      <ul class="list dot">
+        <li>Território</li>
+        <li>Material comercial</li>
+        <li>Comissão recorrente por cliente ativo</li>
+      </ul>
+    </div>
+  </div>`},
+
+{ e:'O modelo de ganho',
+  t:`Como a sua empresa <em>multiplica receita</em> como parceira.`,
+  html:`<div class="grid g3">
+    ${card('1. Ganho direto','Tudo que a BABEL OS faz na própria operação: tempo de sócio, vendas recuperadas, folha enxuta. Já é retorno — mesmo sem revender.')}
+    ${card('2. Ganho por indicação','A cada empresa da sua rede que fecha um plano, comissão sobre a ativação e sobre a renovação enquanto o cliente continuar ativo.')}
+    ${card('3. Ganho recorrente','Renovação é mensal. Cada empresa ativada vira fonte de receita continuada — sua carteira cresce em paralelo ao seu negócio.')}
+  </div>
+  <div class="quote rv">"A sua empresa não está comprando um sistema. Está comprando uma <em>posição dentro da categoria BABEL OS</em>."</div>`},
+
+{ center:true,
+  e:'Obrigado',
+  t:`Obrigado pelo seu <em>tempo e confiança</em>.`,
+  html:`<p class="sub rv" style="margin-inline:auto">Foi um prazer apresentar a BABEL OS. A partir de agora, a sua operação nunca mais precisa parar.</p>
+    <p class="para rv" style="margin-inline:auto">Vamos construir juntos a próxima era da sua empresa.</p>
+    <div class="credit rv">Carlos Machado · <b>Comercial BABEL OS</b></div>`,
+  n:`<b>Etapa 12 · Indicações</b> — Peça 3 indicações e diga que, se as 3 fecharem, a pessoa ganha 1 mês de sistema gratuitamente.`},
+];
+
+const INVESTIDORES = [
+{ center:true,
+  e:'Investidores · 1:1',
+  html:`${ORB}
+    <div class="mega rv">BABEL <span>OS</span></div>
+    <p class="sub rv">A primeira empresa a construir a categoria <em>BABEL OS</em> · Sistema Operacional Autônomo de Negócios.</p>
+    <div class="pill rv"><span class="dot"></span> Categoria emergente · Mecanismo UOC</div>`},
+
+{ e:'O que vamos cobrir',
+  t:`Você já sabe do que se trata. Hoje, <em>vamos fundo</em>.`,
+  html:`<div class="grid g3">
+    ${card('Categoria &amp; mecanismo','BABEL OS + UOC — o fosso técnico e estratégico.')}
+    ${card('Prova ao vivo','Produto rodando — não roadmap.')}
+    ${card('Modelo &amp; tração','Recorrência + rede orgânica de representantes.')}
+  </div>`},
+
+{ e:'A tese',
+  t:`A próxima camada de software para empresas é <em>autônoma</em> — não uma tela a mais.`,
+  html:`<div class="grid g3">
+    ${card('CRM / ERP','Telas, formulários, cliques.','Onda 1')}
+    ${card('SaaS + IA plugada','Fragmentado. Integrado via Zapier. Até 10× mais caro do que parece.','Onda 2')}
+    <div class="card hi rv"><div class="k" style="color:var(--cyan)">Onda 3 · agora</div><h3>BABEL OS</h3><p>IA como motor central. Executa em vez de sugerir.</p></div>
+  </div>
+  <div class="quote rv">Quem construir a BABEL OS primeiro — com a memória certa — vira o sistema do qual as <em>PMEs globais</em> passam a depender.</div>`},
+
+{ e:'Mecanismo único',
+  t:`Cognição Operacional Unificada — <em>UOC</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><div class="k">Camada linguística</div><h3>NLP que conversa</h3><p>A mesma rede neural que atende o cliente entende intenção real — não palavra-chave.</p></div>
+    <div class="card rv"><div class="k">Camada operacional</div><h3>Controle total do sistema</h3><p>A mesma IA opera dentro dos dados da empresa: cadastra leads, emite contratos e extrai indicadores — sem depender de nenhuma integração externa.</p></div>
+  </div>
+  <div class="quote rv">Isso é a patente conceitual da Babel: a IA não pede permissão para outro sistema — <em>ela é o sistema</em>.</div>`},
+
+{ e:'Arquitetura interna',
+  t:`Debaixo da UOC, <em>4 camadas</em>.`,
+  html:`<div class="grid g4">
+    ${card('Percepção','Texto, áudio, imagem, PDF, OCR de comprovante. Absorve o que o cliente enviar, no formato que enviar.','Camada 01')}
+    ${card('Cognição semântica','Análise de polaridade emocional + intent recognition. Adapta tom e agressividade conforme o sentimento detectado.','Camada 02')}
+    ${card('Memória (curto + longo)','RAG + CRM semântico. Fatos persistentes por entidade, resgatáveis por sentido — não por SQL.','Camada 03')}
+    ${card('Execução (Function Calling nativo)','Agentic Tools-Driven Engine. Emite contrato, dispara pagamento, agenda, cobra. Não sugere — faz.','Camada 04')}
+  </div>`},
+
+{ e:'O fosso',
+  t:`Interface se copia. <em>Memória, não</em>.`,
+  html:`<div class="grid g2">
+    ${card('UI é commodity','Um concorrente clona a tela em 90 dias — features avulsas são comoditizáveis.')}
+    <div class="card hi rv"><h3>Memória cruzada é irreplicável</h3><p>Anos de operação viram vantagem estrutural. Um cliente da Babel há 24 meses é impossível de portar — a memória do negócio dele mora aqui.</p></div>
+  </div>`},
+
+{ center:true,
+  e:'Chega de teoria',
+  t:`Isso não é pitch. É produto <em>rodando em produção</em>.`,
+  html:``},
+
+{ e:'Prova ao vivo · 01',
+  t:`CRM semântico + <em>Native Function Calling</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><h3>Busca por sentido</h3><p>"Traga os leads com medo de tomar golpe que ainda não sumiram."</p><p style="color:var(--fg)">Ela entende — e devolve a lista pronta.</p></div>
+    <div class="card rv"><h3>Contrato em 1 clique</h3><p>No ápice do engajamento, dispara link de contrato e pagamento na mesma conversa.</p><p style="color:var(--fg)">Function Calling nativo — não integração externa.</p></div>
+  </div>`},
+
+{ e:'Prova ao vivo · 02',
+  t:`OCR financeiro + <em>Modo Mentor</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><h3>Financeiro conversacional</h3><p>Comprovante entra por foto ou áudio. IA extrai valor, data, favorecido — e concilia contra a operação sozinha.</p></div>
+    <div class="card rv"><h3>Modo Mentor</h3><p>Advisory sistêmico dentro do próprio OS — cruza dados, aponta gargalos, sugere próxima jogada estratégica.</p></div>
+  </div>`},
+
+{ e:'Módulos · A / B',
+  t:`CRM Semântico + <em>Financeiro Conversacional</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><div class="k">A · CRM Semântico</div>
+      <ul class="list dot">
+        <li>Busca por intenção, não por campo</li>
+        <li>Dossiê universal por entidade</li>
+        <li>Classificação e nutrição automática</li>
+        <li>Análise de polaridade emocional em lote</li>
+      </ul></div>
+    <div class="card rv"><div class="k">B · Financeiro Conversacional</div>
+      <ul class="list dot">
+        <li>Lançamento por áudio</li>
+        <li>Leitor de comprovantes (OCR)</li>
+        <li>Conciliação orgânica</li>
+        <li>Auditoria intenção → pagamento</li>
+      </ul></div>
+  </div>`},
+
+{ e:'Módulos · C / D',
+  t:`Frota de Agentes + <em>Modo Mentor</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><div class="k">C · Frota de Agentes de IA</div><p>Personas configuráveis por Tenant (nicho, idioma, tom, regras inquebráveis). Hand-off pro humano no momento certo — decidido pela própria IA.</p></div>
+    <div class="card rv"><div class="k">D · Modo Mentor</div><p>Consultoria sistêmica dentro do OS. O mesmo papel usado para estruturar essa apresentação — vira ativo permanente do cliente.</p></div>
+  </div>`},
+
+{ e:'Modelo de negócio',
+  t:`Ativação + recorrência + <em>rede de representantes</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><div class="k">Plano Ativação</div><div class="big">R$ <span data-cu="1000" data-fmt="br">1.000</span></div><p>entrada</p><p style="margin-top:8px">Recorrência: <b style="color:var(--fg)">R$ 1.000/mês</b> · cancela quando quiser</p></div>
+    <div class="card hi rv"><div class="k" style="color:var(--cyan)">Representante Comercial</div><div class="big">R$ <span data-cu="5000" data-fmt="br">5.000</span></div><p>cada cliente pode virar canal de venda</p></div>
+  </div>
+  <div class="quote rv">O motor de expansão não é só CAC pago — é uma <em>rede orgânica</em> de empresas que já usam, já confiam e revendem.</div>`},
+
+{ e:'Onde começa',
+  t:`Verticais de <em>alta conversão semântica</em> primeiro.`,
+  html:`<div class="grid g3">
+    ${card('Infoprodutos &amp; mentorias','')}
+    ${card('Clínicas &amp; consultórios','')}
+    ${card('Jurídico &amp; contábil','')}
+    ${card('Imobiliário &amp; seguros','')}
+    ${card('Agências &amp; consultorias B2B','')}
+  </div>
+  <div class="quote rv">TAM: <em><span data-cu="21.6" data-dec="1">21,6</span> mi de PMEs</em> no Brasil sem infraestrutura unificada — nenhum player consolidado ocupou a categoria BABEL OS ainda.</div>
+  <div class="src rv" style="margin-top:10px">Sebrae · Mapa de Empresas 2024 (MPEs ativas no Brasil)</div>`},
+
+{ e:'Visão de longo prazo',
+  t:`A <em>Unidade Administrativa Universal</em> das PMEs globais.`,
+  html:`<div class="grid g4">
+    ${card('Empresa nova = liga a Babel','Ao invés de contratar time, o novo negócio ativa a BABEL OS e traciona até o primeiro R$ 1M antes da primeira contratação operacional.')}
+    ${card('Cada Tenant é um moat','Memória isolada por empresa. Quanto mais operação, mais grudado — churn caindo estruturalmente com o tempo.')}
+    ${card('Efeito rede via representantes','Cada cliente ativo é potencial canal de venda dentro do seu setor. CAC decrescente por vertical.')}
+    ${card('Cada ativação = case','Prova social cumulativa. A categoria BABEL OS se consolida pela própria base.')}
+  </div>`},
+
+{ e:'Por que agora',
+  t:`A janela é estreita — e <em>está aberta</em>.`,
+  html:`<div class="grid g4">
+    ${card('IA madura o suficiente','Function calling nativo, RAG confiável e latência viável saíram do experimento em 2024/25.')}
+    ${card('Categoria BABEL OS vazia','Nenhum player consolidado. Big Techs vão fazer horizontal — nunca vertical operacional específico.')}
+    ${card('TCO em SaaS insustentável','Empresas cansaram do stack fragmentado. Consolidação inevitável — e a BABEL OS é a resposta natural.')}
+    ${card('Cada cliente = fosso','A vantagem de memória é composta: quem ativar mais cedo, ganha defesa estrutural.')}
+  </div>`},
+
+{ e:'A oportunidade',
+  t:`Estruturando a <em>próxima rodada</em>.`,
+  html:`<div class="grid g2">
+    <div class="card rv"><div class="k">Uso do capital</div>
+      <ul class="list dot">
+        <li>Aceleração da rede de representantes</li>
+        <li>Aprofundamento de produto (Mentor + memória)</li>
+        <li>Consolidação da categoria BABEL OS no Brasil</li>
+        <li>Expansão vertical (jurídico, saúde, imobiliário)</li>
+      </ul></div>
+    <div class="card rv"><div class="k">Quem procuramos</div><p>Parceiros que enxergam categoria — não trimestre. Que entendem que BABEL OS será para os anos 2020 o que SaaS foi para os 2010.</p></div>
+  </div>`},
+
+{ center:true,
+  e:'Fechamento',
+  t:`Agora que você viu a fundo, <em>vamos falar de termos?</em>`,
+  html:``},
+];
+
+const DECKS = { comercial: COMERCIAL, investidores: INVESTIDORES };
+
+/* ============================================================
+   MOTOR DA APRESENTAÇÃO
+   ============================================================ */
+const $ = s => document.querySelector(s);
+let deck = null, idx = 0, notesOpen = false, hintShown = false;
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function goHome(){
+  deck = null; idx = 0; closeNotes();
+  $('#btnHome').classList.add('hidden');
+  $('#btnRoteiro').classList.add('hidden');
+  $('#prev').classList.add('hidden');
+  $('#next').classList.add('hidden');
+  $('#deckfoot').classList.add('hidden');
+  $('#prog i').style.width = '0';
+  if(location.hash) history.replaceState(null,'',location.pathname);
+  $('#stage').innerHTML = `
+  <div class="slide center">
+    ${ORB}
+    <div class="eyebrow rv" style="justify-content:center">Apresentação · 1:1</div>
+    <div class="mega rv">BABEL <span>OS</span></div>
+    <p class="sub rv" style="margin-inline:auto">O cérebro de IA que roda o seu negócio inteiro. Escolha o caminho da conversa de hoje.</p>
+    <div class="homecards">
+      <div class="hcard rv" onclick="openDeck('comercial')">
+        <div class="glow" style="background:#6366f1"></div>
+        <div class="k eyebrow" style="margin-bottom:0">Caminho 01</div>
+        <h2>Usuário / Sócio Comercial</h2>
+        <p>Para quem quer usar o sistema no próprio negócio e/ou virar representante oficial com direito de revenda.</p>
+        <span class="go">Iniciar apresentação <span>→</span></span>
+      </div>
+      <div class="hcard rv" onclick="openDeck('investidores')">
+        <div class="glow" style="background:#22d3ee"></div>
+        <div class="k eyebrow" style="margin-bottom:0;color:var(--violet)">Caminho 02</div>
+        <h2>Investidores</h2>
+        <p>Aprofundamento em arquitetura, produto, mercado e modelo de negócio para captação.</p>
+        <span class="go">Iniciar apresentação <span>→</span></span>
+      </div>
+    </div>
+    <div class="credit rv" style="letter-spacing:.25em;text-transform:uppercase;font-size:.72rem">Carlos Machado · Comercial Babel OS</div>
+  </div>`;
+  enhance();
+}
+
+function openDeck(id, at=0){
+  deck = id; idx = at; closeNotes();
+  $('#btnHome').classList.remove('hidden');
+  $('#btnRoteiro').classList.toggle('hidden', id!=='comercial');
+  $('#prev').classList.remove('hidden');
+  $('#next').classList.remove('hidden');
+  $('#deckfoot').classList.remove('hidden');
+  buildDots();
+  render();
+  if(!hintShown){
+    hintShown = true;
+    const h = $('#hint');
+    h.classList.add('show');
+    setTimeout(()=>h.classList.remove('show'), 3800);
+  }
+}
+
+function render(){
+  const s = DECKS[deck][idx];
+  const total = DECKS[deck].length;
+  let h = `<div class="slide${s.center?' center':''}">`;
+  if(s.e) h += `<div class="eyebrow rv"><span class="dot"></span> ${s.e}</div>`;
+  if(s.t) h += `<h2 class="title rv">${s.t}</h2>`;
+  h += s.html + `</div>`;
+  const st = $('#stage');
+  st.innerHTML = h;
+  st.scrollTop = 0;
+  enhance();
+  // navegação
+  $('#prev').disabled = idx===0;
+  $('#next').disabled = idx===total-1;
+  $('#counter').textContent = String(idx+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  $('#prog i').style.width = (((idx+1)/total)*100) + '%';
+  document.querySelectorAll('.dtb').forEach((d,i)=>d.classList.toggle('on', i===idx));
+  // roteiro
+  if(deck==='comercial'){
+    $('#ncontent').innerHTML = s.n || '<i>Sem roteiro específico para esta tela — siga o fluxo natural da conversa.</i>';
+    if(notesOpen && !s.n) closeNotes();
+  }
+  location.hash = deck + '/' + (idx+1);
+}
+
+/* revelação escalonada + tilt 3D + contadores + esfera */
+function enhance(){
+  document.querySelectorAll('#stage .rv').forEach((el,i)=>{ el.style.animationDelay = (i*90)+'ms'; });
+  document.querySelectorAll('#stage .grid .card').forEach((el,i)=>{
+    el.classList.add('rv');
+    el.style.animationDelay = (200 + i*110)+'ms';
+  });
+  document.querySelectorAll('#stage .qrow, #stage .prow, #stage .qa').forEach((el,i)=>{
+    el.style.animationDelay = (150 + i*100)+'ms';
+  });
+  if(!reduceMotion){
+    document.querySelectorAll('#stage .card, #stage .hcard, #stage .qa').forEach(addTilt);
+    setTimeout(countUps, 260);
+  }
+  startOrb();
+}
+
+function addTilt(el){
+  el.addEventListener('mousemove', e=>{
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width - .5;
+    const py = (e.clientY - r.top)/r.height - .5;
+    el.style.transform = `perspective(800px) rotateX(${(-py*5).toFixed(2)}deg) rotateY(${(px*7).toFixed(2)}deg) translateY(-3px)`;
+    el.style.setProperty('--mx', ((px+.5)*100)+'%');
+    el.style.setProperty('--my', ((py+.5)*100)+'%');
+  });
+  el.addEventListener('mouseleave', ()=>{ el.style.transform = ''; });
+}
+
+function countUps(){
+  document.querySelectorAll('#stage [data-cu]').forEach(el=>{
+    const target = parseFloat(el.dataset.cu);
+    const dec = +(el.dataset.dec||0);
+    const fmt = el.dataset.fmt;
+    const t0 = performance.now(), dur = 1100;
+    function tick(t){
+      const p = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-p,3);
+      const v = target*e;
+      let s;
+      if(fmt==='br') s = Math.round(v).toLocaleString('pt-BR');
+      else if(dec) s = v.toFixed(dec).replace('.',',');
+      else s = String(Math.round(v));
+      el.textContent = s;
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+/* ---------- esfera de partículas 3D ---------- */
+let orbRaf = null;
+function startOrb(){
+  if(orbRaf){ cancelAnimationFrame(orbRaf); orbRaf = null; }
+  const c = document.querySelector('#stage .orb3d');
+  if(!c || reduceMotion) return;
+  const ctx = c.getContext('2d');
+  const N = 240, pts = [];
+  for(let i=0;i<N;i++){
+    const y = 1 - (i/(N-1))*2, r = Math.sqrt(1-y*y), th = i*2.39996323;
+    pts.push([Math.cos(th)*r, y, Math.sin(th)*r]);
+  }
+  let a = 0;
+  const cx = c.width/2, cy = c.height/2, R = c.width*.4;
+  function frame(){
+    if(!document.contains(c)){ orbRaf = null; return; }
+    a += .0045;
+    ctx.clearRect(0,0,c.width,c.height);
+    const ca = Math.cos(a), sa = Math.sin(a);
+    const ct = Math.cos(.4), stt = Math.sin(.4);
+    for(const [x0,y0,z0] of pts){
+      const x = x0*ca + z0*sa, z = -x0*sa + z0*ca;
+      const y2 = y0*ct - z*stt, z2 = y0*stt + z*ct;
+      const s = 1.6/(2.4+z2);
+      const px = cx + x*R*s*1.5, py = cy + y2*R*s*1.5;
+      const depth = (1-(z2+1)/2);
+      const al = .12 + depth*.75;
+      const mix = (x+1)/2;
+      const cr = Math.round(34+(167-34)*mix), cg = Math.round(211+(139-211)*mix), cb = Math.round(238+(250-238)*mix);
+      ctx.beginPath();
+      ctx.arc(px, py, Math.max(.7, 2.6*s), 0, 7);
+      ctx.fillStyle = `rgba(${cr},${cg},${cb},${al.toFixed(2)})`;
+      ctx.fill();
+    }
+    orbRaf = requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* ---------- rede neural de fundo (reage ao mouse) ---------- */
+(function(){
+  if(reduceMotion) return;
+  const c = document.getElementById('net'), ctx = c.getContext('2d');
+  let W, H, parts = [];
+  const mouse = {x:-1e4, y:-1e4};
+  function resize(){
+    W = c.width = innerWidth; H = c.height = innerHeight;
+    const n = Math.min(85, Math.round(W*H/22000));
+    parts = Array.from({length:n}, ()=>({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35
+    }));
+  }
+  resize();
+  addEventListener('resize', resize);
+  addEventListener('mousemove', e=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
+  addEventListener('mouseleave', ()=>{ mouse.x = -1e4; mouse.y = -1e4; });
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of parts){
+      // repulsão suave do cursor
+      const dx = p.x-mouse.x, dy = p.y-mouse.y, d2 = dx*dx+dy*dy;
+      if(d2 < 19600 && d2 > 1){
+        const d = Math.sqrt(d2), f = (140-d)/140*.35;
+        p.vx += dx/d*f*.12; p.vy += dy/d*f*.12;
+      }
+      p.vx *= .985; p.vy *= .985;
+      p.vx += (Math.random()-.5)*.012; p.vy += (Math.random()-.5)*.012;
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<-20) p.x=W+20; if(p.x>W+20) p.x=-20;
+      if(p.y<-20) p.y=H+20; if(p.y>H+20) p.y=-20;
+    }
+    // linhas
+    for(let i=0;i<parts.length;i++){
+      const a = parts[i];
+      for(let j=i+1;j<parts.length;j++){
+        const b = parts[j];
+        const dx = a.x-b.x, dy = a.y-b.y, d2 = dx*dx+dy*dy;
+        if(d2 < 16900){
+          const al = (1-Math.sqrt(d2)/130)*.13;
+          ctx.strokeStyle = `rgba(120,160,255,${al.toFixed(3)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+      // linha até o cursor
+      const dxm = a.x-mouse.x, dym = a.y-mouse.y, dm2 = dxm*dxm+dym*dym;
+      if(dm2 < 25600){
+        const al = (1-Math.sqrt(dm2)/160)*.22;
+        ctx.strokeStyle = `rgba(34,211,238,${al.toFixed(3)})`;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(mouse.x,mouse.y); ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(a.x,a.y,1.15,0,7);
+      ctx.fillStyle = 'rgba(200,215,255,.4)'; ctx.fill();
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+  /* parallax dos orbes */
+  addEventListener('mousemove', e=>{
+    const nx = e.clientX/innerWidth - .5, ny = e.clientY/innerHeight - .5;
+    document.querySelector('.o1').style.transform = `translate(${nx*26}px,${ny*20}px)`;
+    document.querySelector('.o2').style.transform = `translate(${nx*-20}px,${ny*-16}px)`;
+    document.querySelector('.o3').style.transform = `translate(${nx*-30}px,${ny*24}px)`;
+  });
+})();
+
+function move(d){
+  if(!deck) return;
+  const nx = idx + d;
+  if(nx < 0 || nx >= DECKS[deck].length) return;
+  idx = nx; render();
+}
+
+function buildDots(){
+  const total = DECKS[deck].length;
+  $('#dots').innerHTML = Array.from({length: total}, (_,i)=>`<button class="dtb" onclick="idx=${i};render()" aria-label="Tela ${i+1}"></button>`).join('');
+}
+
+function toggleNotes(){ notesOpen ? closeNotes() : openNotes(); }
+function openNotes(){ notesOpen = true; $('#notes').classList.add('open'); }
+function closeNotes(){ notesOpen = false; $('#notes').classList.remove('open'); }
+
+function toggleFull(){
+  if(document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen().catch(()=>{});
+}
+
+/* teclado */
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight' || e.key==='PageDown' || e.key===' ') { move(1); e.preventDefault(); }
+  else if(e.key==='ArrowLeft' || e.key==='PageUp') { move(-1); e.preventDefault(); }
+  else if(e.key==='Escape') goHome();
+  else if(e.key==='f' || e.key==='F') toggleFull();
+  else if((e.key==='r' || e.key==='R') && deck==='comercial') toggleNotes();
+});
+
+/* swipe (mobile) */
+let tx = null;
+document.addEventListener('touchstart', e=>{ tx = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', e=>{
+  if(tx===null) return;
+  const dx = e.changedTouches[0].clientX - tx;
+  if(Math.abs(dx) > 60) move(dx < 0 ? 1 : -1);
+  tx = null;
+}, {passive:true});
+
+/* rota via hash: #comercial/5 */
+function applyHash(){
+  const m = location.hash.match(/^#(comercial|investidores)\/(\d+)$/);
+  if(m && DECKS[m[1]] && +m[2] >= 1 && +m[2] <= DECKS[m[1]].length){
+    if(m[1] === deck && +m[2]-1 === idx) return;
+    openDeck(m[1], +m[2]-1);
+  } else if(deck !== null || !$('#stage').innerHTML) goHome();
+}
+window.addEventListener('hashchange', applyHash);
+applyHash();
+if(!$('#stage').innerHTML) goHome();
+</script>
+</body>
+</html>

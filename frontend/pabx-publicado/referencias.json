@@ -1,0 +1,23 @@
+{
+  "supabase_projects_in_build": [
+    "fimfdajfjorevsfcsywh"
+  ],
+  "source_map_reference": false,
+  "hosts_in_build": [
+    "aomediacodec.github.io",
+    "bmail.babel-os.com",
+    "evolution.seu-dominio.com",
+    "fimfdajfjorevsfcsywh.supabase.co",
+    "github.com",
+    "localhost",
+    "pabx.babel-os.com",
+    "proposta.babel-os.com",
+    "react.dev",
+    "reuniao.babel-os.com",
+    "wa.me",
+    "www.babel-os.com",
+    "www.google.com",
+    "www.w3.org"
+  ],
+  "runtime_tested": false
+}

@@ -1,0 +1,182 @@
+/* ══════════════════════════════════════════════════════════════════
+   Disparo (Arena) — só o que a biblioteca ar-* não cobre:
+   o ponto pulsante do "enviando agora", a área tracejada de importar,
+   as tintas de etapa da linha do tempo e o interruptor do agendamento.
+   Nada de !important, nada de [class*=]. Cor só por var(--ar-*).
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Ponto de status da linha de envio ───────────────────────────── */
+.ard-ponto {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-txt-4);
+  flex-shrink: 0;
+}
+.ard-ponto--ok { background: var(--ar-ok); }
+.ard-ponto--erro { background: var(--ar-erro); }
+
+/* A linha que está saindo agora respira em verde-limão. */
+.ard-ponto--vivo {
+  background: var(--ar-ok);
+  animation: ardPulso 1.4s var(--ar-ease) infinite;
+}
+@keyframes ardPulso {
+  0% { box-shadow: 0 0 0 0 var(--ar-ok-vidro); }
+  70% { box-shadow: 0 0 0 9px rgba(182, 255, 59, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(182, 255, 59, 0); }
+}
+/* Quem pediu menos movimento vê o halo parado, não o pisca-pisca. */
+@media (prefers-reduced-motion: reduce) {
+  .ard-ponto--vivo {
+    animation: none;
+    box-shadow: 0 0 0 4px var(--ar-ok-vidro);
+  }
+}
+
+/* ── Linha do tempo dos estágios ─────────────────────────────────── */
+.ard-etapa {
+  border: 0;
+  cursor: pointer;
+}
+.ard-etapa:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+/* concluída: tinta de "deu certo" */
+.ard-etapa--feita,
+.ard-etapa--feita:hover {
+  background: var(--ar-ok-vidro);
+  color: var(--ar-ok);
+}
+/* futura: chumbo, some do caminho até chegar a vez dela */
+.ard-etapa--futura,
+.ard-etapa--futura:hover {
+  background: var(--ar-cartao-alto);
+  color: var(--ar-txt-4);
+}
+.ard-etapa-seta {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ar-txt-4);
+}
+
+/* ── Área de importar (tracejada) ────────────────────────────────── */
+.ard-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ar-s-2);
+  width: 100%;
+  min-height: 128px;
+  padding: var(--ar-s-5) var(--ar-s-4);
+  border: 1px dashed var(--ar-filete-forte);
+  border-radius: var(--ar-r-lg);
+  background: transparent;
+  color: var(--ar-txt-3);
+  text-align: center;
+  transition: border-color var(--ar-dur-fast), background var(--ar-dur-fast),
+    color var(--ar-dur-fast);
+}
+.ard-upload:hover {
+  border-color: var(--ar-roxo);
+  background: var(--ar-roxo-vidro);
+  color: var(--ar-txt-2);
+}
+.ard-upload:active { transform: scale(0.995); }
+.ard-upload:disabled { cursor: progress; }
+.ard-upload__icone {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-roxo-vidro);
+  color: var(--ar-roxo-alto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Caixa de seleção grande (20px de tinta, 44px de alvo) ───────── */
+.ard-check-alvo {
+  width: var(--ar-toque);
+  height: var(--ar-toque);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ard-check {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--ar-roxo);
+  cursor: pointer;
+}
+
+/* ── Interruptor do agendamento (ligado / desligado) ─────────────── */
+.ard-switch-alvo {
+  min-width: var(--ar-toque);
+  min-height: var(--ar-toque);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ard-switch {
+  width: 46px;
+  height: 26px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-filete-forte);
+  position: relative;
+  display: block;
+  transition: background var(--ar-dur-fast);
+}
+.ard-switch--ligado { background: var(--ar-ok); }
+.ard-switch__bolinha {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-txt-1);
+  transition: transform var(--ar-dur-normal) var(--ar-ease), background var(--ar-dur-fast);
+}
+.ard-switch--ligado .ard-switch__bolinha {
+  transform: translateX(20px);
+  background: var(--ar-fundo);
+}
+
+/* ── Rolagem vertical das listas longas ──────────────────────────── */
+.ard-rolavel {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* ── Balão da mensagem enviada (espiar o texto exato) ────────────── */
+.ard-balao {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  width: min(280px, 72vw);
+  padding: var(--ar-s-3);
+  border-radius: var(--ar-r-md);
+  background: var(--ar-cartao-alto);
+  color: var(--ar-txt-2);
+  font-size: var(--ar-t-xs);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  box-shadow: var(--ar-sombra-md);
+  text-align: left;
+}
+
+/* ── Miniatura de mídia anexada ──────────────────────────────────── */
+.ard-midia {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--ar-r-md);
+  object-fit: cover;
+  background: var(--ar-cartao-alto);
+  flex-shrink: 0;
+}

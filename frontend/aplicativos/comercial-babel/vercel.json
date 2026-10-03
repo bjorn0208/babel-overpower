@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/diagnostico:n", "destination": "/formulario.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

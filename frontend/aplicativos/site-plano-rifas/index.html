@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Plano de trabalho do app Rifas do babel-os: por que o dinheiro não fecha hoje, as teses provadas com dados de produção, as três telas propostas e a ordem de execução.">
+<meta property="og:title" content="Do caderno ao caixa">
+<meta property="og:description" content="Plano de trabalho do app Rifas — dados de produção, teses, três telas e ordem de execução.">
+<meta name="robots" content="noindex">
+<style>img{max-width:100%}body{margin:0}</style>
+<title>Do caderno ao caixa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;600&display=swap">
+
+<style>
+  :root{
+    --tinta:#16151a;
+    --tinta-fraca:#56525e;
+    --tinta-tenue:#8b8593;
+    --papel:#faf8f8;
+    --papel-2:#f2eeef;
+    --linha:#e0d9db;
+    --linha-forte:#c9bfc2;
+    --acento:#a81f1a;
+    --acento-fraco:#f6e9e8;
+    --ok:#1f6b45;
+    --alerta:#8a5a06;
+    --sombra:0 1px 0 rgba(22,21,26,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --tinta:#f3eff1;
+      --tinta-fraca:#b3aab0;
+      --tinta-tenue:#7d757c;
+      --papel:#141215;
+      --papel-2:#1d1a1e;
+      --linha:#2e292f;
+      --linha-forte:#443c45;
+      --acento:#f0625a;
+      --acento-fraco:#2a1614;
+      --ok:#5fbf8f;
+      --alerta:#d7a13f;
+      --sombra:0 1px 0 rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --tinta:#f3eff1;
+    --tinta-fraca:#b3aab0;
+    --tinta-tenue:#7d757c;
+    --papel:#141215;
+    --papel-2:#1d1a1e;
+    --linha:#2e292f;
+    --linha-forte:#443c45;
+    --acento:#f0625a;
+    --acento-fraco:#2a1614;
+    --ok:#5fbf8f;
+    --alerta:#d7a13f;
+    --sombra:0 1px 0 rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--papel);
+    color:var(--tinta);
+    font-family:"Newsreader",Georgia,"Times New Roman",serif;
+    font-size:18px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .folha{max-width:74ch;margin:0 auto;padding:56px 24px 96px}
+  @media(max-width:640px){.folha{padding:32px 18px 64px}}
+
+  h1,h2,h3,.rotulo,.num,th,.chip,.botao{font-family:"Archivo",system-ui,-apple-system,sans-serif}
+
+  .rotulo{
+    font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--tinta-tenue);
+  }
+
+  header.capa{border-bottom:2px solid var(--tinta);padding-bottom:26px;margin-bottom:8px}
+  h1{
+    font-size:clamp(38px,7vw,60px);font-weight:700;line-height:1.02;letter-spacing:-.025em;
+    margin:14px 0 12px;text-wrap:balance;
+  }
+  .linha-fina{font-size:20px;color:var(--tinta-fraca);margin:0;max-width:58ch}
+  .carimbo{
+    display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:22px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--tinta-tenue);
+  }
+
+  h2{
+    font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--acento);margin:64px 0 14px;
+  }
+  h3{font-size:23px;font-weight:600;letter-spacing:-.01em;margin:34px 0 8px;text-wrap:balance}
+  p{margin:0 0 16px}
+  a{color:var(--acento)}
+  strong{font-weight:600}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+  code{background:var(--papel-2);padding:1px 5px;border-radius:3px;color:var(--tinta-fraca)}
+
+  .abre{font-size:21px;line-height:1.5}
+  .abre::first-letter{
+    font-family:"Archivo",sans-serif;font-weight:700;float:left;font-size:58px;line-height:.86;
+    padding:4px 10px 0 0;color:var(--acento);
+  }
+
+  /* placar do funil */
+  .placar{border-top:1px solid var(--linha-forte);margin:28px 0 8px}
+  .placar .item{
+    display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--linha);
+  }
+  .placar .nome{font-size:16px;color:var(--tinta-fraca)}
+  .placar .valor{
+    font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums;
+    font-size:19px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;
+  }
+  .placar .item.zero .valor{color:var(--acento)}
+  .placar .item.zero .nome{color:var(--tinta)}
+  .nota-placar{font-size:14px;color:var(--tinta-tenue);margin-top:10px}
+
+  /* teses */
+  .tese{border-left:2px solid var(--linha-forte);padding:2px 0 2px 20px;margin:30px 0}
+  .tese.chave{border-left-color:var(--acento)}
+  .tese .rotulo{display:block;margin-bottom:5px}
+  .tese h3{margin-top:2px}
+
+  /* tabela */
+  .rolagem{overflow-x:auto;margin:20px 0;border:1px solid var(--linha);border-radius:2px;background:var(--papel-2)}
+  table{border-collapse:collapse;width:100%;font-size:15px}
+  th,td{padding:9px 14px;text-align:right;white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  thead th{
+    font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--tinta-tenue);border-bottom:1px solid var(--linha-forte);
+  }
+  tbody tr+tr td{border-top:1px solid var(--linha)}
+  tbody td:not(:first-child){font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+  .gordo{color:var(--acento);font-weight:600}
+
+  /* telas */
+  .telas{display:grid;gap:14px;margin:22px 0 8px}
+  @media(min-width:760px){.telas{grid-template-columns:repeat(3,1fr)}}
+  .tela{border:1px solid var(--linha);border-radius:3px;padding:16px 16px 18px;background:var(--papel-2);display:flex;flex-direction:column;gap:8px}
+  .tela .cabeca{display:flex;align-items:center;gap:8px}
+  .tela .n{
+    font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--papel);
+    background:var(--acento);border-radius:2px;padding:1px 6px;
+  }
+  .tela h4{font-family:"Archivo",sans-serif;font-size:19px;font-weight:600;margin:0}
+  .tela p{font-size:15px;line-height:1.5;margin:0;color:var(--tinta-fraca)}
+  .tela .come{
+    font-size:12px;color:var(--tinta-tenue);border-top:1px solid var(--linha);padding-top:8px;margin-top:auto;
+    font-family:"Archivo",sans-serif;
+  }
+
+  /* fases */
+  .fase{margin:26px 0;padding-left:56px;position:relative}
+  .fase .marca{
+    position:absolute;left:0;top:2px;width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--linha-forte);display:grid;place-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:600;color:var(--tinta-fraca);
+  }
+  .fase.pronta .marca{border-color:var(--ok);color:var(--ok)}
+  .fase h3{margin:0 0 4px}
+  .fase ol{margin:8px 0 0;padding-left:20px}
+  .fase li{margin-bottom:7px}
+  .fase .selo{
+    display:inline-block;font-family:"Archivo",sans-serif;font-size:11px;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-left:8px;
+    vertical-align:2px;
+  }
+  .selo.ok{background:var(--acento-fraco);color:var(--ok)}
+  .selo.trava{background:var(--acento-fraco);color:var(--acento)}
+
+  ul.riscos{list-style:none;padding:0;margin:16px 0}
+  ul.riscos li{
+    padding:12px 0 12px 22px;border-bottom:1px solid var(--linha);position:relative;font-size:16px;
+  }
+  ul.riscos li::before{
+    content:"";position:absolute;left:0;top:20px;width:9px;height:2px;background:var(--alerta);
+  }
+
+  .aceite{
+    border:2px solid var(--tinta);padding:20px 22px;margin:26px 0;background:var(--papel-2);
+  }
+  .aceite .rotulo{color:var(--tinta-fraca)}
+  .aceite p{margin:8px 0 0;font-size:19px}
+  .aceite .mono{color:var(--acento);font-weight:600}
+
+  footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--linha);font-size:13px;color:var(--tinta-tenue)}
+  @media (prefers-reduced-motion:no-preference){
+    .folha>*{animation:sobe .5s ease-out both}
+  }
+  @keyframes sobe{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+
+</head>
+<body>
+<div class="folha">
+
+<header class="capa">
+  <span class="rotulo">Plano de trabalho · app Rifas</span>
+  <h1>Do caderno ao caixa</h1>
+  <p class="linha-fina">O app já tem cliente usando todo dia. O que ele ainda não tem é o dinheiro entrando sozinho. Este é o caminho até lá.</p>
+  <div class="carimbo">
+    <span>08/09/2026 · 13h BRT</span>
+    <span>banco llsdqtbtuyuqxvepmniy</span>
+    <span>tenant Fabrício Santos</span>
+  </div>
+</header>
+
+<h2>Onde estamos</h2>
+
+<p class="abre">O app Rifas é o único da plataforma com cliente real usando hoje. O Fabrício entrou em 16 de agosto e acessou o painel hoje às 07h58. Ele tem 79 números fixos cadastrados, 315 contatos na lista de disparo, e criou 60 pedidos em três dias — 14 na sexta, 18 no sábado, 28 no domingo. O uso está subindo.</p>
+
+<p>O problema aparece quando se olha o que aconteceu com esses 60 pedidos.</p>
+
+<div class="placar">
+  <div class="item"><span class="nome">Pedidos criados</span><span class="valor">60</span></div>
+  <div class="item"><span class="nome">Valor reservado</span><span class="valor">R$ 2.335</span></div>
+  <div class="item zero"><span class="nome">Pedidos pagos</span><span class="valor">0</span></div>
+  <div class="item zero"><span class="nome">Comprovantes recebidos</span><span class="valor">0</span></div>
+  <div class="item zero"><span class="nome">Vendas feitas pelo agente no WhatsApp</span><span class="valor">0</span></div>
+  <div class="item zero"><span class="nome">Vendas pela página pública</span><span class="valor">0</span></div>
+  <div class="item"><span class="nome">Disparos enviados</span><span class="valor">4</span></div>
+</div>
+<p class="nota-placar">Produção, medido em 08/09/2026. Todos os 60 pedidos têm origem <code>manual</code> — foram digitados no painel.</p>
+
+<p><strong>Em bom português:</strong> o Fabrício trocou o caderno de papel por um caderno digital. Ele anota o pedido na mão e o dinheiro nunca fecha dentro do sistema. As duas promessas que sustentam a plataforma — <em>o agente vende sozinho</em> e <em>o pagamento se resolve sem você</em> — estão com uso zero.</p>
+
+<p>Não é falta de código. O fluxo existe e passou em teste de ponta a ponta em 4 e 17 de agosto. É que ele é longo demais pro dono e escondido demais pro comprador.</p>
+
+<h2>Quatro coisas que os dados provam</h2>
+
+<div class="tese chave">
+  <span class="rotulo">Tese 1 · custo</span>
+  <h3>O agente carrega cinco vezes mais texto de ferramenta do que precisa</h3>
+  <p>A tabela que liga cargo e ferramenta não tem trava contra repetição, e o carregador não filtra: o que está no banco vai inteiro pro modelo. A mesma ferramenta chega a ser enviada <strong>22 vezes no mesmo pedido à IA</strong>.</p>
+  <div class="rolagem">
+    <table>
+      <thead><tr><th>Cargo</th><th>Conversas</th><th>Linhas</th><th>Ferramentas reais</th><th>Texto por turno</th><th>Sem repetição</th></tr></thead>
+      <tbody>
+        <tr><td>Atendimento</td><td>2.802</td><td>309</td><td>42</td><td class="gordo">154.057</td><td>27.718</td></tr>
+        <tr><td>Vendedor</td><td>4.945</td><td>174</td><td>41</td><td class="gordo">92.970</td><td>27.423</td></tr>
+        <tr><td>Mentor</td><td>—</td><td>192</td><td>72</td><td>82.042</td><td>36.596</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>São 126 mil caracteres de repetição por turno no cargo que mais atende. Para dimensionar: em 07/09 a plataforma consumiu <strong>42,7 milhões de tokens de entrada</strong> em 3.299 chamadas, US$ 8,75 no dia. Cortar isso é a economia mais barata que existe aqui — e IA com cardápio repetido escolhe pior. Some-se que <strong>14 das 16 ferramentas de rifa não têm vetor semântico</strong>: sem vetor, elas entram em toda conversa, mesmo quando ninguém falou de rifa.</p>
+</div>
+
+<div class="tese">
+  <span class="rotulo">Tese 2 · segurança</span>
+  <h3>O poder do dono já está protegido. O que está sujo é o banco</h3>
+  <p>O motor separa as ferramentas em três pacotes: leitura (basta o app instalado), venda (app + a chave que o dono liga) e administração — sortear, aprovar pagamento, mudar preço, mexer em dívida — que <strong>só existe no canal interno</strong>. O comentário no código é direto: um comprador induzindo o agente a aprovar o próprio comprovante seria fraude de um turno. A trava funciona.</p>
+  <p>O que está errado é a higiene: o banco continua pendurando as 12 ferramentas de administração nos cargos que falam com lead. Elas são carregadas, ocupam espaço e são jogadas fora depois. E o cargo <strong>Rifas</strong> — o único com as 16 ferramentas certas e nenhuma repetida — tem <strong>zero conversas</strong>. A arquitetura certa existe e não está sendo usada.</p>
+</div>
+
+<div class="tese chave">
+  <span class="rotulo">Tese 3 · receita</span>
+  <h3>O funil morre no PIX, e é ali que está o dinheiro</h3>
+  <p>58 pedidos parados em “reservado”, R$ 2.335, nenhum comprovante. O caminho de pagamento existe, mas só é alcançável por quem abre a página pública — e nenhum pedido nasceu lá. Quem cria pelo painel não manda link, não manda PIX e não cobra.</p>
+  <p>Tem um reforço barato esperando: a função de reserva no banco <strong>já aceita</strong> juntar números num pedido existente e vender fiado, e a ferramenta do agente não usa nenhum dos dois. Hoje um “quero mais cinco” abre um segundo PIX em vez de somar no primeiro.</p>
+</div>
+
+<div class="tese">
+  <span class="rotulo">Tese 4 · uso</span>
+  <h3>Onze abas é o preço que o dono paga pela nossa indecisão</h3>
+  <p>O Fabrício responde três perguntas por dia: quem me deve, quem pagou, quanto falta pra fechar a rifa. Hoje isso está espalhado por Início, Painel, Pedidos, Dívidas e Atendimento. Rifa se vende na rua, do celular — a tela tem que caber na mão e responder essas três.</p>
+</div>
+
+<h2>O desenho — três telas</h2>
+
+<p>A linguagem visual já foi decidida e validada aqui dentro, em 2 de setembro: densidade funcional, uma cor sólida de acento, borda fina, número em fonte de máquina, linha em vez de cartão. Vidro fosco e degradê foram rejeitados por já serem clichê de “feito por IA”. O padrão da página pública de rifa também já está estudado — Rifei, RifApp, rifa.digital. <strong>Nada de design novo: aplico o que já está cravado.</strong></p>
+
+<div class="telas">
+  <div class="tela">
+    <div class="cabeca"><span class="n">1</span><h4>Hoje</h4></div>
+    <p>A rifa da vez com quanto entrou e quanto falta. A fila de decisão: comprovante esperando, reserva vencendo, dívida em aberto — cada linha com <em>um</em> botão que resolve. E o que o agente vendeu sozinho hoje.</p>
+    <div class="come">Absorve Início, Painel, Resultados e o “decidir” de Pedidos</div>
+  </div>
+  <div class="tela">
+    <div class="cabeca"><span class="n">2</span><h4>Balcão</h4></div>
+    <p>O quadro de atendimento passa a listar <em>pessoas</em>, não pedidos. Um cartão por pessoa: o que ela tem, o que ela deve e a conversa dela. Pedidos e Dívidas viram filtros desta lista.</p>
+    <div class="come">Absorve Atendimento, Dívidas e o “listar” de Pedidos</div>
+  </div>
+  <div class="tela">
+    <div class="cabeca"><span class="n">3</span><h4>A rifa</h4></div>
+    <p>Tudo que é configurar, em passos curtos: dados e prêmio, números fixos, imagens, lista de disparo, sorteio. O assistente de criação que já existe, estendido para editar o que já está no ar.</p>
+    <div class="come">Absorve Criar, Minhas rifas, Disparo, Resultados e Configuração</div>
+  </div>
+</div>
+
+<p>A aba <strong>Testar</strong> sai da navegação e vira um botão discreto no canto: é bancada de quem constrói, não do dono da rifa. Mas continua existindo — é com ela que a gente valida cada passo antes de encostar num número real.</p>
+
+<h2>A ordem do trabalho</h2>
+
+<div class="fase pronta">
+  <span class="marca">0</span>
+  <h3>Conferir a base <span class="selo ok">quase pronta</span></h3>
+  <p>As 86 funções que rodam em produção passaram a viver no repositório hoje mesmo. Resta conferir se as de rifa e o motor batem com o servidor, e respeitar o aviso já registrado: a pasta compartilhada tem cópias congeladas diferentes por função — ler o diff antes de subir qualquer coisa.</p>
+</div>
+
+<div class="fase">
+  <span class="marca">1</span>
+  <h3>Os três consertos de linha única</h3>
+  <p>Destravam receita hoje, com o cliente que já está usando, e não dependem de publicar tela nova.</p>
+  <ol>
+    <li>Botão de teste do disparo passa a se identificar como teste — a lista de 315 contatos volta a funcionar.</li>
+    <li>Link da rifa entra na rede de segurança de entrega de link.</li>
+    <li>Comprovante mandado na conversa passa a segurar a reserva, como o da página já faz.</li>
+  </ol>
+</div>
+
+<div class="fase">
+  <span class="marca">2</span>
+  <h3>Desafogar o agente</h3>
+  <p>Só banco. Sem publicar nada, e reversível.</p>
+  <ol>
+    <li>Tirar as repetições e criar a trava de unicidade. Meta: Atendimento sai de 309 para 42 linhas.</li>
+    <li>Tirar as 9 ferramentas de administração dos cargos que falam com lead e deixá-las onde já deveriam estar: Mentor, Rifas e Admin.</li>
+    <li>Gerar o vetor semântico das 14 ferramentas de rifa que não têm — assim elas param de entrar em conversa que não é de rifa.</li>
+    <li>Medir antes e depois: texto por turno, tokens de entrada e custo do dia.</li>
+  </ol>
+</div>
+
+<div class="fase">
+  <span class="marca">3</span>
+  <h3>Fechar o funil do dinheiro</h3>
+  <ol>
+    <li>A venda pelo agente passa a somar números no mesmo pedido e a aceitar fiado — os dois já existem no banco e a ferramenta ignora.</li>
+    <li>Chave de repetição na venda por conversa: mesma pessoa pedindo a mesma coisa em minutos devolve o pedido que já existe, em vez de abrir outro.</li>
+    <li>Pedido criado no painel também nasce com link, PIX e aviso — reusando o envio que a página pública já usa.</li>
+    <li>Avisar antes da reserva vencer, não só depois. O relógio que faz isso já roda de cinco em cinco minutos.</li>
+  </ol>
+</div>
+
+<div class="fase">
+  <span class="marca">4</span>
+  <h3>As três telas <span class="selo trava">depende do bloqueio</span></h3>
+  <ol>
+    <li>Reagrupar a navegação sem reescrever o que funciona: as abas viram seções e filtros.</li>
+    <li>Quebrar o que passou de 300 linhas — a de Pedidos tem 534.</li>
+    <li>Carregando, vazio e erro iguais em toda parte, com as peças que já existem.</li>
+  </ol>
+</div>
+
+<div class="fase">
+  <span class="marca">5</span>
+  <h3>Validar com gente de verdade</h3>
+  <ol>
+    <li>Rifa real do Fabrício no lugar da de teste, PIX conferido, canal do WhatsApp ligado.</li>
+    <li>Roteiro de seis passos, primeiro na bancada e depois no WhatsApp: pergunta o preço, pede três números, recebe PIX e link, manda o comprovante, o dono confirma, o comprador recebe a confirmação.</li>
+    <li>Repetir pela página pública.</li>
+    <li>Só então convidar o segundo cliente.</li>
+  </ol>
+</div>
+
+<div class="aceite">
+  <span class="rotulo">Critério de aceite</span>
+  <p>O plano só está feito quando existir no banco um pedido com origem <span class="mono">agente</span> e situação <span class="mono">pago</span>.</p>
+</div>
+
+
+<h2>Sete coisas quebradas que os exploradores acharam</h2>
+
+<p>Três agentes varreram o app, o banco e o elo com o agente ao mesmo tempo. O que voltou não foi opinião de arquitetura — foi defeito com endereço. Em ordem de quanto custa deixar como está:</p>
+
+<ul class="riscos">
+  <li><strong>O disparo em massa está travado — e é o que o Fabrício mais precisa.</strong> O botão “testar” manda o pedido sem dizer que é teste; o servidor então responde “faça o disparo de teste antes de mandar pra lista”. E o disparo de verdade só libera depois de um teste válido. Ou seja: nem testa, nem dispara. São 315 contatos na lista e 4 mensagens enviadas na história do app. <em>Conserto: uma linha.</em></li>
+  <li><strong>Comprovante mandado no WhatsApp não segura a reserva.</strong> Se o comprador manda o print na conversa em vez de usar o link, o agente lê a imagem, responde “recebi”, e o relógio continua correndo: cinco minutos depois a reserva pode ser apagada e os números voltam pro pote. Só o comprovante enviado pela página congela o prazo.</li>
+  <li><strong>O link da rifa ficou de fora da rede de segurança.</strong> Existe um mecanismo que garante a entrega do link quando a IA esquece de colar na resposta — ele cobre contrato, consulta e sala de reunião. Rifa não entrou na lista. <em>Conserto: uma linha.</em></li>
+  <li><strong>Vender fiado existe no banco e não existe na tela.</strong> A coluna está lá, a função de reserva aceita o parâmetro, e nenhuma tela liga ou usa. Feature nasceu em 24 de agosto e nunca chegou a ninguém.</li>
+  <li><strong>Mensagem pronta com etiqueta no meio.</strong> No chat de atendimento, o texto do modelo é enviado sem preencher as lacunas — o cliente recebe <code>{{titulo}}</code> literalmente no lugar do nome da rifa.</li>
+  <li><strong>Quatro colunas foram criadas direto na produção sem registro no repositório.</strong> São justamente as do disparo em dois estágios. Quem consultar o mapa do sistema antes de mexer vai ler uma verdade desatualizada.</li>
+  <li><strong>O cliente está vendo nossa etiqueta de teste.</strong> A primeira tela que abre traz o selo “teste de design · v2” escrito na interface, em produção, desde 2 de setembro.</li>
+</ul>
+
+<p>Fora esses, a lista menor: o quadro de atendimento não se atualiza sozinho, o chat quebra em silêncio quando a busca falha, oito arquivos passaram do limite de tamanho da casa, um componente inteiro de 169 linhas não é usado por ninguém, e quatro confirmações ainda usam a caixinha do navegador que a gente decidiu aposentar em agosto.</p>
+
+<p><strong>O que isso muda no plano:</strong> os três primeiros são conserto de linha única e destravam receita hoje, com o cliente que já está usando. Eles passam na frente de tudo.</p>
+
+<h2>O que pode dar errado</h2>
+
+<ul class="riscos">
+  <li><strong>Publicar a tela nova está bloqueado.</strong> A produção sai de outro repositório desde 1º de setembro. Por isso as fases 1 e 2, que são banco e servidor, vêm antes das telas.</li>
+  <li><strong>A pasta compartilhada das funções tem cópias diferentes congeladas</strong> em cada publicação. Subir uma função antiga leva a cópia nova junto. Ler o diff antes, sempre.</li>
+  <li><strong>Quem instala o app já sai autorizado a vender.</strong> Com um cliente tudo bem; antes do segundo, decidir se inverte.</li>
+  <li><strong>Duas rifas ativas ao mesmo tempo</strong> fazem o agente vender da errada, em silêncio — ele pega a mais recente, sem critério de desempate.</li>
+  <li><strong>Toda mexida em ferramenta</strong> exige rodar o teste de diagnóstico antes de publicar. Regra da casa desde a versão 207.</li>
+</ul>
+
+<footer>
+  Levantado por leitura do código e consulta direta ao banco de produção, com três agentes exploradores em paralelo (frente do app, banco e elo com o agente). Cada número desta página tem a consulta que o produziu registrada no plano técnico.
+</footer>
+
+</div>
+
+</body>
+</html>

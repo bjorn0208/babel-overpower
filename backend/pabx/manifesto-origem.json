@@ -1,0 +1,82 @@
+[
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/babelos/supabase/functions/babelos/index.ts",
+    "path": "backend/pabx/supabase/functions/babelos/index.ts",
+    "sha256": "c04817fab16d120ee283f279a622cfc5615b456889f2fff992e62726a26cb5b9"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/comercial-dossie/supabase/functions/comercial-dossie/index.ts",
+    "path": "backend/pabx/supabase/functions/comercial-dossie/index.ts",
+    "sha256": "fd782ef1cadb0590921402b9246610c511f6e736ba3054118d1e823df97ef0a6"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/prospectar/supabase/functions/prospectar/index.ts",
+    "path": "backend/pabx/supabase/functions/prospectar/index.ts",
+    "sha256": "48486d02bbd795f9722cc3cd631e9cb38b798441215934dc5869827ae4513fc1"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/enviar-email/supabase/functions/enviar-email/index.ts",
+    "path": "backend/pabx/supabase/functions/enviar-email/index.ts",
+    "sha256": "9bbb082c4ae2325cd7ac3c34f9a35f2976bbe13722db4a066d9a646b650a9722"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/simular/supabase/functions/simular/index.ts",
+    "path": "backend/pabx/supabase/functions/simular/index.ts",
+    "sha256": "68305ad238a44cbb68d27d1f9402bda4199369a6741b51af90b45714d0107476"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/comercial-qualificar/supabase/functions/comercial-qualificar/index.ts",
+    "path": "backend/pabx/supabase/functions/comercial-qualificar/index.ts",
+    "sha256": "88c9fa52f3ca84f550b2d2db3e427d631ecd06bceb091f0e87dca769c1bdb35d"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/extrair-contato/supabase/functions/extrair-contato/index.ts",
+    "path": "backend/pabx/supabase/functions/extrair-contato/index.ts",
+    "sha256": "7927f5c9fc99df8905ef8a34aa360b6d4244df84a645f119761971cf377697d6"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/sala-reuniao/supabase/functions/sala-reuniao/index.ts",
+    "path": "backend/pabx/supabase/functions/sala-reuniao/index.ts",
+    "sha256": "e5c6110957252ecf14f5d0d2fcde6c5ed58b9133cd0b8b82b6d66e0ac47ced8a"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/conhecimento/supabase/functions/conhecimento/index.ts",
+    "path": "backend/pabx/supabase/functions/conhecimento/index.ts",
+    "sha256": "071a345d6c049e0e5d3cc5a263e6b6cd400f6ec88b30bd40341b88ca403f3833"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/criar-vendedor/supabase/functions/criar-vendedor/index.ts",
+    "path": "backend/pabx/supabase/functions/criar-vendedor/index.ts",
+    "sha256": "c9dca756e464e26b15e4faac5ec3853f7e0e4111a1a5cdc54e110d96eb148bf8"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/whatsapp-enviar/supabase/functions/whatsapp-enviar/index.ts",
+    "path": "backend/pabx/supabase/functions/whatsapp-enviar/index.ts",
+    "sha256": "858862ff92e04cef2d5f122359b6163903c80478ef6c30d8094d82171fc7ed08"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/comercial-foto/supabase/functions/comercial-foto/index.ts",
+    "path": "backend/pabx/supabase/functions/comercial-foto/index.ts",
+    "sha256": "f258a92b67a3c21092de86aab553e2fac334d68b6b1b26c4909f7c1139ebc8b9"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/analisar-motivadores/supabase/functions/analisar-motivadores/index.ts",
+    "path": "backend/pabx/supabase/functions/analisar-motivadores/index.ts",
+    "sha256": "78b0bac50a2b5bbbea5fa5853c27aa4d6c895cd324fb7ae1ce6c528e2746f7ef"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/whatsapp-webhook/supabase/functions/whatsapp-webhook/index.ts",
+    "path": "backend/pabx/supabase/functions/whatsapp-webhook/index.ts",
+    "sha256": "11c9c3c2566f103dca373ae5f7331dda737ad0c3b8ef09ed369843c798e5d267"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/enriquecer/supabase/functions/enriquecer/index.ts",
+    "path": "backend/pabx/supabase/functions/enriquecer/index.ts",
+    "sha256": "b7acad5e400f01fd128361ce46f3a85bbd7b7cfa86ab684425f610707404df14"
+  },
+  {
+    "source": "dados/pabx/captura-20260926-1850/supabase/edge-functions/whatsapp-status/supabase/functions/whatsapp-status/index.ts",
+    "path": "backend/pabx/supabase/functions/whatsapp-status/index.ts",
+    "sha256": "5fb8714cccf936a065f0c711eb441260f3d7ba8699054f7deb264db25225ea8d"
+  }
+]

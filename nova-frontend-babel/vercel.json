@@ -1,0 +1,7 @@
+{
+  "cleanUrls": false,
+  "rewrites": [{ "source": "/", "destination": "/app.html" }],
+  "headers": [
+    { "source": "/(.*)\\.(js|html)", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+  ]
+}

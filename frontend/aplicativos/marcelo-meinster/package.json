@@ -1,0 +1,20 @@
+{
+  "name": "m-master",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "M Master — mapas mentais com IA, estilo MindMeister",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@zumer/snapdom": "^1.9.5",
+    "mind-elixir": "^6.0.0-next.4"
+  },
+  "devDependencies": {
+    "vite": "^7.1.2"
+  }
+}

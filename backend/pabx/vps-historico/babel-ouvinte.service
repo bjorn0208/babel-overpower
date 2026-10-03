@@ -1,0 +1,13 @@
+[Unit]
+Description=Ouvinte Reuniao BABEL — grava faixa de audio por participante (LiveKit)
+After=network.target livekit.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/babel/ouvinte_reuniao.py
+Restart=always
+RestartSec=5
+Nice=10
+CPUWeight=50
+
+[Install]
+WantedBy=multi-user.target

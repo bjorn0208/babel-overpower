@@ -1,0 +1,11 @@
+{
+  "name": "Marcelo Meister — Mapas Mentais com IA",
+  "short_name": "Marcelo Meister",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1117",
+  "theme_color": "#0f1117",
+  "icons": [
+    { "src": "/marcelo.png", "sizes": "302x332", "type": "image/png", "purpose": "any" }
+  ]
+}

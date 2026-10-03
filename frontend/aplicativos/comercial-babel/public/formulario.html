@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/support.js"></script>
+  <title>Babel — Formulário de Inscrição</title>
+  <meta name="description" content="Conte sua operação em 9 conversas. A Babel devolve o diagnóstico." />
+  <meta property="og:title" content="Babel — Formulário de Inscrição" />
+  <meta property="og:description" content="Conte sua operação em 9 conversas. A Babel devolve o diagnóstico." />
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+html, body { margin:0; padding:0; background:#08060F; height:100%; overflow:hidden; }
+a { color:#9B6BFF; text-decoration:none; } a:hover { color:#39C4FF; }
+::selection { background:#7A45E8; color:#EDEAF7; }
+input, textarea, button { font-family:inherit; }
+input::placeholder, textarea::placeholder { color:#4B4568; }
+@keyframes sobe { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes entra { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes flutua { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+@keyframes pulsa { 0%,100% { opacity:.35; } 50% { opacity:.7; } }
+@keyframes brilha { 0%,100% { opacity:.55; transform:scale(1); } 50% { opacity:1; transform:scale(1.45); } }
+@keyframes energia { 0% { background-position:0 0; } 100% { background-position:0 -240%; } }
+@keyframes vibra { 0%,100% { box-shadow:0 0 12px rgba(122,69,232,.5); } 50% { box-shadow:0 0 30px rgba(57,196,255,.85); } }
+@keyframes faisca { 0% { bottom:-6%; opacity:0; } 12% { opacity:1; } 88% { opacity:1; } 100% { bottom:104%; opacity:0; } }
+@keyframes brilhoFio { 0%,100% { opacity:.3; transform:scale(.7); } 50% { opacity:1; transform:scale(1.25); } }
+@keyframes flashTela { 0% { opacity:0; } 18% { opacity:1; } 100% { opacity:0; } }
+@keyframes contaEntraA { 0% { opacity:0; transform:scale(.7); } 34% { opacity:1; transform:scale(1.04); } 100% { opacity:1; transform:scale(1); } }
+@keyframes contaEntraB { 0% { opacity:0; transform:scale(.7); } 34% { opacity:1; transform:scale(1.04); } 100% { opacity:1; transform:scale(1); } }
+@keyframes montaPeca { 0% { opacity:0; transform:translateY(10px) scale(.9); filter:blur(3px); } 60% { opacity:1; transform:translateY(0) scale(1.03); filter:blur(0); } 100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+@keyframes varredura { 0% { transform:translateY(-120%); opacity:0; } 12% { opacity:1; } 88% { opacity:1; } 100% { transform:translateY(320%); opacity:0; } }
+@keyframes piscaVoltar { 0%,100% { box-shadow:0 0 0 rgba(57,196,255,0); border-color:rgba(155,107,255,.3); color:#9A93B8; } 50% { box-shadow:0 0 26px rgba(57,196,255,.6); border-color:#39C4FF; color:#EDEAF7; } }
+.tecla-viva:active { transform: translateY(2px) scale(.94); filter: brightness(1.7); transition: none !important; }
+@keyframes cursor { 0%,45% { opacity:1; } 50%,95% { opacity:0; } }
+@keyframes bordaA { 0% { opacity:0; } 22% { opacity:1; } 100% { opacity:0; } }
+@keyframes bordaB { 0% { opacity:0; } 22% { opacity:1; } 100% { opacity:0; } }
+@keyframes cargaA { 0% { opacity:0; transform:translate(0,0) scale(.4); } 14% { opacity:1; transform:translate(-8vw,2vh) scale(1.2); } 100% { opacity:0; transform:translate(-48vw,16vh) scale(.45); } }
+@keyframes cargaB { 0% { opacity:0; transform:translate(0,0) scale(.4); } 14% { opacity:1; transform:translate(-8vw,2vh) scale(1.2); } 100% { opacity:0; transform:translate(-48vw,16vh) scale(.45); } }
+@keyframes envioA { 0% { opacity:0; } 16% { opacity:1; } 48% { opacity:.55; } 100% { opacity:0; } }
+@keyframes envioB { 0% { opacity:0; } 16% { opacity:1; } 48% { opacity:.55; } 100% { opacity:0; } }
+</style>
+</helmet>
+
+<div style="position:relative; height:100dvh; min-height:100dvh; display:flex; flex-direction:column; background:linear-gradient(175deg,#0C0820 0%,#0A0A22 42%,#071427 78%,#061020 100%); color:#EDEAF7; font-family:'Cormorant Garamond',Georgia,serif; text-transform:lowercase; overflow:hidden">
+
+  <div style="position:absolute; top:-30vh; left:-20vw; width:70vw; height:70vw; border-radius:50%; background:radial-gradient(circle,rgba(122,69,232,.30),rgba(122,69,232,0) 68%); pointer-events:none; animation:pulsa 9s ease-in-out infinite"></div>
+  <div style="position:absolute; bottom:-35vh; right:-22vw; width:76vw; height:76vw; border-radius:50%; background:radial-gradient(circle,rgba(31,121,224,.26),rgba(31,121,224,0) 68%); pointer-events:none; animation:pulsa 11s ease-in-out infinite"></div>
+  <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(155,107,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(155,107,255,.04) 1px,transparent 1px); background-size:clamp(40px,6vw,64px) clamp(40px,6vw,64px); pointer-events:none"></div>
+  <div style="{{ estiloBordas }}"></div>
+  <div ref="{{ refEnvio }}" style="position:absolute; inset:0; pointer-events:none; opacity:0; box-shadow:inset 0 0 clamp(60px,11vw,150px) clamp(8px,1.6vw,22px) rgba(122,69,232,.6), inset 0 0 clamp(24px,4vw,60px) rgba(57,196,255,.5)"></div>
+  <div style="{{ estiloFlash }}"></div>
+
+  <div style="position:relative; flex:none; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(18px,3vh,40px) clamp(18px,5vw,72px) 0; min-height:clamp(40px,6vh,62px)">
+    <div style="{{ estiloMarcaTopo }}">
+      <img src="/assets/b-joia.png" alt="babel" style="display:block; height:clamp(32px,5vh,54px); filter:drop-shadow(0 6px 20px rgba(122,69,232,.55))">
+      <div style="display:flex; flex-direction:column; gap:4px">
+        <div style="font-size:clamp(16px,2.4vh,25px); font-weight:500; letter-spacing:.3em; padding-left:.3em; line-height:1; background:linear-gradient(120deg,#B899FF,#7AD2FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent">babel</div>
+        <div style="font-family:'Geist',sans-serif; font-size:clamp(7px,1.05vh,10px); font-weight:500; letter-spacing:.26em; color:#7D76A0; line-height:1.2">consciência artificial</div>
+      </div>
+    </div>
+    <div style="{{ estiloEtiquetaTopo }}">inscrição 2026</div>
+  </div>
+
+  <div style="position:relative; flex:1; min-height:0; display:flex; align-items:stretch; gap:0">
+
+    <div style="{{ estiloTorre }}">
+      <div style="position:relative; flex:none; width:clamp(40px,5.4vw,64px); height:100%">
+        <div style="position:absolute; inset:0">
+          <svg viewBox="0 0 40 1000" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; overflow:visible">
+          <g fill="none" stroke-linecap="round">
+            <path vector-effect="non-scaling-stroke" d="{{ dRespostas }}" stroke="rgba(155,107,255,.16)" stroke-width="1.4"></path>
+            <path vector-effect="non-scaling-stroke" d="{{ dEnvios }}" stroke="rgba(57,196,255,.16)" stroke-width="1.4"></path>
+            <path vector-effect="non-scaling-stroke" d="{{ dRespostasAceso }}" stroke="rgba(155,107,255,.3)" stroke-width="5"></path>
+            <path vector-effect="non-scaling-stroke" d="{{ dEnviosAceso }}" stroke="rgba(57,196,255,.3)" stroke-width="5"></path>
+            <path vector-effect="non-scaling-stroke" d="{{ dRespostasAceso }}" stroke="#B899FF" stroke-width="2"></path>
+            <circle cx="20" cy="1000" r="2.4" fill="#C9B0FF" style="filter:drop-shadow(0 0 6px rgba(155,107,255,.95))"></circle>
+            <circle cx="20" cy="0" r="2.4" fill="{{ corTopo }}" style="{{ filtroTopo }}"></circle>
+            <path vector-effect="non-scaling-stroke" d="{{ dEnviosAceso }}" stroke="#7AD2FF" stroke-width="2"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div style="{{ estiloRotulos }}">
+        <sc-for list="{{ capitulos }}" as="cap" hint-placeholder-count="5">
+          <div style="{{ cap.estiloBloco }}">
+            <div style="{{ cap.estiloRotulo }}">{{ cap.nome }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{ ehAbertura }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative; flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(16px,2.8vh,34px); padding:clamp(14px,2.4vh,34px) clamp(18px,5vw,72px); text-align:center; overflow:hidden">
+        <img src="/assets/b-joia.png" alt="babel" style="display:block; height:clamp(96px,24vh,250px); filter:drop-shadow(0 26px 62px rgba(122,69,232,.5)) drop-shadow(0 -8px 44px rgba(57,196,255,.28)); animation:flutua 7s ease-in-out infinite">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:clamp(9px,1.5vh,16px)">
+          <div style="font-size:clamp(32px,7vh,76px); font-weight:500; letter-spacing:.28em; padding-left:.28em; color:#EDEAF7; line-height:1">babel</div>
+          <div style="width:clamp(70px,9vw,120px); height:2px; border-radius:2px; background:linear-gradient(90deg,#7A45E8,#39C4FF)"></div>
+          <div style="font-family:'Geist',sans-serif; font-size:clamp(10px,1.6vh,15px); font-weight:500; letter-spacing:.34em; color:#A39CC0">consciência artificial</div>
+        </div>
+
+        <sc-if value="{{ naContagem }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:clamp(9px,1.5vh,16px)">
+            <div style="font-family:'Geist',sans-serif; font-size:clamp(10px,1.4vh,13px); letter-spacing:.3em; color:#9B6BFF">iniciando inscrição</div>
+            <div style="{{ estiloContagem }}">{{ contagem }}</div>
+          </div>
+        </sc-if>
+
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ehConversa }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative; flex:1; min-width:0; min-height:0; overflow:hidden; box-sizing:border-box; display:flex; flex-direction:column; padding:clamp(10px,1.8vh,26px) clamp(18px,5vw,72px) clamp(10px,1.8vh,26px) clamp(12px,2.4vw,40px); max-width:1020px">
+
+        <div ref="{{ refTranscricao }}" style="flex:1 1 auto; min-height:0; overflow-y:auto; display:flex; flex-direction:column; justify-content:flex-start; gap:clamp(14px,2.2vh,26px); padding-right:6px">
+          <sc-for list="{{ linhas }}" as="l" hint-placeholder-count="2">
+            <div style="{{ l.estiloLinha }}">
+
+              <sc-if value="{{ l.ehBabel }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex; flex-direction:column; gap:clamp(5px,.8vh,9px); max-width:min(100%,660px)">
+                  <div style="font-family:'Geist',sans-serif; font-size:clamp(8px,1.05vh,10px); letter-spacing:.26em; color:#9B6BFF">babel</div>
+                  <div style="font-size:{{ l.corpo }}; font-weight:600; line-height:1.26; color:#EDEAF7; text-wrap:pretty"><sc-for list="{{ l.trechos }}" as="tr" hint-placeholder-count="1"><span style="{{ tr.estilo }}">{{ tr.texto }}</span><img src="/assets/b-joia.png" alt="babel" style="{{ tr.estiloLogo }}"></sc-for><span style="{{ l.estiloCursor }}"></span></div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ l.ehDivisor }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; align-items:center; gap:clamp(10px,1.4vw,16px); padding:clamp(2px,.4vh,6px) 0">
+                  <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(155,107,255,0),rgba(155,107,255,.45))"></div>
+                  <div style="font-family:'Geist',sans-serif; font-size:clamp(8px,1.05vh,10px); letter-spacing:.24em; color:#6E6790; white-space:nowrap">{{ l.texto }}</div>
+                  <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(155,107,255,.45),rgba(155,107,255,0))"></div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ l.ehResposta }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ l.estiloBolha }}">
+                  <sc-for list="{{ l.itens }}" as="it" hint-placeholder-count="2">
+                    <div style="display:flex; flex-direction:column; gap:3px">
+                      <div style="font-family:'Geist',sans-serif; font-size:clamp(10px,1.4vh,12px); line-height:1.4; letter-spacing:.06em; color:#8FA9C8; text-align:right; text-transform:none; text-wrap:pretty">{{ it.pergunta }}</div>
+                      <div style="font-size:clamp(15px,2.1vh,22px); line-height:1.35; text-align:right; text-wrap:pretty"><sc-for list="{{ it.segmentos }}" as="s" hint-placeholder-count="1"><span onClick="{{ s.aoClicar }}" style="{{ s.estilo }}">{{ s.texto }}</span></sc-for></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+            </div>
+          </sc-for>
+        </div>
+
+        <div ref="{{ refCaixa }}" style="{{ estiloCaixa }}" onWheel="{{ aoRolarCaixa }}">
+          
+          
+                                  <sc-for list="{{ campos }}" as="c" hint-placeholder-count="2">
+                    <div style="flex:none; min-width:0; display:flex; flex-direction:column; gap:clamp(4px,.7vh,8px)">
+
+                      <sc-if value="{{ c.ehTexto }}" hint-placeholder-val="{{ true }}">
+                        <input type="text" value="{{ c.valor }}" onChange="{{ c.aoDigitar }}" onKeyDown="{{ aoTeclar }}" onFocus="{{ c.aoFocar }}" onClick="{{ c.aoFocar }}" readOnly="{{ c.travado }}" placeholder="{{ c.exemplo }}" style="width:100%; box-sizing:border-box; background:transparent; border:1px solid rgba(155,107,255,.34); border-radius:999px; box-shadow:0 0 12px rgba(122,69,232,.2); color:#EDEAF7; font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(17px,2.5vh,26px); padding:clamp(10px,1.5vh,14px) clamp(17px,2.1vw,24px); outline:none; text-align:right; transition:all .25s ease" style-focus="border:1px solid #39C4FF; box-shadow:0 0 18px rgba(57,196,255,.4)">
+                      </sc-if>
+
+                      <sc-if value="{{ c.ehLongo }}" hint-placeholder-val="{{ false }}">
+                        <textarea rows="2" cols="1" value="{{ c.valor }}" onChange="{{ c.aoDigitar }}" onKeyDown="{{ aoTeclar }}" onFocus="{{ c.aoFocar }}" onClick="{{ c.aoFocar }}" readOnly="{{ c.travado }}" placeholder="{{ c.exemplo }}" style="width:100%; min-width:0; max-width:100%; box-sizing:border-box; background:transparent; border:1px solid rgba(155,107,255,.34); border-radius:22px; box-shadow:0 0 12px rgba(122,69,232,.2); color:#EDEAF7; font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(17px,2.5vh,26px); line-height:1.42; padding:clamp(10px,1.5vh,14px) clamp(17px,2.1vw,24px); outline:none; resize:none; text-align:right; transition:all .25s ease" style-focus="border:1px solid #39C4FF; box-shadow:0 0 18px rgba(57,196,255,.4)"></textarea>
+                      </sc-if>
+
+                      <sc-if value="{{ c.temCorrecao }}" hint-placeholder-val="{{ false }}">
+                        <button type="button" onClick="{{ c.aoAbrirLicao }}" style="align-self:flex-end; background:rgba(57,196,255,.1); border:1px solid rgba(57,196,255,.4); border-radius:999px; padding:7px 15px; cursor:pointer; font-family:'Geist',sans-serif; font-size:10px; letter-spacing:.14em; text-transform:lowercase; color:#BFE6FF">mim → eu · toque para entender</button>
+                      </sc-if>
+
+                      <sc-if value="{{ c.ehMovel }}" hint-placeholder-val="{{ false }}">
+                        <div ref="{{ c.refCampo }}" onClick="{{ c.aoFocar }}" style="{{ c.estiloCampoMovel }}"><sc-for list="{{ c.segmentos }}" as="s" hint-placeholder-count="1"><span onClick="{{ s.aoClicar }}" style="{{ s.estilo }}">{{ s.texto }}</span></sc-for><span style="{{ c.estiloCursorCampo }}"></span></div>
+                      </sc-if>
+
+                      <sc-if value="{{ c.ehEscolha }}" hint-placeholder-val="{{ false }}">
+                        <div onClick="{{ c.aoAtivar }}" style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:clamp(6px,.9vh,10px)">
+                          <sc-for list="{{ c.opcoes }}" as="o" hint-placeholder-count="3">
+                            <button type="button" onClick="{{ o.aoClicar }}" style="{{ o.estilo }}">{{ o.rotulo }}</button>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>        <div style="position:relative; flex:none; display:flex; align-items:center; justify-content:space-between; gap:clamp(9px,1.3vw,18px); padding-top:clamp(11px,1.9vh,24px)">
+          <sc-if value="{{ mostrarBotoesCaixa }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ voltar }}" style="flex:none; background:transparent; border:none; padding:clamp(11px,1.7vh,16px) clamp(6px,1vw,12px); color:#8E86AE; font-family:'Geist',sans-serif; font-size:clamp(10px,1.35vh,12px); letter-spacing:.18em; text-transform:lowercase; cursor:pointer; text-shadow:0 0 10px rgba(122,69,232,.55); transition:all .12s ease; min-height:46px" style-hover="color:#D8D2EA; text-shadow:0 0 18px rgba(155,107,255,.9)" style-active="color:#FFFFFF; text-shadow:0 0 14px rgba(255,255,255,.9), 0 0 36px rgba(155,107,255,1), 0 0 72px rgba(122,69,232,.9)">voltar</button>
+          </sc-if>
+          <div style="font-family:'Geist',sans-serif; font-size:clamp(8px,1.1vh,11px); letter-spacing:.2em; color:#544E70; text-align:center">role para baixo para ver o histórico</div>
+          <sc-if value="{{ mostrarBotoesCaixa }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative; flex:none">
+            <button type="button" onClick="{{ enviar }}" style="position:relative; background:radial-gradient(circle at 50% 45%, rgba(57,196,255,.16), rgba(122,69,232,.1) 52%, rgba(122,69,232,0) 78%); border:none; border-radius:50%; box-shadow:0 0 14px rgba(57,196,255,.2), 0 0 30px rgba(122,69,232,.14); padding:clamp(12px,1.9vh,18px) clamp(14px,2vw,22px); color:#E4F5FF; font-family:'Geist',sans-serif; font-size:clamp(10px,1.35vh,12px); font-weight:600; letter-spacing:.22em; text-transform:lowercase; cursor:pointer; text-shadow:0 0 10px rgba(255,255,255,.75), 0 0 26px rgba(57,196,255,1), 0 0 52px rgba(57,196,255,.75), 0 0 84px rgba(122,69,232,.6); transition:all .2s ease; min-height:46px" style-hover="color:#FFFFFF; box-shadow:0 0 24px rgba(57,196,255,.34), 0 0 52px rgba(122,69,232,.24); text-shadow:0 0 14px rgba(255,255,255,.95), 0 0 36px rgba(57,196,255,1), 0 0 72px rgba(57,196,255,.9), 0 0 110px rgba(122,69,232,.8)">{{ rotuloEnviar }}</button>
+          </div>
+          </sc-if>
+        </div>
+
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ naLicao }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative; flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(14px,2.4vh,28px); padding:clamp(16px,3vh,40px) clamp(20px,5vw,72px); text-align:center; animation:sobe .5s ease both">
+        <div style="font-family:'Geist',sans-serif; font-size:clamp(9px,1.3vh,11px); letter-spacing:.32em; color:#39C4FF">correção da babel</div>
+        <div style="font-size:clamp(38px,9vh,96px); font-weight:600; line-height:1; color:#EDEAF7">mim <span style="color:#544E70">→</span> <span style="color:#39C4FF; text-shadow:0 0 26px rgba(57,196,255,.7)">eu</span></div>
+        <div style="width:clamp(70px,9vw,120px); height:2px; border-radius:2px; background:linear-gradient(90deg,#7A45E8,#39C4FF)"></div>
+        <p style="margin:0; font-size:clamp(19px,2.8vh,30px); font-weight:600; line-height:1.3; color:#EDEAF7; max-width:720px; text-wrap:pretty">mim não conjuga verbo.</p>
+        <p style="margin:0; font-size:clamp(15px,2.2vh,22px); line-height:1.5; color:#A39CC0; max-width:680px; text-wrap:pretty">mim é pronome oblíquo: só aparece depois de preposição, sem verbo na sequência. quando vem um verbo, o certo é eu.</p>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:clamp(4px,1vh,12px); text-align:left">
+          <div style="display:flex; align-items:baseline; gap:12px"><span style="font-family:'Geist',sans-serif; font-size:10px; letter-spacing:.2em; color:#39C4FF; width:34px; flex:none">certo</span><span style="font-size:clamp(16px,2.3vh,23px); color:#EDEAF7">para eu fazer · para eu assinar</span></div>
+          <div style="display:flex; align-items:baseline; gap:12px"><span style="font-family:'Geist',sans-serif; font-size:10px; letter-spacing:.2em; color:#B4707C; width:34px; flex:none">errado</span><span style="font-size:clamp(16px,2.3vh,23px); color:#7D76A0">para mim fazer · para mim assinar</span></div>
+          <div style="display:flex; align-items:baseline; gap:12px"><span style="font-family:'Geist',sans-serif; font-size:10px; letter-spacing:.2em; color:#39C4FF; width:34px; flex:none">certo</span><span style="font-size:clamp(16px,2.3vh,23px); color:#EDEAF7">para mim, tudo bem · entregue para mim</span></div>
+        </div>
+        <button type="button" onClick="{{ fecharLicao }}" style="margin-top:clamp(8px,1.6vh,20px); background:transparent; color:#9A93B8; border:1px solid rgba(155,107,255,.3); border-radius:999px; padding:15px 34px; font-family:'Geist',sans-serif; font-size:clamp(10px,1.35vh,12px); letter-spacing:.24em; text-transform:lowercase; cursor:pointer; min-height:52px; animation:piscaVoltar 1.4s ease-in-out infinite">voltar</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ehFecho }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative; flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(13px,2.1vh,24px); padding:clamp(14px,2.4vh,34px) clamp(18px,5vw,72px); text-align:center; animation:sobe .8s ease both">
+        <img src="/assets/b-joia.png" alt="babel" style="display:block; height:clamp(110px,26vh,260px); filter:drop-shadow(0 24px 60px rgba(122,69,232,.55)) drop-shadow(0 -8px 42px rgba(57,196,255,.3)); animation:flutua 7s ease-in-out infinite">
+        <div style="font-size:clamp(28px,5.4vh,58px); font-weight:600; line-height:1.24; color:#EDEAF7; max-width:900px; text-wrap:pretty">muitos são chamados, poucos são os <span style="background:linear-gradient(160deg,#9B6BFF 0%,#7A45E8 34%,#3F55D8 58%,#1F79E0 78%,#39C4FF 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:#39C4FF">escolhidos</span>.</div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <sc-if value="{{ mostrarTeclado }}" hint-placeholder-val="{{ false }}">
+    <div style="position:relative; flex:none; display:flex; flex-direction:column; gap:clamp(5px,1.1vh,10px); padding:clamp(7px,1.4vh,14px) 8px clamp(9px,1.6vh,18px)">
+      <sc-for list="{{ teclado }}" as="fila" hint-placeholder-count="4">
+        <div style="display:flex; gap:3px; justify-content:center">
+          <sc-for list="{{ fila.teclas }}" as="t" hint-placeholder-count="10">
+            <button type="button" class="tecla-viva" onClick="{{ t.aoClicar }}" style="{{ t.estilo }}">{{ t.rotulo }}</button>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+const ETAPAS = [
+  {
+    fala: "prazer, eu sou a babel (§). como posso te chamar — e qual o seu whatsapp?",
+    capitulo: "identificação",
+    erro: { em: 26, texto: "cham" },
+    campos: [
+      { id: 1, foco: "como posso te chamar", r: "Nome Completo", tipo: "texto", ex: "seu nome" },
+      { id: 2, foco: "qual o seu whatsapp", r: "Whatsapp com ddd", tipo: "texto", ex: "(00) 00000-0000" }
+    ]
+  },
+  {
+    fala: "e a empresa: como ela se chama, e quanto custa o que você vende?",
+    capitulo: "identificação",
+    campos: [
+      { id: 3, foco: "como ela se chama", r: "Nome da Empresa", tipo: "texto", ex: "razão social ou nome fantasia" },
+      { id: 4, foco: "quanto custa o que você vende", r: "Ticket médio do produto/serviço principal", tipo: "texto", ex: "R$ 0,00" }
+    ]
+  },
+  { fala: "e onde eu te encontro: qual o @ da empresa, e de onde vocês são?", capitulo: "identificação", campos: [{ id: 19, foco: "qual o @ da empresa", r: "O @ da empresa no Instagram", tipo: "texto", ex: "@suaempresa" }, { id: 20, foco: "de onde vocês são", r: "Cidade e estado", tipo: "texto", ex: "ex: Recife, PE" }, { id: 21, foco: "", r: "CNPJ (abre o raio-x completo — opcional)", tipo: "texto", ex: "00.000.000/0000-00" }] },
+  {
+    fala: "me conta o tamanho da operação: quanto entra por mês, e quantas pessoas no time?",
+    capitulo: "a operação",
+    erro: { em: 14, texto: "tam" },
+    campos: [
+      { id: 5, foco: "quanto entra por mês", r: "Qual o faturamento mensal médio da operação hoje?", tipo: "texto", ex: "R$ 0,00" },
+      { id: 6, foco: "quantas pessoas no time", r: "Quantos colaboradores você tem hoje dedicados a vendas, suporte e financeiro?", tipo: "texto", ex: "número de pessoas" }
+    ]
+  },
+  {
+    fala: "quanto você investe para o lead chegar, e quantos chegam?",
+    capitulo: "a operação",
+    campos: [
+      { id: 7, foco: "quanto você investe para o lead chegar", r: "Qual o seu investimento mensal médio em tráfego pago (Ads)?", tipo: "texto", ex: "R$ 0,00" },
+      { id: 8, foco: "quantos chegam", r: "Quantos leads chegam, em média, por dia nos seus canais de atendimento?", tipo: "texto", ex: "leads por dia" }
+    ]
+  },
+  {
+    fala: "por onde eles entram, e quanto disso vira venda?",
+    capitulo: "os leads",
+    campos: [
+      { id: 9, foco: "por onde eles entram", r: "Quais canais de entrada você utiliza?", tipo: "escolha", multi: true,
+        opcoes: ["whatsapp", "instagram (direct)", "site (lp)", "gestão de leads", "tiktok", "indicação"] },
+      { id: 10, foco: "quanto disso vira venda", r: "Qual a sua taxa de conversão atual de Lead para Venda?", tipo: "texto", ex: "ex: 8%" }
+    ]
+  },
+  {
+    fala: "e onde a venda escapa? quero entender o que acontece depois que o lead esfria.",
+    capitulo: "os leads",
+    erro: { em: 30, texto: "enten" },
+    campos: [
+      { id: 11, foco: "onde a venda escapa", r: "Você sente que perde vendas por demora no atendimento ou falta de acompanhamento (follow-up)?", tipo: "longo", ex: "conte como isso acontece hoje" },
+      { id: 12, foco: "depois que o lead esfria", r: "Sua operação realiza remarketing ativo nos leads que não compraram? Se sim, como?", tipo: "longo", ex: "descreva o processo atual" }
+    ]
+  },
+  {
+    fala: "quando o cliente diz sim, como você fecha, e quantos contratos são por mês?",
+    capitulo: "contratos",
+    campos: [
+      { id: 13, foco: "como você fecha", r: "Como é feito o fechamento de contrato e a emissão de cobranças hoje?", tipo: "escolha", opcoes: ["manual", "automatizado"] },
+      { id: 14, foco: "quantos contratos são por mês", r: "Qual o seu volume mensal de contratos ativos e novas cobranças geradas?", tipo: "texto", ex: "contratos e cobranças por mês" }
+    ]
+  },
+  {
+    fala: "e quanto disso não entra no caixa, e quanto tempo a cobrança consome?",
+    capitulo: "contratos",
+    campos: [
+      { id: 15, foco: "quanto disso não entra no caixa", r: "Qual a sua taxa de inadimplência ou de boletos/PIX não pagos hoje?", tipo: "texto", ex: "ex: 12%" },
+      { id: 16, foco: "quanto tempo a cobrança consome", r: "Quanto tempo sua equipe gasta por dia apenas com cobrança e gestão de contratos?", tipo: "texto", ex: "horas por dia" }
+    ]
+  },
+  {
+    fala: "por último: com o que você trabalha hoje, e o que espera de mim?",
+    capitulo: "objetivo",
+    erro: { em: 18, texto: "trabal" },
+    campos: [
+      { id: 17, foco: "com o que você trabalha hoje", r: "Quais ferramentas você utiliza atualmente? (CRM, Checkout, ERP, Plataforma de Anúncios)", tipo: "longo", ex: "liste as ferramentas" },
+      { id: 18, foco: "o que espera de mim", r: "Qual o principal objetivo ao implementar nossa Consciência Artificial agora? (Reduzir custo fixo, aumentar conversão, escala de atendimento ou organização de dados?)", tipo: "longo", ex: "o que você espera da babel" }
+    ]
+  }
+];
+
+const PALAVRAS = [
+  { t: "formulário de inscrição", corpo: "clamp(19px,3.4vh,38px)", peso: "600", cor: "#EDEAF7", esp: ".1em" },
+  { t: "10 conversas · 21 respostas", corpo: "clamp(12px,1.8vh,17px)", peso: "500", cor: "#A39CC0", esp: ".26em" },
+  { t: "suas respostas ficam salvas", corpo: "clamp(11px,1.6vh,15px)", peso: "400", cor: "#7D76A0", esp: ".22em" }
+];
+const PASSOS = PALAVRAS.reduce((m, p, i) => Math.max(m, i * 5 + p.t.length), 0) + 8;
+const RUIDO = "abcdefghijklmnopqrstuvwxyz0123456789#*/<>{}[]$%&";
+const PECAS = [
+  { nome: "torre", icone: "width:6px; height:34px; border-radius:3px; background:linear-gradient(to top,#1F79E0,#7A45E8,#39C4FF); box-shadow:0 0 16px rgba(122,69,232,.7)" },
+  { nome: "pulso", icone: "width:22px; height:22px; border-radius:50%; background:#9B6BFF; box-shadow:0 0 0 6px rgba(155,107,255,.16), 0 0 20px rgba(155,107,255,.85)" },
+  { nome: "conversa", icone: "width:44px; height:26px; border-radius:12px 12px 3px 12px; border:1px solid rgba(155,107,255,.55); background:linear-gradient(120deg,rgba(122,69,232,.24),rgba(31,121,224,.18))" },
+  { nome: "envio", icone: "width:52px; height:22px; border-radius:999px; background:linear-gradient(100deg,#7A45E8,#1F79E0); box-shadow:0 6px 20px rgba(122,69,232,.5)" }
+];
+
+const CAPITULOS = ["identificação", "a operação", "os leads", "contratos", "objetivo"];
+const TOTAL_CAMPOS = 21;
+const TECLADO_LETRAS = [
+  ["q","w","e","r","t","y","u","i","o","p"],
+  ["a","s","d","f","g","h","j","k","l","ç"],
+  ["shift","z","x","c","v","b","n","m","apagar"],
+  ["123","voltar","espaço","enviar"]
+];
+// Onde o celular põe maiúscula sozinho: começo do campo e depois de . ! ?
+function pedeMaiuscula(texto) {
+  const t = String(texto == null ? "" : texto);
+  return t.length === 0 || /[.!?]\s+$/.test(t) || /^\s*$/.test(t);
+}
+const TECLADO_NUMEROS = [
+  ["1","2","3","4","5","6","7","8","9","0"],
+  ["R$","%","@","#","&","-","+","(",")","/"],
+  ["abc",".",",","?","!",":",";","'","apagar"],
+  ["voltar","espaço","enviar"]
+];
+const TROCAS = {
+  nao:"não", sao:"são", entao:"então", voce:"você", vc:"você", tambem:"também", ate:"até", porem:"porém",
+  ja:"já", so:"só", tres:"três", mes:"mês", meses:"meses", numero:"número", numeros:"números",
+  medio:"médio", media:"média", proximo:"próximo", ultimo:"último", duvida:"dúvida", possivel:"possível",
+  automatico:"automático", automatizacao:"automatização", operacao:"operação", operacoes:"operações",
+  conversao:"conversão", gestao:"gestão", organizacao:"organização", atencao:"atenção", acao:"ação", acoes:"ações",
+  cobranca:"cobrança", cobrancas:"cobranças", financas:"finanças", financeiro:"financeiro",
+  servico:"serviço", servicos:"serviços", preco:"preço", precos:"preços", comecar:"começar", comeco:"começo",
+  orcamento:"orçamento", reuniao:"reunião", inadimplencia:"inadimplência", credito:"crédito", debito:"débito",
+  eh:"é", ta:"está", tá:"está", pra:"para", q:"que", tb:"também", pq:"porque", hj:"hoje"
+};
+const FRASES = [
+  [/\bas vezes\b/gi, "às vezes"], [/\ba noite\b/gi, "à noite"], [/\ba tarde\b/gi, "à tarde"],
+  [/\ba vista\b/gi, "à vista"], [/\ba prazo\b/gi, "a prazo"], [/\ba medida que\b/gi, "à medida que"],
+  [/\ba distancia\b/gi, "à distância"], [/\ba disposicao\b/gi, "à disposição"]
+];
+
+function corrigirPalavra(p) {
+  const baixa = p.toLowerCase();
+  let saida = TROCAS[baixa];
+  if (!saida) {
+    if (/coes$/.test(baixa)) saida = baixa.replace(/coes$/, "ções");
+    else if (/cao$/.test(baixa)) saida = baixa.replace(/cao$/, "ção");
+    else if (/ancas$/.test(baixa)) saida = baixa.replace(/ancas$/, "anças");
+    else if (/anca$/.test(baixa)) saida = baixa.replace(/anca$/, "ança");
+  }
+  if (!saida) return p;
+  if (p[0] === p[0].toUpperCase() && p !== baixa) return saida[0].toUpperCase() + saida.slice(1);
+  return saida;
+}
+
+function corrigirTexto(bruto) {
+  let t = String(bruto == null ? "" : bruto);
+  t = t.replace(/n(?=[pbPB])/g, "m").replace(/N(?=[pbPB])/g, "M");
+  const fechado = /[\s.,!?;:]$/.test(t);
+  const partes = t.split(/(\s+)/);
+  for (let k = 0; k < partes.length; k++) {
+    if (/^\s+$/.test(partes[k]) || partes[k] === "") continue;
+    const ehUltima = k === partes.length - 1;
+    if (ehUltima && !fechado) continue;
+    partes[k] = partes[k].replace(/[A-Za-zÀ-ÿ]+/g, corrigirPalavra);
+  }
+  t = partes.join("");
+  FRASES.forEach(([re, sub]) => { t = t.replace(re, sub); });
+  return t;
+}
+
+function analisar(bruto) {
+  const t = corrigirTexto(bruto);
+  const segs = [];
+  const re = /\bmim\b(?=\s+\S)/gi;
+  let ult = 0, m;
+  while ((m = re.exec(t)) !== null) {
+    if (m.index > ult) segs.push({ texto: t.slice(ult, m.index), marcado: false });
+    segs.push({ texto: "eu", marcado: true });
+    ult = m.index + m[0].length;
+  }
+  if (ult < t.length) segs.push({ texto: t.slice(ult), marcado: false });
+  return { texto: segs.map(s => s.texto).join(""), segs };
+}
+
+const SUSPIRO = "data:audio/wav;base64,UklGRnVeAABXQVZFZm10IBAAAAABAAEAIlYAACJWAAABAAgAZGF0YVFeAACAgIB+fHp4dHR2eHd5eoGMio+Kk5GKg3ZybmxpbGxyeYOPmKKntLaztbS3tqujm5ONh4F1bmdeY2BkaGxrd4iVnae0srWzrqGTi4iBemdjVkxWU01WYXB5iY6Ml5qdpqeqrKmtsqyno5WHfn55cXJjX19fZGhqbXN5e4CKjI+Sk5OPjH56cm5kYmJnZGFfY2VlcHt5fYKCjpKgpqmsqKShmpSLg4F+eHx6c3FuaWJgY1tTUk5ZUldcZG13gYaOmJaXl5GMiIR/dWxudHZ6gICJiY6VlZGPkY6Jfnh7e4B8eXVwa2trZWNcW15naGhydnqDhIeLjY2YmJOYmZmWjoiGg353eHN6fIB9gnt1d4J8gHpzdnp1fXx0c3Z2cHZzeX2DgX9+fYGGhYyQjpGRlZGQj42LhHV5bnVwcXh2enN1c3Rzcm5odWxpa2JpaGtpbW1xfHx5dnx6eIWLiIR/eYCFh4qFh4aQlp6ipaelrKamqKqYlJGDhXtyamFfXWBpcnuEjJScnKGjnpqanpuRko+PjomBdnh7c3B1en5/gIaIlJKXnZGgoaKXlI+HjYeGh4mNjZWTnJqipamtpaObj4uFfW91c3BucnFzfXd+iJecoKCprrW0rqKYkpWTioaJh46SioyKjoiIg4WBgYGCgYaDiI6MjoyKgoaLjYqSiIiKkI+IiYN8fXt3enV3e3V2en6BhImQko+UkpORjIB8enJuY19hYWZscG9uc3F2dXFwam1xbGpnaGRja2RgYVxZY15bYmpkZWdwd3FuZl9mZmhvaWtyeXp6fIOHi4J3cGVfX1ZKS0hGRUVGTVBVXmZzeoOHkI6Ml6GjmpaQg3dnZ2NlYVpUV1leaHB/gIOOjJGeoZqVl5SViYZ4cGJaT0U/Ojg2OThARVRdanyGkZigqa2tqKWXiX1hTz5ALy0xNURPYXGHnaavvbzAva2jmYh0YlNDOS81JB0QBg0SGCYySV5zjJeirrCwsaujnYl5d2JWSjk1LjAxNTU/UGl+kKWsv8PAyMnEuauikIFqV0dCODo+Q1xic3uBkJqrtL/EwsbN1dbV0MfEuqiUinZqaWVgX2FgaG1ybXiDjJilrrW4xr6/vLm0q6mnoJSPi4V7dHV0gH+Mi4qUmaa5vb/Ay8zJzczGyMK0o5iNg4F7eHt7foWLjpman6essLjBwsLAuLGuopyOgnhzaGNiWVdUUVhgaGx3fYaTmqm1vcfQzcnFuLCmnpeNg3pybG9xeniBiouSnZyeoKCbjoZ0bF9STElBOjg+PkRFTFdgZWt5gY+YoK2ysa2tqqainJOHhXt2a2RaVlheXVlaY2Vodn19iIqAfX2Ae311d3RxbnFvY3RydH5+i5WiqKSpsrCwsbCjp62npaOdmZGGgXdwZllSS0JBQkdIUEhga3mJkZyjraqqpaWhmo+Gfn+Df4CAh5CapK22ury6s77Aw7upnZaMeGpgVFJQSUVAQUhSV15qb3uElJ+mr7Cwurq9wb+6sayej4h+eXZ0dX2AgIODjZCJl5KYlZKKhXx5cGpgWFVTUldhZ29ye4KMlaSko6KinKKdnJielYuMiod/gHRvcHFua2JeVVZdWl5kbW9tcXRvbW1qY2FRVFhYYmdtdHmAipKYlpmTjomAgYN+fnt7a2tlX1VVU05LQ0VMU1tkZXB3ho2Pk5WUl5iMiIiChX13enV5foOLjpGSj46PkZiamJSfm5OSjoV6a1hMPTorJR8fJSQvOlNic4mcqsDO1Nzd4tjOxbmxppWGdW9lXGFdX2Zoc3R8gouPkJSLkpOTioqBg3d3ZmBiVmFXWmRhZnR8hIucrLfJ0dzh4+Lj4NPLwrKroJSEgHBjWU1LRkBERUhMVmhxeYeJhYGHhYBwcHVybm5wbHV4e4WHjZafqKeorbG1s7i1trSsrZ6ej4N4cGFZSDw0LispLDI3QEdSWGBocXh/h4aKh4Z8eHVzdXp2c3F9gYKCiZGapqObnpqVkoZ1bmJhY2FWVFNRWGNlZ25pamRkZF5mcG50dnx/hpSYmJeYmZaQhX57f4CEfXZ3cHp1dHJ5fHZ8eHd8hIiUnKmsrbSmqKCWkIiMjIuOi4iKi5ikoZ6nqa2rq6eknZqZk4mFeG5oWVJLTlFUWGV0gYqXo661xMrJysS+tKaXh355bHFmbW5qa2d4eH+NiYiFhIeDf3h1fHp6dXhydXJycXR+hoSHkJabnp+dnpqUjoaGiY2MiI6Egnx7cWpvbnN1cnF0dHV9fXh4cGloWl9XW1ZbVVReZWx0fIeMiI6QkpaZm5mclJCNiouKioSAfHFtbWpoZFxdYlxmX1hZW1dSTVJUWF9ib3eBho6cp6GppqWinpeQh359cWlmZVtjZmtyd35+ho2TjomKi4V8eHZlW1JSSEVAQT4/RURKT1lZYmhwepKdqMDI1tjQyritnIx6aF5NQ0A9O0RMVF1ncH6FjJCSkpqXkIl6bmZZS0g6Njc+Q1NdaHeFj52mrrGzvL+/urOqqKCTjIN+cF9WT0M+ODIxOD9HUVtnbXqFiYuLmJmgoZeZlZeNhYeMgX19f3Z9gYaPl6ass7i+xLy3qqegk4h/eGxiXlxTUUpMT1FcYWlsbnZ6f4KJjp6mrLCipJuOg3pyaGZaXV9nc3Z8eIaTmp+ip6ynnpOFeHJlWFBMS0RER0dRW2x0fomQnqmsrrK0r6mnpqOinpyYl5ONhn1zbWxoYVlfYGFbZGtmbG1wc3mDhYeLhYeHhIOBfHZrZmdhY11cVlZlanV8e3d+gYOHipSRlop+eWxpbmxkaGtmZ19gYGRkZGRkZWZlZ2hoaXJ0fnp4eHF1bnBzcW5mZWdpZ2BlYWNnZV5gaG5vbHFwanWAhYyWoaestaywopmNgG9qX05QSENARE5PWmRugY6aoaSrqqWim4yAeW1fVEdDQDw9OENJVltud4WZrrfDytLSzsm1spiCenNqZWFWW1taZ3iNmqe0usfDyMnHwraqqJyPe3Fvb29ob3t+hZWdpaivt8TQ2N/g5t7a1s28uKujlYuDeHJucHR7iZKToKu7xMzNy8/Kw7u0raysoJmSioyIgn6ChIKEh4+YnKuwsbi1r7S2rKSSioqCbHNxYltaaG91dHmAgI2Zmp6mp6ikrKqtqKKWjH54bmhpZV1YXVxfZGdxeIKFkpmbpKGcnJiPhYB5dXBua2VqaGpveH+IlZulqK23tLOtppSNgXl4cG5ra3J/gYCJlZ6ou7y6w8fKxLalmo13bGleWVtaXl9eZW96gomNmKWrsb66rqWZjYN9b2lpYVpZV1Vfam99hImVn6GssLGyqKedjYV0Z19cVkxLTEpGR1NVXG1we4aRn6SrsbevpaCYi39xY1xLRUNCQkA9PkJLWmuEjZykrLi3uruzpJKCcV9TRz86NTYzNj9GWmt9iZSkub3Czsa8t6iUh3JoXE0/MCgpKCw7TV1lc4KCg4mNkZGOiY+LioqDeW5fVlNSWVVTV1NZZHN1f5GXoJ6nsbCup6KPgn1wYlxTT0tHRkhNWWJteH6EiIqMlZSWj4yFfnZvbGhoZGpzdX2DjpWcpqyxtre3s6iYkIJxcG1tcWtnZmBgZ21tcHF5gIOHjIuGhot+d3JvcXJtbWdkb290d4CFipSSmKWnr7W6sq2qnZKIf29kWlhXUU9ES0ZJTExNWFVZW11dZnd5g4SMjYeCgYODfHRlWFhWVlRTU1Nkand8hI2LiHt5fnpxZl9USUlEPz8/PT5CRkdOVV5hbnuCjJOVm5uak5aNg3FfXVFJSEZFSExNVVlha3iGjo+fr6usqp6akI2Kg3lzblZdWGJuaG9ye4CGlZudpqq3sKmmnpOBc2FhXFVeXl5gY2p2e4abpauuqK+rpqWflIqCemViXk9HRUNCUlpeaHSFk6Cuur7Iz8jCt7KqpKech35+dnh0d3d6fIaJhYuZm5mZlZGNgnNqYlpNSkJDSkpQWWVxfo2gqbO4xsvT2tnVysa6r6WYi4eEf3RlYmBdXGBgYWFmcXd5fHl8fn10cXJtb2ZkbnBzgYmQnaqyrKu2qrGzrKKdlY6CeHBgUU5GQ0lOU1RXY2x5gomOlJ6elZePio2Ce3Z2dneChYiOkI6KkYqNi46SiYiIkJydmpuPgouOfW1cUUxOTlhfbXiEk6Sns7q9wcK9taummod5Z1pLQDgtJiEoNkhRV2BmdoWOk5KLhIB7cmtqZGNfXVVMUFFUVldZZm59go+Zk5GQjIaMjI+MhX9zbWdlaWlqZWhrbHJvd3yAg4uLj5WcnJyUjomMh4GBg4J/fXdsZ2lmZWFcX2BdXmFmaXB2hpGVoKalpKWjnJqQiZCGh350dHd6cmx3dHZ/gYGEhomEc3t0cGpgWF5mamtrc3p9fYSLkZufnJqcmpiWk4+GiImEgoeCdnZ3dnp+e3iEiIyNlJSWlomCf3dxa2hiWVdjYmVweXVvgoCEjpydoq+tqqOlmYuGgndpYVhPRUFGRU9KUFZgZHeCipmepqyrr6uln42Ig3VpYVNPSUU7QUJEUFlnc4aXmpqaoKWno6OinJWOgXt0dHF0cW5ydHd7foSMkpefqKqwrKqikYV4aV9dXVhaXWJodXyEjJSeoaistre5vLq6uLapo5yZkIeGi4SKjIqLk5Wdoqqlp6ytsrK5uLq4sKOdj4R/d3BtZWVqa21xfomcpa2xvLu9v7y7t7GspJqai4WDf3FvamJlaWhnanh8g4mQkZejqa21ubO2ta+wq7CopKOgnJyclIx+gYmGiYSIjZKOkJWWkpWXl5uioqCfm5aWj4qNkJCNj4uDeHZ8h5CUko6MgYV+dnNmbGtkbnFyfYF+e3x5c3V1b2RlZGRpZ2NcV1heXmJgXmVqbHByeH59f4B5d21raWJcWVpSUl5eX19dYF9fY2RqanJ2d359eYGCeXRzcmxlaFxXWFRdXWNoZnF0gIyUmJ+gmIyCeWteV1BKTkU9RD9LSlJSVmhqfYeKkZqcoJ+hnaCcloyGc2piU1RYWl5fYG18ipmfnq2zta2rnp6cj4R4fX96cXJydXd4ent/f4GHiIeDgYWDiIiAhHuCj46OjpCImp2gn5Wbmpmepqaim5OAf392eXdze4GDhoiSnqKlqaumo5eQi4SAdG9pYmVmampoZGZsd3qEhoSIk5qbmJicmpSJioF9fXd9f4ySlpiWlJCPiYyFfHx/e312gIGEh4OBdnNrX1tbYWVtcG5sc3eCioKLiYePlpGMh4GAd3lxanhzeYB9gH+HlJGbnpmZlI+Ef3JrZ1pZUFFWU09RWmBqdXh/gouOipOakpeVmJqWlZOYlZKPg4iDfn94eHR8f4OIipCTkJeTmpqYnJqZj46NgYmFhIB+gXdzcmxtcXZ7fHt8g46Qlp2fnZKXjo+TiYaCfYF7dXR1dXF8eXp5fHd0bG9wcHd3dnZ5enp9fHBlZWpdXVNVXlxcYGJqcnqGgYiGhIF8aWJfVlhXV1ZVVl1gZWp0d36Gj4mOiIJ9eHJxcGtlXFVKS0pGQ0VJUVppbXN8hIODgIaOiYqJiIKIioqPkY2Qj4F3c2xmWVRKS0tVX2pyfISRlJiZl5SbnpWcl42Rj5KOjYmGioSJiYeLko2RlZaVk4eFfnVybmxkYV5cYWdvcXaGlaCiqKOlqrOsr6eioZKJiYCEfHR1fYCLlpOpr7XAu8S9t6qWkYeAc2laUEM+PDs9QUtKVm18i5CVnqOpoZ+ZmI+Hfnp7dHNxa2FcW1NRU1tZX2tweHt7eHt9enNza2JdXFldX19aWl5fYGRqbnV+iIuJjZWRmZyboZ+inZqblot+f31xa3FoYWVobGlkeHl5hJCWk5ubqK2qo52OhX58cm9hXmBob3R8goWDjI+SlqCcm5+kmJiWl5aJh3xybW9nZmJoZGtxd4SKkZurrbjAurOxtri0sKain6Cbk4KGgn+JhYR/gYSKjJKRlpuYlJabm5WUi4mGjo+KjICBgHl1cnNraG5qdXaBhoaZlZmcoaWfoJqSjYuAfnd0cm9iYGpjYmVjbG91ent6f3t/ioaKiJCIg3ZsZ1ZPQzouKSwpMjpIVWBwgIuPnqKlpaOgmJSHiIh7cm5qaWBYX1dfXmFmY210gn+Bh4R/gX5+gYJ+fX+Ce3p3dnZ0fnl2d3J8hIuIlJmXnJicnZqUjIh6f31+h4yPkpuVmJOSkpCPkJCRj5SRioSGfYGKipOXmZmbm6KkpqajpqWwqqGloaumnpyalIeGfIKMj5ebm5+epamxta6ytrewq6iZiH1wYVBEOzk5OEBDTlhja3yIkJuksbO1rayjm5GFfXhyZmFgYF5jcneBiJadqLfEzc3QzcW6saGRgnFbRzQnGxQTGSg7SlhrgZuzwdLc3tvX29XMyMK3n5GCeWljWlNOUFhcXWpzgIqQk5mjpKSemIqGeG9sZF1MQz45Oz48Q1NQU2Z4gY2XnaSinZ2QjYWDfGloVE9OS0Y9Nzk9Oj1KU1tsdXZ8gouJgYB3cGttY1pNRklKTEVGSUtNVFheaG94fYKEg46JjYqDfnNzbWVYTkU8ODIvMzQ2PkVNW2dzf4CEjZKaoqWhlY2HgX93cmlpcHVxdXl9hIyPjpaWnJKMjJCKgXZubGNiYWJnaXR6g4mSkomSlZOTm52Vm5mWnJiTk5mWmZ6dlpOVmpmRj5KSlZWOiIeJiIqMiYiHiYuEhoSAg4WIipCUm6GrrrGwq6yqp5ublYqIf3RtaGhjXmBrdHh/gn+GfXqCgY+RlqOlpKitrqu0t6+rpJeTko+OhH2AfX6DfXZxcnR6g4ODh4iNk4yQkYyPjoyGgHt3d3RxdXNyb3Z8gYuPkpigmqCmqLGxp6OZlI6Cc2dcVVZXVFNaY2pyfYmPlqCep6qvqKOVlY6DgnZ0a2BdYV1fYWZqa25xaGxxcXNyb3N0cHR2en+BhJCVkZCUk5WYmpiUk46KhYJ+dmhWU0c7ODRART5CSVBca36IipeVlpmanpiZlpSGdmVaSUpDOzg0MCs2PFFib4OZpbTAyby8tqqhj31sXE1HODApLS8wOD5JXnGClaWvur+/v7OppJyJfXJnXFZQTEtKQ0RCQVlhanFzgY+bq7XBxsW/taaZi3hzZ2JTS0pFTVReaHJ/kKCsvcfKz9DOxb2qlX5sVUUzKDEoKiwlLDdDT2RvgY2grrbF09PUz8a+rp6Wh3dzc3BsZmhscnp6fICFjZGWmZaampOPj4yEgXZual1ZUE1PUlhfb3Z8iZegrri6vL+/wLy4saejmZGDeGxnX1VKTVFSVF5qcXJ7fYaJjIuLiYeKjI6BeXd7dnqIjI+Qk5ugpquurrK8vbu8wru1r6GYkod3Y1xVSkdERUNDRUpPV11mb3iHlaCnsLbCwby3v725s6KaoqCdloqCgYSEhoeMiYSFioaWnJqWko6VnqGfnZiOiH53bmFZTkM9NTEyOURMVWNyeZGYnaKosLG2vbyqpJiPh3l0bmZnaGtnbHBzd4KOlpmapaempKCepJ+dm5aKenNcTkY9Skg/R0lKUFlshY2hssDJz9nRzMXBsqqejX1xZFJIQDozOUFJSFdgY3R/goSCgYB+f311cW5pYWBiXV1YVFNUVl9tdXuEj56ttLSwr7GroJSLem5jXVhNSEA9Pzw7RktPWGRqbXJ0dnx+goaHgX14dnNtamhpaWlweH+LlJykq66wr6+zta2imI6BdmpeSkdEPTw7NEJNV2BjanGCj5OYmp2ho5uWjouJfWlhVEtCOS8rMT5NVWt7gZKhrLS9vcDEwrmsoJODd29jXFhXVVhVWltlbW90fYKIjZWYmJSQjoeAdmRXU1NRTVVaW2d0fI2Ypba7wcHFyMXCt6mel4V3bGJdW19YVVNZXF9qaWZpbnd3fX16dnp+dHN0bWBkXVVZXWFob3d+h4uZqq+4ube0rqutq6Wckox7c3FpaGdpaGpranF0en+ChoOLj5CNiYd/eXNxampqY2JkZWtvenp+hYiRn6KkoKGbmZKQkoyHhIGAfXt5eHFqZ21qaWVqb3l5d3p6eHJ1d3NzcW9zeYKLlJSZn6GfpaaqqamnoJ+dn5qVk5CTj4+JhYmJiIN6e4mMh4WHhYWEh39+enp5e318gIGDgoJ/fn1/iIiHj5SUmZ6ioairrKSrqKObmZeIe3Rzamxpa2x1e39/foeHgoB4c3JxbGFiW09MUlNXXGdzc3d8g4uPkpSXoaerraqjnJOMhHxxbmpiWlJHR1FTWV1iYmtzeYWPl5aUkoqKiIWHd3JoX19bWVpdbHWCj5qmr6ywsamsqKObk5CJfXhyZGFYVFxfaGpue4eVpbC6w8PDvrizraOYjYF7d3dtZ2ZtcXR2fIKEioyEg4CGg4KCeW9pa3iBgoiMlIqKioB6dHRraGdpbnyIlJ+orLa6ubm4sKynlY+Eem1ua2dpamxpbHV4f3x9gX1+d3V5d3t5dnNwcnl8gI6XlZmfq6eprKuntLWrrKemnpaMfW9hWlJLSEVFRE1VWGJpd3uFhYqLjZOPj4aDh46Qk5eZj5Cotre9tK6urK6lm5OKhIaDgYOEiYyPlJqZk5GSjYJybWdnZmRgX2RldHp+hpCeqa+1vcPBwMK+vreppZ6WkIl+dmxzeH17cnRzenN2eXyCiY2TkY+Mk5mTkpORjYuFgX57fImFh5CYoJ6foqakpa6wsbSwqqqfk4h/cGtmXlZRSkhMTU5ZZHJ9jJOfr7K7u7u9ua+kk4N6aWFcVlZNS09laG14goqYoaqvop+ekX1sY1RCOC4mGxshHx4wPlBcXXKBi5ido6arrKWlm4qAbVxQR0Q4Nzk6RkdTXGJobnZ8fX57fXl3dHFtZ2JaUUpFQERDQENBRElSYGVpdoSQm6GnqKWqp6Gaj4Fyal5XT0Y9OjEyOkdLVmVzhYqHkZWVmpyYlI2Ng393cWtucWlhXFdbZGZhY25zfYWQkZOTmZaUi4yJhIOJhHl4dXJwbGhmZ2hnaW50dnJ6gYSWm5uTk6CimpGIhn15dXVra2doaGdnanB0eIGIiYmFgoWIjISDgX+ChoqNkIaDhoWFgX56c3Bvam1pbXNyfH98fH+GjYqTm5uelZibl5aXkIt/d3p4dnFyamxrb3R4e3V7h4qRl5qipqqkoJuRhoF7dWtoZmppaW1wcnuAhY2WnJujo5+Yj4uKgXpuamhsZ2RobG1vdXJ3e4eVnZ6mq7G0sq2sp6ejm5OPgnVtaGNWU09UWWBtc3t/jpudpqeooaCckIeBenNzbmJcXGVma3JxdH+HkJucpqOfn5aQj4R6dnBjWlhZT09NT1ZZXl9qcnqCjZmdoqWfnpmTkouIhnxxb25ranh3cnd2d3Z1en5/iI+QkZiYmJ6gnaChnpWRjouAeHNsYGFnYmdnbWpucnZ6f4CHio+OjoyHf350b21lYWFiX2FmZmlyfYaLjZCPjJCIiomMhIF1cHRzcHN3eXR1cnBkanR2fYCHhYeKiZCMlJaanqGjnpaRj46MlI+RjI2SlJaYnJ2ZmJuTiYV6eHp6cnF1dXVtcnBvbWt0d4CEg42Um5ygoqSlpKOZlpSPhoN+e39+fICFi5CSmpqZmpqcoJmRin5+gHp4dGtiYWFqbnJ5gYqQm6GdoaGmpZ6joKKWl5SLgX96aWJjYl1oaHB6e4KGhoqKiYeIg3p1b2dlYV9aWVpVVFZUWF9tcHV3f4mIipCUl5mbmZGRkouLhYKAgnx2dG5wbG5ud3h8fYCAfnx6eHRobGtlY2ZpaWdnamlpbHN1e3t/g4ONlJmco5+al5ONiYd+enZ4dnR1c3l8fn99fHJ1dG1ubWhnaGtvanFvcXZ5e31/fn+ChYSAfXd5e3+EgYeJiZCQi4aAfnhvb2xqZ2JeXl9ha2htc3VydHp8gYKBfIF+fnt0cmxra2NnbnBxeoOJjI2Ni5COl5iTj4yHgnt1bWdjWlVNSlBUX2pvdHyEjZCOjpSSk5KLhIB3b2tpZ2RnZGVrb3Z6eYOJjIyJh4eOkIuGhH19d3FrZGRlZGZkYGlpcXmAi4+Yo6iusLOxrqehlomCfnVpZWBhYWRiZWltc3x+hIiGioqHhYB+fXd3cGphX1hVVFBgYmRpbXeCjpikq7O8vb27ta6moJeFeW1iYV1bYmlwdHl6goaIjZGUlZGNjIqKhYB6e3p7hY6Qm6Siop6Xko6Hh4eIi4yOkIuPiIWFgICAgX98dHFycmxxcXV9hImNlZmZnZ6TiIWBdnZwamJhYGNpcG9wfIGDjpSVlpyenaGin56cl5OHf3ZrZ2ZfWllaXmFkZm9zeH2CiZGZnp6dnpuTi4N+eXVycW5wcnd+gnx2cnRxdHZ4eX6Gh4Z9fXh4d3V4eHhycW9ydHN4eYGAfHx8gH9+eXd9goqGhYaMlJOXlJKUjYSIiYJ+gn19gYeMj4+Tl5aSkIqLiIaDhoiHgX96eXd4d3h8f4GFiZCSkpKRkIuHfnx4cnJub21yc3N1fHp6foOIipeboKuvrq+sq660rKGUl5OIgXtwbnV3cGdpbGptbHN4gIiMkZGTl5WSiol8eG9nX15fX2ZiY21zf4aQoKayuLSypJ6bi4R7cWZbYmJmaXB+gI6UnJqfoaKem5KPi4SCf3dxbGBbWlVPXFpga3h9iJKZo6iorq+spqOnn5uPh398dWZlaGRoYFxcXmRgY2htd318fHp8fXt3bmliYmJjZGJkYmVnaGtvd4GEiIyRmaChm5eUkY+GeGldV1VRUE9OSEhQWVtgaXF4goeOl56dl4+Je3Zval9VTkVGTFFcaHV/j5yqsrzCv8G8u7yxn5SHe29mXlRQS0xSUVJWWF1fbnJ6goiSmp+ioaOemZGIgnhxaWdsbW9zdXt9hIiNnKu+x8vMycTDwruxqJmMf3NpWlBJSU1NTFNWYWZseHyEjY+Qk52Zm5+hmZWRi4yLjZCTmp6fm5uepq2xs7q8ubCinZGFd2RTSjsxKiMoMDNBS11rfIKGjpSXnJyWlJWOiIJ6e3p5en6Cj5afsbzBxMjFwby8tKqckIJwYFZLQT9DR0dKTVdeZXF1eH2CiIuTlpKVl5mYl5aUko+MhISHhoN/fICEiZCSlJSQkIqAeXBoXllST0xNSkhJTFJXXmZqa2t1f4aLiYyMi4iCgXx6dHt4end3fH2FiomFhYeGh4OAfX59eXh3cW5pYl9iYF5gYmlrb25wdn2Afn97gIaJi5COjIeFhoqLiYiFh4aLhoeFf31+fH2Eh4yNk5aYm5mbnJ6emI6Gg4B6fHh5d3Jwen18f4OFiY2Pko+RmpqVmZihm52bmJ2Xl5OOiYOCfnp8g4OLkpiZoKSmpaGjpKOfmJGIf3ZwaWhlY2ptcnmCiY2YmJyhoKSempKHhoKAeXNvbm9ucG1uamtsbGpteH+CgoaKhoSQioSCf4B7eXZxcnR0f39+foKHi4uPkY+JiYmGioaFgn55dXZ3dHV1cm1ubW1xdnl/hoSEhYuKioN/e3h2dXJvc3R0eHV1e3+Hj5aanp2foaKgoKKjoqShnZyelpWUkoyKiISDf3t3d25va2puam1tbW9udHZ0eHVxdHZ3eHdzdn1+goSEh42MjY6QlJicnaCel5OQhn52cWZhXVhXV1hbXWJhYGJka3BzdnV0cnFydXhzdnZ8gIB/gIOIjIuOjpmfoKassbGsp5yWi4N7cWdfT0M/QUVITlRfZmx1fIKJjpCSl5OTlI9+g399e394bW5udG9veXZ9gouTmp6en5eUjYF3dGVbVVRQT0lKT1RbZnB2gIuXm5+io6akpZ6Wj4WAfnVvZWFjY2FiaWt0dnt9gYeJjpCNi4iFfn14enVzb2ppZF9dX2NmbXV0e4CBg4SIi4yOjYyKjIuHgn+DhX+BfXp8fn99fHt3eHl3eHuDhoaJio6Rj5GOlpqclY6If316d3BsbGdmZWNlam91fYGChYWDhYiKiYuNkJGTkJGPi4mJhYODh4qOk5SUlJqdnpuTlpaWkYyAdG9pYmRhYGNnYmhye4GEhoWHiImNjY2Wl5iamZaZlJiYlZWXkIeCkYuSlpKQj4yRkoqEgIB1dWdcWU9UVVJVUlVXW2JkbXJ6gICGjZSXl5ialpKLiYF9eHJpZF1bYWVjZWp6hI2Pko2GgHx5cWRURzw2LiwqKikvPENPWGVygo6Zo6uxsrCurKeglY6Ff3hsY1tRU1RVV1pdYmx3f4eMkpOTmJSUlI2He3ZwbGReWFJQT1RcY212goiTnam2vMHAvri0sKSbkoh+dWxgVU5HQklNVVxocn+NmJ6goqOhoJ+WkYZ5bmZjXFZTVVlfaG96hY6bpq+8wsTEwLy1qp6SiYR3bWFdU01PU1ljbXqFi5WZoKisrauopKGal46CfHZzcWppaGxxd31+iYqRlpqdnqCkoJ+gnpqWjYeCenJraWtnaG1tb3F6fn+EhoOCgYB9gIOBg4KAgHx6e35/fXx6dndzcHBycnV6e3+Gh4iFhYSFhoeIhX58eHV2eHRsamxyc3R3dnmAh4yPj46OjpGMi4iFfHVxcGxmXVRQUlZZX2VqbniAiZOcm5yYlpCHgHRrZmJbWlxcWFpgZWpvdn6Bh5GWnaChoaCin5iMgHlxaGBbWFVWWmBocHd9g4uSlpyalZSPiIaAeXRubmtsb25raWhsb3N2eHh9g4SJioiJjYqKi46KjYyGgIOEf393dG9rbmZjamxwdHd5foSJjZSXnJ+bnZmWlI6KhoGAfn+AgYCAgoeJioiJiYqMjo6LioeIjIeDgISGjpGQi4iHhYiKioqIiouGiI+SlJWanaGrq6yrrKuopqGclpGMhHt1b2xsbGtudHl+hpGUlpiUjYiHhX56dHFxcnN1dXN0d3p+g4eNjpKbnqCgnpubmpWRjYqFf3tza2djYV1aWVxgZWhpbXN3e4KDhYiMjIiHh4eEgHp1cnFycHJ0e4OGh4qJjY2Ki4eEgXx6d3dzb21qaGNeV1BNR0VJTFFWW2lxfYeRmqSstre6ubavopmLgHdzaWVnaW1zd4GHiJGTlJecm5WVlIiFgHdxaWReWlpWWVxjbnN+g4qOlp2hpaqrrrCwqqalnZqXkpGPjYqEgHp5eXl7fHx+goGKiomLiIiJioeBfX+BgH15d3Bra2lrbnh+iJGVmJyfoKKkpKOinJiSiYR8eXl3eHh3dnh6fXt8fX2AhoaBf3t3eHRyb29ucXJycXl7gYSGhoaHiIiGiImJiIV/f3t6eHVtbW9vcHB0dXh3dXl+gIGDhIOBgYGDhIaGhH97cm5paGlrbm9wdHZ8gIaLkJCOj5GNjImEgHlybGVgYWJgZGZtdHyEipCXmp2en5ucmZWUi4R8eXd0dXVxcm1rbGxqaWxye4OPk5WWlZeSioB5cWlhW1ZST0tKTFNdYmZsdXqAho6Ul5ufoJ+cmJGKg3ltZWFfX2JlZWdrcnR5eXh2eX1/fHx4eXx9fnh2cXR4dHVybWtqaWlsa2pxd3yAgIOHhouSlJecmpqbnZyal5SOioaCfnp5eHh1dnl+f3x8fHuAgoWHh4SDf4B9e3+ChoeFhIaJjJGSkpGPjI2Rk5aXlJKWmpqgo6eko6Wlop6ZkoyHhICAfXlybW91en2FhYeKjo6MjpGTkIyIiYiHhoOCgoSDhomHiIyPj4+NjI2OkpOTlJOSkZCOj42Lhn95d3NydG5tbHBvcXV8fYF/fYCBg4WGiIeIiYuLhoGCf36Cg4eHh4aIi42Ojo2Mi4uKiIV+fn1+enRuaGdhXFtbV1hTT1BTV15laXJ7foWHi46Qk5GPjYiDgHx7enp5eHd0dXFydnp+g4eKioeFgX17d21nZGBbWVJOTVBPVV1mdH2HjpWYnKGipKKgm5aQjImFgXtyal9XUk9PUFFXY2drcnl/homNkZCOj4uIg356eHZ2c29uamdhYGNocHN8foWOkZKSkoyLiIJ+eHZ1bmhjX1tXVFVWWWFueoeQlZ+osLa3ta6qoZmQhn14a2dlZmhoaGpxeXyBio6SlZGPkI2MiYR7eXZybWlpZWFfXmBob3d8gYKGiImQk5eZl5SOjIqFfXVvaGJgYWBhZWlsc3l/hoqQl5qdnZqXlI6Ig3x3cG5rZWViY2pudHyBhYeMk5aanJmZlZSSi4WAenRwbGZhX2Bla3J4foePlJqcnJ2cnJiTkY2MjIiCfXp5dHBycnN0eHd5foSHiI2MjZGNi4yNjIuJh4KDhoaHiIeLjJGQjo+SlpeXlpSUk5KUl5iXmZiWk5OSkY6KioaEgX17eHNwb3BvcHR0dnR0eXp9fH6BhYqMjYuJhoWJioWBe3l2d3x8eHh8fH57en2ChouOkpeal5OVlZKRioOCe3VsZWBcWFlbXWNpcnp/g4OBhYiIhoaEfnl1cm5qZ2ZoZ2VmbHB0eHt+gH+AfH6BgIKDhIaIiYaEg4B9fHt7fX+DhIOIiYqJiIeEgoOAfnt1dnl4eHl6e31+foOFiImNkZOVlJaSjo+UlZOVk5CLjo+OioOAfHt6dHFxc3N2eHd3eXx9gYKDhoeJioiIiImJiomGhYWEg4F+gIB9gIGHiomEgoF+fX9+fH2BhouKjIqFgXx3cGtna2xra2lrbnB2enx9foGEh42RkZKRlJWWlY+NiIB8eHZ0bGNhXFtcXGBla25xcXJ1d3h8fn5+fX59e3l6eHV0c3R0cnN0dHZ2dnd1dXV1eH2BhYmMjYyKhoOAf359fHp5e3+AgX9+d3R1dXV1eHl6fHx9gIB/gH16d3Z5d3l6fH+DhIOGiYuMi4iFh4uMioaFgoF+e3t6en6ChIaJi42LiYWCgYKAe3t4d3h7foKGiI6Pjo+Pj46PjYuKi4mHhoOBgYKBf359gIKDg4WDgoGAgIOGh4aDgYCAf3+Dg4B/g4aJjYyJhoaDf3t2c3FxcnN0d3l9gYeJh4mKjY+TlZGPjIqHg397eXt8fH+AgYGEiIuOkZSWm52dn56amJWRjYiDf3p3dHBtampoZ2tvdXl+h42UmqCkpKKempaOjY+Nh4J7eHdwbWxucXV3eHyAhYmLjI2NjIqKiouIgn9+e3Z0cnBrZ2ZmZ2psbW5xd36AgoSFh4iIh4WKiYaCfXx6eXp5d3Zzc3R1e3yAgYGAgIB+f3t5d3Z2dHNyb3FycG1raGdnaGprbHBydnp8fH6AhYeLjo6PkZCQkI+MioeDgX9+fHt6fH5+e3p6e31/f319gICCgoKEg4SGgoGBgYF+eHJuaWZkZWVlaGxwdXuBiZGWmJqbmpucm5WSkIuIg3x0bmdjZGVnamxra25vcHNydXd6fH1+fn6Cg4KCfXp8eHZ1dHRzc3J0d3p7foGChIiMkZKTlpeZmJeYmJONhH51b2xmYlpXVVdVVlldYGZqbnN4fYSIjIyRkZSUkI2Ig39/e3VzcnN0dnuDiY+WmZyeoKKgnJuWj4mDfHRtZ2FbWFVUVFZYW2Bna3B1d3l8gH+Cg4SIi42NjIyLioWCgoCBgYKBhIeIiYuRk5SWl5eYl5aVk5GPjImFgX15d3Nva2pqamtsbXV5f4GAgoaJi42OjoyOjYqIhoiFhIGAgoWHhYODg4WLj5OWmpqbmJWUkI2KhIOAfXd0cXFvbWloZmZtcXR4fn6ChYeJiImFg356d3Nzbmtqamxxc3h+g4WHhoOEhYWGg355eHVvbGloZmRhYWJmZmhnaW1xdnyBhYiIjYyJiYaGg4GDgn55dnZ2eH1/goSFiIiJjI+MjI2KiIeMh4J9eHZ0dHBsamhoa2xtbW1wdXx/goaLj46Pj5CQkY6Jh4WDgHt6dnh/gIKEhYuMj5CSlJORjYeCfXd0bmpmZmNiYmJmaWxtcHR6fYB/f4aJiomIhYSAfHh5eHV3dnd4eH2AgYGCg4WFh4eGhoSDfoB+e3l1cnBtamdjZGJnamxubW1ubnB0d3h+gYOFiYuMjYyLiYSBf3hya2ZkZmptcHBzd3l/hIeKiYeDf3t4d3RwbWtscXJ1eHd3eHp9gIGGio+WmZufoaCgoJ6al5WNiIN/eXVxbWpoaGdmaGxvcnZ5fICChIWHioyOj42KiYWCgoCAfn6Ag4iLjpGSmJ2foKKgn52cmpmYl5WPiIJ+eXd2d3h5enx+g4eKjI6Qjo6Pj4+QjoyJhoaGiIeGhYaIiYuMjpCRkpKRkJKUlpSSjIaBenVtamtnZ2lqbG9xdHd7goaIiIuOkJSXmZqZmJWTkY2KiIaEgH9/f4KGiYyPkZOUlJSUk5KQjYuGgoKDgHx3dG5raWRkZGVnaG94foCEiYuPkpabnZ6foJ6blo+Lh4OCgX17fH6ChIaLj5GVl5WTj42GgX13b2lnX19fX2Rqcnd6gIKHkZSYl5STkIyMjY6OjouIhoeGhYN/fXp6fH+AgoOBgIB/fn18fn5/f356eXp3dXZyb25ubWpqbG5yd3x/g4iNj5KUk5OSkY2HhYSCgn16eHh3dXNycHJ3en6BgomNjo+Qj4qLiomEgHx8e3VvbW1vcHJ0dXh+hIqNkZKUl5iVkY+MiYiHhIOBgH9+fXt8fX+DhYSAfn6AgYKDgH99fHx9fHp5eHh5dnRycHFxcXR3en+ChYeKj5SWmJmZmJmXlZKOioR+e3p3dXRycXBxcnR3en1+fn5/gHx5eXh3dnVzcHF2eHh6fHx7fn59fICGiYqLio2SlZqdn5+enJWPioSAenNsa2tqaGhnaG50dnl6fX2AhIKEhoSDgHx4dnV2dnd0eHt/hYeMkZSWl5qcnZuZlZKPjIeBe3Zwa2ZmZWVmaGpudHp+goSHiIeGg4B+f36AgH17eHh2eXx9fX59fX19f4B/fn19fn+Ag4SGiYiIiIaDgH98eXl3dXNzc3R2eXl3d3h3en6Bg4SFhIOEhoiIhoOBf3x4cnFxcHBubXB0d3d5eXp5e3l4d3h9f4CBfn1+fHt7fH+ChYeHiY6SlpaVlZOSj4yJhoSEg4ODgoSDgoKBgYB/fHp4dnZ3dnd5eHh5enp7fHl6foCDhYaIiIqMjIyLiYSAfn9+foCAgoOFhYaGhISBfXx9fX5+enl1cGxvcXJ3e3x6eXp+g4qOkI+Pj4+OiomIi46OiYSDgYGBgICAf4CAgH+AgIKCg4eHiImJiYmIh4SDgYB+fXt5eHZ1dXV4ent9gYOEiIuOj4yKioqIhoN+eXRxbGloaWxucXl/hIeJjIyNjY2NiYaEgX55dnR0dXNyc3R1eX2BhYiKiomIiImIhIGAf3x4dnV0dXNycHF1d3d3dnZ3d3h4eHZ0c3V0dHV0dnR2d3Z2eHl4eXl4eXl7ent8fYGEh4mMjZCQjo6PjoyMioaBfHd3d3d4eXl9gIKEhoWFhYSBgoKCgX99e3d2dHBvbm5ub3JydHV4e31+f4B/goSEhYaGhoR+enh0c3NwbXB1eHt9foKFi4+SlZSXmJaSjoqGhIB6dXJvb3BvcHJ3e3+ChYSFh4iKi4yMjIyKhoJ9enl2cnBvcXFxd3h5en+Gio2Oi4uQkZOUlJSPioeDe3h2dXNxbWxtcXR1en+DhYaHiImNj4+MiYWEgYB+fXx8enh2dnh4en1/gIODhISDg4J+fX6AgYGAgICCgoB/fnt7fH5+fHl5fH6BgoKDg4SEgoKCgH9+eHNwcG9vcHJ2e4KHjJCTlZeanZ6cmZWSj4mDf3p2cnByc3V2dXZ5fIKFh4uMjIuMjo6PjYyKiIZ+eXVxcG9tbG1xdnuAh46SlJaXmZmXlJKPioaBfnt3c29tbGpqa2pqa21vc3d7goaJjI6QkpOUko+MiIR/e3l4dHJxcnJzcnN3eHp/gIOHiYqHh4SEhIGBgIGAe3d0cnBva2loaWpsbnBydnp/hIeJjpGQkZGOi4+PjIeBf359fHt5enp4d3d3d3t+fn1/gH5+fXx8fn56eHVyb29ubGxscHR2eHl5eHl7fICGiYmLi4uKioeDgX58enZzcXFwcHFydXh+gH59fH18e3l3dnV1dHN0d3t8gYaHiIiIiIiGhICCgH59e3l3d3d3dnR0dXV3eHh5enx9fXx5d3V1c29tbGpoZ2ZlZWdpamtwc3h8g4aJjI6Pi4mDfXh0b21xcnJzc3V4en2Ag4iLjI2Oj46NiYaAfHh1c3BubGtrampucHR2eHp8foGFiYyOkJKSkpKRjouHhYJ9ent5d3V0dnd4eX6BhIWGhIWFhYWFg35+gIGAf315dXRyc3d7foCBg4aIiouMjY+Qjo6MjIuKiIaFh4iGg4KBgX+BgoKEh4iJi4yMi4qIhoaFgn17eXVzcnNvb3BwcXNzdXh6fX6ChYiLjI6PkZKTk5OQioeFg396eHh1dHR1dnp/goWFh4qLjIqKioqJhoSDgX99e3t9f316enx/gYKEhoeIiYqKi42Njo2LiomJi4mGgX9/fXp0c3FwcGxoaWpvdHh8f4CChIOCgoODhYR/e3t7eXl3d3l5fYGFiIqLjpCSlpeYl5WSjoiEgX56dnFua2hmZGRlZ2lra25ydXh7foGFhoaGh4mLjo+NjYyLiYaDgH9/gH9+fHt4eHp7enl7foCBgoGAf316dXR0c3FvbWtpaWxtbnBzeH2BhYiLj5OYmpydnJuXkoyMjYuIhYJ+end0c3R1dnZ1dnd6fH6AgYODgH5+f39+fn56eXp7fH5/f4CChIeKjY6QkZKSkY+NjY2MiYeFhoeGhIJ/fXx8e3p9f4GCgYGAf319fX19fX1/gIGCg4OFhoaGhYSBf36AfHl5ent6enp9gISHiIqMjIqIhoSDgX56eHV0cXFzc3V0dHd6fYCBg4WJi4qKioqJiIaEgn99enh2dnZ1eXx+gYOGiIiIiomHhYJ/fX16eXx8fHt5d3Z0dXV3eHl8f4OGiIiKiomIh4eHh4eEgn9+fHl3dXV2dnh6e3x9fn5/goSFh4iJiouJhoWGhoiJiYiHhoaGhoaFgoB/gYOEhYaHh4eIiIiIh4aGhIJ/fHt4dnV0dHJ0eHl7fX+DhIaHiIiIiIeGg4B+fHx8e3t6eXl4d3d5e31/f318e3p8fYCChYWEhYaHiYiGgoB+fXx6eHV1d3p4dnV1eH+DhISDgYKDg4OEhYaGhYWCgH59fHx8fHp6fH6AgYGCg4SFiIiHhYOCgH5+fn5+fX+AgYF/fn17eHh4eHl6e3t7fH6AgoSHioqMjpGSkY6Lh4SBfnp3dXV2d3p7fH1+f3+AgH9+f4GBf318e3p3dXRycW9vcHJ0dnl7fYCHiouLioqLjY6OjYuKioiHhoaGhoaDgIB/f35+f4CBgoF+fHx9fHl3dXd6e3p6ent8f4GCgoKBgICBg4WHh4eIhoOEhYWEg4ODhIOChIWHiYmIh4aEgX57eHd3dnV2eHh6ent9f4GBgoOEhoeIiYiHhYKAfXt6eHd3eXt6fICChIaIio+Vl5WUlZaWlJGLiIaFgH59end1dXV1dHNxcnd9gYKGh4aEgoF/foGCgYGBgoODgYB+fX1+fX1+f4CEhomKjZGUlpiYlpWSjoqGgX17d3R0c3FwcHJ0d3l/goSGiImMjo+Pj42KioqHhICAf4CAgH9/gIKFiIqJio+RkpOSj4yLi4iFgHx3dHFwb25tbGxsbW1ucHF0d3p9gISHiIiKioqKi4uLioeFg4F+fHt6eXt9fn9+fX6BhISDgoCEhYSAf398eXVxbWtqa21ucXR4fH+EiIyNjY6RkZCQjIiFgn15d3d3eHp8f4GDgYCBgYGAfn18enp5eHh3dnR0dXd2dnZ0dHFvbm9wcnNzdHd6fX5/gIGAgYKAgH99eXd1cnJxb21ubm5tbW5wcnV3eXp6eXh2dHJyc3N0dXV3eXt9gIKGiIuNjo6Pj4+OjIqIhYOAf358e3p5enl7fH6AgYOFhoWDf4CBgH98eXh4eXh4eHh7fH+Bh42TlZaYmZuamJaVk5GPi4iFgoGAfXp4d3d5fH1/f35+f4CBgICAf35/goGBf35+fn57ent+gIGBgYKFiIqKioqKiYiIh4aGhIWFhYODg4F/fnt5eHd3eHd4e31+f4CBgYCAgIODg4KCgoF/fXx9fn9/gIKEhYaHiYmKiouMi4uKhYJ+fX16eHd3dnh5enp5ent7eXl6eXh5fX5/gYOGh4eHhYSCgoOCgYB9fHt7e3t6en1/gIKFiIiJiIiGgX16d3FsaGhpa2xvcXN1eX6Bg4aJi4yMi4mHhYSDhIKBgH59gICBgYKDg4KCgoWHh4iGh4aGhH9/fn59e3l4eHh4eXp8f39/fn5/gICBfn58fH5+f4CBg4SGhYaGg4SEhoiIh4SCgH99fH1/fn19fH1+f399fHt9fn9+fn+BgYGBgoKCgYCBgH9+fXt7eXl5eHl7fX5/gIKEhYWGiImKiomIh4aGhYJ9fnt6eHh3dXR3eXx+gYCBg4ODhISEhoaFhISEg4B+fHp5eXl4d3d4eXp8fn5/gYOEhIWEhISCgYB/f31/fn1/fXt8fn+EiImJh4mLjo6Ojo2MjY2Jh4WDgX9/fHp6eHp8foCAg4WIioyMioeGhoiIiIeFhISEg4B9e3p6fH1+gIKHiYuMjY+QkZCPjYuLjIuKh4SAf3t4dnNzcXN0dnZ2eHyAhIeHiYyQk5SUkpCNioaCf3x5d3d6fH5+f4KChISFhoWFhIF+e3l3dnZ0dnd2d3Z0c3Z4eHd0dHV1dHd3fICCg4OEhYSCgH9/f317eHZzc3N0dHV3eXp8fX59fH5+fn5+fn17fH19fXx8enh2dHJxcG9xcnR3ent8foGBgoKBf35/fnx6d3Z2dXV2dnV1dnl6e31/gIGCgoOEhYWGiIiJiIiIh4aDfnt3cmxnY2BeXFpZXF9jZGhrb3JzdHl9f4GBgoWEgH58fH1+e3l4eHl6d3Z1dXd5e3+DhoiIiIeGhIJ+enVybmtoZmRkZGZoamxucXN2e4GEh4eLjpKVlpaUkpGRkY6LhX56d3Vxb25ucXJzdXd6e3t6eXh4ent9fn5/gICAgIB+fX1+f4GEhYWEhYqMjo+PkI+PjoyKiYiHhYSBfnt5eHd3d3V0c3NzdXd6e3x9f4GBgYB/f4GDhIWGhoaFhYaGh4eEhIKAgIGBg4SEhYeIiImJh4aHhoOAf3+Af358enh2dXV3eHp8fX5+f4GDhYWGhoaFg4GCg4OCgoGBg4WGhoaGhomIioqJiIiIhoSCf359enh2dXZzcnBwcHN2eoCFio6RlZiYl5aUk5KPjImFgoKCgH56eHh6e3p6ent9gIOGhoiIiomIh4WDgXx5dXJuaWhoaWxvcnR2en6CiIyQk5aYmZmamJaTj4qEfXt6d3Z0cW9vb3BxdXp+gIOFhoaIiYmJh4aEhISCgH58e3t7e3t7enyAhIiJi4uNjIyNjIuIhoSCf3t4d3h4eHd1c3FzdXd4eXl7fX6AgYODgoGAgYOEhYSEhoeGhIODg4WHiYuLjIyNjIuJiYmJiIaFg4KBf359fHp6eHd3eHh5eXp9f4KDgoCAgICBg4aHh4iHiImLjIuLi4uLioqIhoWEhIOBf358enx6eXt6eHd2d3h6e3p6enh6enp6enl5eXl6e3t7fH5/gYGCgoODhISFhYSEhIODg4KBgYB+fHp4dXNzcnJzc3FxcXBxcnFxcnN0dXV1dHRzcXBwcHFzdXh6enp7fHx9fX6BgoGCgoOEhISEg4KAf318end1dHR1dXV2d3h6enl6e3t5dnZ2dnd2dXZ3enx9fn+AgYKDhYaIioqLiomKiIaDgH56eHd2dXV1dXZ3eHp7foCBf359fn9+fXt6enx+gICAf35+gIKBgICAgYKCgYGBgICCg4WHiImIiIeGhYSDg4KAf39/f35+f39/gYKBg4OEg4aIjJCSkpKRj4yIg4GCgoB+fXt7e3t8fX5+fHx7fH1+g4eIiYiKjI6RkI+Mi4mHhoaFhYSEg4OEhYaGh4iKjY+Qjo2LioqJh4WDf3p4dnV0c3V5foOGh4eIio2Pj42LiYeEgX57enl4eHp9foCBhYiJiYmKi4yMiomGhIOAfn59fXx8e3l5eXl6ent7fX6AgoOFhoeGhYaGh4eGhIJ/fHx9fHx9fYCChomKiYiHhoeHhoaGhYOBf359fHl4eXyAgoGBgYGCgYKCg4OCg4OCgoGAgH+AgH9/gIKDhISDgYCAgIGDhIWEg4SDgoKCgoKDhIOEhIODg4KBgICBg4SGh4iIh4aFhIWDgX99enh1dXVzcnBubGtvc3Z7foGEh4mLjIyNjIuJhYKAfXhzcG9wcXR3eX2BhYiLjpGVl5iYl5aVk5KSjoiEf3x6eHZ1dHR0c3R1dnd4ent8foGEiImKjI2PjYqJh4eGhH98fHt7enl5enp6fH+ChIaIiouLi4uKiYiGhYSCgYB/fXt6eHZ0cnJzdXd4eXp7fYCCg4SEhIOAfXx6eHd2dHNxcG9xc3N0dHV3en6BhIaIioqKioqJh4WDgX58e3t6enl5e3t7fH19fXt5eHd2dXNzc3NzcnNzdHV0dnZ3d3d4eHh5eXp7fH5/gIGCg4OEhYeIiIeHh4eHhoSDgH1+fHt6enp7e3x8fX19fn18e3x9fHx9foGCgoOFh4mJioqLioqLiouKi4uLi4uKh4aGhIKCf317e3t7e3t5eXp6enl5ent8fX59fn5+fn5/f39+fn5+fn5/gIGCg4WGhoaFhYWFhIODgoGAfn17enp4eHl7e3p6eHd3dXR0dHZ4eHl6enp5eXh5eXp6fH5+fX19fn9/gH9/gIB/fXt6ent8fH19fX9/gYKCg4ODg4OCgYCBgIF/fn5+f3+AgYGAgICAgYOEg4SFhoeHh4eIiIeGhIKAf3x7eXd2dXV2eHp6ent9f4GDhIWFhYaFg4GAgYGAgIB+fHl4eHl7fXx8fH5/f35+fn+AgH99fHx8fHx8e3p7fHx+fn+AgYKDhIWDgoKBgX99e3p4eHh4d3d5ent9f4GBgYGCg4KCgoGAf359eXVycXJzc3R1dXV0dHZ3eXp6e3p6e3p6enh3dXNycnNzdXV2d3h6e3x+gIKFh4eGhYSDgoF/fXt6eXh4eHl5ent7e31/f39/fXx8fHt7enp6e3t8fHp5eHd5e31+f39/fn+AgIGCgoOEhISDg4OBf317e3p5eXl6e3x8fX19fn+BgoOFh4eJiYmJiYmKiIWDgoGAf359fXt7ent7e31/gIKEhoeJi42OjYyLi4yLiYiGhIKCgYGBgH99e3p7foCCgoKDhYaIioyMjIyLi4uKiYeFgn98enl5eHd3dnd4eXx/g4SHjJCUlpeXl5WTkIyHg396dXJwcHFydXp+gISHiYyNjo+OjYyJhoOCf3t3c3BubW1tbW9ydXl9gYSIioyOj5CQjouJhYKBf318eHV0dHR1d3d2d3h4eHp8fn+Af4CAgIB/f357eXh3dnd1dHN1dnZ3d3h6fH6AgoWHio2OjY2LioiGhIF+end1dXV0c3Fwb3F0d3l7fH6AgIB/f359fHt6eHh4eXh5eXl6e3x9f4GCgoKCgoB/gYGCgoKCg4SEhYeIiIeEgH17enl4d3d3d3d2dXV2dnh5ent8fH1+fn9/fn59fX5/gIGBgoSFhYaGhoiIh4eJiImLjIuMjY6OjoyJiIaEgoB9e3h2c3Bvb3F0d3p9gIOFh4mMjY2Mi4iGhYWFhIKBf35/gIKCg4WIioyNjY2OkJCRkZGQkI+PjoyJhYF+fX19fH19fX59foCChIaJi4yNjo2LioeFhIOCgYB/f39/f35/gIGCgYKDhIaGh4iJi4uKiomHh4mKioiGg4GAf318e3p7e3x9f4KEhoeIiYmKiYmIh4aEgX59e3p4dnRzc3R1d3t9foGEhYeKi4yNjIyNjo2LiYiHhYSBf39+fXx7fHx9f39/f3+AgIGCgoKEhISFh4iJiYqKiYiHhYF9end2dnd3d3h5fH+Bg4ODg4KBgH6Af398eHVzc3Jyc3N1dnd5e36Bg4WFhISDg4SDgoGAfXt4d3V1c3JycXFyc3N1d3l6e3x+gIGBgH99e3p5d3Z3dnRzc3JydHZ4eXl7fX+Bg4SFhoaGhYSEg4F/fXp4d3Z3eHh2dXV1dnh5ent8fn+AgYGBgYKCgYGAfnx7enh4dnV0dHRzc3R0dXR0dnh7fHx7ent8fX5/f4CCg4KAf39+fX18e3p5enl4eXl6e3x/goaHiYuMjo2Njo+Pjo2LiYeDgX99fHt5eHh4eXp7fX5/gIOGiIuLi4uKioqKioiGhIODgoKBgYGAgYGCgoOEhYWEhYiKi4yLioiHhoOBf316d3Vxbm5tbm9wcHFydHZ3e36Ag4SGh4mKiomHhYOCgoF/f3+AgYGBgoSFhoeHiYmKioqJiIiGhYSCf3t3dnRxbm1ucHN1d3d4enx/gYOFhYaGhoaFhISDg4OCgIB/f3+AgYGCgoODg4KBf35+fXt6eXl6enp6enp5d3Z2dXV2dnd2dnd4eXl6fH5/gH99fX19fn5/f39+fn1+f35+fXx8e3x8e3p5eXh4eHh5eXl5eXl5eHh5ent7fX6AgYODg4ODhISEhoeHhYSDg4ODgX99e3t8fHx8fH1+f4CBgoODhIaGhIKAf35+fXt5eHd3dnh6fH6AgYKFiIqLjIyMjIyMjIuKiomHh4WDg4KBgH99fH19fX5/gIGCg4WGh4iHhoeHiImJiIaFgoB+fX5/gICBg4SFhoaFhISDgoOEhoaHhoWFhISDgoKAfnt5d3h4eXl5eXp7fH1+gIKDhYaFhoiIiYiHhoSBfnt5dnd4eHl6enx/gIGBgoOEhIOCgH9/f35+fXt6eHh4d3Z1dnd3d3h6e31/gIKCgoGAgIGCgoGBgIB+fXx7e3t6enp6e3p5e3x9fX1+f358enl4eXp6enh2dHN1dnd4eXx+fn5/gYKDg4ODhIWGh4WFhISDg4J/fn17enl4eHh5e3x+gIGDhISFhYWGhoWDgH9+fX5+fXt6enx9foCBgIKFh4iKjI2Ojo+Pj46OjYuJhoSCgHx6eXh3d3Z3d3h7fH+Bg4SFh4uMjYyKiYiJi4yJhoWDgX99fn6AgIGCg4SEhYeHh4eHhYSCgYGCg4SEhISEhISEg4OCgH+AgICAgICAgICBhIWHiImKi4yOjoyLiYeFgoB9e3l3dnV0c3R0dXd6fH9/foCBgoSFhYWEg4KCgoKBfnx7fH1+f3+AgIGCg4SFhYaFhYWFhYWFhoeHhoaEgoB+fn19fX1+fn5+fn5/gICBg4SFhYaGhoaFhISEg4OBgH59fX19fX5+fn18fH5/gYKEhISEhISEhYaHh4WEg4ODgYGBgH9/fn18fH1+fn5+fn+AgICAgIB/fn17enp6enp7fH5/gIGCgoKCgYCAf4CAgICAf35+fn19fHt7e3t8fH19fn9/f39/f39/fn58e3l4d3Z1dXZ3eHl6ent7fX5+fn19fX19fXx8fH18e3t8fHt7enp7fHt8fX5/gIKDg4OBgH59fXx6enp6eHd3eHl4eHZ2dnd5e3x9fn+AgIKCgoKBgH17eXh3dXV1dnh5e3x+f4CAgIGBgYGCgYGBf39+fXx7enp6e3t7e3x8fHx9foCCg4OCgH9+fn+AgIB/f35+fXx8fHt7e31+f3+AgoKDg4SEg4OCgoKDhYWEgoKCg4KCgYB/fn6AgYKDg4SEhYaGhYWEg4OBf39/f39/gYGBgYGBgYKDhIKCgYKCg4OCgoKCgYGBgICAgYGCgYGBgYGAfn1+f4CBgYGBgYCAgYCBgYGBgYODhIOCg4ODgoKCgoGCgoOEhYaGh4iIiIiIiIeGhIKBgH59fX18e3p4d3d4eHh3eHh5ent7e3x9fX1+f4B/f359fHx9fHt6enp6fH19fHx9f4GEhIWEhISEg4KAfnx7enl5eHd2dXZ2dnd4eHl6fH1/gYKDhYaGhoWEgn99enh2dHJwb29vb3Bxc3V3enx+gIOFhoeGhoWDgoB9eXVxb29vb29wcXN2eHp8fn+Cg4WGh4eHhYSDgoF/fXt5dnV0dXZ2eHl8f4GEhYaHiIeIh4aEhISDgoB+e3p4dnZ1d3h4eXt9f4GBg4SFhoaFhYSDgoKAf318fHx8fHx8fH1+f4GChIaHh4eHh4WFhIOCgYGAf39+fn19fHx7fH1/gICBg4WHiIiIiYmIiIeGhYSDgoB/fn59fX19fn5/gYOFhoeHiIqLi4yLi4qJiIaEgoB+fX5+f3+AgYKDhYaIiYuLjIyMjI2Mi4mIiIeGhIJ/fn19fHt7fX5/gICChIaHiYuMjY2OjIuKiIaEgX99e3l3dnV1dXd4en1/gYOGiImMjY2MjIqKiYeEgX56eHZ0dHNycXBxcXJ0dXd4ent7fX6AgYKCgoF/fXt6eXh2dnZ1dXV0dHV2dnd3eXx/gYSFh4eHh4WDgX99fHp4dnVzcnJyc3R2eHl7fHx8fHx9fX5+fn17e3p6e3t7enh4d3h6e3x9fn+AgYKCgYB+fn6AgYKCg4ODgoKCgYB/fXx7eXh3d3Z1dXZ3eXp7fH1/gYKDhYaIiIiIiIeGhYSDgYB+fXx8fH19fn+AgIGBgYGBgYGBgYGBgIB/f39/f39/f39/gICAgYKDhISFhoeJiYqLi4uKiouLi4qIh4WFg4KCgX9+fn5+f4CBgYGBgYKDhIWFh4aGhoWFhIOCgYGAgH9+fX19fX1+fn9/gIGDhYeIiYmJiYmJiYiHhYJ/fXt5eHd1dHV2d3l7fX+BgoOEhoeIiYmJiIiHhYOBf3t5eHd3dnZ2d3h6fH+BhIaHiIiHiIeGhoWEgn98eXd1dHJycnJyc3V3enx/gYKDhIWGhoeGhoWEgoB/fn19fHt6enp6ent8foCCg4WGh4iJiYmIh4WEgoB+fHt6eHd1c3JxcXFzdHV1dnd5enx9f4CBgoSEhYWFhISCgoGBgICAgH+AgICBgYOEhYaHh4iIiIeGhYOCgYB+fHp6eXh3dnd3eHp7fH1/goSGh4iKi4uLiomJiIeFg4B+e3l4dnZ1dXV2d3l8fX+BhIaHh4iJiomJiIaFg4KBf318enl5ent7fX+ChIaIioyOkJGRkZCPjYuJhoSBfnx5eHZ1dHR0dXd4ent8foGDhYeHh4eHhoaEg4B/fXt6eXd3dnZ3eHl7fX+AgYKEhYeHiIeHhoaFhIOCgX99e3h3d3d3dnV1dnl7fX9/gIKDg4SEg4ODgoKBgYGAgH9+fXx8fHt7e3t7e3x8fX5/gIB/fn1+fn59fX18fHx8e3t7enp7fH1+fn5/f39/f4CCg4OEhIODg4GBf359fX18fHx8fH19fn5/gICBgYKDhISEg4KBgYGAf39+fXx7enp6enp6ent8fX19fX5+fn59fX19fX18fH1+gICAf35+fX5+f3+AgYKDhIWFhoaGhoaFhYSDgYB/f35+fX5+fn+AgYGCg4OCg4ODgoGAf39/fn5+fn19fn18fHx9fn+AgIKCg4SEhIODhISEhIODgoKBgH9+fn19fX19fn5+fn5+fn5+fn5+fn5/fn5+fn5+fn5+fn9/gH9/gIGBgoKCg4ODg4ODhISFhYSDgoB/fn18fH18fHx8e3x8fHx8fHx8fX5/gYKCg4OCgoKBgYGAgH9+fXx8fHx8fX5/f4CBgYGBgYGBgYKCgoGBgH9+fn59fX18fHt7e3x8fX5/gIGBgoKCgoKCgoKCgoGAf35+fX18fHx8e3t8fHx9foCCg4SFhYWFhYWFhISDgoB/fn18e3t7enp5eXl5eXl6e3x8fX5+f4CAgIB/f39+fn18e3p5eXh4eHd4eXt8fX1+fn9/gH+Af35+fn5+fn5+fn59fXx8fX19fX19fX19fX19fn5+f3+AgIGCgoODg4ODgoKCgoKCgIB/f39/f35+fX19fX6AgYKDhIWGhoaGh4eHhoWFhIOCgH9/f35+fX1+fn5/gICBgoODg4SEg4SEg4KBgYB/f35+fn5+f39/gIGCgoODhIODhIODg4OCgoKCgoKCgYGAgICAf39+fn59fX5/gICBgYGBgYCAgICAgICAf39/f39/f4CAgICAgIB/f39+fn5/gIGBgYB/f39/f3+AgH9/gICAgH9/fn5+fn5/f4CAgYCAgH9/f39/f39/fn5+fn5+fn5+fn9/gICAgICAgICAgYGAf35+fn5+f39/gICAgYGBgICAgIB/fn59fX19fXx8fH19fXx8fHx9fX5+fn9/f39/fn5/fn9+fn5+gICBgoKDg4OEhISEhYSEg4ODgoKBgIB/fn58fHx8fX1+fn+AgoOEhYWGhoaFhISDgoGAgICAgICAf39/fn59fn5/gIGCgoKDg4OEhISEg4OCgoGAf359fX19fn9/gICAgIGBgoKDg4ODg4OBf35+fX19fXx8e3t7e3x8fH19fX5/gIGBgYGBgYGAgIB/f39/f3+AgICBgYGBgYGBgYB/f35+fX19fHx8fHx7e3x9fX5+fn9/f39/f39/gICBgYGBgYGBgYGBgICAgIB/f35+fn5/gIGCgoKCgoKCgoKBgH9+fn59fXx8e3t7e3t8fX5/f3+AgICAgIGBgYGBgYKCg4OCgYCAf39+fXx7e3x8fX5/f4CAgYGBgoKCgoKBgIB/f3+AgICAgIGBgYGBgYKCg4OEg4ODgoKCgoKBgYB/f39/fn5+fn5+fn5/f4CAf39/f39/f39/gIGBgoKCgoKCgoKBgH9/f3+AgICAgYGBgYKDg4OEg4ODgoKBgYGAgH9/fn19fHx8fX1+fn9/gICBgoKDg4SEhYaGhoaFhYSDg4KBgYCAgICBgYGCg4SEg4KAgYCAgIB/f39+fn19fHx7e3t6e3t7e3x8fX5+fn9/gYKDg4KCgYGBgH9+fXx8e3p6eXl4eHl6e3x9fn5/f4CAgIGBgYGBgYGBgYGAgH9/fn59fX18fX19fn9/f4CAgYGCgoKCgYCAf39+fn18fHt6e3p7e3x9fn+AgoOEhYWGhoaFhYSEhIOCgYB+fXx7e3t8fHx9fX5/gICBgoKDhISFhYaGhoaGhYSDg4KAgH9/fn5+fn5+fn5+fn+AgYKDhIWGhoeGhoWFhIOCgYB/fn19fX19fHx8fH19fX5/gIGCg4SFhoeIiIiHhoWEg4KAfn18enl4d3d3eHl6fH1/gIKChIWGhoaFhYSEg4OCgYB/fn19fX5+f4CAgYKDg4OEhISEhISDhIODgoGAgH9+fXx7e3t6e3x8fHx9fn5/gIGBgoODg4OCgoKBgICAgYGBgYGBgICAgICAgICAgH9+fX18fHt7e3t7e3p6ent7fHx8fH1+fn9/fn5+fn19fHx7e3t8fHx9fX19fX5+fn9/f39+fn5/f39/f39+fn5/f35+fn59fX19fXx8fHx8fHt7e3t7fH1+fn9/gICBgYGBgYGBgICAf39+fX18fHx8fH19fX5+f39/f39/gICAgICAgIGBgYGAgIGBgYGBgIGBgICAgIGBgoKCgoKCgoKBgYGBgIB/f35+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn59fn9/gIB/gH9/f39+fn9/f39/f39/f39/f39/f35+fn5+fn5+fX19fX5+fn18fH18fX1+fn5+f39/f4B/gICAgYKDg4ODg4OCgoGAgH9/fn59fHt6enp6enp7fH19fX19fX19fX1+fn5+fn5+fn5+f39/f4CAgYGCg4OEhISDg4OCgoGCgoKBgYGBgYGAgICAf359fXx8fH19fn9/gIGBgYGBgoODg4ODg4OCgoKCgoKCgoKCgoKCgoKBgYGBgYGBgoKDg4SEhISEhIODg4KCgYGAgIB/f35+fn5+f3+AgYGCgoODg4KCgoKCgYCAgICAgYGBgoKDg4SEhYWGhYWFhISDg4KBgYCAgIGBgYCAgIGBgYKCgoODg4ODg4ODg4OCgYGBgYCBgICAgICAgYGCg4OEhISEhIODgoGBf39+fXx7e3t7fHx8fX19fXx8fHx8fH1+fn5/f4CAgICAgICAgH9/f39/f3+AgYGCgoKCgoKCgoKCgYGAgICAf39/fn5+fn59fn5+fn5+fX19fX5+f3+AgICBgYGBgYGBgoKDhIWFhYWFhYSEg4GAf359fHt7enp6enp6ent7e3t8fHx8fHx8fHx8fH19fHx8fHt7e3x9fn5+fn5+fn5+fX19fXx8fHx8e3t7e3p6enl5eHh5eXp5enp6e3t8fX1+fn5+fn5+fn9/f4CAgH+Af39/f39+fn59fX19fX19fX19fn19fX19fH19fH19fX1+fn5+fn19fX19fn1+fn5/gICAgIGAgICAgICAgICBgICAf39+fn5+fn19fX19fX19fX1+fn+AgIGBgoKCg4OEg4SEhISDg4OCgYGBgYGBgYGBgYGCgoKDg4ODg4KCgYGBgIB/fn18fHt7e3t7fH1+f4GCg4WGh4iKiouLi4qJiIeFhIKBf318fHt6enl6enp7e3x8fX5+fn9/f39/f39/f35+fn59fX5+fn9/gIGCgoOEhIWGhoeHiIiIh4eHhoWEg4KBgH9+fX18e3t6enp7fH19fn+AgYKCg4OEhIODg4OCgoKBgYGBgICAgICAgIB/gICBgYGCgoGCgoKCgoGAf39+fXx8fHx8fHx7fHx9fX5+f3+AgYGCgoKCgoKCgoGBgICAf39/fn5+fX19fX1+fn5+fn5+f35+fn5+fn9/gICAgIB/f35+fX19fHx8fHx8fHx8fX5+f3+AgH9/f35+fn59fX19fXx8fHt7enp6e3x9fn+AgYKCgoKCgoODgoKCgoGBgYGAgICAgIB/f39+fn5+fn19fXx9fX19fn5+fn5/fn9/f39/f39/f39/f39/f4CAgICAgIGBgoKCgoKCgoKCgoKBgIB/fn59fHt6eXl5eHh5eXp7fH1+fn+AgYGCgoKDgoKCgYGBgYCAf39/f39/f39/f39/f39/f39/f3+AgICBgICAf39+fn19fX1+fn5+fn5+f4CAgYGCg4ODhISEhISDg4OCgoKBgYGAgICBgYGBgYGBgYCAf39/f4CAgYGCgYGBgYCAgIB/f39/fn5/f39/f3+AgIGBgoKDg4OEhISEhISEg4OBgX9/fn19fX19fX19fX5+f3+AgICAgICAgH9/fn59fXx9fX19fn9/gICBgYKCg4SEhYWFhYWFhYSDg4KCgYCAf35+fn19fX19fn5/gIGBgYKCgoKCgYGAgH9+fX19fX18fX19fn+AgIGBgoKCgoODgoKBgYCAgIB/f39+fn59fX19fH19fX19fn5+fn5+f35/f39/f39/f4CAgIGBgYKCgoKCgoKCgoKCgoKCgYGBgICAgICAgH9/fn5+fn5+fn5+fX19fX19fX19fX5+fn9/f39/f4B/gICAgICBgYGBgYCBgYGBgYGBgoGBgICAgICAgYGBgICAgH9/f39/f39/f39/f39/f39/f35+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn59fX1+fX19fX18fX19fn9/gICAgYGBgYGBgoGBgYGAgH9/f35+fn5+fn5/f3+AgICBgYGBgICAgICAgH9/f39+fn19fX18fHx8fHx8fH19fX5+fn9/gICAgYGAgICAf39/fn19fXx8fHx8fH19fn5/f4CAgICBgYGBgYGBgYGBgICAf39/fn5+fn9/gICAgYGBgoKCg4ODg4ODg4KCgoGBgYGBgYCAf39/f35+fn5+fn9/f3+AgIGBgoKDg4ODgoKCgoKBgYGAgICAf39/f3+AgICAgYGBgIGAgICAgH9/fn59fX18fHt7e3t8fH19fX5+f3+AgIGBgYGCgYGBgYGAgH9/f35+fn5+fn9/f3+AgICBgYGBgYGBgYGBgYCAgH9/f35+fn19fX5+f3+AgIGBgYKCgoKCg4KDgoKCgYGAgH9/fn5+fn5+fn5+fn5/f3+AgICAgICBgYCAgICAgH9/f39/fn5+fn5/f3+AgICAgYGBgYGBgYGBgYGAgICAf39/f35+fn5+fn5+fn5+fn9/f39/gICAgICAgICAgIB/f39/f39/f39/f39/f39/f39/gICAgICAgICAf39/f39/f39/f39/f39/f39/f3+AgICAgICAgICAgICAgICAgICAgICAgH9/f39/f39/f39/gICAgICAgICAgICAgICAf39/f39/f39/f4CAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA";
+const CHAVE = "babel-formulario-inscricao";
+const LARGURA_ROTULOS = "min(150px, max(0px, (100vw - 620px) * 100))";
+
+function quadros(texto, erro) {
+  const fs = [];
+  for (let i = 1; i <= texto.length; i++) {
+    fs.push(texto.slice(0, i));
+    if (erro && i === erro.em) {
+      const base = texto.slice(0, i);
+      for (let k = 1; k <= erro.texto.length; k++) fs.push(base + erro.texto.slice(0, k));
+      for (let k = 0; k < 7; k++) fs.push(base + erro.texto);
+      for (let k = erro.texto.length - 1; k >= 0; k--) fs.push(base + erro.texto.slice(0, k));
+      fs.push(base); fs.push(base);
+    }
+  }
+  return fs;
+}
+
+class Component extends DCLogic {
+  state = { i: 0, respostas: {}, digitado: "", digitando: false, teclas: 0, cargas: 0, abertura: Date.now(), fase: "contagem", conta: 3, pulsos: 0, montadas: 0, giro: 0, campoAtivo: null, modoTecla: "letras", maiuscula: false, licao: false };
+
+  componentDidMount() {
+    this.transcricao = React.createRef();
+    this.caixa = React.createRef();
+    this.envio = React.createRef();
+    let inicial = 0, respostas = {}, abertura = Date.now();
+    try {
+      const bruto = localStorage.getItem(CHAVE);
+      if (bruto) {
+        const s = JSON.parse(bruto);
+        inicial = s.i || 0;
+        respostas = s.respostas || {};
+        abertura = s.abertura || abertura;
+      }
+    } catch (e) {}
+    // i começa em 0 mesmo quando há progresso salvo: a tela de abertura só
+    // renderiza com i === 0 (ehAbertura), e é ela que mostra a contagem.
+    // O passo salvo volta em _retomar, no fim da contagem.
+    this.setState({ i: 0, respostas, abertura });
+    // A abertura com a contagem é a assinatura da peça: roda SEMPRE. O
+    // original só a mostrava em visita nova (inicial === 0) e retomava direto
+    // no passo salvo; agora a contagem toca e, ao fim, cai no passo salvo.
+    this._retomar = (inicial >= 1 && inicial <= ETAPAS.length) ? inicial : 1;
+    this.abrir();
+
+    this._tecla = (ev) => {
+      if (ev.key !== "Enter" || ev.shiftKey) return;
+      const alvo = ev.target;
+      if (alvo && (alvo.tagName === "INPUT" || alvo.tagName === "TEXTAREA" || alvo.tagName === "BUTTON")) return;
+      if (this.state.i === 0) { ev.preventDefault(); this.avancar(); }
+    };
+    window.addEventListener("keydown", this._tecla);
+    this.prepararSom();
+    this._destrava = () => {
+      this.prepararSom();
+      if (this._ac && this._ac.state === "suspended") this._ac.resume();
+    };
+    window.addEventListener("pointerdown", this._destrava);
+    this._giro = setInterval(() => this.setState(s => ({ giro: s.giro + 0.042 })), 55);
+    this._mq = window.matchMedia("(max-width: 620px), (pointer: coarse)");
+    this._verMovel = () => this.setState({ campoAtivo: null });
+    if (this._mq.addEventListener) this._mq.addEventListener("change", this._verMovel);
+    this._aoRedimensionar = () => this.forceUpdate();
+    window.addEventListener("resize", this._aoRedimensionar);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._giro);
+    window.removeEventListener("keydown", this._tecla);
+    window.removeEventListener("pointerdown", this._destrava);
+    if (this._mq && this._mq.removeEventListener) this._mq.removeEventListener("change", this._verMovel);
+    window.removeEventListener("resize", this._aoRedimensionar);
+    clearInterval(this._timer);
+    clearInterval(this._conta);
+    clearInterval(this._monta);
+  }
+
+  abrir() {
+    clearInterval(this._conta);
+    clearInterval(this._monta);
+    this.setState({ fase: "contagem", conta: 3, montadas: 0, pulsos: 1 });
+    this._conta = setInterval(() => {
+      let fim = false;
+      this.setState(s => {
+        const proximo = s.conta - 1;
+        if (proximo < 1) { fim = true; return { pulsos: s.pulsos + 1 }; }
+        return { conta: proximo, pulsos: s.pulsos + 1 };
+      });
+      if (!fim) return;
+      clearInterval(this._conta);
+      this.setState(s => ({ pulsos: s.pulsos + 1 }));
+      setTimeout(() => this.ir(this._retomar || 1), 280);
+    }, 900);
+  }
+
+  campoPendente() {
+    const e = ETAPAS[this.state.i - 1];
+    if (!e) return null;
+    const livre = e.campos.find(c => c.tipo !== "escolha" && !this.respondida(c.id));
+    if (livre) return livre.id;
+    const qualquer = e.campos.find(c => c.tipo !== "escolha");
+    return qualquer ? qualquer.id : null;
+  }
+
+  primeiroCampo() {
+    const e = ETAPAS[this.state.i - 1];
+    if (!e) return null;
+    const c = e.campos.find(x => x.tipo !== "escolha");
+    return c ? c.id : null;
+  }
+
+  fecharTeclado = () => this.setState({ campoAtivo: null });
+
+  campoDe(id) {
+    for (const e of ETAPAS) for (const c of e.campos) if (c.id === id) return c;
+    return null;
+  }
+
+  teclar = (k) => {
+    // O toque tem que responder no dedo: 8ms de vibração é o que um teclado
+    // de celular faz, e é o que separa "botão numa tela" de "teclado".
+    try { if (navigator.vibrate) navigator.vibrate(k === "apagar" ? 12 : 8); } catch (e) {}
+
+    if (k === "123" || k === "abc") { this.setState({ modoTecla: k === "123" ? "numeros" : "letras" }); return; }
+    if (k === "voltar") { this.voltar(); return; }
+    if (k === "enviar") { this.enviar(); return; }
+    if (k === "shift") {
+      // Um toque: próxima letra maiúscula. Dois toques rápidos: trava.
+      const agora = Date.now();
+      const duplo = this._ultimoShift && agora - this._ultimoShift < 400;
+      this._ultimoShift = agora;
+      this.setState(s => ({ maiuscula: duplo ? "trava" : (s.maiuscula ? false : true) }));
+      return;
+    }
+    const id = this.state.campoAtivo == null ? this.campoPendente() : this.state.campoAtivo;
+    if (id == null) return;
+    if (this.state.campoAtivo !== id) this.setState({ campoAtivo: id });
+    const atual = String(this.state.respostas[id] == null ? "" : this.state.respostas[id]);
+    if (k === "apagar") { this.responder(id, atual.slice(0, -1), true); return; }
+    if (k === "espaço") { this.responder(id, atual + " "); return; }
+
+    // maiúscula: pedida pelo shift, ou automática no começo da frase
+    const alta = this.state.maiuscula || pedeMaiuscula(atual);
+    this.responder(id, atual + (alta ? k.toUpperCase() : k));
+    if (this.state.maiuscula !== "trava") this.setState({ maiuscula: false });
+  };
+
+  aoRolarCaixa = (ev) => {
+    const el = this.transcricao && this.transcricao.current;
+    if (!el) return;
+    const alvo = ev.target;
+    if (alvo && alvo.tagName === "TEXTAREA" && alvo.scrollHeight > alvo.clientHeight) return;
+    el.scrollTop += ev.deltaY;
+  };
+
+  digitar(n) {
+    clearInterval(this._timer);
+    const etapa = ETAPAS[n - 1];
+    if (!etapa) return;
+    const fs = quadros(etapa.fala, etapa.erro);
+    let q = 0;
+    this.setState({ digitado: "", digitando: true });
+    this._timer = setInterval(() => {
+      q++;
+      if (q >= fs.length) {
+        clearInterval(this._timer);
+        this.setState({ digitado: etapa.fala, digitando: false });
+        return;
+      }
+      this.setState({ digitado: fs[q] });
+    }, 30);
+  }
+
+  aoTopo() {
+    const el = this.transcricao && this.transcricao.current;
+    if (el) el.scrollTop = 0;
+  }
+
+  guardar(i, respostas) {
+    try { localStorage.setItem(CHAVE, JSON.stringify({ i, respostas, abertura: this.state.abertura })); } catch (e) {}
+  }
+
+  ir(i) {
+    const limite = Math.max(0, Math.min(ETAPAS.length + 1, i));
+    this.setState({ i: limite });
+    this.guardar(limite, this.state.respostas);
+    this.setState({ campoAtivo: null, modoTecla: "letras", maiuscula: false, licao: false });
+    if (limite >= 1 && limite <= ETAPAS.length) this.digitar(limite);
+    else { clearInterval(this._timer); this.setState({ digitado: "", digitando: false }); }
+    setTimeout(() => this.aoTopo(), 40);
+    setTimeout(() => this.aoTopo(), 260);
+  }
+
+  avancar = () => this.ir(this.state.i + 1);
+  voltar = () => this.ir(this.state.i - 1);
+
+  prepararSom() {
+    if (this._pronto) return;
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      if (!this._ac) this._ac = new Ctx();
+      if (this._ac.state === "suspended") this._ac.resume();
+      if (this._buffer || this._decodificando) return;
+      this._decodificando = true;
+      const b64 = SUSPIRO.slice(SUSPIRO.indexOf(",") + 1);
+      const bruto = atob(b64);
+      const bytes = new Uint8Array(bruto.length);
+      for (let k = 0; k < bruto.length; k++) bytes[k] = bruto.charCodeAt(k);
+      this._ac.decodeAudioData(bytes.buffer, (buf) => {
+        this._buffer = buf;
+        this._pronto = true;
+        this._decodificando = false;
+      }, () => { this._decodificando = false; });
+    } catch (e) { this._decodificando = false; }
+  }
+
+  soprar() {
+    try {
+      if (this._ac && this._buffer) {
+        if (this._ac.state === "suspended") this._ac.resume();
+        const fonte = this._ac.createBufferSource();
+        fonte.buffer = this._buffer;
+        fonte.playbackRate.value = 0.98 + Math.random() * 0.04;
+        const ganho = this._ac.createGain();
+        ganho.gain.value = 1;
+        fonte.connect(ganho);
+        ganho.connect(this._ac.destination);
+        fonte.start(0);
+        return;
+      }
+      this.prepararSom();
+      const a = new Audio(SUSPIRO);
+      a.volume = 1;
+      const p = a.play();
+      if (p && p.catch) p.catch(() => {});
+    } catch (e) {}
+  }
+
+  enviar = () => {
+    this.soprar();
+    this.pulsarCaixa();
+    this.setState(s => ({ cargas: s.cargas + 1 }));
+    this.ir(this.state.i + 1);
+  };
+
+  pulsarCaixa() {
+    const el = this.envio && this.envio.current;
+    if (!el) return;
+    const nome = (this._pulsoPar = !this._pulsoPar) ? "envioA" : "envioB";
+    el.style.animation = "none";
+    void el.offsetWidth;
+    el.style.animation = nome + " .95s ease";
+  }
+
+  aoTeclar = (ev) => {
+    if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); this.enviar(); return; }
+    if (ev.key === "Backspace" || ev.key === "Delete") { this._apagando = true; return; }
+    this.setState(s => ({ teclas: s.teclas + 1 }));
+  };
+
+  respondida(id) {
+    const v = this.state.respostas[id];
+    return Array.isArray(v) ? v.length > 0 : String(v == null ? "" : v).trim() !== "";
+  }
+
+  responder(id, bruto, apagando) {
+    let valor = bruto;
+    if (!apagando && typeof valor === "string" && /\s$/.test(valor)) valor = analisar(valor).texto;
+    const respostas = Object.assign({}, this.state.respostas, { [id]: valor });
+    const menor = apagando || this._apagando ||
+      String(valor == null ? "" : valor).length < String(this.state.respostas[id] == null ? "" : this.state.respostas[id]).length;
+    this._apagando = false;
+    this.setState(s => ({ respostas, teclas: menor ? s.teclas : s.teclas + 1 }));
+    if (this.ehMovel()) setTimeout(() => this.aoFimDoCampo(id), 0);
+    this.guardar(this.state.i, respostas);
+  }
+
+  alternar(id, rotulo, multi) {
+    if (!multi) { this.responder(id, this.state.respostas[id] === rotulo ? "" : rotulo); return; }
+    const atual = Array.isArray(this.state.respostas[id]) ? this.state.respostas[id] : [];
+    const nova = atual.includes(rotulo) ? atual.filter(x => x !== rotulo) : atual.concat([rotulo]);
+    this.responder(id, nova);
+  }
+
+  reiniciar = () => {
+    clearInterval(this._timer);
+    this.setState({ i: 0, respostas: {}, digitado: "", digitando: false });
+    this.guardar(0, {});
+    this._retomar = 1;
+    this.abrir();
+  };
+
+  marcaHora() {
+    const d = this.state.abertura ? new Date(this.state.abertura) : new Date();
+    const p = (v) => String(v).padStart(2, "0");
+    return p(d.getDate()) + "/" + p(d.getMonth() + 1) + "/" + d.getFullYear() + " · " + p(d.getHours()) + "h" + p(d.getMinutes());
+  }
+
+  valorTexto(id) {
+    const v = this.state.respostas[id];
+    if (Array.isArray(v)) return v.join(", ");
+    return analisar(v).texto;
+  }
+
+  ehMovel() {
+    if (typeof window === "undefined") return false;
+    // Largura sozinha erra: celular grande em paisagem e tablet passam de
+    // 620px e caíam no caminho do desktop, com <input> de verdade e sem
+    // readOnly — o teclado do aparelho subia por cima do teclado da babel.
+    // "(pointer: coarse)" pergunta o que importa: o dedo é o ponteiro?
+    if (this._mq) return this._mq.matches;
+    const grosso = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    return grosso || window.innerWidth <= 620;
+  }
+
+  refCampo(id) {
+    if (!this._refs) this._refs = {};
+    if (!this._refs[id]) this._refs[id] = React.createRef();
+    return this._refs[id];
+  }
+
+  aoFimDoCampo(id) {
+    const el = this._refs && this._refs[id] && this._refs[id].current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  abrirLicao = () => this.setState({ licao: true, campoAtivo: null });
+
+  emTrechos(t, estiloBase) {
+    const marca = "background:linear-gradient(120deg,#B899FF,#7AD2FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent";
+    const semLogo = "display:none";
+    const comLogo = "display:inline-block; height:.92em; vertical-align:-.14em; margin:0 .05em; filter:drop-shadow(0 0 9px rgba(122,69,232,.7))";
+    const saida = [];
+    String(t == null ? "" : t).split(/(babel|§)/).forEach(parte => {
+      if (parte === "") return;
+      if (parte === "§") { saida.push({ texto: "", estilo: semLogo, estiloLogo: comLogo }); return; }
+      saida.push({ texto: parte, estilo: parte === "babel" ? marca : estiloBase, estiloLogo: semLogo });
+    });
+    return saida.length ? saida : [{ texto: "", estilo: estiloBase, estiloLogo: semLogo }];
+  }
+
+  emSegmentos(bruto, corBase) {
+    const texto = String(bruto == null ? "" : bruto);
+    if (!texto) return [];
+    return analisar(texto).segs.map(s => ({
+      texto: s.texto,
+      aoClicar: s.marcado
+        ? (ev) => { if (ev && ev.stopPropagation) ev.stopPropagation(); this.abrirLicao(); }
+        : () => {},
+      estilo: s.marcado
+        ? "white-space:pre-wrap; text-transform:none; color:#39C4FF; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:3px; cursor:pointer"
+        : "white-space:pre-wrap; text-transform:none; color:" + corBase
+    }));
+  }
+
+  renderVals() {
+    const i = this.state.i;
+    const totalEtapas = ETAPAS.length;
+    const ehAbertura = i === 0;
+    const ehFecho = i > totalEtapas;
+    const ehConversa = !ehAbertura && !ehFecho && !this.state.licao;
+
+    let respondidos = 0;
+    ETAPAS.forEach(e => e.campos.forEach(c => { if (this.respondida(c.id)) respondidos++; }));
+
+    const fracao = respondidos / TOTAL_CAMPOS;
+    const enviadas = Math.max(0, Math.min(1, (i - 1) / totalEtapas));
+    const completo = fracao > 0.999;
+    const EIXO = 20, AMP = 14 * Math.cos(this.state.giro), VOLTAS = 4.6, PASSO = 4;
+    const VOLTAS_FECHADA = Math.round(VOLTAS);
+    const curva = (desvio, ate) => {
+      let d = "";
+      for (let p = 0; p <= 250; p++) {
+        const t = p / 250;
+        if (t > ate + 0.0001) break;
+        const x = (EIXO + Math.sin(t * Math.PI * VOLTAS_FECHADA + desvio) * AMP).toFixed(2);
+        const y = (1000 - t * 1000).toFixed(1);
+        d += (p === 0 ? "M" : "L") + x + " " + y;
+      }
+      return d || "M20 1000";
+    };
+    const dRespostas = curva(0, 1);
+    const dEnvios = curva(Math.PI, 1);
+    const dRespostasAceso = curva(0, fracao);
+    const dEnviosAceso = curva(Math.PI, enviadas);
+
+    const degraus = ETAPAS.map((e, idx) => {
+      const n = idx + 1;
+      const feita = e.campos.every(c => this.respondida(c.id));
+      const atual = n === i;
+      return {
+        estilo: "position:absolute; left:50%; margin-left:" + (atual ? "-7px" : "-4.5px") +
+          "; width:" + (atual ? "14px" : "9px") + "; height:" + (atual ? "14px" : "9px") +
+          "; margin-bottom:" + (atual ? "-7px" : "-4.5px") + "; border-radius:50%; border:1px solid " +
+          (atual ? "rgba(57,196,255,.9)" : "rgba(155,107,255,.5)") + "; bottom:" +
+          ((n - 0.5) / totalEtapas * 100).toFixed(2) + "%; background:" +
+          (atual ? "rgba(57,196,255,.25)" : feita ? "rgba(155,107,255,.35)" : "transparent") +
+          "; box-shadow:" + (atual ? "0 0 14px rgba(57,196,255,.6)" : "none") + "; transition:all .4s ease"
+      };
+    });
+
+    const capituloAtual = ehConversa ? ETAPAS[i - 1].capitulo : "";
+    const capitulos = CAPITULOS.map(nome => {
+      const indices = ETAPAS.map((e, idx) => e.capitulo === nome ? idx + 1 : 0).filter(Boolean);
+      const de = indices[0], ate = indices[indices.length - 1];
+      return {
+        nome,
+        estiloBloco: "position:absolute; left:0; right:0; display:flex; align-items:center; bottom:" +
+          ((de - 1) / totalEtapas * 100).toFixed(2) + "%; height:" +
+          ((ate - de + 1) / totalEtapas * 100).toFixed(2) + "%",
+        estiloRotulo: "font-family:'Geist',sans-serif; font-size:clamp(7px,1vh,10px); letter-spacing:.18em; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:" +
+          (nome === capituloAtual ? "#39C4FF" : i > ate ? "#9B6BFF" : "#544E70") + "; transition:color .4s ease"
+      };
+    });
+
+    let campos = [];
+    if (ehConversa) {
+      campos = ETAPAS[i - 1].campos.map(c => {
+        const valor = this.state.respostas[c.id];
+        const marcadas = Array.isArray(valor) ? valor : [];
+        return {
+          rotulo: c.r,
+          exemplo: c.ex || "",
+          valor: c.tipo === "escolha" ? "" : (valor || ""),
+          ehTexto: c.tipo === "texto" && !this.ehMovel(),
+          ehLongo: c.tipo === "longo" && !this.ehMovel(),
+          ehEscolha: c.tipo === "escolha",
+          ehMovel: this.ehMovel() && c.tipo !== "escolha",
+          refCampo: this.refCampo(c.id),
+          estiloCampoMovel: "width:100%; box-sizing:border-box; flex:none; overflow:visible; height:auto; min-height:" + (c.tipo === "longo" ? "62px" : "46px") +
+            "; display:block; word-break:break-word; background:transparent; box-shadow:0 0 " + (this.state.campoAtivo === c.id ? "18px rgba(57,196,255,.4)" : "12px rgba(122,69,232,.2)") + "; border:1px solid " +
+            (this.state.campoAtivo === c.id ? "#39C4FF" : "rgba(155,107,255,.34)") +
+            "; border-radius:" + (c.tipo === "longo" ? "22px" : "999px") +
+            "; padding:" + (c.tipo === "longo" ? "10px 14px" : "12px 16px") +
+            "; cursor:text; font-family:'Cormorant Garamond',Georgia,serif; font-size:" +
+            "18px" + "; line-height:1.35; text-align:right; text-transform:none; color:#EDEAF7; transition:border-color .25s ease",
+          estiloCursorCampo: this.state.campoAtivo === c.id
+            ? "display:inline-block; width:2px; height:1.05em; margin-left:2px; background:#39C4FF; animation:cursor 1s steps(1) infinite"
+            : "display:none",
+          temCorrecao: c.tipo !== "escolha" && !this.ehMovel() &&
+            analisar(this.state.respostas[c.id]).segs.some(s => s.marcado),
+          aoAbrirLicao: this.abrirLicao,
+          segmentos: (() => {
+            const bruto = String(this.state.respostas[c.id] == null ? "" : this.state.respostas[c.id]);
+            if (!bruto) return [{ texto: c.ex || "", aoClicar: () => {}, estilo: "white-space:pre-wrap; text-transform:none; color:#4B4568" }];
+            return this.emSegmentos(bruto, "#EDEAF7");
+          })(),
+          travado: this.ehMovel() && c.tipo !== "escolha",
+          aoAtivar: () => this.setState({ campoAtivo: c.id }),
+          aoFocar: (ev) => {
+            if (!this.ehMovel()) { if (c.tipo !== "escolha") this.setState({ campoAtivo: c.id }); return; }
+            if (c.tipo === "escolha") return;
+            if (ev && ev.target && ev.target.blur) ev.target.blur();
+            this.setState({ campoAtivo: c.id, modoTecla: "letras" });
+          },
+          aoDigitar: (ev) => this.responder(c.id, ev.target.value),
+          opcoes: (c.opcoes || []).map(rotulo => {
+            const marcada = c.multi ? marcadas.includes(rotulo) : valor === rotulo;
+            return {
+              rotulo,
+              aoClicar: () => { this.setState({ campoAtivo: c.id }); this.alternar(c.id, rotulo, c.multi); },
+              estilo: "background:" + (marcada ? "rgba(57,196,255,.12)" : "transparent") +
+                "; color:" + (marcada ? "#EDEAF7" : "#A39CC0") +
+                "; border:1px solid " + (marcada ? "#39C4FF" : "rgba(155,107,255,.24)") +
+                "; border-radius:999px; padding:clamp(10px,1.4vh,14px) clamp(14px,1.8vw,22px); font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(14px,2vh,21px); text-transform:lowercase; cursor:pointer; min-height:44px; transition:all .25s ease"
+            };
+          })
+        };
+      });
+    }
+
+    const linhas = [];
+    if (ehConversa) {
+      const etapa = ETAPAS[i - 1];
+      const falaLonga = etapa.fala.length > 52;
+      linhas.push({
+        estiloLinha: "display:flex; flex-direction:column; justify-content:flex-end; flex:none; min-height:100%; box-sizing:border-box; padding-top:clamp(8px,1.4vh,18px); animation:entra .4s ease both",
+        ehBabel: true, ehResposta: false, ehDivisor: false,
+        texto: this.state.digitado,
+        trechos: (() => {
+          const t = this.state.digitado;
+          const ativo = etapa.campos.find(c => c.id === this.state.campoAtivo);
+          const normal = "color:#EDEAF7";
+          const brasa = "color:#BFE6FF; text-shadow:0 0 18px rgba(57,196,255,.85), 0 0 40px rgba(122,69,232,.5)";
+          const marca = "background:linear-gradient(120deg,#B899FF,#7AD2FF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent";
+          const semLogo = "display:none";
+          const comLogo = "display:inline-block; height:.92em; vertical-align:-.14em; margin:0 .05em; filter:drop-shadow(0 0 9px rgba(122,69,232,.7))";
+          let base = [{ texto: t, estilo: normal }];
+          if (ativo && ativo.foco) {
+            const p = t.toLowerCase().indexOf(ativo.foco.toLowerCase());
+            if (p >= 0) {
+              base = [];
+              if (p > 0) base.push({ texto: t.slice(0, p), estilo: normal });
+              base.push({ texto: t.slice(p, p + ativo.foco.length), estilo: brasa });
+              const resto = t.slice(p + ativo.foco.length);
+              if (resto) base.push({ texto: resto, estilo: normal });
+            }
+          }
+          const saida = [];
+          base.forEach(seg => {
+            seg.texto.split(/(babel|§)/).forEach(parte => {
+              if (parte === "") return;
+              if (parte === "§") { saida.push({ texto: "", estilo: semLogo, estiloLogo: comLogo }); return; }
+              saida.push({ texto: parte, estilo: parte === "babel" ? marca : seg.estilo, estiloLogo: semLogo });
+            });
+          });
+          return saida.length ? saida : [{ texto: "", estilo: normal, estiloLogo: semLogo }];
+        })(),
+        corpo: falaLonga ? "clamp(20px,3.2vh,36px)" : "clamp(23px,4vh,44px)",
+        estiloCursor: this.state.digitando
+          ? "display:inline-block; width:.5em; height:1em; margin-left:.12em; vertical-align:-.12em; background:#39C4FF; animation:cursor 1s steps(1) infinite"
+          : "display:none"
+      });
+    }
+
+    const anteriores = ehConversa ? i - 1 : totalEtapas;
+    if (anteriores >= 1) {
+      linhas.push({
+        estiloLinha: "display:flex; flex-direction:column; flex:none",
+        ehDivisor: true, ehBabel: false, ehResposta: false,
+        texto: "histórico · " + this.marcaHora()
+      });
+      for (let n = anteriores; n >= 1; n--) {
+        const e = ETAPAS[n - 1];
+        const itens = e.campos.map(c => ({
+        pergunta: c.r,
+        texto: this.valorTexto(c.id),
+        segmentos: this.emSegmentos(Array.isArray(this.state.respostas[c.id]) ? this.state.respostas[c.id].join(", ") : this.state.respostas[c.id], "#8FA9C8")
+      })).filter(x => x.texto.trim() !== "");
+        if (itens.length) {
+          linhas.push({
+            estiloLinha: "display:flex; flex-direction:column",
+            ehResposta: true, ehBabel: false, ehDivisor: false,
+            itens,
+            corTexto: "#8FA9C8",
+            estiloBolha: "align-self:flex-end; max-width:min(100%,620px); display:flex; flex-direction:column; gap:8px; background:rgba(31,121,224,.07); border:1px solid rgba(57,196,255,.16); border-radius:20px 20px 6px 20px; padding:clamp(11px,1.6vh,16px) clamp(14px,2vw,22px)".replace("gap:8px", "gap:13px")
+          });
+        }
+        linhas.push({
+          estiloLinha: "display:flex; flex-direction:column; opacity:.42",
+          ehBabel: true, ehResposta: false, ehDivisor: false,
+          texto: e.fala,
+          trechos: this.emTrechos(e.fala, "color:#EDEAF7"),
+          corpo: "clamp(15px,2vh,22px)",
+          estiloCursor: "display:none"
+        });
+      }
+    }
+
+    const parTeclas = this.state.teclas % 2 === 0;
+    const parCargas = this.state.cargas % 2 === 0;
+
+    const parPulsos = this.state.pulsos % 2 === 0;
+    const naContagem = ehAbertura && this.state.fase === "contagem";
+    const naConstrucao = ehAbertura && this.state.fase === "construcao";
+    const passo = this.state.montadas;
+    const linhasCodigo = PALAVRAS.map((p, idx) => {
+      const atraso = idx * 5;
+      const revelado = Math.max(0, Math.min(p.t.length, passo - atraso));
+      const pronto = revelado >= p.t.length;
+      let texto = p.t.slice(0, revelado);
+      if (!pronto) {
+        for (let k = revelado; k < p.t.length; k++) {
+          texto += p.t[k] === " " ? " " : RUIDO[Math.floor(Math.random() * RUIDO.length)];
+        }
+      }
+      return {
+        texto,
+        estilo: "font-family:" + (pronto ? "'Cormorant Garamond',Georgia,serif" : "'Geist',sans-serif") +
+          "; font-size:" + p.corpo + "; font-weight:" + p.peso + "; letter-spacing:" + p.esp +
+          "; line-height:1.15; text-align:center; white-space:pre-wrap; word-break:break-word; color:" +
+          (pronto ? p.cor : "#39C4FF") + "; text-shadow:" + (pronto ? "none" : "0 0 14px rgba(57,196,255,.6)") +
+          "; opacity:" + (revelado > 0 || passo > atraso ? "1" : ".28") + "; transition:color .2s ease"
+      };
+    });
+
+    return {
+      capitulos, degraus, linhas, campos, ehAbertura, ehFecho, ehConversa,
+      dRespostas, dEnvios, dRespostasAceso, dEnviosAceso,
+      estiloEtiquetaTopo: ehFecho
+        ? "display:none"
+        : "font-family:'Geist',sans-serif; font-size:clamp(8px,1.1vh,10px); letter-spacing:.26em; color:#7D76A0; text-align:right; margin-left:auto",
+      corTopo: completo ? "#8FDCFF" : "rgba(155,107,255,.35)",
+      filtroTopo: completo ? "filter:drop-shadow(0 0 6px rgba(57,196,255,.95))" : "filter:none",
+      mostrarTeclado: ehConversa && this.ehMovel() && !this.state.licao,
+      mostrarBotoesCaixa: !this.ehMovel(),
+      naLicao: !!this.state.licao,
+      fecharLicao: () => this.setState({ licao: false }),
+      rotuloCampoAtivo: (() => {
+        const c = this.campoDe(this.state.campoAtivo);
+        return c ? c.r : "";
+      })(),
+      teclado: (this.state.modoTecla === "numeros" ? TECLADO_NUMEROS : TECLADO_LETRAS).map(fila => ({
+        teclas: fila.map(k => {
+          const acao = k === "enviar" || k === "apagar" || k === "espaço" || k === "voltar" || k === "123" || k === "abc" || k === "shift";
+          const enviar = k === "enviar";
+          const larga = k === "espaço";
+          const shift = k === "shift";
+          // O teclado mostra a letra do jeito que ela vai sair — se está em
+          // maiúscula, a tecla mostra maiúscula. Sem isso a pessoa digita às
+          // cegas e só descobre depois.
+          const alta = !acao && !!this.state.maiuscula;
+          const ativa = shift && !!this.state.maiuscula;
+          return {
+            rotulo: k === "apagar" ? "⌫"
+              : shift ? (this.state.maiuscula === "trava" ? "⇪" : "⇧")
+              : alta ? k.toUpperCase() : k,
+            aoClicar: () => this.teclar(k),
+            estilo: "flex:" + (larga ? "3.4 1 0" : acao ? "1.5 1 0" : "1 1 0") +
+              "; min-width:0; min-height:48px; padding:0 2px; border:none; border-radius:14px; background:radial-gradient(ellipse at 50% 118%," + (enviar || ativa ? "rgba(57,196,255,.3)" : "rgba(155,107,255,.16)") + ",rgba(155,107,255,0) 72%); cursor:pointer; text-transform:lowercase; transition:all .16s ease; font-family:" +
+              (acao ? "'Geist',sans-serif" : "'Cormorant Garamond',Georgia,serif") +
+              "; font-size:" + (acao ? "10px" : "21px") + "; letter-spacing:" + (acao ? ".16em" : "0") +
+              "; color:" + (enviar || ativa ? "#BFE6FF" : acao ? "#8E86AE" : "#D8D2EA") +
+              "; text-shadow:" + (enviar ? "0 0 14px rgba(57,196,255,1), 0 0 34px rgba(122,69,232,.8)" : acao ? "0 0 12px rgba(122,69,232,.75)" : "0 0 10px rgba(215,200,255,.85), 0 0 24px rgba(122,69,232,.6)")
+          };
+        })
+      })),
+      fecharTeclado: this.fecharTeclado,
+      naContagem, naConstrucao, linhasCodigo,
+      contagem: String(this.state.conta),
+      passoConstrucao: passo >= PASSOS - 4 ? "pronto · abrindo a conversa" : "compilando",
+      estiloContagem: "font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(58px,12vh,128px); font-weight:600; line-height:1; color:#EDEAF7; text-shadow:0 0 34px rgba(122,69,232,.75); animation:" + (this.state.conta % 2 === 0 ? "contaEntraA" : "contaEntraB") + " .5s ease both",
+      estiloFlash: "position:absolute; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at 50% 50%,rgba(57,196,255,.05),rgba(122,69,232,.16) 62%,rgba(155,107,255,.3) 100%); animation:" +
+        (this.state.pulsos === 0 ? "none" : "flashTela .55s ease " + (parPulsos ? "" : "")),
+      aoRolarCaixa: this.aoRolarCaixa,
+      refTranscricao: this.transcricao,
+      refCaixa: this.caixa,
+      refEnvio: this.envio,
+      alturaTorre: (respondidos / TOTAL_CAMPOS * 100).toFixed(2) + "%",
+      rotuloEnviar: i === totalEtapas ? "enviar e concluir" : "enviar",
+      etiquetaTopo: ehAbertura ? "inscrição" : ehFecho ? "concluído" : "conversa " + i + " de " + totalEtapas,
+      estiloBordas: "position:absolute; inset:0; pointer-events:none; opacity:0; box-shadow:inset 0 0 clamp(16px,2.6vw,34px) clamp(1px,.3vw,4px) " +
+        ((parTeclas !== parPulsos) ? "rgba(57,196,255,.34)" : "rgba(155,107,255,.38)") +
+        ", inset 0 0 clamp(6px,1vw,12px) rgba(122,69,232,.26); animation:" +
+        (this.state.teclas + this.state.pulsos === 0 ? "none" : ((parTeclas !== parPulsos) ? "bordaA" : "bordaB") + " .6s ease"),
+      estiloCaixa: "position:relative; flex:none; overflow:visible; display:flex; flex-direction:column; gap:" +
+        (this.ehMovel() ? "7px" : "clamp(10px,1.6vh,18px)") + "; margin-top:" +
+        (this.ehMovel() ? "8px" : "clamp(10px,1.8vh,22px)") +
+        "; background:transparent; border:none; padding:0",
+      estiloCarga: this.state.cargas === 0
+        ? "display:none"
+        : "position:absolute; left:14px; top:50%; width:16px; height:16px; margin-top:-8px; border-radius:50%; opacity:0; background:radial-gradient(circle,#EAF4FF,#39C4FF 40%,#7A45E8 75%,rgba(122,69,232,0) 100%); pointer-events:none; animation:" +
+          (parCargas ? "cargaA" : "cargaB") + " 1.05s cubic-bezier(.3,0,.4,1)",
+      estiloNoTopo: "position:absolute; left:50%; width:12px; height:12px; margin-left:-6px; margin-bottom:-6px; border-radius:50%; background:#9B6BFF; box-shadow:0 0 0 6px rgba(155,107,255,.14), 0 0 26px rgba(155,107,255,.9); bottom:" +
+        (respondidos / TOTAL_CAMPOS * 100).toFixed(2) + "%; transition:bottom .85s cubic-bezier(.4,0,.2,1) .5s; animation:brilha 2.2s ease-in-out infinite",
+      estiloMarcaTopo: ehConversa
+        ? "display:flex; align-items:center; gap:clamp(11px,1.3vw,18px)"
+        : "display:none",
+      estiloRotulos: "position:relative; flex:none; width:" + LARGURA_ROTULOS + "; overflow:hidden; height:100%",
+      estiloTorre: ehConversa
+        ? "position:relative; flex:none; display:flex; align-items:stretch; gap:clamp(6px,.8vw,12px); width:calc(clamp(40px,5.4vw,64px) + " + LARGURA_ROTULOS + " + clamp(18px,5vw,72px) + clamp(6px,.8vw,12px)); padding:clamp(8px,1.6vh,20px) 0 clamp(8px,1.6vh,20px) clamp(18px,5vw,72px); box-sizing:border-box"
+        : "display:none",
+      avancar: this.avancar,
+      voltar: this.voltar,
+      enviar: this.enviar,
+      aoTeclar: this.aoTeclar,
+      reiniciar: this.reiniciar
+    };
+  }
+}
+
+</script>
+
+<!-- Ponte para o Supabase: grava a inscricao e leva ao diagnostico. -->
+<script>window.__BABEL_ANON__="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZpbWZkYWpmam9yZXZzZmNzeXdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5OTk1MjUsImV4cCI6MjA5OTU3NTUyNX0.vRlqzJ8NVc2u2yk6fpzhrPfhhy-t8PuWE3kLqLc28uY";</script>
+<script src="/ponte-babel.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Babel OS — design system
+   Preto · branco · vermelho: velocímetro, energia, decisão.
+   O vermelho só existe onde há ação ou urgência — se tudo é
+   vermelho, nada é. Tokens semânticos com tema claro/escuro.
+   ============================================================ */
+
+:root {
+  --bg: #0b0b0c;          /* preto pista */
+  --surface: #131316;     /* grafite dos cartões */
+  --surface-2: #1a1a1e;
+  --line: #26262b;
+  --line-soft: #1e1e22;
+  --ink: #f5f6f7;         /* branco giz */
+  --ink-2: #a3a7ae;
+  --ink-3: #62666d;
+  --sinal: #ff2e3d;       /* vermelho Babel: ação, avanço, ao vivo */
+  --sinal-2: #e01927;
+  --amber: #d6a63f;       /* atenção operacional (mic, avisos) — único acento fora do vermelho */
+  --violet: #a79fc7;      /* IA / Bel — sussurro, quase neutro */
+  --sky: #7fa8c9;         /* informativo — quase neutro */
+  --danger: #e0242e;      /* erro/destrutivo — mesma família do vermelho */
+  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.45);
+  /* Sem isto o navegador desenha os controles NATIVOS em branco — a lista de
+     um <select>, o calendário de uma data, o preenchimento automático — e como
+     o texto do app é branco, o vendedor abria o menu de nichos e via nada.
+     Declarar o esquema faz o sistema pintar esses controles no tom certo. */
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f4f6;
+    --surface: #ffffff;
+    --surface-2: #ececef;
+    --line: #d9d9de;
+    --line-soft: #e4e4e8;
+    --ink: #101114;
+    --ink-2: #55585f;
+    --ink-3: #6f727a;   /* era #8b8e96: 2,98:1 no fundo claro */
+    --sinal: #c9121f;   /* era #e01927: 4,41:1 — abaixo do mínimo */
+    --sinal-2: #a80f1a;
+    --amber: #8a6614;   /* era #a87e1d: 3,37:1 no fundo claro */
+    --violet: #7a6fb8;
+    --sky: #4a7fa6;
+    --danger: #c71622;
+    --shadow: 0 1px 2px rgba(10,10,15,.06), 0 10px 28px rgba(10,10,15,.09);
+    color-scheme: light;
+  }
+}
+
+/* expõe os tokens como cores utilitárias do Tailwind (bg-surface, text-ink, …) */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-sinal: var(--sinal);
+  --color-sinal-2: var(--sinal-2);
+  --color-amber: var(--amber);
+  --color-violet: var(--violet);
+  --color-sky: var(--sky);
+  --color-danger: var(--danger);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+html, body, #root { height: 100%; margin: 0; }
+
+/* Alguns navegadores desenham a lista do <select> com as cores do sistema
+   mesmo com color-scheme declarado. Dizer explicitamente evita o pior caso:
+   texto branco sobre lista branca. */
+option, optgroup {
+  background-color: var(--surface);
+  color: var(--ink);
+}
+
+/* celular/tablet: a tela fica FIXA — sem deslizar de lado nem quicar a página;
+   o que for largo demais (tabelas, galerias) rola dentro do próprio bloco */
+html, body { overflow-x: clip; overscroll-behavior-y: none; }
+
+/* Nenhum texto estica um cartão além da tela: link de site, @ de instagram,
+   e-mail — palavras sem espaço quebram quando faltar largura (só quando
+   faltar; texto normal continua igual, e truncate segue mandando onde há). */
+#root { overflow-wrap: anywhere; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* números sempre alinhados como instrumento */
+.tnum { font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+
+/* rolagem discreta */
+* { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+
+/* cockpit da call: o polegar padrão (--line) some no painel escuro e o mentor
+   nem percebe que o dossiê continua abaixo — aqui a rolagem precisa aparecer */
+.cockpit-rolagem { scrollbar-color: var(--ink-3) transparent; }
+.cockpit-rolagem::-webkit-scrollbar-thumb { background: var(--ink-3); }
+
+/* foco visível e acessível */
+:focus-visible { outline: 2px solid var(--sinal); outline-offset: 2px; border-radius: 6px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-in { animation: subir .28s cubic-bezier(.2,.7,.3,1) both; }
+  @keyframes subir { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .pulso { animation: pulso 2s ease-in-out infinite; }
+  @keyframes pulso { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+}
+
+/* ───────── Diagnóstico Digital (documento que vai pro WhatsApp do lead) ─────────
+   Fundo branco e tipografia serifada: é peça de leitura, não tela de sistema.
+   Na impressão vira PDF A4 limpo — sem botões, sem sobra de interface. */
+.dg-fundo {
+  position: fixed; inset: 0; z-index: 50; overflow-y: auto;
+  background: rgba(0,0,0,.75); padding: 1.5rem 1rem;
+}
+.dg-papel {
+  max-width: 780px; margin: 0 auto; background: #fff; color: #16181d;
+  border-radius: 14px; padding: 2.6rem 2.8rem 2rem;
+  font-family: ui-serif, Georgia, "Times New Roman", serif; line-height: 1.6;
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  overflow-wrap: anywhere; /* CNPJ, links e e-mails não estouram o papel */
+}
+/* no celular o papel ocupa a tela — margens de desktop espremiam o texto */
+@media (max-width: 640px) {
+  .dg-fundo { padding: .6rem .4rem; }
+  .dg-papel { padding: 1.5rem 1rem 1.2rem; border-radius: 10px; }
+  .dg-acoes { margin: -.6rem -.3rem .9rem 0; }
+  .dg-papel .dg-titulo { font-size: 1.45rem; }
+}
+.dg-acoes { display: flex; gap: .6rem; justify-content: flex-end; margin: -1.4rem -1.4rem 1.2rem 0; }
+.dg-btn-pdf {
+  background: #e01927; color: #ffffff; font-weight: 700; border: 0;
+  border-radius: 9px; padding: .55rem 1.1rem; cursor: pointer;
+  font-family: ui-sans-serif, system-ui, sans-serif; font-size: .88rem;
+}
+.dg-btn-fechar {
+  background: transparent; color: #6b7280; border: 1px solid #d1d5db;
+  border-radius: 9px; padding: .55rem 1rem; cursor: pointer;
+  font-family: ui-sans-serif, system-ui, sans-serif; font-size: .88rem;
+}
+.dg-topo {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid #16181d; padding-bottom: .9rem; margin-bottom: 1.6rem;
+}
+.dg-marca { display: flex; align-items: center; gap: .65rem; }
+.dg-logo {
+  width: 34px; height: 34px; border-radius: 9px; background: #e01927; color: #ffffff;
+  display: grid; place-items: center; font-weight: 800; font-size: 1.15rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+.dg-marca b { display: block; font-size: 1.05rem; letter-spacing: .02em; }
+.dg-marca i { display: block; font-style: normal; font-size: .74rem; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .13em; }
+.dg-data { font-size: .78rem; color: #6b7280; font-family: ui-sans-serif, system-ui, sans-serif; }
+.dg-titulo { font-size: 1.85rem; font-weight: 700; line-height: 1.2; margin-bottom: .2rem; }
+.dg-local { color: #6b7280; font-size: .92rem; margin-bottom: 1.3rem; }
+.dg-intro {
+  font-size: .97rem; color: #374151; border-left: 3px solid #e01927;
+  padding-left: 1rem; margin-bottom: 2rem;
+}
+.dg-bloco { margin-bottom: 1.7rem; break-inside: avoid; }
+.dg-bloco h2 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .13em; color: #e01927;
+  font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 700;
+  border-bottom: 1px solid #e5e7eb; padding-bottom: .35rem; margin-bottom: .7rem;
+}
+.dg-sub { font-size: .82rem; color: #6b7280; margin-bottom: .5rem; }
+.dg-linha { font-size: .95rem; margin-bottom: .28rem; }
+.dg-linha b { color: #16181d; }
+.dg-texto { font-size: .95rem; color: #374151; margin: .5rem 0; }
+.dg-aval {
+  margin: .55rem 0; padding: .6rem .9rem; border-radius: 8px; font-size: .92rem;
+  background: #f9fafb; border-left: 3px solid #d1d5db; break-inside: avoid;
+}
+.dg-aval-boa { border-left-color: #e01927; }
+.dg-aval-ruim { border-left-color: #e0803c; background: #fdf6f0; }
+.dg-nota { font-weight: 700; margin-right: .35rem; }
+.dg-lista { margin: .3rem 0 0 1.1rem; font-size: .95rem; color: #374151; }
+.dg-lista li { margin-bottom: .45rem; }
+.dg-nota-rodape { font-size: .88rem; color: #6b7280; font-style: italic; }
+.dg-rodape {
+  display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+  border-top: 1px solid #e5e7eb; padding-top: 1.1rem; margin-top: 2rem;
+}
+.dg-foto { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+.dg-foto-vazia {
+  display: grid; place-items: center; background: #16181d; color: #fff;
+  font-weight: 700; font-family: ui-sans-serif, system-ui, sans-serif;
+}
+.dg-rodape b { display: block; font-size: .96rem; }
+.dg-rodape i { font-style: normal; font-size: .78rem; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .1em; }
+.dg-fontes { flex: 1 1 100%; font-size: .72rem; color: #9ca3af; margin-top: .6rem; }
+
+@media print {
+  /* o app-shell trava a rolagem da tela — na impressão tudo volta a fluir,
+     senão o PDF sai com uma página só (ou em branco) */
+  html, body { overflow: visible !important; height: auto !important; }
+  body { background: #fff !important; }
+  body > *:not(.dg-fundo) { display: none !important; }
+  .dg-fundo { position: static; background: #fff; padding: 0; overflow: visible; }
+  .dg-papel { box-shadow: none; border-radius: 0; max-width: none; padding: 0 .4cm; }
+  .dg-acoes { display: none !important; }
+  @page { size: A4; margin: 1.4cm; }
+}
+
+/* Placa de conquista: entra deslizando do alto com um leve exagero e some
+   sozinha. Quem prefere menos movimento (ajuste do sistema) recebe só o
+   aparecer — a informação é a mesma. */
+@keyframes conquista-entra {
+  0%   { opacity: 0; transform: translateY(-140%) scale(.94); }
+  60%  { opacity: 1; transform: translateY(6%)    scale(1.02); }
+  100% { opacity: 1; transform: translateY(0)     scale(1); }
+}
+.anim-conquista { animation: conquista-entra .42s cubic-bezier(.16,.9,.3,1.1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .anim-conquista { animation: none; }
+}

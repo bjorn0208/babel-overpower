@@ -1,0 +1,46 @@
+{
+ "fatos": [],
+ "turnos": [
+  {
+   "quando": "02/10/2026, 18:31:02",
+   "pergunta": "como está o caixa",
+   "fala": "Entrou R$ 912,00 hoje. Ontem foram R$ 2.050,00 e no mês R$ 2.962,00. Último recebimento: Marina Freitas, R$ 300,00 hoje 13:33."
+  },
+  {
+   "quando": "02/10/2026, 19:14:12",
+   "pergunta": "Então eu vou explicar.",
+   "fala": "Essa eu ainda não sei responder: a inteligência artificial do Mentor está desligada (falta a chave da Groq no cérebro). Sobre os seus dados eu já respondo: o que pede você, quanto entrou, quem está atrasado, agenda, conversas, leads, clientes, produtos, estoque, contratos, rifas e campanhas."
+  },
+  {
+   "quando": "02/10/2026, 19:19:04",
+   "pergunta": "Concontrou o emitimento.",
+   "fala": "Essa eu ainda não sei responder: a inteligência artificial do Mentor está desligada (falta a chave da Groq no cérebro). Sobre os seus dados eu já respondo: o que pede você, quanto entrou, quem está atrasado, agenda, conversas, leads, clientes, produtos, estoque, contratos, rifas e campanhas."
+  },
+  {
+   "quando": "02/10/2026, 19:20:11",
+   "pergunta": "com a compra ouro de mes.",
+   "fala": "Para eu ver os seus dados, preciso que você esteja com o login feito no app. Recarregue a página e entre de novo."
+  },
+  {
+   "quando": "02/10/2026, 19:26:39",
+   "pergunta": "quanto entrou este mês?",
+   "fala": "Entrou R$ 2.962,00 neste mês. Último recebimento: Marina Freitas, R$ 300,00 hoje 13:33."
+  },
+  {
+   "quando": "02/10/2026, 19:46:33",
+   "pergunta": "teste som",
+   "fala": "Essa eu ainda não sei responder: a inteligência artificial do Mentor está desligada (falta a chave da Groq no cérebro). Sobre os seus dados eu já respondo: o que pede você, quanto entrou, quem está atrasado, agenda, conversas, leads, clientes, produtos, estoque, contratos, rifas e campanhas."
+  },
+  {
+   "quando": "02/10/2026, 19:48:13",
+   "pergunta": "oi, quantos leads temos?",
+   "fala": "Oi! Por aqui: 1 item do estoque abaixo do mínimo."
+  },
+  {
+   "quando": "02/10/2026, 19:48:33",
+   "pergunta": "o que voce pode fazer?",
+   "fala": "Essa eu ainda não sei responder: a inteligência artificial do Mentor está desligada (falta a chave da Groq no cérebro). Sobre os seus dados eu já respondo: o que pede você, quanto entrou, quem está atrasado, agenda, conversas, leads, clientes, produtos, estoque, contratos, rifas e campanhas."
+  }
+ ],
+ "seq": 1
+}

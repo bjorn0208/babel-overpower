@@ -1,0 +1,490 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💸</text></svg>"></head><body><title>Custos Babel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F7F8FA; --superficie:#FFFFFF; --superficie-2:#EFF2F6;
+    --tinta:#1B2430; --tinta-2:#4A5568; --apagado:#7E8AA0; --linha:#E3E7EE;
+    --acento:#0D9488; --acento-tinta:#0B6E66; --acento-fundo:#E4F4F2;
+    --s1:#0D9488; --s2:#6D5BD0; --s3:#C77817; --s4:#C2467F; --s5:#2E7DE0;
+    --sombra:0 1px 2px rgba(20,30,45,.05),0 8px 24px -12px rgba(20,30,45,.12);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10151D; --superficie:#171E29; --superficie-2:#1E2735;
+      --tinta:#E8EDF4; --tinta-2:#A9B4C4; --apagado:#6C7889; --linha:#263140;
+      --acento:#14A8A5; --acento-tinta:#5ED0CB; --acento-fundo:#12302F;
+      --s1:#14A8A5; --s2:#8B7BE8; --s3:#C9821F; --s4:#D65C92; --s5:#5B8DEF;
+      --sombra:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10151D; --superficie:#171E29; --superficie-2:#1E2735;
+    --tinta:#E8EDF4; --tinta-2:#A9B4C4; --apagado:#6C7889; --linha:#263140;
+    --acento:#14A8A5; --acento-tinta:#5ED0CB; --acento-fundo:#12302F;
+    --s1:#14A8A5; --s2:#8B7BE8; --s3:#C9821F; --s4:#D65C92; --s5:#5B8DEF;
+    --sombra:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--tinta);
+    font-family:"Instrument Sans",system-ui,-apple-system,sans-serif;
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .pagina{max-width:1060px; margin:0 auto; padding:56px 28px 80px}
+  h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; line-height:1.15; text-wrap:balance; margin:0}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .olho{
+    font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--acento-tinta); margin:0 0 10px;
+  }
+  section{margin-top:72px}
+  .sub{color:var(--tinta-2); max-width:62ch; margin:12px 0 0}
+
+  /* ===== hero ===== */
+  .hero h1{font-size:clamp(34px,5vw,52px); font-weight:800; letter-spacing:-.02em}
+  .hero-num{
+    font-family:"Archivo",sans-serif; font-weight:800; letter-spacing:-.03em;
+    font-size:clamp(56px,9vw,96px); line-height:1; color:var(--acento);
+    margin:28px 0 6px; font-variant-numeric:tabular-nums;
+  }
+  .hero-legenda{color:var(--tinta-2); font-size:15px}
+  .hero-legenda b{color:var(--tinta)}
+  .tag-trimestre{
+    display:inline-block; margin-top:26px; font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--acento-tinta); border:1.5px solid color-mix(in oklab, var(--acento) 45%, transparent);
+    border-radius:999px; padding:6px 14px;
+  }
+  .tag-trimestre + .hero-num{margin-top:14px}
+  .selo{
+    display:inline-flex; align-items:center; gap:8px; margin-top:20px;
+    background:var(--acento-fundo); color:var(--acento-tinta);
+    border:1px solid color-mix(in oklab, var(--acento) 30%, transparent);
+    border-radius:999px; padding:7px 14px; font-size:13.5px; font-weight:600;
+  }
+  .selo svg{flex:none}
+
+  /* ===== kpi ===== */
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-top:28px}
+  .kpi{background:var(--superficie); border:1px solid var(--linha); border-radius:14px; padding:18px 20px; box-shadow:var(--sombra)}
+  .kpi .rotulo{font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--apagado)}
+  .kpi .valor{font-family:"Archivo",sans-serif; font-weight:700; font-size:30px; margin-top:6px; font-variant-numeric:tabular-nums}
+  .kpi .nota{font-size:13px; color:var(--tinta-2); margin-top:4px}
+
+  /* ===== gráfico ===== */
+  .cartao{background:var(--superficie); border:1px solid var(--linha); border-radius:16px; padding:26px 28px; box-shadow:var(--sombra); margin-top:24px}
+  .grafico{display:flex; align-items:flex-end; gap:40px; height:300px; padding:8px 8px 0; justify-content:center}
+  .coluna{display:flex; flex-direction:column; align-items:center; gap:0; width:120px}
+  .total-col{font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:600; margin-bottom:8px}
+  .barra{width:72px; display:flex; flex-direction:column-reverse; gap:2px}
+  .seg{width:100%; border-radius:3px; min-height:2px; cursor:default; transition:opacity .15s}
+  .seg:hover{opacity:.75}
+  .seg.s1{background:var(--s1)} .seg.s2{background:var(--s2)} .seg.s3{background:var(--s3)} .seg.s4{background:var(--s4)} .seg.s5{background:var(--s5)}
+  .eixo-mes{margin-top:10px; padding-top:10px; border-top:1px solid var(--linha); width:100%; text-align:center; font-size:13.5px; color:var(--tinta-2)}
+  .eixo-mes b{color:var(--tinta); display:block; font-size:14.5px}
+  .legenda{display:flex; flex-wrap:wrap; gap:16px 22px; margin-top:20px; justify-content:center}
+  .legenda span{display:inline-flex; align-items:center; gap:8px; font-size:13.5px; color:var(--tinta-2)}
+  .bolinha{width:11px; height:11px; border-radius:3px; flex:none}
+  .bolinha.s1{background:var(--s1)} .bolinha.s2{background:var(--s2)} .bolinha.s3{background:var(--s3)} .bolinha.s4{background:var(--s4)} .bolinha.s5{background:var(--s5)}
+  #tooltip{
+    position:fixed; pointer-events:none; z-index:10; display:none;
+    background:var(--tinta); color:var(--bg); border-radius:8px; padding:8px 12px;
+    font-size:13px; font-family:"IBM Plex Mono",monospace; white-space:nowrap; box-shadow:var(--sombra);
+  }
+  .rolagem{overflow-x:auto}
+  table{border-collapse:collapse; width:100%; margin-top:8px; font-size:14.5px}
+  th{font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--apagado); font-weight:600; text-align:left; padding:10px 14px; border-bottom:1px solid var(--linha)}
+  td{padding:10px 14px; border-bottom:1px solid var(--linha); font-variant-numeric:tabular-nums}
+  td.num,th.num{text-align:right; font-family:"IBM Plex Mono",monospace; font-size:13.5px}
+  tr:last-child td{border-bottom:none}
+  tr.destaque td{font-weight:600; background:var(--superficie-2)}
+
+  /* ===== pipeline ===== */
+  .fluxo{display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:12px; margin-top:24px}
+  .passo{background:var(--superficie); border:1px solid var(--linha); border-radius:14px; padding:16px 18px; box-shadow:var(--sombra); position:relative}
+  .passo .num{
+    font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--acento-tinta);
+    background:var(--acento-fundo); border-radius:6px; padding:2px 8px; display:inline-block; margin-bottom:10px;
+  }
+  .passo h3{font-size:16.5px; font-weight:700}
+  .passo .modelo{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--apagado); margin-top:2px}
+  .passo p{font-size:13.5px; color:var(--tinta-2); margin:8px 0 0; line-height:1.5}
+  .faixa-info{
+    margin-top:18px; padding:14px 18px; background:var(--superficie-2); border-radius:12px;
+    font-size:14.5px; color:var(--tinta-2); border:1px solid var(--linha);
+  }
+  .faixa-info b{color:var(--tinta)}
+
+  /* ===== simulador ===== */
+  .simulador{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start}
+  @media (max-width:760px){.simulador{grid-template-columns:1fr}}
+  .controle{margin-top:22px}
+  .controle label{display:flex; justify-content:space-between; font-size:14.5px; font-weight:600; margin-bottom:10px}
+  .controle label output{font-family:"IBM Plex Mono",monospace; color:var(--acento-tinta)}
+  input[type=range]{
+    width:100%; appearance:none; -webkit-appearance:none; height:6px; border-radius:3px;
+    background:linear-gradient(to right, var(--acento) var(--pct,50%), var(--linha) var(--pct,50%)); outline-offset:4px;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+    background:var(--superficie); border:3px solid var(--acento); cursor:pointer; box-shadow:var(--sombra);
+  }
+  input[type=range]::-moz-range-thumb{width:16px; height:16px; border-radius:50%; background:var(--superficie); border:3px solid var(--acento); cursor:pointer}
+  .controle .faixa{display:flex; justify-content:space-between; font-size:12px; color:var(--apagado); margin-top:6px; font-family:"IBM Plex Mono",monospace}
+  .resultado{background:var(--superficie-2); border:1px solid var(--linha); border-radius:14px; padding:22px 24px}
+  .resultado .linha-r{display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px dashed var(--linha); font-size:14.5px; color:var(--tinta-2)}
+  .resultado .linha-r .mono{color:var(--tinta)}
+  .resultado .total-r{display:flex; justify-content:space-between; align-items:baseline; padding-top:16px; font-weight:700; font-size:17px}
+  .resultado .total-r .mono{font-family:"Archivo",sans-serif; font-size:34px; font-weight:800; color:var(--acento); letter-spacing:-.02em}
+  .nota-pe{font-size:12.5px; color:var(--apagado); margin-top:14px; line-height:1.5}
+
+  /* ===== self-host ===== */
+  .comparativo{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:24px}
+  .opcao{background:var(--superficie); border:1px solid var(--linha); border-radius:14px; padding:20px 22px; box-shadow:var(--sombra)}
+  .opcao .cabeca{font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--apagado)}
+  .opcao .preco{font-family:"Archivo",sans-serif; font-weight:800; font-size:26px; margin-top:8px; letter-spacing:-.01em; font-variant-numeric:tabular-nums}
+  .opcao .preco small{font-size:14px; font-weight:600; color:var(--tinta-2)}
+  .opcao p{font-size:13.5px; color:var(--tinta-2); margin:10px 0 0; line-height:1.55}
+  .opcao.atual{border-color:color-mix(in oklab, var(--acento) 45%, var(--linha)); background:var(--acento-fundo)}
+  .opcao.atual .preco{color:var(--acento-tinta)}
+  .veredicto{margin-top:20px; padding:18px 22px; border-left:3px solid var(--acento); background:var(--superficie); border-radius:0 12px 12px 0; box-shadow:var(--sombra)}
+  .veredicto p{margin:0; color:var(--tinta-2)} .veredicto b{color:var(--tinta)}
+
+  /* ===== rodapé ===== */
+  .metodologia{margin-top:80px; padding-top:28px; border-top:1px solid var(--linha); font-size:13.5px; color:var(--tinta-2)}
+  .metodologia h2{font-size:15px; margin-bottom:14px; color:var(--tinta)}
+  .metodologia ul{margin:0; padding-left:18px; display:grid; gap:7px}
+  .metodologia a{color:var(--acento-tinta)}
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important} }
+</style>
+
+<div class="pagina">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <p class="olho">Babel · relatório de custos · junho — agosto 2026</p>
+    <h1>Quanto custa a Babel funcionando</h1>
+    <div class="tag-trimestre">Soma do trimestre inteiro — 3 meses, não é valor mensal</div>
+    <div class="hero-num mono" id="hero-total">R$ 803,76</div>
+    <p class="hero-legenda">toda a inteligência (LLM) de 18/jun → 21/ago · <b>média ≈ R$ 268/mês</b> · US$ 155,27 @ R$ 5,177</p>
+    <span class="selo">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      Números auditados: banco interno × fatura OpenRouter = diferença de 0,00% na janela de 30 dias
+    </span>
+  </header>
+
+  <!-- ================= KPIs ================= -->
+  <section>
+    <p class="olho">Visão de 10 segundos</p>
+    <h2 style="font-size:26px">O resumo que importa</h2>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="rotulo">Custo mensal típico</div>
+        <div class="valor mono">≈ R$ 700</div>
+        <div class="nota">LLM (ritmo de agosto projetado) + todos os fixos</div>
+      </div>
+      <div class="kpi">
+        <div class="rotulo">1 fala de lead atendida</div>
+        <div class="valor mono">R$ 0,017</div>
+        <div class="nota">tudo incluso: classificar, ler ficha, buscar na base, responder e auditar</div>
+      </div>
+      <div class="kpi">
+        <div class="rotulo">1 conversa completa</div>
+        <div class="valor mono">R$ 0,12</div>
+        <div class="nota">média de 7 falas por conversa em agosto</div>
+      </div>
+      <div class="kpi">
+        <div class="rotulo">1 pergunta ao Mentor</div>
+        <div class="valor mono">R$ 0,33</div>
+        <div class="nota">modelo mais forte + ferramentas de leitura do negócio</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GRÁFICO ================= -->
+  <section>
+    <p class="olho">Onde o dinheiro vai</p>
+    <h2 style="font-size:26px">Custo de LLM por mês e por frente</h2>
+    <p class="sub">Cada barra é um mês. Cada cor é uma frente de trabalho da Babel. O atendimento no Conversa domina a conta — e é exatamente onde a receita nasce.</p>
+    <div class="cartao">
+      <div class="grafico" id="grafico"></div>
+      <div class="legenda">
+        <span><i class="bolinha s1"></i>Atendimento no Conversa (motor do lead)</span>
+        <span><i class="bolinha s2"></i>Mentor no Commandbar</span>
+        <span><i class="bolinha s3"></i>Multimodal + apps internos</span>
+        <span><i class="bolinha s4"></i>Estúdio IA (imagens)</span>
+        <span><i class="bolinha s5"></i>Testes de laboratório</span>
+      </div>
+    </div>
+    <div class="cartao rolagem">
+      <table>
+        <thead><tr><th>Frente</th><th class="num">Jun (18→30)</th><th class="num">Jul</th><th class="num">Ago (1→21)</th><th class="num">Trimestre</th></tr></thead>
+        <tbody>
+          <tr><td>Atendimento no Conversa</td><td class="num">R$ 156,98</td><td class="num">R$ 294,95</td><td class="num">R$ 224,64</td><td class="num">R$ 676,57</td></tr>
+          <tr><td>Mentor no Commandbar</td><td class="num">R$ 0,68</td><td class="num">R$ 23,37</td><td class="num">R$ 64,65</td><td class="num">R$ 88,70</td></tr>
+          <tr><td>Multimodal + apps internos</td><td class="num">R$ 0,03</td><td class="num">R$ 0,84</td><td class="num">R$ 26,95</td><td class="num">R$ 27,82</td></tr>
+          <tr><td>Estúdio IA (imagens)</td><td class="num">—</td><td class="num">R$ 6,24</td><td class="num">R$ 2,22</td><td class="num">R$ 8,46</td></tr>
+          <tr><td>Testes de laboratório</td><td class="num">—</td><td class="num">R$ 2,01</td><td class="num">R$ 0,31</td><td class="num">R$ 2,32</td></tr>
+          <tr class="destaque"><td>Total LLM</td><td class="num">R$ 157,69</td><td class="num">R$ 327,41</td><td class="num">R$ 318,77</td><td class="num">R$ 803,87</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="faixa-info">
+      Volume atendido no período: <b>51,5 mil falas de lead</b> em <b>7,6 mil conversas</b> (20.535 falas em jun · 17.442 em jul · 13.557 em ago até dia 21).
+    </div>
+  </section>
+
+  <!-- ================= CICLO ================= -->
+  <section>
+    <p class="olho">Por dentro do atendimento</p>
+    <h2 style="font-size:26px">1 fala do lead ≠ 1 chamada de IA</h2>
+    <p class="sub">Quando o lead manda uma mensagem, a Babel não chama a IA uma vez só. Ela roda uma linha de produção com especialistas — cada um faz uma coisa e passa adiante. Por isso o custo por fala já embute tudo isso.</p>
+    <div class="fluxo">
+      <div class="passo">
+        <span class="num">1</span>
+        <h3>Porteiro</h3>
+        <div class="modelo">Gemma 4 31B</div>
+        <p>Lê a mensagem e classifica a intenção: dúvida, preço, agendamento, reclamação.</p>
+      </div>
+      <div class="passo">
+        <span class="num">2</span>
+        <h3>Extrator</h3>
+        <div class="modelo">Gemma 4 31B</div>
+        <p>Puxa dados novos da conversa (nome, produto, valor) e atualiza a ficha do lead.</p>
+      </div>
+      <div class="passo">
+        <span class="num">3</span>
+        <h3>Busca na base</h3>
+        <div class="modelo">Voyage (vetor + rerank)</div>
+        <p>Encontra os blocos de conhecimento certos pra essa pergunta. Hoje custa R$ 0 (faixa grátis).</p>
+      </div>
+      <div class="passo">
+        <span class="num">4</span>
+        <h3>Síntese</h3>
+        <div class="modelo">Gemini 3.1 Flash-Lite</div>
+        <p>Escreve a resposta final em bolhas naturais, usando só o que a base autoriza.</p>
+      </div>
+      <div class="passo">
+        <span class="num">5</span>
+        <h3>Auditor</h3>
+        <div class="modelo">Gemma 4 31B</div>
+        <p>Confere bolha por bolha: inventou fato fora da base? Reprova antes de chegar no lead.</p>
+      </div>
+    </div>
+    <div class="faixa-info">
+      Média medida em jul–ago: <b>3,4 chamadas de IA pagas por fala do lead</b> (nem todo passo roda sempre — atalhos pulam etapas), mais 2 chamadas de busca gratuitas. Se o lead manda áudio, foto ou PDF, entra mais um especialista multimodal (Gemini 2.5 Flash) pra interpretar a mídia.
+    </div>
+  </section>
+
+  <!-- ================= MENTOR ================= -->
+  <section>
+    <p class="olho">Por dentro do Commandbar</p>
+    <h2 style="font-size:26px">Como funciona o Mentor — e por que ele custa mais caro por pergunta</h2>
+    <p class="sub">O Mentor é o braço direito do dono do negócio. Ele não responde de decoreba: ele abre o sistema de verdade — vendas, leads, conversas, agenda — antes de responder.</p>
+    <div class="fluxo">
+      <div class="passo">
+        <span class="num">1</span>
+        <h3>Pergunta do dono</h3>
+        <div class="modelo">Commandbar</div>
+        <p>"Quantos leads quentes essa semana?" — linguagem normal, sem menu.</p>
+      </div>
+      <div class="passo">
+        <span class="num">2</span>
+        <h3>Escolhe a ferramenta</h3>
+        <div class="modelo">Gemini 3.1 Pro</div>
+        <p>O modelo forte decide qual ferramenta usar: consultar vendas, listar leads, gerar gráfico, agendar.</p>
+      </div>
+      <div class="passo">
+        <span class="num">3</span>
+        <h3>Executa no banco</h3>
+        <div class="modelo">ferramentas internas</div>
+        <p>A ferramenta roda no sistema real e devolve o dado verdadeiro — nada é inventado.</p>
+      </div>
+      <div class="passo">
+        <span class="num">4</span>
+        <h3>Repete se precisar</h3>
+        <div class="modelo">loop · média 3,7 rodadas</div>
+        <p>Perguntas compostas exigem várias idas e voltas até fechar a resposta.</p>
+      </div>
+    </div>
+    <div class="faixa-info">
+      O Mentor usa um modelo <b>~20× mais caro por palavra</b> que o do atendimento, porque precisa operar ferramentas com precisão. Resultado: <b>R$ 0,33 por pergunta</b> contra R$ 0,017 por fala de lead. É caro por unidade e barato no total — o dono pergunta dezenas de vezes por mês, o lead fala milhares.
+    </div>
+  </section>
+
+  <!-- ================= FIXOS ================= -->
+  <section>
+    <p class="olho">A conta completa</p>
+    <h2 style="font-size:26px">Custos fixos mensais da operação</h2>
+    <div class="cartao rolagem">
+      <table>
+        <thead><tr><th>Serviço</th><th>O que faz</th><th class="num">Custo / mês</th></tr></thead>
+        <tbody>
+          <tr><td>Supabase (plano Pro)</td><td>banco de dados, autenticação, funções do motor</td><td class="num">US$ 25 → R$ 129,43</td></tr>
+          <tr><td>Z-API</td><td>ponte com o WhatsApp</td><td class="num">R$ 99,00</td></tr>
+          <tr><td>Vercel (plano free)</td><td>hospeda o painel/frontend</td><td class="num">R$ 0,00</td></tr>
+          <tr><td>Voyage (vetores da base)</td><td>transforma conhecimento em busca inteligente</td><td class="num">R$ 0,00 · faixa grátis*</td></tr>
+          <tr class="destaque"><td>Total fixo</td><td></td><td class="num">R$ 228,43</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota-pe">* A Voyage dá 200 milhões de tokens grátis no modelo voyage-4. Nosso uso atual é ~0,5 milhão/mês — dá pra crescer ~400× antes de pagar o primeiro centavo (e aí seria US$ 0,06 por milhão).</p>
+  </section>
+
+  <!-- ================= SIMULADOR ================= -->
+  <section>
+    <p class="olho">Simulador</p>
+    <h2 style="font-size:26px">E se o volume crescer?</h2>
+    <p class="sub">Arrasta as barras e vê a conta na hora. A fórmula usa os custos unitários reais medidos em julho–agosto — não é estimativa de vendedor.</p>
+    <div class="cartao">
+      <div class="simulador">
+        <div>
+          <div class="controle">
+            <label>Falas de lead atendidas / mês <output id="out-falas" class="mono">13.500</output></label>
+            <input type="range" id="sl-falas" min="1000" max="300000" step="500" value="13500">
+            <div class="faixa"><span>1 mil</span><span>300 mil</span></div>
+          </div>
+          <div class="controle">
+            <label>Perguntas ao Mentor / mês <output id="out-mentor" class="mono">200</output></label>
+            <input type="range" id="sl-mentor" min="0" max="10000" step="50" value="200">
+            <div class="faixa"><span>0</span><span>10 mil</span></div>
+          </div>
+          <p class="nota-pe">Unitários aplicados: R$ 0,0166 por fala (US$ 0,0032) · R$ 0,326 por pergunta (US$ 0,063) · câmbio R$ 5,177. Fixos e multimodal inclusos.</p>
+        </div>
+        <div class="resultado">
+          <div class="linha-r"><span>Atendimento no Conversa</span><span class="mono" id="r-motor">R$ 0</span></div>
+          <div class="linha-r"><span>Mentor no Commandbar</span><span class="mono" id="r-mentor">R$ 0</span></div>
+          <div class="linha-r"><span>Multimodal + Estúdio IA</span><span class="mono">R$ 29,00</span></div>
+          <div class="linha-r"><span>Fixos (Supabase + Z-API)</span><span class="mono">R$ 228,43</span></div>
+          <div class="total-r"><span>Custo mensal projetado</span><span class="mono" id="r-total">R$ 0</span></div>
+          <div class="linha-r" style="border:none; padding-top:14px"><span>Custo médio por fala atendida (tudo dentro)</span><span class="mono" id="r-unitario">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SELF-HOST ================= -->
+  <section>
+    <p class="olho">Cenário alternativo</p>
+    <h2 style="font-size:26px">E se rodássemos nossa própria IA?</h2>
+    <p class="sub">Parte do motor já usa modelo aberto (Gemma 4 31B, da Google) — tecnicamente dá pra rodar em máquina própria. A pergunta é se vale o dinheiro. Preços reais de mercado, agosto/2026:</p>
+    <div class="comparativo">
+      <div class="opcao atual">
+        <div class="cabeca">Hoje · alugando por chamada</div>
+        <div class="preco">≈ R$ 470 <small>/mês</small></div>
+        <p>Toda a conta de LLM no ritmo de agosto, projetada pro mês cheio. Paga só o que usa, 5+ modelos diferentes na cascata, zero manutenção.</p>
+      </div>
+      <div class="opcao">
+        <div class="cabeca">Alugar 1 GPU A100 80 GB</div>
+        <div class="preco">R$ 4,0 – 8,3 mil <small>/mês</small></div>
+        <p>Máquina mínima pra servir um modelo classe 31B (o nível do nosso Gemma) 24h. US$ 1,07–2,21/hora nos provedores de GPU.</p>
+      </div>
+      <div class="opcao">
+        <div class="cabeca">Alugar 1 GPU H100</div>
+        <div class="preco">R$ 7,4 – 12,3 mil <small>/mês</small></div>
+        <p>Necessária pra um modelo classe 70B — a potência equivalente ao Gemini Flash-Lite que escreve nossas respostas. US$ 1,99–3,29/hora.</p>
+      </div>
+      <div class="opcao">
+        <div class="cabeca">Comprar o hardware</div>
+        <div class="preco">R$ 130 – 155 mil <small>de entrada</small></div>
+        <p>1× H100 (~US$ 25–30 mil) + servidor, energia, refrigeração e alguém pra operar. E ainda seria 1 modelo só, sem redundância.</p>
+      </div>
+    </div>
+    <div class="veredicto">
+      <p><b>Veredicto:</b> a máquina própria mais barata custa <b>9 a 18× a nossa conta inteira de LLM</b> — e cobre só 1 dos 5+ modelos que a cascata usa. Servidor próprio começa a fazer sentido quando a conta variável passar de <b>~R$ 8 mil/mês</b>, ou seja, com um volume ~17× maior que o atual. Até lá, alugar por chamada é a decisão financeiramente certa.</p>
+    </div>
+  </section>
+
+  <!-- ================= METODOLOGIA ================= -->
+  <footer class="metodologia">
+    <h2>Metodologia e fontes — por que dá pra confiar nesses números</h2>
+    <ul>
+      <li><b>Fonte primária:</b> tabela <span class="mono">custos_llm_dia</span> — espelho diário da conta OpenRouter (onde rodam todos os modelos), coletado automaticamente por rotina interna, com custo real por modelo e por dia.</li>
+      <li><b>Auditoria cruzada:</b> na janela 22/jul → 21/ago, banco interno = <span class="mono">US$ 78,7553</span> e API oficial do OpenRouter = <span class="mono">US$ 78,7553</span>. Diferença: <b>0,00%</b>.</li>
+      <li><b>Divisão por frente:</b> cada modelo tem função fixa no sistema (config oficial no banco): Flash-Lite + Gemma = atendimento · Gemini Pro = Mentor · 2.5 Flash = multimodal/apps · flash-image = Estúdio IA.</li>
+      <li><b>Janelas:</b> junho conta a partir de 18/06 (início da coleta diária); agosto até 21/08. Histórico total da conta OpenRouter desde fev/2026: US$ 357,04.</li>
+      <li><b>Vetores:</b> Voyage voyage-4 + rerank-2.5 (o "bibliotecário" da base). Uso ~0,5M tokens/mês dentro da faixa grátis de 200M → R$ 0.</li>
+      <li><b>Câmbio:</b> US$ 1 = R$ 5,177 (22/08/2026).</li>
+      <li><b>Preços de GPU:</b> levantamento ago/2026 — <a href="https://www.cloudzero.com/blog/h100-gpu-cost/" target="_blank" rel="noopener">CloudZero</a>, <a href="https://intuitionlabs.ai/articles/h100-rental-prices-cloud-comparison" target="_blank" rel="noopener">IntuitionLabs</a>, <a href="https://www.synpixcloud.com/blog/cloud-gpu-pricing-comparison-2026" target="_blank" rel="noopener">SynpixCloud</a>.</li>
+    </ul>
+  </footer>
+</div>
+
+<div id="tooltip" role="tooltip"></div>
+
+<script>
+  // ===== dados reais (R$, câmbio 5,177) =====
+  const FRENTES = [
+    { classe:'s1', nome:'Atendimento no Conversa' },
+    { classe:'s2', nome:'Mentor no Commandbar' },
+    { classe:'s3', nome:'Multimodal + apps' },
+    { classe:'s4', nome:'Estúdio IA' },
+    { classe:'s5', nome:'Testes de laboratório' },
+  ];
+  const MESES = [
+    { rotulo:'Junho',  detalhe:'18 → 30/06', valores:[156.98, 0.68, 0.03, 0, 0] },
+    { rotulo:'Julho',  detalhe:'mês cheio',  valores:[294.95, 23.37, 0.84, 6.24, 2.01] },
+    { rotulo:'Agosto', detalhe:'1 → 21/08',  valores:[224.64, 64.65, 26.95, 2.22, 0.31] },
+  ];
+  const fmt = (v, dec=2) => 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:dec, maximumFractionDigits:dec});
+
+  // ===== gráfico de barras empilhadas =====
+  const ALTURA_MAX = 230;
+  const teto = Math.max(...MESES.map(m => m.valores.reduce((a,b)=>a+b,0)));
+  const grafico = document.getElementById('grafico');
+  const tooltip = document.getElementById('tooltip');
+
+  MESES.forEach(mes => {
+    const total = mes.valores.reduce((a,b)=>a+b,0);
+    const col = document.createElement('div'); col.className = 'coluna';
+    const rot = document.createElement('div'); rot.className = 'total-col'; rot.textContent = fmt(total,0).replace(',00','');
+    const barra = document.createElement('div'); barra.className = 'barra';
+    mes.valores.forEach((v,i) => {
+      if (v < 0.5) return; // segmento invisível a olho nu — permanece na tabela
+      const seg = document.createElement('div');
+      seg.className = 'seg ' + FRENTES[i].classe;
+      seg.style.height = Math.max(2, (v/teto)*ALTURA_MAX) + 'px';
+      seg.addEventListener('mousemove', e => {
+        tooltip.style.display = 'block';
+        tooltip.textContent = `${FRENTES[i].nome} · ${mes.rotulo}: ${fmt(v)}`;
+        tooltip.style.left = Math.min(e.clientX + 14, window.innerWidth - tooltip.offsetWidth - 8) + 'px';
+        tooltip.style.top = (e.clientY - 34) + 'px';
+      });
+      seg.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+      barra.appendChild(seg);
+    });
+    const eixo = document.createElement('div'); eixo.className = 'eixo-mes';
+    eixo.innerHTML = `<b>${mes.rotulo}</b>${mes.detalhe}`;
+    col.append(rot, barra, eixo);
+    grafico.appendChild(col);
+  });
+
+  // ===== simulador =====
+  const USD_BRL = 5.177, POR_FALA_USD = 0.0032, POR_PERGUNTA_USD = 0.063;
+  const FIXOS = 228.43, OUTROS = 29.00;
+  const slFalas = document.getElementById('sl-falas');
+  const slMentor = document.getElementById('sl-mentor');
+
+  function pintarTrilho(sl){
+    const pct = (sl.value - sl.min) / (sl.max - sl.min) * 100;
+    sl.style.setProperty('--pct', pct + '%');
+  }
+  function calcular(){
+    const falas = +slFalas.value, perguntas = +slMentor.value;
+    const motor = falas * POR_FALA_USD * USD_BRL;
+    const mentor = perguntas * POR_PERGUNTA_USD * USD_BRL;
+    const total = motor + mentor + FIXOS + OUTROS;
+    document.getElementById('out-falas').textContent = falas.toLocaleString('pt-BR');
+    document.getElementById('out-mentor').textContent = perguntas.toLocaleString('pt-BR');
+    document.getElementById('r-motor').textContent = fmt(motor);
+    document.getElementById('r-mentor').textContent = fmt(mentor);
+    document.getElementById('r-total').textContent = fmt(total);
+    document.getElementById('r-unitario').textContent = fmt(total/Math.max(falas,1), 3);
+    pintarTrilho(slFalas); pintarTrilho(slMentor);
+  }
+  slFalas.addEventListener('input', calcular);
+  slMentor.addEventListener('input', calcular);
+  calcular();
+</script>
+</body></html>

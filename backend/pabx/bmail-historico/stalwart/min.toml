@@ -1,0 +1,22 @@
+[server.listener.http]
+bind = ["127.0.0.1:8090"]
+protocol = "http"
+
+[store.db]
+type = "rocksdb"
+path = "/Users/matheussilveirapro/Desktop/PABX/bmail/dados/db"
+
+[storage]
+data = "db"
+blob = "db"
+fts = "db"
+lookup = "db"
+directory = "interno"
+
+[directory.interno]
+type = "internal"
+store = "db"
+
+[authentication.fallback-admin]
+user = "admin"
+secret = "bmail-dev"

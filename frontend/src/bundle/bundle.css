@@ -1,0 +1,2680 @@
+/* ===== Ragentic OS — global ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+:root {
+  --os-fundo-1: oklch(0.15 0.04 264);
+  --os-fundo-2: oklch(from var(--os-acento-2) 0.18 0.06 h);
+  --os-acento-1: oklch(0.7 0.18 220);
+  --os-acento-2: oklch(0.65 0.22 280);
+  --os-acento-1-soft: oklch(0.7 0.18 220 / 0.18);
+  --os-acento-2-soft: oklch(0.65 0.22 280 / 0.18);
+  /* Derivadas com hue do tema ativo (relative color) — halo do chat + ramos do dock
+     seguem a paleta do wallpaper sem hardcode (Theus 2026-07-12) */
+  --os-acento-1-brilho: oklch(from var(--os-acento-1) 0.85 0.18 h);
+  --os-acento-1-brilho-forte: oklch(from var(--os-acento-1) 0.95 0.20 h);
+  --os-acento-2-brilho: oklch(from var(--os-acento-2) 0.85 0.20 h);
+  --os-acento-2-brilho-forte: oklch(from var(--os-acento-2) 0.95 0.22 h);
+
+  --os-erro: oklch(0.65 0.24 25);
+  --os-sucesso: oklch(0.72 0.18 145);
+  --os-aviso: oklch(0.78 0.18 80);
+
+  --os-vidro: rgba(255, 255, 255, 0.05);
+  --os-vidro-forte: rgba(255, 255, 255, 0.08);
+  --os-vidro-borda: rgba(255, 255, 255, 0.10);
+  --os-vidro-borda-forte: rgba(255, 255, 255, 0.18);
+
+  --txt-1: oklch(0.98 0 0);
+  --txt-2: oklch(0.98 0 0 / 0.78);
+  --txt-3: oklch(0.98 0 0 / 0.55);
+  --txt-4: oklch(0.98 0 0 / 0.35);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+
+/* ===== A11Y baseline — global (cravado 2026-05-13) =====
+   Fonte: docs/design-system/00-tokens.md §11 + auditoria OS 2026-05-13.
+   Resolve WCAG SC 2.3.3 (Animation from Interactions), 2.4.7 (Focus Visible)
+   e 2.1.1 (Keyboard) em todo o OS de uma vez. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[role="combobox"]:focus-visible,
+[role="option"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="tab"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px oklch(0.15 0.04 264),
+    0 0 0 4px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.55);
+  transition: box-shadow 120ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--txt-1);
+  background: #0a0814;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+/* Aurora wallpaper */
+.wallpaper {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(60% 80% at 20% 30%, oklch(from var(--os-acento-2) 0.35 0.18 h / 0.65), transparent 60%),
+    radial-gradient(70% 80% at 80% 70%, oklch(from var(--os-acento-1) 0.32 0.16 h / 0.55), transparent 60%),
+    radial-gradient(50% 60% at 60% 20%, oklch(0.28 0.14 300 / 0.45), transparent 65%),
+    linear-gradient(135deg, var(--os-fundo-1), var(--os-fundo-2));
+  animation: auroraDrift 30s ease-in-out infinite alternate;
+  z-index: 0;
+}
+.wallpaper::after{
+  content:""; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask: radial-gradient(circle at 50% 55%, black 30%, transparent 90%);
+}
+@keyframes auroraDrift {
+  0%   { background-position: 0% 0%, 100% 100%, 50% 0%, 0 0; }
+  100% { background-position: 30% 20%, 70% 80%, 60% 30%, 0 0; }
+}
+
+/* Glass primitive */
+.os-vidro {
+  background: var(--os-vidro);
+  border: 1px solid var(--os-vidro-borda);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+}
+.os-vidro-forte {
+  background: var(--os-vidro-forte);
+  border: 1px solid var(--os-vidro-borda-forte);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+}
+.os-card {
+  background: var(--os-vidro);
+  border: 1px solid var(--os-vidro-borda);
+  border-radius: 16px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+/* Linha de lista clicável — feedback de hover sutil */
+.os-linha-clicavel { transition: background 120ms ease-out; border-radius: 8px; }
+.os-linha-clicavel:hover { background: rgba(255,255,255,0.04); }
+
+.os-aurora-text {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.os-aurora-bg {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+}
+
+/* Buttons */
+button { font-family: inherit; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 36px; padding: 0 16px; border-radius: 12px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--os-vidro-borda);
+  color: var(--txt-1);
+  transition: all 120ms ease;
+}
+.btn:hover { background: rgba(255,255,255,0.10); border-color: var(--os-vidro-borda-forte); }
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  border: 1px solid rgba(255,255,255,0.20);
+  color: white;
+  box-shadow: 0 4px 14px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.35);
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-ghost { background: transparent; border-color: transparent; color: var(--txt-2); }
+.btn-ghost:hover { background: rgba(255,255,255,0.06); color: var(--txt-1); }
+.btn-icon { width: 36px; padding: 0; }
+.btn-sm { height: 28px; padding: 0 10px; font-size: 12px; border-radius: 10px; }
+.btn-lg { height: 44px; padding: 0 20px; font-size: 14px; border-radius: 12px; }
+
+/* Inputs */
+.input, textarea.input, select.input {
+  height: 36px; padding: 0 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--os-vidro-borda);
+  border-radius: 10px;
+  color: var(--txt-1);
+  font-family: inherit; font-size: 13px;
+  outline: none;
+  transition: all 120ms ease;
+  width: 100%;
+}
+.input:focus, textarea.input:focus, select.input:focus {
+  border-color: var(--os-acento-1);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.15);
+}
+textarea.input { height: auto; padding: 10px 12px; resize: vertical; min-height: 80px; }
+.input::placeholder { color: var(--txt-4); }
+.label { font-size: 12px; font-weight: 500; color: var(--txt-3); margin-bottom: 6px; display: block; }
+
+/* Badges */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--os-vidro-borda);
+  color: var(--txt-2);
+  white-space: nowrap;
+}
+.badge-success { background: oklch(0.72 0.18 145 / 0.15); border-color: oklch(0.72 0.18 145 / 0.4); color: oklch(0.85 0.18 145); }
+.badge-warn { background: oklch(0.78 0.18 80 / 0.15); border-color: oklch(0.78 0.18 80 / 0.4); color: oklch(0.88 0.18 80); }
+.badge-err  { background: oklch(0.65 0.24 25 / 0.15); border-color: oklch(0.65 0.24 25 / 0.4); color: oklch(0.82 0.20 25); }
+.badge-info { background: var(--os-acento-1-soft); border-color: oklch(from var(--os-acento-1) 0.7 0.18 h / 0.4); color: oklch(from var(--os-acento-1) 0.85 0.14 h); }
+.badge-aurora { background: linear-gradient(135deg, var(--os-acento-1-soft), var(--os-acento-2-soft)); border-color: rgba(255,255,255,0.2); color: white; }
+
+/* Status dot */
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+.dot-on  { background: oklch(0.72 0.18 145); box-shadow: 0 0 8px oklch(0.72 0.18 145 / 0.7); }
+.dot-warn{ background: oklch(0.78 0.18 80); }
+.dot-off { background: oklch(0.55 0 0); }
+.dot-err { background: oklch(0.65 0.24 25); }
+
+/* Scrollbar */
+/* Scrollbar invisível em TODO o OS (Theus 2026-08-11): rolagem viva por
+   wheel/trackpad/teclado, barra desenhada nenhuma — em janela, launchpad,
+   feed e portais. O `*` cobre tudo; as regras antigas por classe saíram. */
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+/* Window chrome */
+.janela {
+  position: absolute;
+  background: oklch(0.13 0.03 264 / 0.86);
+  border: 1px solid var(--os-vidro-borda-forte);
+  border-radius: 16px;
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 1px 0 rgba(255,255,255,0.10) inset;
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  display: flex; flex-direction: column;
+  animation: janelaIn 220ms cubic-bezier(.2,.9,.3,1.2);
+  min-width: 260px;
+  min-height: 220px;
+}
+@keyframes janelaIn {
+  from { transform: scale(.96); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.janela-header {
+  height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: none;
+  background: transparent;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+}
+.janela-header:active { cursor: grabbing; }
+.janela-traffic {
+  display: flex; gap: 8px;
+  padding: 0 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  height: 22px;
+  align-items: center;
+}
+/* Traffic lights — refator onda-3-polish 2026-05-13:
+   · OKLCH only (alinha design system)
+   · glow aurora hue-específico no hover (skill impeccable delight)
+   · transition 220ms ease-out-expo (skill emil-design-eng: < 300ms, easing custom > default) */
+.tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  transition:
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tl-close { background: oklch(0.70 0.22 25); }
+.tl-min { background: oklch(0.82 0.18 80); }
+.tl-max { background: oklch(0.72 0.20 145); }
+.tl:hover { filter: brightness(1.12); transform: scale(1.12); }
+.tl-close:hover { box-shadow: 0 0 0 1px oklch(0.85 0.22 25 / 0.4), 0 0 12px oklch(0.70 0.25 25 / 0.55); }
+.tl-min:hover { box-shadow: 0 0 0 1px oklch(0.92 0.18 80 / 0.4), 0 0 12px oklch(0.82 0.20 80 / 0.55); }
+.tl-max:hover { box-shadow: 0 0 0 1px oklch(0.85 0.20 145 / 0.4), 0 0 12px oklch(0.72 0.22 145 / 0.55); }
+.tl:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.85), 0 0 12px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.4);
+}
+/* Body sem scrollbar do browser — não compete com os handles laterais.
+   O scroll real acontece em .janela-body-inner (overlay scrollbar fina). */
+.janela-body {
+  flex: 1; min-height: 0; min-width: 0;
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+.janela-body-inner {
+  flex: 1; min-height: 0; min-width: 0;
+  overflow: auto;
+  /* Sem barra visível (Theus 2026-08-11): a rolagem segue viva por wheel/
+     trackpad/teclado — só a barra desenhada some, na janela e em qualquer
+     área rolável interna do app. */
+  scrollbar-width: none;
+}
+.janela-body-inner * { scrollbar-width: none; }
+/* Wrapper que preserva o tamanho "natural" do app: quando a janela é
+   encolhida abaixo do min-content, o .janela-body-inner ganha scroll
+   horizontal e vertical em vez de cortar a informação. */
+.janela-body-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.janela-body-inner::-webkit-scrollbar,
+.janela-body-inner *::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+/* Resize por hit-test global no desktop: nenhum overlay/handle DOM. */
+body.janela-redimensionando { user-select: none; }
+body.janela-redimensionando * { pointer-events: none !important; }
+
+/* hover lift */
+.lift { transition: transform 160ms ease, box-shadow 160ms ease; }
+.lift:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+
+/* skeleton */
+.skel {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.04) 100%);
+  background-size: 200% 100%;
+  animation: skelPulse 1.4s ease-in-out infinite;
+  border-radius: 8px;
+}
+@keyframes skelPulse { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* bubble (chat) — vidro sutil no Mentor (aurora atrás), ease-out forte sem bounce */
+.bolha-in, .bolha-out {
+  padding: 10px 14px; border-radius: 16px; max-width: 78%;
+  font-size: 13px; line-height: 1.5; word-wrap: break-word;
+  animation: bolhaIn 220ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+}
+.bolha-in {
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-bottom-left-radius: 4px;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.bolha-out {
+  background: linear-gradient(135deg, var(--os-acento-1-soft), var(--os-acento-2-soft));
+  border: 1px solid rgba(255,255,255,0.12);
+  border-bottom-right-radius: 4px;
+  margin-left: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+}
+@keyframes bolhaIn { from{ transform: translateY(8px) scale(0.98); opacity: 0;} to{ transform: translateY(0) scale(1); opacity: 1;} }
+
+/* spring tween for KPI numbers — handled in JS */
+.kpi-num { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Divider */
+.hr { height: 1px; background: rgba(255,255,255,0.06); border: 0; margin: 12px 0; }
+
+/* utility */
+.row { display: flex; align-items: center; }
+.col { display: flex; flex-direction: column; }
+.gap-1 { gap: 4px; } .gap-2 { gap: 8px; } .gap-3 { gap: 12px; } .gap-4 { gap: 16px; } .gap-5 { gap: 20px; } .gap-6 { gap: 24px; }
+.flex-1 { flex: 1; min-width: 0; min-height: 0; }
+.muted { color: var(--txt-3); }
+.dim { color: var(--txt-4); }
+.tiny { font-size: 11px; }
+.small { font-size: 12px; }
+.h1 { font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+.h2 { font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+.h3 { font-size: 15px; font-weight: 600; }
+.title-section { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--txt-4); font-weight: 600; }
+.center { display:flex; align-items: center; justify-content: center; }
+
+/* Kanban placeholder */
+.kanban-col {
+  min-width: 280px; width: 280px;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--os-vidro-borda);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.kanban-col-head { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:space-between; }
+.kanban-card {
+  padding: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  cursor: grab;
+  transition: all 160ms ease;
+}
+.kanban-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-1px); border-color: rgba(255,255,255,0.14); }
+
+/* tabs */
+.tabs { display: inline-flex; gap: 4px; padding: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--os-vidro-borda); border-radius: 12px; }
+.tab {
+  padding: 7px 14px; border-radius: 9px; font-size: 12px; font-weight: 600;
+  color: var(--txt-3); cursor: pointer; transition: all 120ms;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.tab:hover { color: var(--txt-1); }
+.tab-on { background: rgba(255,255,255,0.10); color: var(--txt-1); }
+
+/* Dock */
+/* Dock — pílula vertical alongada (referência Theus 2026-08-11): tint da marca
+   emergindo no topo e desvanecendo pro vidro escuro, ícones em bolhas suaves,
+   item ativo = pílula BRANCA sólida com ícone escuro. Paleta 100% dos tokens. */
+/* Dock rolável (2026-08-19 v2): o clip do scroll mora NA pílula — o
+   border-radius 999px arredonda o corte, então as pontas ficam curvas mesmo
+   no meio da rolagem (estilo macOS). Tooltip e leque de ramos saem via
+   createPortal pro body (senão o overflow da pílula os cortaria). */
+.dock {
+  position: fixed; left: 14px; top: 50%; transform: translate(-130%, -50%);
+  z-index: 40;
+  opacity: 0;
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1.2), opacity 220ms ease;
+  pointer-events: none;
+}
+.dock-pilula {
+  position: relative;
+  width: fit-content;
+  /* 190px = folga simétrica ~95px em cima/embaixo (dock centrado) pra pílula
+     cheia não passar por baixo do brand-launcher (bottom:24 + 56 de altura).
+     [TESTE 2026-09-13] 270px: launcher só-logo em pé ocupa bottom:73 + 120. */
+  max-height: calc(100vh - 400px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 14px 10px;
+  /* Degradê nas cores do tema ativo (--os-acento-1/2 mudam com o papel de
+     parede) — de volta a pedido do Theus 2026-08-19 (torre removida). */
+  background:
+    linear-gradient(180deg,
+      oklch(from var(--os-acento-1) 0.55 0.16 h / 0.72) 0%,
+      oklch(from var(--os-acento-2) 0.42 0.16 h / 0.42) 48%,
+      oklch(0.13 0.03 264 / 0.78) 100%),
+    rgba(10, 8, 22, 0.55);
+  border: 1px solid oklch(from var(--os-acento-1) 0.75 0.14 h / 0.28);
+  border-radius: 999px;
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.4),
+    inset 0 1px 0 oklch(from var(--os-acento-1) 0.8 0.12 h / 0.3);
+}
+.dock-pilula::-webkit-scrollbar { display: none; }
+.dock.is-open { transform: translate(0, -50%); opacity: 1; }
+.dock.is-open .dock-pilula { pointer-events: auto; }
+/* Variantes portal (renderizadas no body — fora do clip da pílula). Posição
+   left/top vem inline do Dock.tsx (retângulo do item); framer anima opacity. */
+.dock-tip--portal { position: fixed; transition: none; z-index: 240; }
+.dock-ramos--portal { position: fixed; transform: translateY(-50%); z-index: 240; }
+
+.dock-zone { position: fixed; left: 0; top: 0; bottom: 0; width: 80px; z-index: 39; pointer-events: auto; }
+.dock-btn {
+  width: 44px; height: 44px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.10);
+  cursor: pointer;
+  color: rgba(255,255,255,0.92);
+  position: relative;
+  transition: all 140ms cubic-bezier(.2,.9,.3,1.2);
+}
+.dock-btn:hover { transform: scale(1.08); background: rgba(255,255,255,0.18); color: white; }
+/* Ativo = pílula branca sólida com ícone escuro (a "mordida" clara da referência). */
+.dock-btn.is-active {
+  background: white;
+  color: oklch(0.28 0.06 264);
+  border-color: white;
+  box-shadow:
+    0 6px 18px rgba(0,0,0,0.35),
+    0 0 16px oklch(from var(--os-acento-1) 0.75 0.14 h / 0.35);
+}
+.dock-tip {
+  position: absolute; left: calc(100% + 14px); top: 50%;
+  transform: translateY(-50%) translateX(-6px) scale(0.96);
+  transform-origin: left center;
+  background: oklch(0.16 0.03 275 / 0.72);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  color: oklch(0.97 0.01 275);
+  padding: 5px 11px; border-radius: 9px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.01em; line-height: 1;
+  white-space: nowrap; pointer-events: none; z-index: 120;
+  border: 1px solid oklch(0.72 0.14 275 / 0.28);
+  box-shadow: 0 10px 26px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.18) inset;
+  opacity: 0; transition: opacity 140ms ease, transform 220ms cubic-bezier(0.16,1,0.3,1);
+}
+/* Caret apontando pro ícone */
+.dock-tip::before {
+  content: ""; position: absolute; right: 100%; top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent; border-right-color: oklch(0.16 0.03 275 / 0.72);
+}
+.dock-btn:hover .dock-tip { opacity: 1; transform: translateY(-50%) translateX(0) scale(1); }
+.dock-sep { height: 1px; background: rgba(255,255,255,0.08); margin: 2px 4px; }
+
+/* Ramos de mapa mental (hover no ícone) — 2026-07-10 [teste]. O wrapper .dock-item
+   envolve botão + leque; o container de ramos encosta na borda direita do botão
+   (left:100%) pra não haver gap de hover. Linha curva SVG desenha suave. */
+.dock-item { position: relative; display: flex; }
+.dock-drag { display: flex; }
+.dock-drag { cursor: grab; }
+.dock-drag:active { cursor: grabbing; }
+.dock-ramos {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 210px;
+  height: 168px;
+  /* Caixa transparente ao mouse: se capturasse hover, o mouse "dentro" dela
+     contava como dentro do .dock-item e o leque nunca fechava ao sair do
+     ícone (fix 2026-07-11). Só os botões .dock-ramo capturam. */
+  pointer-events: none;
+  z-index: 5;
+}
+.dock-ramos-linhas {
+  position: absolute;
+  left: 0; top: 0;
+  width: 120px; height: 168px;
+  pointer-events: none;
+}
+.dock-ramo {
+  position: absolute;
+  left: 66px;
+  pointer-events: auto;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  color: oklch(0.98 0 0 / 0.92);
+  background:
+    linear-gradient(135deg, oklch(from var(--os-acento-1) 0.7 0.18 h / 0.16), oklch(from var(--os-acento-2) 0.65 0.22 h / 0.12)),
+    rgba(15, 12, 30, 0.92);
+  border: 1px solid oklch(from var(--os-acento-1) 0.7 0.18 h / 0.35);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: border-color 130ms ease, background 130ms ease;
+}
+.dock-ramo :global(svg),
+.dock-ramo svg { flex-shrink: 0; color: oklch(from var(--os-acento-1) 0.82 0.12 h); }
+.dock-ramo:hover {
+  border-color: oklch(from var(--os-acento-1) 0.75 0.2 h / 0.85);
+  background:
+    linear-gradient(135deg, oklch(from var(--os-acento-1) 0.7 0.18 h / 0.30), oklch(from var(--os-acento-2) 0.65 0.22 h / 0.22)),
+    rgba(15, 12, 30, 0.95);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.4),
+    0 0 14px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.45);
+}
+@media (prefers-reduced-motion: reduce) {
+  .dock-ramos-linhas { display: none; }
+}
+/* Divider entre grupos do dock (admin vs ambos / user vs ambos) — onda-3-polish 2026-05-13.
+   Skill impeccable layout: "space alone can be enough" — gradient fade discreto + margem maior
+   pra criar generous separation entre grupos relacionados. */
+.dock-divider {
+  display: block;
+  height: 1px;
+  margin: 8px 10px 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    oklch(from var(--os-acento-1) 0.7 0.18 h / 0.18) 30%,
+    oklch(from var(--os-acento-2) 0.65 0.22 h / 0.18) 70%,
+    transparent 100%);
+  border-radius: 1px;
+}
+
+/* Top bar */
+/* Top floating bar — no divider, just floating elements at the edges */
+.bar-flutuante {
+  position: fixed; top: 14px; left: 8px; right: 8px;
+  display: flex; align-items: center; gap: 12px;
+  z-index: 200;
+  pointer-events: none;
+  font-size: 12px;
+}
+.bar-logout { color: var(--txt-2); }
+.bar-logout:hover { color: var(--txt-1); background: oklch(0.65 0.24 25 / 0.18); border-color: oklch(0.65 0.24 25 / 0.4); }
+.bar-flutuante > * { pointer-events: auto; }
+.bar-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  background: rgba(15, 12, 30, 0.42);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  font-weight: 600; letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.bar-cluster {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 12px;
+  background: rgba(15, 12, 30, 0.42);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  white-space: nowrap;
+}
+.bar-cluster .sep { width: 1px; height: 14px; background: rgba(255,255,255,0.10); margin: 0 4px; }
+.bar-cluster .clock { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; font-weight: 600; }
+.bar-cluster .date  { color: var(--txt-3); font-family: 'JetBrains Mono', monospace; }
+
+/* Hero center input */
+.hero {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 620px; max-width: 80vw;
+  text-align: center;
+  z-index: 5;
+}
+
+/* Command pill at bottom — with rotating energy ring */
+.cmd-shell {
+  position: fixed;
+  left: 50%; transform: translateX(-50%);
+  bottom: 56px;
+  width: 720px; max-width: 78vw;
+  z-index: 35;
+  border-radius: 24px;
+  padding: 3px;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Energia do CommandBar — REFERÊNCIA (Theus cravou 2026-05-18: a barra é o
+   certo, o botão é que copia ela). Glow difuso girando preenchendo o interior
+   (`inset:-60%` + `blur`), visto através do `.cmd-inner` translúcido + halo
+   radial no `::after`. Gira por `conic-gradient(from var(--energia-angle))`
+   (NÃO `transform: rotate` de box wide — era a causa do "rápido-lento").
+   Consumida só aqui — o `.brand-launcher` virou pílula neon estática (2026-08-11). */
+.cmd-shell::before {
+  content: '';
+  position: absolute;
+  inset: -60%;
+  background:
+    conic-gradient(from var(--energia-angle),
+      transparent 0deg,
+      var(--os-acento-1-brilho) 40deg,
+      var(--os-acento-1-brilho-forte) 60deg,
+      var(--os-acento-1-brilho) 80deg,
+      transparent 130deg,
+      transparent 200deg,
+      var(--os-acento-2-brilho) 230deg,
+      var(--os-acento-2-brilho-forte) 250deg,
+      var(--os-acento-2-brilho) 270deg,
+      transparent 320deg,
+      transparent 360deg);
+  z-index: 0;
+  filter: blur(2px);
+}
+.cmd-shell::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 110%; height: 200%;
+  transform: translate(-50%, -50%);
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 40% at 50% 50%, oklch(from var(--os-acento-1) 0.7 0.18 h / 0.18), transparent 70%);
+  z-index: -1;
+  filter: blur(20px);
+}
+.cmd-inner {
+  position: relative;
+  z-index: 1;
+  /* Onda visual (Theus 2026-05-13): casa com aurora — gradient subindo do
+     fundo wallpaper, glass dark com tint dos acentos, sensação de "malha
+     que emerge" via radial-gradient interno. */
+  background:
+    radial-gradient(140% 200% at 50% 120%,
+      oklch(from var(--os-acento-1) 0.7 0.18 h / 0.18) 0%,
+      oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10) 35%,
+      oklch(0.18 0.04 264 / 0.72) 75%),
+    linear-gradient(180deg,
+      oklch(0.18 0.04 264 / 0.55),
+      oklch(0.15 0.04 264 / 0.78));
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-radius: 21px;
+  border: 1px solid oklch(from var(--os-acento-1) 0.7 0.18 h / 0.18);
+  border-top-color: oklch(from var(--os-acento-1) 0.75 0.18 h / 0.32);
+  display: flex; align-items: center;
+  padding: 8px 8px 8px 18px;
+  gap: 12px;
+  box-shadow:
+    inset 0 1px 0 oklch(from var(--os-acento-1) 0.75 0.18 h / 0.20),
+    inset 0 -1px 0 oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10),
+    0 8px 32px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.25);
+}
+.cmd-inner input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--txt-1);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  height: 48px;
+}
+.cmd-inner input::placeholder { color: var(--txt-3); }
+/* Sem ring de foco no input do CommandBar — o glow do `.cmd-inner` + spin do
+   `.cmd-shell::before` já cobrem o feedback visual. */
+.cmd-inner input:focus,
+.cmd-inner input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.cmd-inner .cmd-icon { color: var(--txt-2); }
+.cmd-inner .btn-send {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  border: 1px solid rgba(255,255,255,0.20);
+  display: flex; align-items: center; justify-content: center;
+  color: white; cursor: pointer;
+  box-shadow: 0 4px 14px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.45);
+  transition: background 180ms ease, box-shadow 180ms ease, border-color 180ms ease, color 180ms ease, filter 120ms;
+}
+.cmd-inner .btn-send:not(:disabled):hover { filter: brightness(1.1); }
+.cmd-inner .btn-send:disabled {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+  color: var(--txt-3);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Botões de ação à esquerda do input (anexar arquivo, microfone) —
+   mesmo quadrado do .btn-send. Idle apagado igual ao :disabled do enviar;
+   acende no hover/focus com o mesmo gradient aurora. Quando ativo
+   (anexo carregado ou microfone gravando) fica permanentemente ligado. */
+.cmd-inner .cmd-action {
+  width: 44px; height: 44px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--txt-3);
+  cursor: pointer;
+  box-shadow: none;
+  transition: background 180ms ease, box-shadow 180ms ease, border-color 180ms ease, color 180ms ease, filter 120ms;
+}
+.cmd-inner .cmd-action:not(:disabled):hover,
+.cmd-inner .cmd-action:focus-visible {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  border-color: rgba(255,255,255,0.20);
+  color: white;
+  box-shadow: 0 4px 14px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.45);
+  outline: none;
+}
+.cmd-inner .cmd-action.is-on {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  border-color: rgba(255,255,255,0.20);
+  color: white;
+  box-shadow: 0 4px 14px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.45);
+}
+.cmd-inner .cmd-action.is-recording {
+  background: linear-gradient(135deg, oklch(0.72 0.24 25), oklch(0.62 0.22 15));
+  border-color: rgba(255,255,255,0.20);
+  color: white;
+  box-shadow: 0 4px 14px oklch(0.62 0.22 15 / 0.45);
+  animation: cmd-rec-pulse 1.4s ease-in-out infinite;
+}
+.cmd-inner .cmd-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@keyframes cmd-rec-pulse {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.18); }
+}
+
+/* CommandBar arena (results + suggestions stack above the bar) */
+.cmd-arena {
+  position: fixed;
+  left: 50%; transform: translateX(-50%);
+  bottom: 24px;
+  width: 720px; max-width: 78vw;
+  z-index: 180;
+  display: flex; flex-direction: column;
+  align-items: stretch; gap: 12px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+/* Feed do chat do Mentor em camada própria: z 90 = SEMPRE atrás das janelas
+   (que nascem em z 101+), enquanto a barra de digitar (.cmd-arena, z 180)
+   segue na frente. Janela aberta pela IA não fica mais coberta pelo texto. */
+.cmd-feed-arena {
+  position: fixed;
+  left: 50%; transform: translateX(-50%);
+  bottom: 96px;
+  width: 720px; max-width: 78vw;
+  z-index: 90;
+  display: flex; flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+.cmd-feed-arena.is-escondida {
+  transform: translateX(-50%) translateY(calc(100% + 140px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Painel das conversas do Mentor (2026-08-08) — cada thread pelo nome da 1ª
+   pergunta. Ancorado à esquerda da barra (z 180, na frente das janelas);
+   mesma linguagem visual do cardápio "/". */
+.cmd-historico {
+  position: absolute;
+  right: calc(100% + 12px);
+  bottom: 0;
+  width: 246px;
+  max-height: min(56vh, 520px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 160% at 50% 120%,
+      oklch(from var(--os-acento-1) 0.7 0.18 h / 0.10) 0%,
+      oklch(from var(--os-acento-2) 0.65 0.22 h / 0.06) 40%,
+      oklch(0.15 0.04 264 / 0.94) 78%),
+    oklch(0.14 0.04 264 / 0.94);
+  border: 1px solid oklch(0.7 0.18 260 / 0.28);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 oklch(from var(--os-acento-1) 0.75 0.18 h / 0.14);
+  animation: cmdComandosEntra 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Faixa invisível colada na barra: encostou o mouse, o painel abre. Fica aqui
+   e não na borda da tela pra não disputar espaço com o dock (.dock-zone). */
+.cmd-historico-zona {
+  position: absolute;
+  right: calc(100% + 2px);
+  bottom: 0;
+  width: 56px;
+  height: 128px;
+  z-index: 1;
+}
+
+/* Pulso do Mentor pensando. Vai no próprio painel, não num ::after: o painel
+   tem overflow:hidden e cortaria a sombra externa do filho. Por isso os
+   keyframes repetem a sombra base — animação sobrescreve box-shadow inteiro.
+   Os pulsos vão ficando mais juntos ao longo do ciclo: é o que dá a sensação
+   de acelerar. Ao responder, `is-acalmando` desacelera até apagar. */
+.cmd-historico.is-pensando {
+  animation:
+    cmdComandosEntra 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    cmd-historico-pulso 2.8s ease-in-out infinite;
+}
+.cmd-historico.is-acalmando {
+  animation: cmd-historico-acalma 1.6s ease-out 1 forwards;
+}
+@keyframes cmd-historico-pulso {
+  0%, 12%, 30%, 44%, 58%, 70%, 82%, 92%, 100% {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 oklch(from var(--os-acento-1) 0.75 0.18 h / 0.14);
+  }
+  6%  { box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 18px 2px oklch(0.74 0.2 250 / 0.4),  inset 0 0 18px oklch(0.74 0.2 250 / 0.16); }
+  38% { box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 20px 3px oklch(0.76 0.21 250 / 0.46), inset 0 0 20px oklch(0.76 0.21 250 / 0.18); }
+  64% { box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 22px 3px oklch(0.78 0.22 250 / 0.52), inset 0 0 22px oklch(0.78 0.22 250 / 0.2); }
+  87% { box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 24px 4px oklch(0.8 0.22 250 / 0.58),  inset 0 0 24px oklch(0.8 0.22 250 / 0.22); }
+}
+@keyframes cmd-historico-acalma {
+  0%   { box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 24px 4px oklch(0.8 0.22 250 / 0.55), inset 0 0 24px oklch(0.8 0.22 250 / 0.2); }
+  45%  { box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 16px 2px oklch(0.74 0.18 250 / 0.28), inset 0 0 16px oklch(0.74 0.18 250 / 0.1); }
+  100% { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
+                     inset 0 1px 0 oklch(from var(--os-acento-1) 0.75 0.18 h / 0.14); }
+}
+/* Menos movimento: brilho fixo enquanto pensa, sem pulsar. */
+@media (prefers-reduced-motion: reduce) {
+  .cmd-historico.is-pensando {
+    animation: none;
+    box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 18px 2px oklch(0.76 0.2 250 / 0.35);
+  }
+  .cmd-historico.is-acalmando { animation: none; }
+}
+
+.cmd-historico-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px 8px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: oklch(0.98 0 0 / 0.55);
+  border-bottom: 1px solid oklch(0.98 0 0 / 0.06);
+}
+.cmd-historico-fechar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: oklch(0.98 0 0 / 0.45);
+  cursor: pointer;
+  transition: color 130ms ease, background 130ms ease;
+}
+.cmd-historico-fechar:hover {
+  color: oklch(0.98 0 0 / 0.9);
+  background: oklch(0.98 0 0 / 0.07);
+}
+.cmd-historico-nova {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 6px 2px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  color: oklch(0.86 0.1 250);
+  background: oklch(0.7 0.18 250 / 0.10);
+  border: 1px solid oklch(0.7 0.18 250 / 0.22);
+  transition: background 130ms ease, border-color 130ms ease;
+}
+.cmd-historico-nova:hover {
+  background: oklch(0.7 0.18 250 / 0.18);
+  border-color: oklch(0.7 0.18 250 / 0.4);
+}
+.cmd-historico-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  overflow-y: auto;
+}
+.cmd-historico-dia {
+  padding: 10px 8px 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: oklch(0.98 0 0 / 0.34);
+}
+.cmd-historico-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: oklch(0.98 0 0 / 0.88);
+  cursor: pointer;
+  text-align: left;
+  min-width: 0;
+  transition: background 130ms ease, border-color 130ms ease, transform 130ms ease;
+}
+.cmd-historico-item:hover {
+  background: linear-gradient(135deg, oklch(from var(--os-acento-1) 0.7 0.18 h / 0.13), oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10));
+  border-color: oklch(0.7 0.18 240 / 0.30);
+  transform: translateX(2px);
+}
+.cmd-historico-item.is-ativa {
+  background: oklch(0.7 0.18 250 / 0.14);
+  border-color: oklch(0.7 0.18 250 / 0.36);
+}
+.cmd-historico-item.is-vazia .cmd-historico-item-texto { color: oklch(0.98 0 0 / 0.42); font-style: italic; }
+.cmd-historico-item-texto {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cmd-historico-item-hora {
+  flex-shrink: 0;
+  font-size: 9.5px;
+  color: oklch(0.98 0 0 / 0.35);
+  font-variant-numeric: tabular-nums;
+}
+.cmd-historico-vazio {
+  padding: 16px 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: oklch(0.98 0 0 / 0.45);
+}
+/* Tela estreita: não cabe painel ao lado — vira folha sobre o feed. */
+@media (max-width: 1180px) {
+  .cmd-historico {
+    right: auto;
+    left: 0;
+    width: min(300px, 86%);
+    bottom: 0;
+  }
+}
+
+/* Cardápio "/" da barra — painel premium acima do input: aurora glass da casa,
+   cabeçalho, ícone em tile, rótulo + descrição e atalho estilo tecla. */
+.cmd-comandos {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 160% at 50% 120%,
+      oklch(from var(--os-acento-1) 0.7 0.18 h / 0.10) 0%,
+      oklch(from var(--os-acento-2) 0.65 0.22 h / 0.06) 40%,
+      oklch(0.15 0.04 264 / 0.94) 78%),
+    oklch(0.14 0.04 264 / 0.94);
+  border: 1px solid oklch(0.7 0.18 260 / 0.28);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 oklch(from var(--os-acento-1) 0.75 0.18 h / 0.14);
+  animation: cmdComandosEntra 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes cmdComandosEntra {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.cmd-comandos-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: oklch(0.98 0 0 / 0.55);
+  border-bottom: 1px solid oklch(0.98 0 0 / 0.06);
+}
+.cmd-comandos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.cmd-comando-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--txt-1, white);
+  cursor: pointer;
+  text-align: left;
+  min-width: 0;
+  transition: background 130ms ease, border-color 130ms ease, transform 130ms ease;
+}
+.cmd-comando-item:hover {
+  background: linear-gradient(135deg, oklch(from var(--os-acento-1) 0.7 0.18 h / 0.13), oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10));
+  border-color: oklch(0.7 0.18 240 / 0.30);
+  transform: translateX(2px);
+}
+.cmd-comando-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  color: oklch(0.8 0.12 250);
+  background: oklch(0.7 0.18 250 / 0.10);
+  border: 1px solid oklch(0.7 0.18 250 / 0.18);
+}
+.cmd-comando-textos {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+.cmd-comando-rotulo {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: oklch(0.98 0 0 / 0.92);
+}
+.cmd-comando-descricao {
+  font-size: 11px;
+  color: oklch(0.98 0 0 / 0.45);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cmd-comando-atalho {
+  flex-shrink: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: oklch(0.8 0.12 250 / 0.9);
+  background: oklch(0.98 0 0 / 0.05);
+  border: 1px solid oklch(0.98 0 0 / 0.12);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 3px 7px;
+}
+
+/* Barra retrátil: desliza pra fora da tela. Sem setas desde 2026-08-11 — o
+   cursor no espaço da barra revela, sair de cima esconde (lógica no JSX). */
+.cmd-arena.is-escondida {
+  transform: translateX(-50%) translateY(calc(100% + 48px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Resposta do Mentor formatada (TextoFormatado): parágrafos, listas e quebras. */
+.bolha-in .fmt-par { margin: 0 0 8px; line-height: 1.55; }
+.bolha-in .fmt-par:last-child { margin-bottom: 0; }
+.bolha-in .fmt-titulo { margin: 2px 0 6px; font-weight: 600; font-size: 13.5px; color: var(--txt-1); }
+.bolha-in .fmt-codigo {
+  margin: 2px 0 8px; padding: 10px 12px; border-radius: 10px;
+  background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.07);
+  font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.55;
+  overflow-x: auto; white-space: pre;
+}
+.bolha-in .fmt-codigo:last-child { margin-bottom: 0; }
+.fmt-cod-inline {
+  font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+  padding: 1px 5px; border-radius: 5px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.06);
+}
+.fmt-link { color: var(--os-acento-1); text-decoration: underline; text-underline-offset: 2px; word-break: break-all; }
+.fmt-link:hover { opacity: 0.85; }
+.bolha-in .fmt-lista { margin: 0 0 8px; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; line-height: 1.5; }
+.bolha-in .fmt-lista:last-child { margin-bottom: 0; }
+
+/* Energia do OS — fonte de ângulo animada no `:root`, herdada.
+   Consumida SÓ pelo `.cmd-shell::before` (CommandBar). O botão
+   (`.brand-launcher`) NÃO usa energia (Theus 2026-05-18: estático, só
+   a borda igual à do CommandBar). `prefers-reduced-motion` neutraliza
+   via `*`. Houdini: `@property` torna `--energia-angle` interpolável. */
+@property --energia-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: true;
+}
+@keyframes energiaGira {
+  to { --energia-angle: 360deg; }
+}
+:root { animation: energiaGira 4s linear infinite; }
+
+/* Brand launcher — pílula neon (referência do Theus 2026-08-11): fundo quase
+   preto, borda dupla neon nas CORES DO CHAT DO MENTOR — o par azul + roxo da
+   CommandBar (`--os-acento-1`/`-2`), pedido do Theus 2026-08-11. Ícone
+   hambúrguer num quadrado de contorno neon + nome da marca em caixa alta.
+   ESTÁTICO — sem `--energia-angle` (Theus 2026-05-18: energia só na CommandBar). */
+.brand-launcher {
+  position: fixed;
+  bottom: 24px; left: 24px;
+  height: 56px;
+  padding: 0 22px 0 12px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  z-index: 200;
+  /* Fundo = MESMO aurora glass do `.cmd-inner` (chat do Mentor): radial com
+     tint dos dois acentos emergindo do wallpaper + glass escuro translúcido. */
+  background:
+    radial-gradient(140% 200% at 50% 120%,
+      oklch(from var(--os-acento-1) 0.7 0.18 h / 0.18) 0%,
+      oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10) 35%,
+      oklch(0.18 0.04 264 / 0.72) 75%),
+    linear-gradient(180deg,
+      oklch(0.18 0.04 264 / 0.55),
+      oklch(0.15 0.04 264 / 0.78));
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  /* Glow neon em camadas — azul saindo da esquerda, roxo da direita (igual à
+     barra) + linhas de luz inset do `.cmd-inner` (topo azul, base roxa). */
+  box-shadow:
+    -2px 0 14px oklch(from var(--os-acento-1) 0.72 0.18 h / 0.45),
+    2px 0 14px oklch(from var(--os-acento-2) 0.62 0.22 h / 0.45),
+    0 0 42px oklch(from var(--os-acento-2) 0.6 0.2 h / 0.25),
+    0 8px 32px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.25),
+    inset 0 1px 0 oklch(from var(--os-acento-1) 0.75 0.18 h / 0.20),
+    inset 0 -1px 0 oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10),
+    inset 0 0 14px oklch(from var(--os-acento-2) 0.62 0.2 h / 0.2);
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), filter 120ms ease, box-shadow 200ms ease;
+}
+/* Borda externa — anel de 2px em gradiente azul→roxo via máscara donut
+   (mesmo truque do botão antigo: gradiente só no `padding`, miolo recortado). */
+.brand-launcher::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(120deg,
+    oklch(from var(--os-acento-1) 0.78 0.17 h / 0.95),
+    oklch(from var(--os-acento-2) 0.68 0.22 h / 0.95));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  pointer-events: none;
+}
+/* Segunda linha da borda dupla — anel interno de 1px, mesmo gradiente, mais suave. */
+.brand-launcher::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg,
+    oklch(from var(--os-acento-1) 0.8 0.14 h / 0.5),
+    oklch(from var(--os-acento-2) 0.7 0.18 h / 0.5));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.brand-launcher:hover {
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.1);
+  box-shadow:
+    -3px 0 18px oklch(from var(--os-acento-1) 0.75 0.18 h / 0.6),
+    3px 0 18px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.6),
+    0 0 56px oklch(from var(--os-acento-2) 0.62 0.2 h / 0.32),
+    0 10px 28px rgba(0,0,0,0.55),
+    inset 0 0 14px oklch(from var(--os-acento-2) 0.64 0.2 h / 0.28);
+}
+.brand-launcher:active { transform: translateY(0) scale(0.98); }
+/* Quadrado do hambúrguer — contorno azul (lado esquerdo da dupla), 3 barras brancas. */
+.brand-launcher-menu {
+  width: 34px; height: 34px;
+  flex: none;
+  border-radius: 10px;
+  border: 1.5px solid oklch(from var(--os-acento-1) 0.8 0.15 h / 0.9);
+  box-shadow:
+    0 0 8px oklch(from var(--os-acento-1) 0.75 0.16 h / 0.4),
+    inset 0 0 6px oklch(from var(--os-acento-1) 0.7 0.16 h / 0.25);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.brand-launcher-menu i {
+  display: block;
+  width: 16px; height: 2px;
+  border-radius: 2px;
+  background: white;
+  box-shadow: 0 0 4px oklch(from var(--os-acento-1) 0.85 0.12 h / 0.6);
+}
+.brand-launcher-nome {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.26em;
+  /* Compensa o tracking do último caractere pra centralizar de verdade. */
+  margin-right: -0.26em;
+  /* Halo roxo (lado direito da dupla do Mentor). */
+  text-shadow: 0 0 10px oklch(from var(--os-acento-2) 0.72 0.18 h / 0.5);
+  white-space: nowrap;
+}
+.brand-launcher img {
+  width: 34px; height: 34px;
+  flex: none;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+}
+/* Notificações abertas → o véu (`.notif-backdrop`) com blur cobre a tela. Mas o véu
+   é renderizado DENTRO do `.bar-flutuante` (z-index 200, stacking context próprio), e o
+   `.brand-launcher` é irmão dele no root, também z-index 200, e vem DEPOIS no DOM — então
+   pintava por cima do véu e ficava sem desfoque. Enquanto o painel existe, baixamos o
+   launcher pra abaixo do `.bar-flutuante` pra ele receber o mesmo desfoque do resto. */
+body:has(.notif-backdrop) .brand-launcher,
+body:has(.notif-backdrop) .brand-launcher-logo {
+  z-index: 150;
+}
+
+/* [TESTE 2026-09-13] Launcher só-logo — a pílula deitada vira a logo em pé.
+   Sem fundo/borda: o glow é `drop-shadow`, que segue o contorno da fita 3D
+   (alfa do PNG), nas cores da própria logo. NÃO escala nem gira — só o neon
+   pulsa; no hover o ímã (JS em BrandLauncherLogo) puxa a logo pro cursor.
+   Posição: +1cm pra direita e +2cm pra cima do canto (Theus 2026-09-13). */
+.brand-launcher-logo {
+  position: fixed;
+  bottom: 73px; left: 41px;
+  width: 52px; height: 120px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 200;
+  -webkit-tap-highlight-color: transparent;
+  --ima-x: 0px; --ima-y: 0px;
+  transform: translate3d(var(--ima-x), var(--ima-y), 0);
+  /* Solta com mola (overshoot leve); enquanto imantado segue o cursor mais firme. */
+  transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.brand-launcher-logo.is-imantado {
+  transition: transform 140ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.brand-launcher-logo img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  animation: babelNeonPulso 2.6s ease-in-out infinite;
+}
+@keyframes babelNeonPulso {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 1.5px oklch(0.95 0.08 230 / 0.8))
+      drop-shadow(0 0 6px oklch(0.62 0.24 295 / 0.7))
+      drop-shadow(0 0 14px oklch(0.72 0.17 230 / 0.45));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 2.5px oklch(0.98 0.06 230 / 1))
+      drop-shadow(0 0 10px oklch(0.66 0.26 295 / 1))
+      drop-shadow(0 0 26px oklch(0.78 0.17 220 / 0.9))
+      brightness(1.18) saturate(1.2);
+  }
+}
+/* Imantado: o pulso acelera (sem mudar tamanho). */
+.brand-launcher-logo.is-imantado img { animation-duration: 1.2s; }
+.brand-launcher-logo:focus-visible {
+  outline: 2px solid oklch(0.78 0.16 220 / 0.9);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+.cmd-arena .cmd-shell { position: relative; left: auto; transform: none; bottom: auto; width: auto; max-width: none; }
+.cmd-results {
+  max-height: min(56vh, 520px);
+  overflow-y: auto;
+  /* Ordem humana (Theus 2026-08-01): cima→baixo; JS rola pro fim a cada msg nova.
+     Gap curto: mesmo autor cola; grupo novo respira via .inicio-grupo. */
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 4px 6px 6px;
+}
+.cmd-msg { display: flex; flex-direction: column; gap: 6px; }
+.cmd-msg.user { align-items: flex-end; }
+.cmd-msg.mentor { align-items: flex-start; }
+.cmd-msg.inicio-grupo { margin-top: 12px; }
+.cmd-msg.inicio-grupo:first-child { margin-top: 0; }
+
+/* Identidade do Mentor no início de cada grupo de respostas. */
+.cmd-autor {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--txt-3); padding-left: 2px;
+}
+.cmd-autor-dot {
+  width: 7px; height: 7px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  box-shadow: 0 0 6px var(--os-acento-2-soft);
+}
+
+/* Hora discreta no fim de cada grupo. */
+.cmd-hora { font-size: 10px; color: var(--txt-4); padding: 0 4px; font-variant-numeric: tabular-nums; }
+
+/* Chips das ações que o Mentor executou (transparência do que rodou no sistema). */
+.cmd-tools { display: flex; flex-wrap: wrap; gap: 4px; max-width: 78%; }
+.cmd-tool-chip {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.01em;
+  padding: 2px 8px; border-radius: 999px;
+  background: oklch(0.72 0.18 145 / 0.10);
+  border: 1px solid oklch(0.72 0.18 145 / 0.25);
+  color: oklch(0.80 0.12 145);
+  animation: bolhaIn 220ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+}
+.cmd-tool-chip.falhou {
+  background: oklch(0.65 0.24 25 / 0.10);
+  border-color: oklch(0.65 0.24 25 / 0.30);
+  color: oklch(0.78 0.14 25);
+}
+
+/* Pensando: dots + frase que evolui com a espera (4s/12s). */
+.cmd-pensando { display: inline-flex; gap: 6px; align-items: center; }
+.cmd-pensando-frase {
+  font-size: 12px; color: var(--txt-3); margin-left: 4px;
+  animation: fraseEntra 240ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+}
+@keyframes fraseEntra { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Gen UI · lista de leads por significado (commandbar / Palco Vivo Tijolo 1) ──
+   A Gen UI rica nasce dentro da `.bolha-in` (maxWidth 520 inline no bundle.jsx).
+   Pra lista de leads a bolha solta a amarra e usa a largura da arena (~720px),
+   sem espremer o card nem cortar o fato que casou com a busca. */
+.cmd-msg.mentor .bolha-in:has(.genleads-wrap) {
+  max-width: none !important;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.genleads-wrap { display: grid; gap: 8px; margin-top: 8px; }
+.genlead-card {
+  display: grid; gap: 6px;
+  padding: 12px 14px; border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.genlead-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.genlead-nome {
+  font-weight: 600; font-size: 14px; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.genlead-meta { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.genlead-tempo { margin-left: auto; flex-shrink: 0; }
+.genlead-fato {
+  margin: 2px 0 0; padding: 8px 10px; border-radius: 8px;
+  background: rgba(126,189,255,0.06);
+  border: 1px solid rgba(126,189,255,0.14);
+  font-size: 12.5px; line-height: 1.5; font-style: italic;
+  color: var(--txt-2, #c7cdd6);
+}
+.genlead-fato-cat {
+  display: block; margin-bottom: 3px;
+  font-style: normal; font-weight: 600; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  color: #7ebdff; opacity: 0.85;
+}
+.genlead-cta {
+  justify-self: start; margin-top: 2px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #eaeaea; font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: transform 140ms cubic-bezier(0.23,1,0.32,1), background 140ms ease, border-color 140ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .genlead-cta:hover:not(:disabled) {
+    background: rgba(126,189,255,0.14);
+    border-color: rgba(126,189,255,0.30);
+  }
+}
+.genlead-cta:active:not(:disabled) { transform: scale(0.97); }
+.genlead-cta:focus-visible { outline: 2px solid rgba(126,189,255,0.6); outline-offset: 2px; }
+.genlead-cta:disabled { opacity: 0.55; cursor: default; }
+/* ── Gen UI · lista de conversas (commandbar) ──
+   Pedido do Theus 2026-09-16: pedir "as conversas" mostra cartão com a última
+   mensagem e botão de abrir. Mesma família visual da lista de leads; a bolha
+   também solta a amarra de 520px pra caber o trecho da conversa. */
+.cmd-msg.mentor .bolha-in:has(.genconvs-wrap) {
+  max-width: none !important;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.genconvs-wrap { display: grid; gap: 8px; margin-top: 8px; }
+.genconvs-topo { letter-spacing: 0.2px; padding-left: 2px; }
+.genconv-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 140ms ease, background 140ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .genconv-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(126,189,255,0.20); }
+}
+.genconv-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center; flex-shrink: 0;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
+  color: #cfe4ff;
+  background: linear-gradient(135deg, rgba(126,189,255,0.22), rgba(167,139,250,0.20));
+  border: 1px solid rgba(126,189,255,0.22);
+}
+.genconv-corpo { display: grid; gap: 3px; min-width: 0; }
+.genconv-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.genconv-nome {
+  font-weight: 600; font-size: 14px; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.genconv-status {
+  flex-shrink: 0; padding: 2px 8px; border-radius: 999px;
+  font-size: 10.5px; font-weight: 600; line-height: 1.5; white-space: nowrap;
+}
+.genconv-tempo { margin-left: auto; flex-shrink: 0; }
+.genconv-meta { text-transform: lowercase; }
+.genconv-ultima {
+  margin: 2px 0 0; font-size: 12.5px; line-height: 1.5;
+  color: var(--txt-2, #c7cdd6);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.genconv-de { font-weight: 600; }
+.genconv-de-lead { color: #7ebdff; }
+.genconv-de-agente { color: #7ee0a8; }
+.genconv-cta {
+  flex-shrink: 0; align-self: center;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 9px;
+  background: rgba(126,189,255,0.12);
+  border: 1px solid rgba(126,189,255,0.28);
+  color: #dceaff; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: transform 140ms cubic-bezier(0.23,1,0.32,1), background 140ms ease, border-color 140ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .genconv-cta:hover { background: rgba(126,189,255,0.22); border-color: rgba(126,189,255,0.45); }
+}
+.genconv-cta:active { transform: scale(0.97); }
+.genconv-cta:focus-visible { outline: 2px solid rgba(126,189,255,0.6); outline-offset: 2px; }
+/* Celular: avatar e botão descem pra não espremer o texto. */
+@media (max-width: 600px) {
+  .genconv-card { grid-template-columns: auto minmax(0, 1fr); }
+  .genconv-cta { grid-column: 1 / -1; justify-content: center; }
+}
+.cmd-trace { display: flex; align-items: center; gap: 6px; padding-left: 4px; }
+.cmd-suggest { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.cmd-chip {
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  color: var(--txt-2);
+  font-size: 12px;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 140ms ease;
+}
+.cmd-chip:hover { background: rgba(255,255,255,0.12); color: var(--txt-1); transform: translateY(-1px); }
+/* X de encerrar o chat — visível (pedido Theus 2026-07-10): pílula com borda
+   e X claro; hover avermelhado sinaliza "encerrar". Antes era cinza-escuro
+   em fundo escuro (invisível). */
+.cmd-clear {
+  width: 32px; height: 32px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: oklch(0.98 0 0 / 0.06);
+  border: 1px solid oklch(0.98 0 0 / 0.18);
+  color: oklch(0.98 0 0 / 0.75);
+  cursor: pointer;
+  transition: background 130ms ease, border-color 130ms ease, color 130ms ease, transform 130ms ease;
+}
+.cmd-clear:hover {
+  background: oklch(0.62 0.2 25 / 0.18);
+  border-color: oklch(0.68 0.2 25 / 0.55);
+  color: oklch(0.85 0.1 25);
+  transform: scale(1.06);
+}
+
+/* Gen UI cards (returned by Mentor inline) */
+.genui-card {
+  background: oklch(0.10 0.04 264 / 0.88);
+  border: 1px solid var(--os-vidro-borda-forte);
+  border-radius: 14px;
+  padding: 14px;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  animation: bolhaIn 220ms cubic-bezier(.2,.9,.3,1.2);
+}
+.genui-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 8px; border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  cursor: pointer; transition: background 120ms;
+}
+.genui-row:hover { background: rgba(255,255,255,0.06); }
+.genui-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border-radius: 6px;
+  background: transparent; border: none;
+  color: var(--os-acento-1); cursor: pointer; font-size: 11px; font-weight: 600;
+}
+.genui-link:hover { background: rgba(255,255,255,0.05); }
+
+/* Thinking dots */
+.thinking-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  animation: thinking 1s ease-in-out infinite;
+}
+@keyframes thinking {
+  0%, 100% { transform: scale(0.7); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Cérebro stream (top-right floating) */
+.cerebro-stream {
+  position: fixed;
+  right: 24px; top: 64px;
+  width: 320px; max-width: 32vw;
+  z-index: 30;
+  padding: 12px 14px;
+  background: rgba(15, 12, 30, 0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  pointer-events: auto;
+  font-size: 11px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+}
+.cerebro-head { display: flex; align-items: center; gap: 6px; }
+.cerebro-hide { width: 18px; height: 18px; border-radius: 4px; background: transparent; border: none; color: var(--txt-4); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.cerebro-hide:hover { background: rgba(255,255,255,0.08); color: var(--txt-1); }
+.cerebro-evento {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  animation: cerebroIn 280ms cubic-bezier(.2,.9,.3,1.2);
+  color: var(--txt-1);
+}
+.cerebro-evento:first-child { border-top: none; padding-top: 8px; }
+.cerebro-evento .small { color: var(--txt-2); }
+.cerebro-evento .muted { color: var(--txt-3); }
+.cerebro-tipo {
+  display: inline-flex; align-items: center;
+  padding: 2px 6px; border-radius: 4px;
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  background: rgba(255,255,255,0.08);
+  color: var(--txt-2);
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.cerebro-porteiro .cerebro-tipo { background: oklch(0.78 0.18 80 / 0.18); color: oklch(0.88 0.18 80); }
+.cerebro-sintese  .cerebro-tipo { background: oklch(from var(--os-acento-1) 0.7 0.18 h / 0.18); color: oklch(from var(--os-acento-1) 0.85 0.14 h); }
+.cerebro-ferramenta .cerebro-tipo { background: oklch(from var(--os-acento-2) 0.65 0.22 h / 0.18); color: oklch(from var(--os-acento-2) 0.85 0.20 h); }
+.cerebro-webhook  .cerebro-tipo { background: oklch(0.72 0.18 145 / 0.18); color: oklch(0.85 0.18 145); }
+.cerebro-realtime .cerebro-tipo { background: rgba(255,255,255,0.10); color: white; }
+@keyframes cerebroIn {
+  from { transform: translateY(-6px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* Cursor glow */
+.cursor-glow {
+  position: fixed; left: -200px; top: -200px;
+  width: 400px; height: 400px; pointer-events: none; z-index: 0;
+  margin-left: -200px; margin-top: -200px;
+  background: radial-gradient(circle, oklch(from var(--os-acento-1) 0.7 0.18 h / 0.10) 0%, transparent 50%);
+  mix-blend-mode: screen;
+  transition: opacity 220ms ease;
+}
+
+/* Dock badge */
+/* Busca de apps do Launchpad (2026-08-19) */
+.lp-busca {
+  width: min(420px, 80vw);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: inherit;
+  background: rgba(15, 12, 30, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  outline: none;
+}
+.lp-busca:focus { border-color: var(--os-acento-1); }
+
+/* Borda-neon (2026-08-19, referência do Theus — snippet "Kevin Powell is cool"):
+   4 linhas de luz que circulam a borda no hover. Wrapper interno com clip
+   arredondado pra não cortar o badge (que vaza -3px do botão). Animação só
+   roda no hover do pai — fora dele os spans ficam estacionados fora da caixa. */
+.borda-neon {
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.borda-neon span { position: absolute; display: block; }
+.borda-neon span:nth-child(1) {
+  top: 0; left: -100%; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--os-acento-1));
+}
+.borda-neon span:nth-child(2) {
+  top: -100%; right: 0; width: 2px; height: 100%;
+  background: linear-gradient(180deg, transparent, var(--os-acento-2));
+}
+.borda-neon span:nth-child(3) {
+  bottom: 0; right: -100%; width: 100%; height: 2px;
+  background: linear-gradient(270deg, transparent, var(--os-acento-1));
+}
+.borda-neon span:nth-child(4) {
+  bottom: -100%; left: 0; width: 2px; height: 100%;
+  background: linear-gradient(0deg, transparent, var(--os-acento-2));
+}
+.dock-btn:hover .borda-neon span:nth-child(1),
+.brand-launcher:hover .borda-neon span:nth-child(1) { animation: borda-neon-t 1s linear infinite; }
+.dock-btn:hover .borda-neon span:nth-child(2),
+.brand-launcher:hover .borda-neon span:nth-child(2) { animation: borda-neon-r 1s linear infinite 0.25s; }
+.dock-btn:hover .borda-neon span:nth-child(3),
+.brand-launcher:hover .borda-neon span:nth-child(3) { animation: borda-neon-b 1s linear infinite 0.5s; }
+.dock-btn:hover .borda-neon span:nth-child(4),
+.brand-launcher:hover .borda-neon span:nth-child(4) { animation: borda-neon-l 1s linear infinite 0.75s; }
+@keyframes borda-neon-t { 0% { left: -100%; } 50%, 100% { left: 100%; } }
+@keyframes borda-neon-r { 0% { top: -100%; } 50%, 100% { top: 100%; } }
+@keyframes borda-neon-b { 0% { right: -100%; } 50%, 100% { right: 100%; } }
+@keyframes borda-neon-l { 0% { bottom: -100%; } 50%, 100% { bottom: 100%; } }
+
+.dock-badge {
+  position: absolute; top: -3px; right: -3px;
+  min-width: 16px; height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: oklch(0.65 0.24 25);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 2px oklch(0.13 0.03 264);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Minimized window dock — top-center floating pills (just below top bar) */
+.min-dock {
+  position: fixed;
+  left: 50%; top: 56px;
+  transform: translateX(-50%);
+  z-index: 36;
+  display: flex; gap: 8px; flex-wrap: wrap;
+  max-width: 60vw;
+  justify-content: center;
+}
+.min-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 12px 5px 6px;
+  background: rgba(15, 12, 30, 0.55);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: var(--txt-1);
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  transition: all 160ms cubic-bezier(.2,.9,.3,1.2);
+  animation: minPillIn 220ms cubic-bezier(.2,.9,.3,1.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.min-pill:hover { background: rgba(25, 20, 50, 0.85); border-color: rgba(255,255,255,0.18); transform: translateY(-1px); }
+.min-pill-icon {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--os-acento-1-soft), var(--os-acento-2-soft));
+  display: flex; align-items: center; justify-content: center;
+}
+.min-pill-arrow {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0.6;
+}
+@keyframes minPillIn {
+  from { transform: translateY(20px) scale(0.85); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes confettiFall {
+  to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Notifications */
+.notif-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 16px; height: 16px; padding: 0 5px;
+  border-radius: 999px;
+  background: oklch(0.65 0.24 25);
+  color: white;
+  font-size: 9px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 8px oklch(0.65 0.24 25 / 0.6);
+}
+.notif-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(5, 3, 12, 0.35);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  z-index: 70;
+  animation: fadeIn 180ms ease;
+}
+.notif-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 400px; max-width: 92vw;
+  background: transparent;
+  border-left: none;
+  box-shadow: none;
+  z-index: 75;
+  display: flex; flex-direction: column;
+  animation: notifSlide 280ms cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes notifSlide {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+.notif-panel .scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  /* Fade-top/bottom no scroll (onda-3-polish 2026-05-13) — skill emil-design-eng:
+     mask gradiente revela conteúdo cortado de forma orgânica. 14px = mesmo padding. */
+  mask-image: linear-gradient(180deg,
+    transparent 0,
+    #000 14px,
+    #000 calc(100% - 14px),
+    transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg,
+    transparent 0,
+    #000 14px,
+    #000 calc(100% - 14px),
+    transparent 100%);
+  background: transparent;
+}
+.notif-panel > .row:first-child,
+.notif-panel > .row.gap-2 {
+  margin: 14px 14px 0;
+  border-radius: 14px;
+  background: oklch(0.12 0.04 264 / 0.55);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.notif-panel > .row.gap-2 { margin-top: 8px; }
+.notif-item {
+  padding: 13px 15px 14px;
+  border: 1px solid oklch(0.98 0 0 / 0.07);
+  border-radius: 16px;
+  background: oklch(0.13 0.04 264 / 0.45);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  box-shadow: 0 8px 24px oklch(0.02 0.02 264 / 0.28);
+  position: relative;
+  cursor: default;
+  transition: background 140ms cubic-bezier(0.23,1,0.32,1),
+              transform 180ms cubic-bezier(0.23,1,0.32,1),
+              border-color 140ms ease;
+}
+/* Não-lida: leve realce de fundo/borda (sem stripe lateral). */
+.notif-item:not(.lido) {
+  background: oklch(0.17 0.05 264 / 0.55);
+  border-color: oklch(0.98 0 0 / 0.1);
+}
+.notif-item:hover { transform: translateY(-1px); border-color: oklch(0.98 0 0 / 0.14); }
+.notif-item.lido { opacity: 0.55; }
+
+.notif-corpo { display: flex; gap: 12px; align-items: flex-start; }
+
+/* Avatar com foto do contato (ou inicial colorida / ícone) + badge de tipo */
+.notif-avatar-wrap { position: relative; flex-shrink: 0; }
+.notif-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px oklch(0.02 0.02 264 / 0.35),
+              inset 0 0 0 1px oklch(0.98 0 0 / 0.08);
+}
+.notif-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.notif-avatar-iniciais {
+  font-size: 16px; font-weight: 650; letter-spacing: 0.02em;
+  color: oklch(0.99 0.01 264); user-select: none;
+}
+.notif-avatar-glyph { display: flex; align-items: center; justify-content: center; }
+.notif-avatar-badge {
+  position: absolute; right: -2px; bottom: -2px;
+  width: 19px; height: 19px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2.5px solid oklch(0.15 0.04 264);
+  box-shadow: 0 1px 3px oklch(0.02 0.02 264 / 0.5);
+}
+
+.notif-texto { flex: 1; min-width: 0; }
+.notif-linha-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.notif-nome {
+  margin: 0; min-width: 0; font-size: 14px; font-weight: 650; line-height: 1.3;
+  color: var(--txt-1, oklch(0.97 0.01 264));
+  display: flex; align-items: center; gap: 7px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.notif-dot {
+  flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--os-acento-1); box-shadow: 0 0 7px var(--os-acento-1);
+}
+.notif-x {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; cursor: pointer;
+  opacity: 0.5; transition: opacity 140ms ease, background 140ms ease;
+}
+.notif-x:hover { opacity: 1; background: oklch(0.98 0 0 / 0.07); }
+
+.notif-chip {
+  display: inline-flex; align-items: center;
+  margin-top: 5px; padding: 2px 9px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.01em;
+  border-radius: 999px;
+}
+.notif-chip.handoff { background: oklch(0.80 0.16 75 / 0.16); color: oklch(0.87 0.14 82); }
+.notif-chip.humano  { background: oklch(0.70 0.15 245 / 0.16); color: oklch(0.83 0.12 245); }
+
+.notif-msg {
+  margin: 6px 0 0; font-size: 12.5px; line-height: 1.45;
+  color: var(--txt-2, oklch(0.78 0.02 264));
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Mídia da mensagem no card */
+.notif-midia-img {
+  display: block; width: 100%; max-height: 168px; object-fit: cover;
+  margin-top: 8px; border-radius: 12px;
+  border: 1px solid oklch(0.98 0 0 / 0.08);
+  background: oklch(0.10 0.03 264);
+}
+.notif-midia-video {
+  display: block; width: 100%; max-height: 180px;
+  margin-top: 8px; border-radius: 12px;
+  border: 1px solid oklch(0.98 0 0 / 0.08); background: #000;
+}
+.notif-midia-audio { width: 100%; height: 36px; margin-top: 8px; }
+.notif-midia-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 8px; padding: 6px 11px; border-radius: 10px;
+  font-size: 12px; font-weight: 600;
+  color: var(--txt-1, oklch(0.96 0.01 264));
+  background: oklch(0.98 0 0 / 0.06);
+  border: 1px solid oklch(0.98 0 0 / 0.1);
+  text-decoration: none; cursor: pointer;
+  transition: background 140ms ease;
+}
+.notif-midia-pill:hover { background: oklch(0.98 0 0 / 0.12); }
+.notif-rodape { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+.notif-tempo { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--txt-4, oklch(0.6 0.02 264)); }
+.notif-acao {
+  flex-shrink: 0; height: 26px; padding: 0 11px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11.5px; font-weight: 600;
+  color: var(--txt-1, oklch(0.96 0.01 264));
+  background: oklch(0.98 0 0 / 0.08);
+  border: 1px solid oklch(0.98 0 0 / 0.1);
+  border-radius: 9px; cursor: pointer;
+  transition: background 140ms ease, transform 140ms cubic-bezier(0.23,1,0.32,1);
+}
+.notif-acao:hover { background: oklch(0.98 0 0 / 0.14); transform: translateY(-1px); }
+.notif-acao:active { transform: scale(0.97); }
+
+@media (prefers-reduced-motion: reduce) {
+  .notif-item, .notif-acao { transition: background 140ms ease, opacity 140ms ease; }
+  .notif-item:hover, .notif-acao:hover { transform: none; }
+}
+
+/* Workspaces — 3 áreas virtuais (3 pontos) — pílula no topo central, mesma altura do bar-flutuante */
+.ws-indicator {
+  position: fixed;
+  left: 50%; transform: translateX(-50%);
+  top: 14px;
+  z-index: 201;
+  display: flex; gap: 12px;
+  padding: 6px 12px;
+  background: rgba(15,12,30,0.42);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.ws-dot {
+  position: relative;
+  width: 12px; height: 12px;
+  background: transparent; border: none; padding: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.ws-dot > span:first-child {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  transition: all 220ms cubic-bezier(.2,.9,.3,1.2);
+}
+.ws-dot.on > span:first-child {
+  width: 10px; height: 10px;
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  box-shadow: 0 0 10px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.7);
+}
+.ws-dot:hover > span:first-child { background: rgba(255,255,255,0.5); }
+.ws-count {
+  position: absolute; top: -5px; right: -7px;
+  width: 12px; height: 12px;
+  background: oklch(0.65 0.24 25);
+  color: white;
+  font-size: 8px; font-weight: 700;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Edge hints when dragging windows */
+/* Pré-visualização do snap de metade (estilo Windows 11): painel translúcido
+   cobrindo a metade que a janela vai ocupar ao soltar na borda. */
+.edge-hint {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 50vw;
+  pointer-events: none;
+  z-index: 250;
+  display: flex; align-items: center; justify-content: center;
+  animation: edgePulse 1.2s ease-in-out infinite;
+}
+.edge-hint.edge-left  { left: 0;  background: oklch(from var(--os-acento-1) 0.7 0.18 h / 0.13); border-right: 2px solid oklch(from var(--os-acento-1) 0.7 0.18 h / 0.6); box-shadow: inset 0 0 0 1px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.35); }
+.edge-hint.edge-right { right: 0; background: oklch(from var(--os-acento-2) 0.65 0.22 h / 0.13); border-left: 2px solid oklch(from var(--os-acento-2) 0.65 0.22 h / 0.6); box-shadow: inset 0 0 0 1px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.35); }
+.edge-label {
+  display: flex; flex-direction: column; align-items: center;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  background: rgba(15,12,30,0.65);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  white-space: nowrap;
+}
+@keyframes edgePulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+/* Edge nav buttons (always visible) */
+.edge-nav {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 60px;
+  background: rgba(15,12,30,0.55);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: var(--txt-2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  z-index: 5; /* abaixo das janelas (z>=10) — não bloqueia rz-e/rz-w */
+  transition: all 180ms cubic-bezier(.2,.9,.3,1.2);
+}
+.edge-nav-left  { left: 0; border-left: none; border-radius: 0 16px 16px 0; }
+.edge-nav-right { right: 0; border-right: none; border-radius: 16px 0 0 16px; }
+.edge-nav:hover {
+  background: linear-gradient(135deg, var(--os-acento-1-soft), var(--os-acento-2-soft));
+  color: white; width: 44px;
+  border-color: rgba(255,255,255,0.20);
+}
+
+/* Swipe area — invisible fullscreen click-and-drag for empty desktop */
+.swipe-area {
+  position: fixed; inset: 0;
+  z-index: 1;
+  cursor: default;
+}
+.swipe-area:active { cursor: grabbing; }
+
+/* Launchpad overlay */
+.launchpad {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(8, 6, 18, 0.7);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 220ms ease;
+}
+.launchpad-inner {
+  position: relative;
+  width: 100%; max-width: 1100px;
+  padding: 48px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.launchpad-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 28px;
+  max-width: 800px; margin: 0 auto;
+}
+.lp-app {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  animation: lpIn 320ms cubic-bezier(.2,.9,.3,1.2) backwards;
+}
+/* Hover sobe o app inteiro no stacking: sem isso o card de ficha (dentro do
+   botão, que vira contexto atômico via transform) fica ATRÁS dos tiles
+   vizinhos que vêm depois no DOM (bug visto pelo Theus 2026-08-11). */
+.lp-app:hover { z-index: 60; }
+.lp-app:nth-child(2)  { animation-delay: 30ms; }
+.lp-app:nth-child(3)  { animation-delay: 60ms; }
+.lp-app:nth-child(4)  { animation-delay: 90ms; }
+.lp-app:nth-child(5)  { animation-delay: 120ms; }
+.lp-app:nth-child(6)  { animation-delay: 150ms; }
+.lp-app:nth-child(7)  { animation-delay: 180ms; }
+.lp-app:nth-child(8)  { animation-delay: 210ms; }
+.lp-app:nth-child(n+9){ animation-delay: 240ms; }
+.lp-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 180ms cubic-bezier(.2,.9,.3,1.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lp-icon-btn:hover { transform: translateY(-4px) scale(1.04); }
+/* Card de ficha do app (referência Theus 2026-08-11): glass escuro com dot grid
+   sutil, luz do acento vazando do canto, título + descrição + funcionalidades.
+   Substitui o tooltip simples. Delay de 380ms pra não poluir ao varrer o grid. */
+.lp-ficha {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px) scale(0.97);
+  width: 264px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 1.4px) 0 0 / 14px 14px,
+    radial-gradient(130% 90% at 0% 0%,
+      oklch(from var(--os-acento-1) 0.55 0.16 h / 0.22) 0%,
+      oklch(from var(--os-acento-2) 0.5 0.18 h / 0.10) 40%,
+      transparent 70%),
+    rgba(10, 8, 20, 0.94);
+  border: 1px solid oklch(from var(--os-acento-1) 0.7 0.14 h / 0.3);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    0 18px 44px rgba(0,0,0,0.55),
+    -6px -2px 24px oklch(from var(--os-acento-1) 0.6 0.16 h / 0.18);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  transition: opacity 180ms ease 0ms, transform 220ms cubic-bezier(.16,1,.3,1) 0ms;
+}
+.lp-icon-btn:hover .lp-ficha {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition-delay: 380ms, 380ms;
+}
+.lp-ficha-topo { display: flex; flex-direction: column; gap: 3px; }
+.lp-ficha-titulo { font-size: 14px; font-weight: 700; color: white; line-height: 1.2; }
+.lp-ficha-desc { font-size: 11.5px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+.lp-ficha-lista { display: flex; flex-direction: column; gap: 10px; }
+.lp-ficha-item { display: flex; align-items: flex-start; gap: 10px; }
+.lp-ficha-item-icone {
+  width: 26px; height: 26px;
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  color: white;
+  box-shadow: 0 4px 12px oklch(from var(--os-acento-2) 0.6 0.2 h / 0.4);
+}
+.lp-ficha-item-texto { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.lp-ficha-item-titulo { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.94); line-height: 1.3; }
+.lp-ficha-item-desc { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.35; }
+/* Tile do app — mesmo clima do card: vidro escuro com luz do acento no canto
+   (referência Theus 2026-08-11), acende no hover. */
+.lp-icon {
+  width: 84px; height: 84px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 22px;
+  background:
+    radial-gradient(120% 120% at 18% 0%,
+      oklch(from var(--os-acento-1) 0.58 0.16 h / 0.3) 0%,
+      oklch(from var(--os-acento-2) 0.5 0.18 h / 0.12) 45%,
+      transparent 75%),
+    linear-gradient(180deg, oklch(0.2 0.03 264 / 0.92), oklch(0.14 0.03 264 / 0.96));
+  border: 1px solid oklch(from var(--os-acento-1) 0.7 0.14 h / 0.32);
+  color: white;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10);
+  transition: all 180ms cubic-bezier(.2,.9,.3,1.2);
+}
+.lp-icon-btn:hover .lp-icon {
+  border-color: oklch(from var(--os-acento-1) 0.75 0.16 h / 0.7);
+  background:
+    radial-gradient(120% 120% at 18% 0%,
+      oklch(from var(--os-acento-1) 0.6 0.17 h / 0.45) 0%,
+      oklch(from var(--os-acento-2) 0.52 0.19 h / 0.2) 45%,
+      transparent 75%),
+    linear-gradient(180deg, oklch(0.22 0.04 264 / 0.94), oklch(0.15 0.03 264 / 0.97));
+  box-shadow:
+    0 16px 40px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.45),
+    0 0 20px oklch(from var(--os-acento-1) 0.7 0.16 h / 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.16);
+}
+.lp-pin {
+  position: absolute; top: -6px; right: -6px;
+  width: 24px; height: 24px; border-radius: 999px;
+  background: rgba(15,12,30,0.85);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: var(--txt-3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 140ms;
+}
+.lp-app:hover .lp-pin { opacity: 1; }
+.lp-pin:hover { background: rgba(25,20,50,1); color: var(--txt-1); transform: scale(1.08); }
+.lp-pin.pinned {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  color: white; border-color: rgba(255,255,255,0.25);
+  opacity: 1;
+  box-shadow: 0 4px 14px oklch(from var(--os-acento-2) 0.65 0.22 h / 0.5);
+}
+@keyframes lpIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* Widgets grid in Launchpad */
+.widgets-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  max-width: 900px; margin: 0 auto;
+}
+.widget-card {
+  background: rgba(15, 12, 30, 0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 220ms cubic-bezier(.2,.9,.3,1.2);
+  animation: lpIn 320ms cubic-bezier(.2,.9,.3,1.2) backwards;
+}
+.widget-card.is-on {
+  border-color: oklch(from var(--os-acento-1) 0.7 0.18 h / 0.7);
+  box-shadow: 0 0 0 1px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.4), 0 12px 30px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.2);
+}
+.widget-preview {
+  height: 160px;
+  background: linear-gradient(135deg, var(--os-acento-1-soft), var(--os-acento-2-soft));
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 18px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Desktop widgets (live, on the wallpaper) */
+.desk-widget {
+  position: fixed;
+  z-index: 4;
+  padding: 16px;
+  background: rgba(15, 12, 30, 0.62);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+  color: var(--txt-1);
+  animation: bolhaIn 260ms cubic-bezier(.2,.9,.3,1.2);
+  user-select: none;
+  cursor: default;
+}
+.desk-widget:active { cursor: grabbing; }
+.desk-widget:hover { border-color: rgba(255,255,255,0.16); }
+
+/* Wallpaper subtle slide between desktops */
+.wallpaper { transition: filter 280ms ease; }
+
+/* Curadoria — rail vertical de abas */
+.curadoria-rail {
+  width: 200px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 10px;
+  background: rgba(255,255,255,0.02);
+  display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto;
+}
+.cur-tab {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--txt-2);
+  cursor: pointer;
+  text-align: left;
+  transition: all 140ms ease;
+  font-family: inherit;
+}
+.cur-tab:hover { background: rgba(255,255,255,0.04); color: var(--txt-1); }
+.cur-tab-on {
+  background: linear-gradient(135deg, var(--os-acento-1-soft), var(--os-acento-2-soft));
+  border-color: rgba(255,255,255,0.10);
+  color: var(--txt-1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.cur-tab-ic {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.04);
+  flex-shrink: 0;
+}
+.cur-tab-on .cur-tab-ic {
+  background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2));
+  color: white;
+}
+.cur-tab-l { display: flex; flex-direction: column; min-width: 0; }
+.cur-tab-label { font-size: 13px; font-weight: 600; }
+.cur-tab-desc  { font-size: 10px; color: var(--txt-4); margin-top: 1px; }
+
+/* Pulse for live realtime indicators */
+.pulse {
+  position: relative;
+}
+.pulse::after {
+  content: ""; position: absolute; inset: -3px; border-radius: inherit;
+  box-shadow: 0 0 0 0 oklch(0.72 0.18 145 / 0.5);
+  animation: pulsing 1.8s infinite;
+}
+@keyframes pulsing { 0%{box-shadow: 0 0 0 0 oklch(0.72 0.18 145 / 0.6)} 70%{box-shadow:0 0 0 10px oklch(0.72 0.18 145 / 0)} 100%{box-shadow: 0 0 0 0 oklch(0.72 0.18 145 / 0)} }
+
+/* Progress */
+.progress { width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+.progress > div { height: 100%; background: linear-gradient(90deg, var(--os-acento-1), var(--os-acento-2)); transition: width 400ms ease; }
+
+/* Switch */
+.switch { width: 32px; height: 18px; background: rgba(255,255,255,0.1); border-radius: 999px; padding: 2px; cursor:pointer; transition: background 120ms; }
+.switch > i { display:block; width:14px; height:14px; background:white; border-radius:50%; transition: transform 160ms cubic-bezier(.2,.9,.3,1.2); }
+.switch.on { background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2)); }
+.switch.on > i { transform: translateX(14px); }
+
+/* Checkbox */
+.chk { width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--os-vidro-borda-forte); background: rgba(255,255,255,0.04); display:inline-flex; align-items:center; justify-content:center; cursor: pointer; transition: all 120ms; }
+.chk.on { background: linear-gradient(135deg, var(--os-acento-1), var(--os-acento-2)); border-color: transparent; }
+
+/* Tag chip */
+.chip { display: inline-flex; align-items:center; gap:4px; padding: 3px 8px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--os-vidro-borda); font-size: 11px; font-weight: 500; color: var(--txt-2);}
+
+/* Avatar */
+.avatar { width: 32px; height: 32px; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-weight: 600; font-size: 12px; color: white; flex-shrink: 0; }
+
+/* Toast (sonner-ish) */
+.toaster { position: fixed; top: 50px; right: 16px; z-index: 200; display:flex; flex-direction:column; gap: 8px; }
+.toast {
+  min-width: 280px; max-width: 360px;
+  padding: 12px 14px;
+  background: rgba(15, 12, 30, 0.95);
+  border: 1px solid var(--os-vidro-borda-forte);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  font-size: 13px;
+  display: flex; align-items: flex-start; gap: 10px;
+  animation: toastIn 200ms cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes toastIn { from{ transform: translateX(40px); opacity:0;} to{transform: translateX(0); opacity: 1;} }
+.toast.success { border-left: 3px solid oklch(0.72 0.18 145); }
+.toast.error   { border-left: 3px solid oklch(0.65 0.24 25); }
+.toast.info    { border-left: 3px solid oklch(from var(--os-acento-1) 0.7 0.18 h); }
+
+/* Spotlight overlay */
+.spotlight-overlay {
+  position: fixed; inset: 0; z-index: 80;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 14vh;
+  background: rgba(5,3,12,0.55); backdrop-filter: blur(8px);
+  animation: fadeIn 120ms ease;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1} }
+
+/* Login split */
+.login-shell { position: fixed; inset: 0; z-index: 100; display: grid; grid-template-columns: 1.05fr 1fr; }
+.login-left {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; gap: 28px;
+  padding: 48px;
+}
+.login-left > div:last-child {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  right: 48px;
+}
+.login-right {
+  background: oklch(0.10 0.03 264);
+  display: flex; align-items: center; justify-content: center;
+  padding: 48px;
+}
+
+/* faixa de pensamento */
+.fp-item {
+  position: relative;
+  padding: 10px 12px 10px 28px;
+  border-left: 2px solid rgba(255,255,255,0.08);
+  margin-left: 6px;
+  animation: bolhaIn 200ms cubic-bezier(.2,.9,.3,1.2);
+}
+.fp-item::before {
+  content: ""; position: absolute; left: -5px; top: 14px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--os-acento-1);
+  box-shadow: 0 0 8px var(--os-acento-1);
+}
+.fp-item.porteiro::before { background: oklch(0.78 0.18 80); box-shadow: 0 0 8px oklch(0.78 0.18 80);}
+.fp-item.sintese::before  { background: oklch(from var(--os-acento-1) 0.7 0.18 h); box-shadow: 0 0 8px oklch(from var(--os-acento-1) 0.7 0.18 h);}
+.fp-item.ferramenta::before { background: oklch(from var(--os-acento-2) 0.65 0.22 h); box-shadow: 0 0 8px oklch(from var(--os-acento-2) 0.65 0.22 h);}
+.fp-item.erro::before { background: oklch(0.65 0.24 25); box-shadow: 0 0 8px oklch(0.65 0.24 25);}
+
+/* Modal */
+.modal-backdrop { position: fixed; inset:0; background: rgba(5,3,12,0.65); backdrop-filter: blur(6px); z-index: 90; animation: fadeIn 120ms;}
+.modal {
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 460px; max-width: 90vw;
+  background: oklch(0.13 0.03 264 / 0.97);
+  border: 1px solid var(--os-vidro-borda-forte);
+  border-radius: 16px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+  z-index: 95; padding: 24px;
+  /* Animação própria: janelaIn sobrescrevia o translate(-50%,-50%) durante os
+     200ms (keyframe só tem scale) — o modal nascia deslocado pro canto e pulava
+     pro centro quando a animação acabava. modalIn compõe translate + scale. */
+  animation: modalIn 200ms cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes modalIn {
+  from { transform: translate(-50%, -50%) scale(.96); opacity: 0; }
+  to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* table */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--txt-4); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.tbl td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.tbl tr:hover td { background: rgba(255,255,255,0.025); }
+
+/* prancheta field row */
+.prancheta-row {
+  display: grid; grid-template-columns: 1fr 1.5fr auto auto;
+  gap: 10px; align-items: center;
+  padding: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--os-vidro-borda);
+  border-radius: 10px;
+}
+
+/* z-api dot */
+.zapi-status { display: flex; align-items: center; gap: 8px; }
+
+/* shadow glow for selected card */
+.glow-aurora { box-shadow: 0 0 0 1px var(--os-acento-1), 0 8px 24px oklch(from var(--os-acento-1) 0.7 0.18 h / 0.3); }
+
+/* Onda 8 RAG-first — GenUI inline Mentor (CardPerguntaPendenteInline) */
+@keyframes mentor-pulse {
+  0%, 100% { border-color: rgba(245,158,11,0.35); box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+  50%       { border-color: rgba(245,158,11,0.60); box-shadow: 0 0 8px 2px rgba(245,158,11,0.12); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   Menu "+" do commandbar (Dominic 2026-08-25, redesign 10x) —
+   popover glass premium com chips de ícone por ação, título +
+   descrição, entrada em cascata, seta apontando pro botão + e
+   o próprio + girando em × quando aberto.
+   ============================================================ */
+.cmd-mais-menu {
+  /* Ancorado na .cmd-arena (fixed, bottom 24px): a barra (.cmd-shell) vai de
+     56px a ~126px do rodapé → o menu abre logo acima dela, alinhado à esquerda. */
+  position: absolute;
+  bottom: 116px;
+  left: 0;
+  width: 272px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 7px;
+  border-radius: 20px;
+  z-index: 50;
+  transform-origin: 24px calc(100% + 12px);
+  background:
+    radial-gradient(130% 170% at 18% 115%,
+      oklch(from var(--os-acento-1) 0.7 0.2 h / 0.16) 0%,
+      oklch(from var(--os-acento-2) 0.65 0.24 h / 0.08) 45%,
+      oklch(0.15 0.045 264 / 0.96) 80%),
+    oklch(0.13 0.04 264 / 0.96);
+  border: 1px solid oklch(from var(--os-acento-1) 0.72 0.18 h / 0.32);
+  border-top-color: oklch(from var(--os-acento-1) 0.8 0.18 h / 0.45);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 4px 16px oklch(from var(--os-acento-1) 0.6 0.2 h / 0.18),
+    inset 0 1px 0 oklch(from var(--os-acento-1) 0.8 0.18 h / 0.2);
+  animation: cmdMaisEntra 0.32s cubic-bezier(0.2, 1.1, 0.3, 1);
+}
+@keyframes cmdMaisEntra {
+  from { opacity: 0; transform: translateY(10px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Seta (caret) apontando pro botão + — losango glass na base esquerda. */
+.cmd-mais-caret {
+  position: absolute;
+  bottom: -6px;
+  left: 22px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  border-radius: 3px;
+  background: oklch(0.14 0.045 264 / 0.97);
+  border-right: 1px solid oklch(from var(--os-acento-1) 0.72 0.18 h / 0.32);
+  border-bottom: 1px solid oklch(from var(--os-acento-1) 0.72 0.18 h / 0.32);
+}
+
+/* Itens — entrada em cascata (stagger) */
+.cmd-mais-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  min-width: 0;
+  opacity: 0;
+  animation: cmdMaisItemEntra 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+.cmd-mais-item:nth-child(1) { animation-delay: 0.04s; }
+.cmd-mais-item:nth-child(2) { animation-delay: 0.09s; }
+.cmd-mais-item:nth-child(3) { animation-delay: 0.14s; }
+@keyframes cmdMaisItemEntra {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cmd-mais-item:hover,
+.cmd-mais-item:focus-visible {
+  background: linear-gradient(120deg,
+    oklch(from var(--os-acento-1) 0.7 0.18 h / 0.16),
+    oklch(from var(--os-acento-2) 0.65 0.22 h / 0.10) 70%);
+  border-color: oklch(from var(--os-acento-1) 0.72 0.18 h / 0.3);
+  transform: translateX(3px);
+  outline: none;
+}
+.cmd-mais-item:disabled { opacity: 0.45; cursor: default; transform: none; }
+
+/* Chip do ícone — quadradinho com gradiente próprio por ação + glow. */
+.cmd-mais-chip {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  color: white;
+  border: 1px solid oklch(0.98 0 0 / 0.14);
+  box-shadow: inset 0 1px 0 oklch(0.98 0 0 / 0.22), 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+.cmd-mais-chip.is-historico {
+  background: linear-gradient(135deg, oklch(0.62 0.19 265), oklch(0.5 0.22 290));
+}
+.cmd-mais-chip.is-audio {
+  background: linear-gradient(135deg, oklch(0.64 0.2 350), oklch(0.5 0.23 20));
+}
+.cmd-mais-chip.is-anexo {
+  background: linear-gradient(135deg, oklch(0.62 0.16 210), oklch(0.5 0.18 240));
+}
+.cmd-mais-item:hover .cmd-mais-chip {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: inset 0 1px 0 oklch(0.98 0 0 / 0.28), 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* Título + descrição */
+.cmd-mais-textos {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+.cmd-mais-rotulo {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--txt-1, white);
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cmd-mais-descricao {
+  font-size: 10.5px;
+  color: oklch(0.98 0 0 / 0.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Chevron discreto que acende no hover */
+.cmd-mais-seta {
+  font-size: 14px;
+  color: oklch(0.98 0 0 / 0.2);
+  transition: color 140ms ease, transform 140ms ease;
+  padding-right: 2px;
+}
+.cmd-mais-item:hover .cmd-mais-seta {
+  color: oklch(from var(--os-acento-1) 0.8 0.16 h / 0.9);
+  transform: translateX(2px);
+}
+
+/* Botão +: o ícone gira 45° e vira × quando o menu está aberto. */
+.cmd-mais-botao svg {
+  transition: transform 0.28s cubic-bezier(0.2, 1.1, 0.3, 1);
+}
+.cmd-mais-botao.is-menu-aberto svg {
+  transform: rotate(45deg);
+}
+
+/* Copiar mensagem (Dominic 2026-08-25): wrapper bolha + botão que só aparece
+   no hover da bolha — o chat continua limpo, a ação fica à mão. */
+.cmd-bolha-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  max-width: 100%;
+  min-width: 0;
+}
+.cmd-bolha-wrap.is-out { flex-direction: row-reverse; }
+.cmd-copiar {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: oklch(0.98 0 0 / 0.4);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 140ms ease, background 140ms ease, color 140ms ease;
+}
+.cmd-bolha-wrap:hover .cmd-copiar,
+.cmd-copiar:focus-visible,
+.cmd-copiar.is-copiado {
+  opacity: 1;
+}
+.cmd-copiar:hover {
+  background: oklch(0.98 0 0 / 0.08);
+  border-color: oklch(0.98 0 0 / 0.12);
+  color: oklch(0.98 0 0 / 0.85);
+}
+.cmd-copiar.is-copiado { color: oklch(0.75 0.15 160); }

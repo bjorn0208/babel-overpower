@@ -1,0 +1,30 @@
+[
+  {
+    "version": "20260908140000",
+    "name": "fechar_rpcs_expostas_anon"
+  },
+  {
+    "version": "20260908170000",
+    "name": "fechar_rpcs_escrita_anon"
+  },
+  {
+    "version": "20260908171500",
+    "name": "fechar_rpcs_rifa_core"
+  },
+  {
+    "version": "20260908172500",
+    "name": "guarda_identidade_no_corpo_rpc"
+  },
+  {
+    "version": "20260908173500",
+    "name": "grant_tenant_efetivo"
+  },
+  {
+    "version": "20260908174500",
+    "name": "guarda_flags_apps"
+  },
+  {
+    "version": "20260908175000",
+    "name": "fechar_rpcs_metricas"
+  }
+]

@@ -1,0 +1,657 @@
+/* ══════════════════════════════════════════════════════════════════
+   ARENA — tokens do app de Rifas (skill design-rifas, 2026-09-12)
+   Referência: painel de apostas escuro com brilho roxo/rosa, SF Pro.
+   Tudo que é cor, raio, sombra, fonte ou espaço passa por aqui.
+   Nenhum .tsx escreve hex — escreve var(--ar-...) ou classe .ar-*.
+   ══════════════════════════════════════════════════════════════════ */
+
+.rifas-app,
+.arp-app {
+  /* ── Fundos (do mais fundo ao mais alto) ───────────────────────── */
+  --ar-fundo: #0b0b10;            /* base da tela                      */
+  --ar-fundo-2: #121218;          /* faixa de cabeçalho / tab bar      */
+  --ar-cartao: #1b1b22;           /* cartão padrão                     */
+  --ar-cartao-alto: #24242c;      /* cartão sobre cartão, input        */
+  --ar-filete: rgba(255, 255, 255, 0.08);
+  --ar-filete-forte: rgba(255, 255, 255, 0.14);
+
+  /* ── Brilho de fundo (o roxo e o rosa que vazam pelas bordas) ───── */
+  --ar-brilho: radial-gradient(60% 40% at 0% 0%, rgba(124, 92, 255, 0.28) 0%, transparent 70%),
+               radial-gradient(50% 35% at 100% 100%, rgba(233, 78, 119, 0.22) 0%, transparent 70%);
+
+  /* ── Ação: roxo ─────────────────────────────────────────────────── */
+  --ar-roxo: #7c5cff;
+  --ar-roxo-alto: #9a82ff;
+  --ar-roxo-baixo: #5b3fe6;
+  --ar-roxo-tinta: #ffffff;
+  --ar-roxo-vidro: rgba(124, 92, 255, 0.16);   /* fundo de chip sobre cartão roxo */
+  --ar-roxo-glow: 0 8px 28px rgba(124, 92, 255, 0.35);
+
+  /* ── Destaque: rosa-coral (cartão de rifa quente, promoções) ────── */
+  --ar-rosa: #ef4b78;
+  --ar-rosa-alto: #ff7a9c;
+  --ar-rosa-vidro: rgba(239, 75, 120, 0.16);
+
+  /* ── Estados ────────────────────────────────────────────────────── */
+  --ar-ok: #b6ff3b;               /* lime: ao vivo, pago, ativa        */
+  --ar-ok-vidro: rgba(182, 255, 59, 0.14);
+  --ar-aviso: #ffc148;            /* aguardando, reservado             */
+  --ar-aviso-vidro: rgba(255, 193, 72, 0.14);
+  --ar-erro: #ff4d4d;             /* perigo, rejeitado — NUNCA roxo    */
+  --ar-erro-vidro: rgba(255, 77, 77, 0.14);
+  --ar-info: #5cc8ff;
+  --ar-info-vidro: rgba(92, 200, 255, 0.14);
+
+  /* ── Texto (4 níveis) ───────────────────────────────────────────── */
+  --ar-txt-1: #ffffff;
+  --ar-txt-2: rgba(255, 255, 255, 0.78);
+  --ar-txt-3: rgba(255, 255, 255, 0.55);
+  --ar-txt-4: rgba(255, 255, 255, 0.35);
+
+  /* ── Tipografia ─────────────────────────────────────────────────── */
+  --ar-fonte: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+              "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --ar-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ar-peso-thin: 200;
+  --ar-peso-light: 300;
+  --ar-peso-regular: 400;
+  --ar-peso-medium: 500;
+  --ar-peso-bold: 700;
+  /* escala fluida: celular → desktop */
+  --ar-t-xs: clamp(11px, 0.7rem, 12px);
+  --ar-t-sm: clamp(13px, 0.8rem, 14px);
+  --ar-t-base: clamp(15px, 0.95rem, 16px);
+  --ar-t-md: clamp(17px, 1.05rem, 18px);
+  --ar-t-lg: clamp(20px, 1.3rem, 22px);
+  --ar-t-xl: clamp(24px, 1.6rem, 28px);
+  --ar-t-2xl: clamp(30px, 2.1rem, 36px);
+  --ar-t-3xl: clamp(36px, 2.8rem, 48px);
+
+  /* ── Raios ──────────────────────────────────────────────────────── */
+  --ar-r-sm: 8px;                 /* chip pequeno, badge               */
+  --ar-r-md: 14px;                /* input, chip de número             */
+  --ar-r-lg: 20px;                /* botão grande, cartão pequeno      */
+  --ar-r-xl: 28px;                /* cartão de rifa, modal             */
+  --ar-r-pill: 999px;
+
+  /* ── Sombras ────────────────────────────────────────────────────── */
+  --ar-sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --ar-sombra-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --ar-sombra-lg: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --ar-relevo: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* ── Espaço (múltiplos de 4) ────────────────────────────────────── */
+  --ar-s-1: 4px;  --ar-s-2: 8px;  --ar-s-3: 12px; --ar-s-4: 16px;
+  --ar-s-5: 20px; --ar-s-6: 24px; --ar-s-8: 32px; --ar-s-12: 48px;
+
+  /* ── Alvos de toque e barras ────────────────────────────────────── */
+  --ar-toque: 44px;
+  --ar-tabbar: 72px;
+  --ar-safe-top: env(safe-area-inset-top, 0px);
+  --ar-safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* ── Movimento ──────────────────────────────────────────────────── */
+  --ar-dur-fast: 150ms;
+  --ar-dur-normal: 240ms;
+  --ar-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+.rifas-app,
+.arp-app {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ar-fundo);
+  background-image: var(--ar-brilho);
+  background-attachment: fixed;
+  color: var(--ar-txt-2);
+  font-family: var(--ar-fonte);
+  font-size: var(--ar-t-base);
+  font-weight: var(--ar-peso-regular);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+}
+
+.rifas-app h1, .rifas-app h2, .rifas-app h3, .rifas-app h4,
+.arp-app h1, .arp-app h2, .arp-app h3, .arp-app h4 {
+  color: var(--ar-txt-1);
+  font-weight: var(--ar-peso-bold);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0;
+}
+.rifas-app h1, .arp-app h1 { font-size: var(--ar-t-xl); }
+.rifas-app h2, .arp-app h2 { font-size: var(--ar-t-lg); }
+.rifas-app h3, .arp-app h3 { font-size: var(--ar-t-md); }
+
+/* Título misto da referência: "Betting" bold + "Analytics" light itálico */
+.ar-titulo-misto em {
+  font-style: italic;
+  font-weight: var(--ar-peso-light);
+  color: var(--ar-txt-2);
+}
+
+/* ── Utilitários mínimos ──────────────────────────────────────────── */
+.ar-num { font-family: var(--ar-mono); font-variant-numeric: tabular-nums; }
+.ar-scroll-x { display: flex; gap: var(--ar-s-2); overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.ar-scroll-x::-webkit-scrollbar { display: none; }
+.ar-scroll-x > * { flex: 0 0 auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rifas-app *, .arp-app * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   BIBLIOTECA DE CLASSES ar-* (as telas compõem com estas; nada de
+   classes de cinza do Tailwind, bg-white ou hex solto nos .tsx)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Cabeçalho fixo em vidro ──────────────────────────────────────── */
+.rifas-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(11, 11, 16, 0.78);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--ar-filete);
+  padding-top: var(--ar-safe-top);
+}
+.ar-header-linha {
+  display: flex;
+  align-items: center;
+  gap: var(--ar-s-3);
+  padding: var(--ar-s-3) var(--ar-s-4);
+  max-width: 1152px;
+  margin: 0 auto;
+}
+.ar-saudacao { font-size: var(--ar-t-xs); color: var(--ar-txt-3); line-height: 1.2; }
+.ar-saudacao-nome { font-size: var(--ar-t-md); font-weight: var(--ar-peso-medium); color: var(--ar-txt-1); line-height: 1.2; }
+
+/* botão redondo de ícone (sino, 📱, ⋯, voltar) */
+.ar-icone-btn {
+  width: var(--ar-toque);
+  height: var(--ar-toque);
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-cartao);
+  color: var(--ar-txt-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  transition: background var(--ar-dur-fast), color var(--ar-dur-fast), transform var(--ar-dur-fast);
+}
+.ar-icone-btn:hover { background: var(--ar-cartao-alto); color: var(--ar-txt-1); }
+.ar-icone-btn:active { transform: scale(0.94); }
+.ar-icone-btn--ativo { background: var(--ar-roxo); color: var(--ar-roxo-tinta); }
+.ar-icone-btn--ativo:hover { background: var(--ar-roxo-alto); color: var(--ar-roxo-tinta); }
+
+/* badge numérico (sino, tab bar, pílula de tela) */
+.ar-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-rosa);
+  color: #fff;
+  font-size: 10px;
+  font-weight: var(--ar-peso-bold);
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--ar-fundo);
+}
+
+/* ── Segmented control (seções da tela) ──────────────────────────── */
+.ar-seg {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-cartao);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ar-seg::-webkit-scrollbar { display: none; }
+.ar-seg__item {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 0 var(--ar-s-4);
+  border-radius: var(--ar-r-pill);
+  font-size: var(--ar-t-sm);
+  font-weight: var(--ar-peso-medium);
+  color: var(--ar-txt-3);
+  white-space: nowrap;
+  transition: background var(--ar-dur-fast), color var(--ar-dur-fast);
+}
+.ar-seg__item:hover { color: var(--ar-txt-1); }
+.ar-seg__item--ativo { background: var(--ar-txt-1); color: var(--ar-fundo); }
+.ar-seg__item--ativo:hover { color: var(--ar-fundo); }
+
+/* ── Chips (filtro, data, esporte) ───────────────────────────────── */
+.ar-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--ar-r-pill);
+  background: var(--ar-cartao);
+  color: var(--ar-txt-2);
+  font-size: var(--ar-t-sm);
+  font-weight: var(--ar-peso-medium);
+  white-space: nowrap;
+  transition: background var(--ar-dur-fast), color var(--ar-dur-fast);
+}
+.ar-chip:hover { background: var(--ar-cartao-alto); color: var(--ar-txt-1); }
+.ar-chip--ativo, .ar-chip--ativo:hover { background: var(--ar-roxo); color: var(--ar-roxo-tinta); }
+.ar-chip--icone {
+  width: 40px; height: 40px; padding: 0; justify-content: center; font-size: 18px;
+}
+
+/* ── Chip de número (as "odds": rótulo pequeno + valor) ──────────── */
+.ar-chip-num {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: var(--ar-r-md);
+  background: var(--ar-cartao-alto);
+  color: var(--ar-txt-1);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.ar-chip-num__rotulo { font-size: var(--ar-t-xs); color: var(--ar-txt-3); font-weight: var(--ar-peso-medium); }
+.ar-chip-num__valor { font-family: var(--ar-mono); font-variant-numeric: tabular-nums; font-size: var(--ar-t-sm); font-weight: var(--ar-peso-bold); }
+.ar-cartao--roxo .ar-chip-num, .ar-cartao--rosa .ar-chip-num { background: rgba(255, 255, 255, 0.16); color: #fff; }
+.ar-cartao--roxo .ar-chip-num__rotulo, .ar-cartao--rosa .ar-chip-num__rotulo { color: rgba(255, 255, 255, 0.7); }
+
+/* ── Placar (vendidos : total) ───────────────────────────────────── */
+.ar-placar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 16px;
+  border-radius: var(--ar-r-md);
+  background: rgba(11, 11, 16, 0.6);
+  color: #fff;
+}
+.ar-placar__num { font-family: var(--ar-mono); font-variant-numeric: tabular-nums; font-size: var(--ar-t-lg); font-weight: var(--ar-peso-bold); line-height: 1; letter-spacing: -0.02em; }
+.ar-placar__sub { font-size: 10px; font-weight: var(--ar-peso-medium); letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.65); }
+
+/* ── Cartões ─────────────────────────────────────────────────────── */
+.ar-cartao {
+  background: var(--ar-cartao);
+  border-radius: var(--ar-r-xl);
+  padding: var(--ar-s-5);
+  box-shadow: var(--ar-relevo);
+  color: var(--ar-txt-2);
+}
+.ar-cartao--alto { background: var(--ar-cartao-alto); }
+.ar-cartao--compacto { padding: var(--ar-s-4); border-radius: var(--ar-r-lg); }
+.ar-cartao--roxo { background: linear-gradient(160deg, var(--ar-roxo-alto) 0%, var(--ar-roxo) 45%, var(--ar-roxo-baixo) 100%); color: #fff; box-shadow: var(--ar-roxo-glow); }
+.ar-cartao--rosa { background: linear-gradient(160deg, var(--ar-rosa-alto) 0%, var(--ar-rosa) 55%, #c93a63 100%); color: #fff; }
+.ar-cartao--roxo h1, .ar-cartao--roxo h2, .ar-cartao--roxo h3, .ar-cartao--roxo h4,
+.ar-cartao--rosa h1, .ar-cartao--rosa h2, .ar-cartao--rosa h3, .ar-cartao--rosa h4 { color: #fff; }
+.ar-cartao--roxo .ar-txt-3, .ar-cartao--rosa .ar-txt-3 { color: rgba(255, 255, 255, 0.7); }
+.ar-cartao--clicavel { cursor: pointer; transition: filter var(--ar-dur-fast), transform var(--ar-dur-fast); }
+.ar-cartao--clicavel:hover { filter: brightness(1.06); }
+.ar-cartao--clicavel:active { transform: scale(0.985); }
+
+/* ── Texto utilitário ────────────────────────────────────────────── */
+.ar-txt-1 { color: var(--ar-txt-1); }
+.ar-txt-2 { color: var(--ar-txt-2); }
+.ar-txt-3 { color: var(--ar-txt-3); }
+.ar-txt-4 { color: var(--ar-txt-4); }
+.ar-rotulo {
+  font-size: var(--ar-t-xs);
+  font-weight: var(--ar-peso-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ar-txt-3);
+}
+.ar-valor { font-family: var(--ar-mono); font-variant-numeric: tabular-nums; font-weight: var(--ar-peso-bold); color: var(--ar-txt-1); font-size: var(--ar-t-2xl); line-height: 1.1; letter-spacing: -0.02em; }
+.ar-titulo-tela { font-size: var(--ar-t-xl); font-weight: var(--ar-peso-bold); color: var(--ar-txt-1); letter-spacing: -0.02em; line-height: 1.15; }
+.ar-titulo-secao { font-size: var(--ar-t-lg); font-weight: var(--ar-peso-bold); color: var(--ar-txt-1); letter-spacing: -0.02em; }
+.ar-link { color: var(--ar-roxo-alto); font-weight: var(--ar-peso-medium); text-decoration: underline; text-underline-offset: 3px; }
+.ar-link:hover { color: #fff; }
+
+/* ── Superfícies de estado ───────────────────────────────────────── */
+.ar-aviso-box { background: var(--ar-aviso-vidro); color: var(--ar-aviso); border-radius: var(--ar-r-lg); padding: var(--ar-s-3) var(--ar-s-4); font-size: var(--ar-t-sm); }
+.ar-erro-box { background: var(--ar-erro-vidro); color: var(--ar-erro); border-radius: var(--ar-r-lg); padding: var(--ar-s-3) var(--ar-s-4); font-size: var(--ar-t-sm); }
+.ar-ok-box { background: var(--ar-ok-vidro); color: var(--ar-ok); border-radius: var(--ar-r-lg); padding: var(--ar-s-3) var(--ar-s-4); font-size: var(--ar-t-sm); }
+.ar-info-box { background: var(--ar-info-vidro); color: var(--ar-info); border-radius: var(--ar-r-lg); padding: var(--ar-s-3) var(--ar-s-4); font-size: var(--ar-t-sm); }
+
+/* ── Listas em livro-razão (linhas separadas por filete) ─────────── */
+.ar-lista { display: flex; flex-direction: column; }
+.ar-linha {
+  display: flex;
+  align-items: center;
+  gap: var(--ar-s-3);
+  padding: var(--ar-s-3) 0;
+  border-bottom: 1px solid var(--ar-filete);
+  min-height: 56px;
+}
+.ar-linha:last-child { border-bottom: 0; }
+.ar-linha--clicavel { cursor: pointer; }
+.ar-linha--clicavel:hover { background: var(--ar-filete); margin-inline: calc(-1 * var(--ar-s-3)); padding-inline: var(--ar-s-3); border-radius: var(--ar-r-md); }
+.ar-divisor { height: 1px; background: var(--ar-filete); margin: var(--ar-s-4) 0; }
+
+/* ── Tabela (desktop) / cartões por linha (celular) ──────────────── */
+.ar-tabela { width: 100%; border-collapse: collapse; }
+.ar-tabela th {
+  text-align: left;
+  font-size: var(--ar-t-xs);
+  font-weight: var(--ar-peso-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ar-txt-3);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--ar-filete);
+}
+.ar-tabela td { padding: 12px; border-bottom: 1px solid var(--ar-filete); color: var(--ar-txt-2); vertical-align: middle; }
+.ar-tabela tr:last-child td { border-bottom: 0; }
+.ar-tabela tbody tr:hover td { background: rgba(255, 255, 255, 0.03); }
+.ar-tabela-envelope { display: none; }
+.ar-cartoes-linha { display: flex; flex-direction: column; gap: var(--ar-s-3); }
+@media (min-width: 1024px) {
+  html:not(.modo-celular) .ar-tabela-envelope { display: block; }
+  html:not(.modo-celular) .ar-cartoes-linha { display: none; }
+}
+
+/* ── Grid de rifas ───────────────────────────────────────────────── */
+.ar-grid-rifas { display: grid; grid-template-columns: 1fr; gap: var(--ar-s-4); }
+.ar-grid-rifas > .ar-destaque { grid-column: 1 / -1; }
+@media (min-width: 640px) { html:not(.modo-celular) .ar-grid-rifas { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { html:not(.modo-celular) .ar-grid-rifas { grid-template-columns: repeat(3, 1fr); } }
+
+/* grid de métricas: 2 col no celular, 4 no desktop */
+.ar-grid-metricas { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--ar-s-3); }
+@media (min-width: 1024px) { html:not(.modo-celular) .ar-grid-metricas { grid-template-columns: repeat(4, 1fr); gap: var(--ar-s-4); } }
+
+/* formulário: 1 col no celular, 2 no tablet+ */
+.ar-form-grid { display: grid; grid-template-columns: 1fr; gap: var(--ar-s-4); }
+@media (min-width: 768px) { html:not(.modo-celular) .ar-form-grid { grid-template-columns: repeat(2, 1fr); } }
+.ar-form-grid > .ar-col-toda { grid-column: 1 / -1; }
+
+/* ── Grade de números ────────────────────────────────────────────── */
+.ar-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 4px; }
+.ar-celula {
+  aspect-ratio: 1;
+  min-height: 36px;
+  border-radius: var(--ar-r-sm);
+  background: var(--ar-cartao-alto);
+  color: var(--ar-txt-2);
+  font-family: var(--ar-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--ar-t-sm);
+  font-weight: var(--ar-peso-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--ar-dur-fast), background var(--ar-dur-fast);
+  user-select: none;
+}
+.ar-celula:active { transform: scale(0.92); }
+.ar-celula--reservado { background: var(--ar-aviso-vidro); color: var(--ar-aviso); }
+.ar-celula--pago { background: var(--ar-roxo); color: #fff; }
+.ar-celula--premiado { background: var(--ar-rosa); color: #fff; }
+.ar-celula--selecionado { box-shadow: 0 0 0 2px var(--ar-roxo-alto), 0 0 0 4px var(--ar-fundo); }
+.ar-celula--bloqueado { cursor: not-allowed; opacity: 0.75; }
+.ar-legenda { display: flex; flex-wrap: wrap; gap: var(--ar-s-2); }
+.ar-legenda__item { display: inline-flex; align-items: center; gap: 6px; font-size: var(--ar-t-xs); color: var(--ar-txt-3); }
+.ar-legenda__ponto { width: 10px; height: 10px; border-radius: 3px; }
+
+/* ── Barra de ação fixa (acima da tab bar) ───────────────────────── */
+.ar-sticky-bottom {
+  position: sticky;
+  bottom: calc(var(--ar-s-3) + var(--ar-safe-bottom));
+  z-index: 30;
+  background: rgba(27, 27, 34, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--ar-r-xl);
+  padding: var(--ar-s-3) var(--ar-s-4);
+  box-shadow: var(--ar-sombra-md), var(--ar-relevo);
+  display: flex;
+  align-items: center;
+  gap: var(--ar-s-3);
+}
+
+/* ── Tab bar (celular) ───────────────────────────────────────────── */
+.ar-tabbar {
+  /* sticky no fim do .rifas-app (que é quem rola): funciona igual dentro da
+     janela do OS e em /app/rifas — `fixed` fugiria da janela. */
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  z-index: 45;
+  flex-shrink: 0;
+  height: calc(var(--ar-tabbar) + var(--ar-safe-bottom));
+  padding-bottom: var(--ar-safe-bottom);
+  background: rgba(18, 18, 24, 0.85);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-top: 1px solid var(--ar-filete);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+}
+.ar-tabbar__item {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--ar-txt-3);
+  font-size: var(--ar-t-xs);
+  font-weight: var(--ar-peso-medium);
+  min-width: 0;
+  transition: color var(--ar-dur-fast);
+}
+.ar-tabbar__item:hover { color: var(--ar-txt-1); }
+.ar-tabbar__icone {
+  width: 40px; height: 40px;
+  border-radius: var(--ar-r-pill);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  transition: background var(--ar-dur-normal) var(--ar-ease), color var(--ar-dur-fast), transform var(--ar-dur-fast);
+}
+.ar-tabbar__item:active .ar-tabbar__icone { transform: scale(0.9); }
+.ar-tabbar__item--ativo { color: var(--ar-txt-1); }
+.ar-tabbar__item--ativo .ar-tabbar__icone { background: var(--ar-roxo); color: #fff; box-shadow: var(--ar-roxo-glow); }
+.ar-tabbar__rotulo { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; padding: 0 4px; }
+/* Desktop de verdade não tem tab bar. Em CSS (e não só no `lg:hidden` do
+   Tailwind) porque a ordem de import das folhas não é garantida. */
+@media (min-width: 1024px) {
+  html:not(.modo-celular) .ar-tabbar { display: none; }
+}
+
+/* ── Cartão de rifa: topo + placar ───────────────────────────────── */
+.ar-rifa-topo { display: flex; align-items: flex-start; gap: var(--ar-s-3); }
+.ar-rifa-placar-area { display: flex; justify-content: center; margin-top: var(--ar-s-4); }
+/* A partir de 640px (fora do modo celular) o placar sobe pra mesma linha do
+   título — no celular ele fica centralizado embaixo, como na referência. */
+@media (min-width: 640px) {
+  html:not(.modo-celular) .ar-rifa-cartao .ar-rifa-topo { align-items: center; }
+  html:not(.modo-celular) .ar-rifa-cartao .ar-rifa-placar-area { margin-top: 0; margin-left: auto; padding-left: var(--ar-s-4); }
+  html:not(.modo-celular) .ar-rifa-cartao .ar-rifa-linha { display: flex; align-items: center; gap: var(--ar-s-4); }
+}
+.ar-rifa-chips { display: flex; flex-wrap: wrap; gap: var(--ar-s-2); margin-top: var(--ar-s-4); }
+
+/* ── Pílulas de nav desktop ──────────────────────────────────────── */
+.ar-nav-pilula {
+  position: relative;
+  min-height: 40px;
+  padding: 0 var(--ar-s-4);
+  border-radius: var(--ar-r-pill);
+  font-size: var(--ar-t-sm);
+  font-weight: var(--ar-peso-medium);
+  color: var(--ar-txt-3);
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background var(--ar-dur-fast), color var(--ar-dur-fast);
+}
+.ar-nav-pilula:hover { color: var(--ar-txt-1); background: var(--ar-filete); }
+.ar-nav-pilula--ativa, .ar-nav-pilula--ativa:hover { background: var(--ar-roxo-vidro); color: var(--ar-roxo-alto); }
+
+/* menu flutuante (gaveta "mais") */
+.ar-menu {
+  position: absolute; right: 0; top: calc(100% + 8px);
+  min-width: 220px;
+  background: var(--ar-cartao);
+  border-radius: var(--ar-r-lg);
+  box-shadow: var(--ar-sombra-lg), var(--ar-relevo);
+  overflow: hidden;
+  z-index: 50;
+}
+.ar-menu__item { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 12px 16px; font-size: var(--ar-t-sm); color: var(--ar-txt-2); min-height: 44px; }
+.ar-menu__item:hover { background: var(--ar-cartao-alto); color: var(--ar-txt-1); }
+.ar-menu__nota { padding: 10px 16px; font-size: var(--ar-t-xs); color: var(--ar-txt-4); border-top: 1px solid var(--ar-filete); }
+
+/* ── Marca ───────────────────────────────────────────────────────── */
+.ar-marca {
+  width: 36px; height: 36px; border-radius: var(--ar-r-pill);
+  background: var(--ar-roxo); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: var(--ar-roxo-glow);
+  flex-shrink: 0;
+}
+
+/* ── Capa de rifa (thumb) ────────────────────────────────────────── */
+.ar-capa { width: 64px; height: 64px; border-radius: var(--ar-r-md); object-fit: cover; background: var(--ar-cartao-alto); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; overflow: hidden; }
+.ar-capa img { width: 100%; height: 100%; object-fit: cover; }
+.ar-capa--grande { width: 100%; height: 180px; border-radius: var(--ar-r-lg); }
+
+/* ── Seção separada por filete (blocos empilhados numa aba) ──────── */
+.ar-secao { border-top: 1px solid var(--ar-filete); padding-top: var(--ar-s-6); margin-top: var(--ar-s-6); }
+.ar-secao--fina { border-top: 1px solid var(--ar-filete); padding-top: var(--ar-s-4); }
+.ar-txt-aviso { color: var(--ar-aviso); }
+
+/* ── Imagens: comprovante em popup e galeria de cartelas ─────────── */
+.ar-comprovante {
+  width: 100%;
+  border-radius: var(--ar-r-lg);
+  box-shadow: inset 0 0 0 1px var(--ar-filete), var(--ar-sombra-sm);
+  background: var(--ar-cartao-alto);
+}
+.ar-galeria { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ar-s-3); }
+@media (min-width: 640px) { .ar-galeria { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { html:not(.modo-celular) .ar-galeria { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.ar-galeria__item { display: block; }
+.ar-galeria__img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--ar-r-md);
+  background: var(--ar-cartao-alto);
+  box-shadow: inset 0 0 0 1px var(--ar-filete);
+  transition: filter var(--ar-dur-fast), transform var(--ar-dur-fast);
+}
+.ar-galeria__item:hover .ar-galeria__img { filter: brightness(1.12); transform: scale(1.02); }
+.ar-galeria__data { display: block; margin-top: var(--ar-s-1); font-size: var(--ar-t-xs); color: var(--ar-txt-4); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Modal ───────────────────────────────────────────────────────── */
+.rifas-modal-wrap {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 0;
+}
+.rifas-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  background: var(--ar-cartao);
+  color: var(--ar-txt-2);
+  border-radius: var(--ar-r-xl) var(--ar-r-xl) 0 0;
+  padding: var(--ar-s-3) var(--ar-s-5) calc(var(--ar-s-5) + var(--ar-safe-bottom));
+  box-shadow: var(--ar-sombra-lg), var(--ar-relevo);
+  animation: arSobe var(--ar-dur-normal) var(--ar-ease) both;
+}
+.rifas-modal::before {
+  content: ""; display: block; width: 36px; height: 4px; border-radius: 2px;
+  background: var(--ar-filete-forte); margin: 0 auto var(--ar-s-4);
+}
+.rifas-modal * { min-width: 0; }
+@media (min-width: 640px) {
+  html:not(.modo-celular) .rifas-modal-wrap { align-items: center; padding: var(--ar-s-6); }
+  html:not(.modo-celular) .rifas-modal { border-radius: var(--ar-r-xl); padding: var(--ar-s-6); animation-name: arAparece; }
+  html:not(.modo-celular) .rifas-modal::before { display: none; }
+}
+@keyframes arSobe { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes arAparece { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+
+/* ── Estado vazio ────────────────────────────────────────────────── */
+.ar-vazio { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--ar-s-12) var(--ar-s-6); }
+.ar-vazio__icone { width: 80px; height: 80px; border-radius: var(--ar-r-pill); background: var(--ar-roxo-vidro); color: var(--ar-roxo-alto); display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: var(--ar-s-4); }
+
+/* ── Animações ───────────────────────────────────────────────────── */
+.animate-fade-in { animation: rifasFadeIn 0.3s var(--ar-ease) both; }
+@keyframes rifasFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.ar-skeleton { background: linear-gradient(90deg, var(--ar-cartao) 0%, var(--ar-cartao-alto) 50%, var(--ar-cartao) 100%); background-size: 200% 100%; animation: arSkeleton 1.4s linear infinite; border-radius: var(--ar-r-md); }
+@keyframes arSkeleton { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ── Conteúdo principal ──────────────────────────────────────────── */
+.rifas-app > main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: var(--ar-s-4) var(--ar-s-4) var(--ar-s-12);
+}
+@media (min-width: 1024px) { html:not(.modo-celular) .rifas-app > main { padding: var(--ar-s-8) var(--ar-s-6) var(--ar-s-12); } }
+
+/* elementos nativos dentro do app */
+.rifas-app button { font-family: inherit; cursor: pointer; }
+.rifas-app button:disabled { cursor: not-allowed; }
+.rifas-app img, .rifas-app video { max-width: 100%; height: auto; }
+.rifas-app pre, .rifas-app code { white-space: pre-wrap; word-break: break-all; }
+.rifas-app main, .rifas-app main * { min-width: 0; }
+.rifas-app main { overflow-x: hidden; overflow-wrap: anywhere; }
+.rifas-app main > * { max-width: 100%; }
+.rifas-app main input, .rifas-app main select, .rifas-app main textarea { font-size: 16px; min-height: 44px; }
+.rifas-app main button { min-height: 40px; }
+.rifas-app main table { display: block; overflow-x: auto; }
+.rifas-app main .ar-tabela { display: table; overflow-x: visible; }
+
+/* ══════════════════════════════════════════════════════════════════
+   MODO CELULAR (botão 📱, pedido do Dominic 2026-08-25; liga sozinho
+   abaixo de 640px). Moldura de 480px, scroll invisível, sem estouro.
+   ══════════════════════════════════════════════════════════════════ */
+html.modo-celular .rifas-app {
+  width: 100%;
+  min-width: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  border-inline: 1px solid var(--ar-filete);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+}
+html.modo-celular .rifas-app::-webkit-scrollbar { display: none; }
+html.modo-celular .rifas-app * { scrollbar-width: none; }
+html.modo-celular .rifas-app *::-webkit-scrollbar { display: none; }
+html.modo-celular .rifas-app .rifas-nav-desktop { display: none !important; }
+html.modo-celular .rifas-app .rifas-nav-mobile { display: flex !important; }
+html.modo-celular .rifas-app > main { padding: var(--ar-s-4) var(--ar-s-4) calc(var(--ar-tabbar) + var(--ar-safe-bottom) + var(--ar-s-6)); }
+/* a tab bar fica dentro da moldura, não colada na borda da janela do OS */
+html.modo-celular .rifas-modal { max-width: 480px; margin: 0 auto; }

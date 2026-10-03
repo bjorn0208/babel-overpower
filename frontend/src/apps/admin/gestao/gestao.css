@@ -1,0 +1,43 @@
+/*
+ * Caixas de seleção da Gestão (2026-09-24, relato do Adrian: "ao abrir alguma caixa de seleção fica toda branca").
+ * A lista aberta de um <select> é desenhada pelo navegador/sistema. Sem `color-scheme: dark`, ela abre com fundo
+ * branco, e o texto das opções herda o claro de `.input` (var(--txt-1)): branco sobre branco.
+ * Vale só dentro da Gestão (.gestao-app está na raiz do app e no modal, que é desenhado no body por portal).
+ */
+.gestao-app select {
+  color-scheme: dark;
+}
+
+.gestao-app select option,
+.gestao-app select optgroup {
+  background-color: var(--os-fundo-1);
+  color: var(--txt-1);
+}
+
+/*
+ * Tabelas (2026-09-25, prints do Adrian: Implementação com "Teste realizado…", "Abrir" e "Remover" cortados à direita).
+ * E-mails reais longos e sem espaço ("nomesobrenomecomercial@gmail.com") não quebravam de linha: alargavam a coluna
+ * e empurravam a coluna de ações para fora do cartão, onde a rolagem lateral não tem barra visível no Babel OS.
+ * Só o E-MAIL pode quebrar em qualquer ponto (.gestao-email nas abas Clientes, Implementação, P&D e Suporte, e os
+ * links mailto:). Valores, datas e botões nunca quebram no meio (B-1 e B-1R2 do Serjão: "R$ 2.9"/"00" com a regra em
+ * todas as células; "23/09/202"/"6" com a regra na 1ª coluna, que em Indicações é a data).
+ */
+.gestao-app .tbl .gestao-email,
+.gestao-app .tbl a[href^="mailto:"] {
+  overflow-wrap: anywhere;
+}
+
+/* WhatsApp na tabela não quebra no meio do número (aviso A-5 do Serjão: "+55 11 90000-" / "0011"). */
+.gestao-app .tbl a[href^="https://wa.me"] {
+  white-space: nowrap;
+}
+
+/*
+ * Dica de rolagem lateral (2026-09-25): área que rola de lado e ainda tem conteúdo à direita (tabela de Mensalidades,
+ * barra de abas) esmaece a borda direita, para não parecer cortada. A marca data-mais-a-direita é posta e tirada por
+ * arrastar-rolar.ts conforme a rolagem; no fim da rolagem a borda volta ao normal.
+ */
+.gestao-app [data-mais-a-direita] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+}

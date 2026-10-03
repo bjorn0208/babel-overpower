@@ -1,0 +1,15 @@
+[Unit]
+Description=Transcritor de chamadas do PABX Babel (whisper.cpp -> Supabase)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/babel/transcritor.py
+Restart=always
+RestartSec=10
+Nice=10
+CPUWeight=50
+
+[Install]
+WantedBy=multi-user.target

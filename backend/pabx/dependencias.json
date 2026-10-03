@@ -1,0 +1,196 @@
+[
+  {
+    "edge": "babelos",
+    "hosts": [
+      "openrouter.ai"
+    ],
+    "env": [
+      "BABEL_OS_TOKEN",
+      "BABEL_OS_URL",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": [
+      "openrouter"
+    ]
+  },
+  {
+    "edge": "comercial-dossie",
+    "hosts": [
+      "brasilapi.com.br"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "prospectar",
+    "hosts": [],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": [
+      "rapidapi_maps"
+    ]
+  },
+  {
+    "edge": "enviar-email",
+    "hosts": [
+      "bmail.babel-os.com"
+    ],
+    "env": [
+      "BMAIL_URL",
+      "SUPABASE_ANON_KEY",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "simular",
+    "hosts": [
+      "api.fish.audio",
+      "openrouter.ai"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "comercial-qualificar",
+    "hosts": [
+      "openrouter.ai"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": [
+      "openrouter"
+    ]
+  },
+  {
+    "edge": "extrair-contato",
+    "hosts": [
+      "openrouter.ai"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": [
+      "openrouter"
+    ]
+  },
+  {
+    "edge": "sala-reuniao",
+    "hosts": [],
+    "env": [
+      "LIVEKIT_API_KEY",
+      "LIVEKIT_API_SECRET",
+      "LIVEKIT_URL",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "conhecimento",
+    "hosts": [],
+    "env": [
+      "MOTOR_SECRET",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "criar-vendedor",
+    "hosts": [],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "whatsapp-enviar",
+    "hosts": [
+      "api.z-api.io",
+      "esm.sh"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "comercial-foto",
+    "hosts": [],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "analisar-motivadores",
+    "hosts": [
+      "openrouter.ai"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": [
+      "openrouter"
+    ]
+  },
+  {
+    "edge": "whatsapp-webhook",
+    "hosts": [
+      "esm.sh"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL",
+      "WHATSAPP_WEBHOOK_TOKEN"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "enriquecer",
+    "hosts": [
+      "api.casadosdados.com.br",
+      "brasilapi.com.br",
+      "open.cnpja.com",
+      "openrouter.ai",
+      "receitaws.com.br",
+      "www.picuki.com"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL"
+    ],
+    "providers_from_code": []
+  },
+  {
+    "edge": "whatsapp-status",
+    "hosts": [
+      "api.z-api.io",
+      "esm.sh"
+    ],
+    "env": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "SUPABASE_URL",
+      "WHATSAPP_WEBHOOK_TOKEN"
+    ],
+    "providers_from_code": []
+  }
+]

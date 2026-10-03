@@ -1,0 +1,42 @@
+# PABX — sinalização WebRTC na 443 (a porta que passa em qualquer rede).
+# O Asterisk continua com o WSS dele na 8089 (bundles antigos em cache);
+# aqui o Caddy só reveste o mesmo WebSocket com o TLS dele.
+pabx.babel-os.com {
+    handle /.well-known/acme-challenge/* {
+        root * /var/www/certbot
+        file_server
+    }
+    handle /ws {
+        reverse_proxy https://127.0.0.1:8089 {
+            transport http {
+                tls
+                tls_insecure_skip_verify
+            }
+        }
+    }
+    handle {
+        respond "Babel PABX" 200
+    }
+}
+
+reuniao.babel-os.com {
+    handle /ponte-ia* {
+        reverse_proxy 127.0.0.1:9093
+    }
+    handle {
+        reverse_proxy 127.0.0.1:7880
+    }
+}
+
+# Servidor de e-mail da Babel (Stalwart). O Caddy fica com o TLS — assim o
+# painel e o JMAP têm certificado válido do Let's Encrypt, sem o Stalwart
+# precisar da porta 443, que já é do Caddy.
+mail.babel-os.com {
+    reverse_proxy 127.0.0.1:8080
+}
+
+# API do B-Mail. Só o PABX conversa com ela, e ela exige o login do PABX —
+# por isso o CORS libera a origem do app e mais nada.
+bmail.babel-os.com {
+    reverse_proxy 127.0.0.1:3311
+}

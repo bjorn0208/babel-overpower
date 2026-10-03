@@ -1,0 +1,1 @@
+export { Aparencia } from "./Aparencia";

@@ -1,0 +1,51 @@
+# Babel — o que o git ignora (gerados, segredos, caches, snapshots)
+node_modules/
+dist/
+build/
+
+# segredos (NUNCA commitar; .env.development.local aponta p/ o banco local)
+.env
+.env.local
+.env.*.local
+frontend/_arquivo-2026-09-29/
+
+# snapshots antigos — substituídos pelo histórico do git (seguem no disco)
+backend/local/_backups/
+
+# Python / venv / caches
+__pycache__/
+*.pyc
+.venv/
+nova-frontend-babel/edge-tts/cache/
+nova-frontend-babel/edge-tts/.venv/
+
+# whisper.cpp é clone upstream (~2000 arquivos): fora do git; a versão pinada
+# está em backend/stt/whisper.cpp-VERSION (rebuild: ver build-cpu.log)
+backend/stt/whisper.cpp/
+
+# JARVIS é projeto separado com repo próprio (não usado pela Babel):
+# fica no disco, fora do git da Babel
+nova-frontend-babel/JARVIS/
+
+# modelos do Whisper (baixados, ~300 MB)
+backend/stt/modelos/*.bin
+
+# estado local da CLI do Supabase (link, branches temporários)
+supabase/.temp/
+supabase/.branches/
+backend/supabase/.temp/
+backend/supabase/.branches/
+
+# Vercel / builds locais
+.vercel/
+*.log
+
+# BMail histórico: binário do servidor + dados/logs de execução (estado, não código)
+backend/pabx/bmail-historico/stalwart/stalwart
+backend/pabx/bmail-historico/dados/
+LOG.old*
+
+# macOS / editores
+.DS_Store
+.vscode/
+*.swp

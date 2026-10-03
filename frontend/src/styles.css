@@ -1,0 +1,93 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Tokens do shadcn — usados apenas em telas que não vêm do bundle Claude
+ * Design (PR-03 públicas, telas administrativas extras). O OS Ragentic
+ * usa as classes próprias importadas em src/bundle/bundle.css.
+ */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.15 0.04 264);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.18 0.06 280);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.18 0.06 280);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.7 0.18 220);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(1 0 0 / 0.06);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(1 0 0 / 0.05);
+  --muted-foreground: oklch(0.98 0 0 / 0.55);
+  --accent: oklch(0.65 0.22 280);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 0.10);
+  --input: oklch(1 0 0 / 0.10);
+  --ring: oklch(0.7 0.18 220);
+}
+
+/* --- react-resizable-panels: separador entre painéis horizontais --- */
+/* Barra fininha de 6px sempre visível, com 3 pontinhos azul aurora no centro
+   pra sinalizar handle. Cursor col-resize. Hover destaca em azul. */
+.separador-painel {
+  position: relative;
+  flex: 0 0 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: col-resize;
+  transition: background 150ms ease;
+  z-index: 5;
+}
+.separador-painel:hover,
+.separador-painel[data-resize-handle-active] {
+  background: oklch(0.7 0.18 220 / 0.18);
+}
+.separador-painel::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 18px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1.5px);
+  background-size: 2px 6px;
+  background-repeat: repeat-y;
+  pointer-events: none;
+}
+.separador-painel:hover::before {
+  background-image: radial-gradient(circle, oklch(0.7 0.18 220 / 0.95) 1px, transparent 1.5px);
+}

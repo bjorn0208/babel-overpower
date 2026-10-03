@@ -1,0 +1,38 @@
+{
+  "captured_at": "2026-09-26T18:51:19.572941-03:00",
+  "origin": "https://babel-pabx.vercel.app/",
+  "type": "public_build_artifact_not_source_repository",
+  "files": [
+    {
+      "file": "index.html",
+      "source_url": "https://babel-pabx.vercel.app/",
+      "bytes": 626,
+      "sha256": "dbf3eeebb8a15d93139545cea6a47dadf1eabe5a09b4d3a4ea25dc3ed526bbc3",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "file": "babel-logo.png",
+      "source_url": "https://babel-pabx.vercel.app/babel-logo.png",
+      "bytes": 33223,
+      "sha256": "2c238f251586f9637a06ff00719e26a90ebc7875e07e82a2bee52ac644423a93",
+      "content_type": "image/png"
+    },
+    {
+      "file": "assets/main-AOQtCgt4.js",
+      "source_url": "https://babel-pabx.vercel.app/assets/main-AOQtCgt4.js",
+      "bytes": 1595414,
+      "sha256": "b63f0116e20a9f47f861fcd139cb0cfb23c0bcf2c8c7f74c457f2ddf5f026aae",
+      "content_type": "application/javascript; charset=utf-8"
+    },
+    {
+      "file": "assets/main-5Av-QqC3.css",
+      "source_url": "https://babel-pabx.vercel.app/assets/main-5Av-QqC3.css",
+      "bytes": 64149,
+      "sha256": "ebb90b7d1f7039efb7d89bd3b59c9cc976ac5af73afab7e05730f7bade6d34de",
+      "content_type": "text/css; charset=utf-8"
+    }
+  ],
+  "errors": [],
+  "complete_source_repository": false,
+  "runtime_tested": false
+}

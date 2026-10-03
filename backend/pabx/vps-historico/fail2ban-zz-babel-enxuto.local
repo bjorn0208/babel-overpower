@@ -1,0 +1,69 @@
+# Babel 2026-07-30: só sshd vigia — demais serviços nem existem nesta VPS
+[apache-auth]
+enabled = false
+
+[apache-badbots]
+enabled = false
+
+[apache-botsearch]
+enabled = false
+
+[apache-fakegooglebot]
+enabled = false
+
+[apache-modsecurity]
+enabled = false
+
+[apache-nohome]
+enabled = false
+
+[apache-noscript]
+enabled = false
+
+[apache-overflows]
+enabled = false
+
+[apache-shellshock]
+enabled = false
+
+[dovecot]
+enabled = false
+
+[lighttpd-auth]
+enabled = false
+
+[mysqld-auth]
+enabled = false
+
+[nginx-bad-request]
+enabled = false
+
+[nginx-botsearch]
+enabled = false
+
+[nginx-http-auth]
+enabled = false
+
+[nginx-limit-req]
+enabled = false
+
+[php-url-fopen]
+enabled = false
+
+[postfix]
+enabled = false
+
+[postfix-sasl]
+enabled = false
+
+[proftpd]
+enabled = false
+
+[suhosin]
+enabled = false
+
+[webmin-auth]
+enabled = false
+
+[sshd]
+enabled = true

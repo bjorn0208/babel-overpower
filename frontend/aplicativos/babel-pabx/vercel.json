@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "proposta.babel-os.com" }],
+      "destination": "/proposta.html",
+      "permanent": false
+    }
+  ]
+}

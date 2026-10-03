@@ -1,0 +1,6 @@
+[Unit]
+Description=Sincroniza o certificado do Caddy para Asterisk e coturn
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sincronizar-cert-pabx.sh

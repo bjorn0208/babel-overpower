@@ -1,0 +1,39 @@
+Sprites isométricos 2:1 vendorados para uso na maquete-rpg.
+Ambos os packs estão sob licença Creative Commons Attribution 3.0 (CC-BY 3.0).
+Uso comercial permitido. Atribuição obrigatória.
+
+================================================================
+[1] lpc-office-furniture-64x128.png
+================================================================
+Pack: "Office Furniture — 64x128 Isometric"
+Autor: extradave
+Fonte: https://lpc.opengameart.org/content/office-furniture-64-x-128-isometric
+Arquivo original: https://lpc.opengameart.org/sites/default/files/TileObjectsOfficeFurniture.png
+Licença: CC-BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+Conteúdo: mesa executiva, cadeiras giratórias com rodinhas (4 direções, azul
+e vermelho), monitor LCD slim com teclado, arquivo vertical metálico em 6+
+cores, mesa de conferência em múltiplas cores, estante baixa, CPU/torre.
+
+================================================================
+[2] cubicle-mini/  (Cubicle Mini Tile Set)
+================================================================
+Pack: "Cubicle Mini Tile Set"
+Autor: Clint Bellanger
+Fonte: https://opengameart.org/content/cubicle-mini-tile-set
+Arquivo original: https://opengameart.org/sites/default/files/office_tiles.zip
+Licença: CC-BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+Conteúdo:
+  - office.png       — folha mestra com todos os tiles
+  - office.tmx       — mapa Tiled de exemplo (cubicle farm)
+  - *.blend          — fontes Blender originais (para variações)
+  - out_chair/       — cadeira giratória 8 direções (sprites 0001..0008)
+  - out_floor/       — 16 tiles modulares de tapete/carpete + carpet.png
+  - out_walls/       — 8 paredes/divisórias de cubicle
+
+================================================================
+Texto de atribuição (use no rodapé/créditos do app):
+================================================================
+"Office Furniture (64x128 Isometric) by extradave — CC-BY 3.0
+ (https://lpc.opengameart.org/content/office-furniture-64-x-128-isometric)"
+"Cubicle Mini Tile Set by Clint Bellanger — CC-BY 3.0
+ (https://opengameart.org/content/cubicle-mini-tile-set)"
