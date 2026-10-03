@@ -26,9 +26,11 @@ desatualizado (listas do Muse mudaram de `dominic/muse/` para `backend/muse/`).
   venvs, caches, builds do whisper, modelos `.bin`, estado da CLI.
 - [x] **T7 — Atualizar `dominic/MAPA-DAS-PASTAS.md`.** Nota de atualização
   com os novos caminhos (listas, testes, backups, agente).
-- [ ] **T8 — Commit inicial (com o Dominic).** `git add -A` + revisão do
-  `git status` (garantir que nenhum segredo entre) + primeiro commit.
-  Depois dele, avaliar apagar `backend/local/_backups/`.
+- [x] **T8 — Commit inicial (com o Dominic).** `fa26123` — 3353 arquivos,
+  sem segredos (scan no staged: só a palavra `service_role` em SQL),
+  sem gitlinks (whisper.cpp ignorado + pin em `stt/whisper.cpp-VERSION`;
+  JARVIS fora por ter repo próprio). `_backups/` mantido no disco por
+  enquanto (fora do git); apagar quando o git der confiança.
 
 ## Log
 
