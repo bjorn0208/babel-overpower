@@ -247,7 +247,9 @@ try{aplicarMarca(JSON.parse(localStorage.getItem('babel_marca')||'null'));}catch
 (async()=>{try{const {data}=await sb.from('branding_sistema').select('nome_produto,logo_url,favicon_url,cor_fundo,cor_acento,cor_acento_secundaria,login_form_titulo,login_form_subtitulo,login_copyright').eq('ativo',true).limit(1);
   const b=data&&data[0];if(!b)return;try{localStorage.setItem('babel_marca',JSON.stringify(b));}catch(e){}aplicarMarca(b);}catch(e){}})();
 const {data:{session}}=await sb.auth.getSession();
-if(session)abrir();else{$('wait').classList.add('hidden');$('login').classList.remove('hidden');$('em').focus();}
+// localhost sem sessão: pula o login e abre as telas em modo demo (mocks do babel-os.html).
+const local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+if(session)abrir();else if(local)location.replace('babel-os.html');else{$('wait').classList.add('hidden');$('login').classList.remove('hidden');$('em').focus();}
 })();
 </script>
 </body>
