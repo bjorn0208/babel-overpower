@@ -43,7 +43,7 @@ Object.keys(LOJA).forEach(t=>COLECOES.push({nome:t,tabela:t,admin:true,
   deDb:r=>Object.assign({},r,{preco_mensal:r.preco_mensal==null?undefined:Number(r.preco_mensal),preco:r.preco==null?undefined:Number(r.preco)}),
   paraDb:LOJA[t]}));
 
-/* ----- lote C2 (admin): financeiro, sócio comercial, consulta ----- */
+/* ----- lote C2 (admin): financeiro, parceiro, consulta ----- */
 const perfilNome=r=>(r.profiles&&(r.profiles.full_name||r.profiles.email))||'Tenant';
 COLECOES.push(
   {nome:'pedidos',tabela:'pedidos_compra',admin:true,naoSemear:true,semInsert:true,semDelete:true,select:'*,profiles(full_name,email)',filtro:q=>q.eq('status','pendente'),
@@ -99,7 +99,7 @@ const TIPOLOGIAS=['atendimento','mentor','face_cliente','admin','rifas'];
 COLECOES.push(
   {nome:'apps',tabela:'loja_aplicativos',admin:true,
    get:S=>S.apps&&S.apps.lista,deDb:r=>Object.assign({},r,{preco_mensal:r.preco_mensal==null?null:Number(r.preco_mensal)}),
-   paraDb:o=>({slug:o.slug,nome:o.nome,descricao:o.descricao||'',icone:o.icone||'',categoria:o.categoria||'',preco_mensal:num(o.preco_mensal),is_active:o.is_active!==false,ordem:parseInt(o.ordem,10)||0})},
+   paraDb:o=>({slug:o.slug,nome:o.nome,descricao:o.descricao||'',icone:o.icone||'',categoria:o.categoria||'',preco_mensal:num(o.preco_mensal),is_active:o.is_active!==false,ordem:parseInt(o.ordem,10)||0,publico_alvo:o.publico_alvo||'interno'})},
   {nome:'cargos',tabela:'cargos',admin:true,filtro:q=>q.neq('escopo','tenant'),
    get:S=>S.cargos&&S.cargos.lista,deDb:r=>Object.assign({},r),
    paraDb:o=>{const esc=o.escopo==='nicho'&&ehUuid(o.nicho_id)?'nicho':'global';
@@ -124,6 +124,11 @@ const UNICOS=[
    aplicar:(S,r)=>{Object.assign(S.reunadm,{teto:r.reuniao_limite_participantes??S.reunadm.teto,aviso:!!r.reuniao_aviso_ativo,limiar:r.reuniao_aviso_limiar??S.reunadm.limiar});}}
 ];
 const unico={};
+/* ----- Filtro isPublic: oculta campos sensíveis quando acesso sem auth ----- */
+const CAMPOS_SENSIVEIS=['cpf','cnpj','phone','email','telefone','celular','documento','pix_chave','chave_pix'];
+function filtroPublico(row){if(!row||typeof row!=='object')return row;const out={};for(const k of Object.keys(row)){if(CAMPOS_SENSIVEIS.includes(k.toLowerCase()))continue;out[k]=row[k];}return out;}
+function aplicarFiltroPublico(rows,isPublic){if(!isPublic)return rows;if(Array.isArray(rows))return rows.map(filtroPublico);return filtroPublico(rows);}
+
 async function carregarUnico(u){let q=sb.from(u.tabela).select('*');if(u.filtro)q=u.filtro(q);const {data,error}=await q.limit(1);
   if(error){falha('ler '+u.tabela,error);return;}unico[u.nome]={row:data[0]||null,id:data[0]?data[0][u.chaveId||'id']:null,snap:null,pend:!!data[0]};}
 async function sincronizarUnico(u){const st=unico[u.nome];if(!st)return false;const o=u.get(ctx.S);if(!o)return false;
@@ -298,7 +303,7 @@ function ligarContratos(){let K;try{K=window.__babelEval('CONTRACTS');}catch(e){
       if(error){falha('gravar contrato',error);return;}k._dbid=data.id;status('salvo no banco ✓');});});return r;};}
 
 
-/* ----- Usuário: Sócio Comercial (perfil multinível, comissões, saques, rede) ----- */
+/* ----- Usuário: Parceiro (perfil multinível, comissões, saques, rede) ----- */
 COLECOES.push({nome:'soc_saques',tabela:'multinivel_saques',dono:'user_id',naoSemear:true,semDelete:true,filtro:q=>q.order('created_at',{ascending:false}).limit(200),
   get:S=>S.socio&&S.socio.saques,deDb:r=>({id:r.id,valor:Number(r.valor),pix:r.chave_pix||'',st:r.status,em:(r.created_at||'').slice(0,10)}),
   paraDb:o=>({valor:Number(o.valor)}),atualizar:async()=>({error:null}), // saque só é criado (RPC); status muda no admin

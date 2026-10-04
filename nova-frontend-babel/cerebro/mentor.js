@@ -206,10 +206,29 @@ async function buscarWeb(q) {
   return (out.join('\n').slice(0, 1500)) || `Nada encontrado na web para "${q}".`;
 }
 
+/* ----- Base de Conhecimento Customizada (tabela base_conhecimento) ----- */
+async function carregarBaseConhecimento(sb, userId) {
+  if (!sb || !userId) return '';
+  try {
+    const { data, error } = await sb.from('base_conhecimento')
+      .select('titulo, conteudo')
+      .eq('user_id', userId)
+      .eq('ativo', true)
+      .is('deleted_at', null)
+      .order('updated_at', { ascending: false })
+      .limit(10);
+    if (error || !data || !data.length) return '';
+    return '\n\nDOCUMENTOS DO USUÁRIO:\n' + data.map(d => `[${d.titulo}] ${d.conteudo}`).join('\n');
+  } catch (_) { return ''; }
+}
+
 async function responderIA(q, r, sb, s, chat) {
   const nav = { tela: null };
+  // Carrega documentos customizados da base de conhecimento do usuário
+  const docsUsuario = await carregarBaseConhecimento(sb, r.eu && r.eu.id);
   const sistema = `Você é o Mentor da Babel, o braço direito de ${r.eu.nome || 'quem está usando'} no negócio. Fale em português do Brasil, como numa conversa por voz: direto, gentil, no máximo 90 palavras, sem markdown, sem listas com marcadores e sem emojis (a resposta é lida em voz alta).
-Use os DADOS abaixo (lidos do banco agora) e, se faltar algo, a ferramenta consultar. Nunca invente número, nome, data ou valor: se não achar, diga que não encontrou. Valores em reais escritos por extenso curto (ex.: R$ 1.250,00). Para abrir uma tela use abrir_tela. Para assuntos fora do negócio, responda com o que você sabe ou use buscar_web.
+NUNCA repita, ecoe ou reformule a pergunta do usuário na resposta. Jamais comece com "Você perguntou", "Sobre", "Quanto a" ou similar. Vá direto à resposta objetiva.
+Use os DADOS abaixo (lidos do banco agora) e, se faltar algo, a ferramenta consultar. Nunca invente número, nome, data ou valor: se não achar, diga que não encontrou. Valores em reais escritos por extenso curto (ex.: R$ 1.250,00). Para abrir uma tela use abrir_tela. Para assuntos fora do negócio, responda com o que você sabe ou use buscar_web.${docsUsuario}
 DADOS:
 ${r.texto}`;
   const msgs = [{ role: 'system', content: sistema }, ...s.msgs.slice(-8), { role: 'user', content: q }];

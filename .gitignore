@@ -49,3 +49,7 @@ LOG.old*
 .DS_Store
 .vscode/
 *.swp
+
+# Binary models and large executables
+backend/stt/modelos/*.bin
+backend/pabx/bmail-historico/stalwart/stalwart

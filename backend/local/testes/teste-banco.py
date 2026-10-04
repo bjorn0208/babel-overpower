@@ -34,6 +34,8 @@ def clica(pg, sel):
     pg.evaluate(f"document.querySelector('{sel}').click()"); pg.wait_for_timeout(400)
 
 sql("delete from estoque_itens where nome='Item Prova Banco'; delete from eventos_agenda where titulo='Evento Prova Gravação'; delete from mensagens where content='Mensagem prova banco'")
+# estoque é app do catálogo e some do dock sem instalação (ajustarAppsNoDock): instala p/ os 2 usuários do teste
+sql("insert into aplicativos_instalados (user_id, aplicativo_id, aplicativo_slug) select u.id, la.id, la.slug from auth.users u cross join loja_aplicativos la where u.email in ('usuario@babel.local','teste@babel.com') and la.slug='estoque' and la.is_active on conflict (user_id, aplicativo_id) do nothing")
 with sync_playwright() as p:
     # ----- usuário comum -----
     b, pg = sessao(p, 'usuario@babel.local')

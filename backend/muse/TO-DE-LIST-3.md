@@ -52,7 +52,7 @@ Padrão de cada tela (idioma do `babel-os.html`): entrada em `ICON` + `NAV` +
 
 ## Ambos os lados (1)
 
-- [ ] **G1 — Gestão (E1 PRONTO 02/10, suíte gs-e1 115/115; E2+E3 a fazer).**
+- [x] **G1 — Gestão (E1 PRONTO 02/10; E2+E3 ADOTADOS do gx* em 02/10, suítes 11/11 + 6/6).**
 
 ## Por fim
 
@@ -392,3 +392,9 @@ Padrão de cada tela (idioma do `babel-os.html`): entrada em `ICON` + `NAV` +
   As 2 falhas do mesmo teste (clientes/agenda "com dados do banco") são
   deriva de seed (`Prova Do Banco` não existe no banco nem no
   `seed-demo.sql`), não do login — follow-up na TO-DE-LIST-6 T4.
+- **2026-10-02 — G1 fechado (E2+E3 adotados, Muse-6 T2).** Workflow E2
+  (coordenador + 4 lanes) provou por inspeção que o E2+E3 já existia
+  completo como `gx*` (~70 cases); peças paralelas não fundidas
+  (precedente C2). Provas no front real: `teste-gestao-e2.py` 11/11 +
+  `teste-gestao-e3.py` 6/6, 12 capturas, 0 erros da Gestão. Fix: `new
+  globalThis.Map` (:8415). Gestão completa: 12 abas + Backup.

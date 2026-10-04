@@ -29,7 +29,7 @@ module.exports = [
   ["estoque", "Estoque", []],
   ["produtos", "Produtos", []],
   ["textos", "Textos", []],
-  ["socio", "Sócio", ["socio"]],
+  ["socio", "Parceiro", ["socio"]],
   ["marketing", "Marketing", []],
   ["mentor", "Mentor", []],
   ["consulta", "Consulta", []],
@@ -49,7 +49,7 @@ module.exports = [
   ["cargos", "Cargos", []],
   ["controle", "Controle", ["controle"]],
   ["finadm", "Financeiro (admin)", ["financeiro admin"]],
-  ["socioadm", "Sócio (admin)", ["socio admin"]],
+  ["socioadm", "Parceiro (admin)", ["socio admin"]],
   ["consadm", "Consulta (admin)", ["consulta admin"]],
   ["tenants", "Tenants", ["tenants", "clientes da babel"]]
 ];
