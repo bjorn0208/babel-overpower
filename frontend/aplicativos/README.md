@@ -1,25 +1,37 @@
-# Aplicativos recuperados da Vercel
+# Babel — Aplicativos Frontend
 
-Fontes das publicações atuais capturados em 26/09/2026. Os manifestos registram cada deployment e hash. O frontend principal permanece na pasta acima; PABX e Comercial usam o Supabase separado Babel Comercial.
+Apps frontend da plataforma Babel. Cada subdiretório é independente com deploy próprio.
 
-| Projeto | Pasta | Situação |
-|---|---|---|
-| babel-pabx | [babel-pabx](babel-pabx/) | Build local aprovado, sem teste dos serviços |
-| comercial-babel | [comercial-babel](comercial-babel/) | Build local aprovado, sem teste dos serviços |
-| apresentacao-babel-os | [apresentacao-babel-os](apresentacao-babel-os/) | Fonte publicado preservado; execução não validada |
-| babel-identidade | [babel-identidade](babel-identidade/) | Fonte publicado preservado; execução não validada |
-| babel-instalador | [babel-instalador](babel-instalador/) | Fonte publicado preservado; execução não validada |
-| custos-babel | [custos-babel](custos-babel/) | Fonte publicado preservado; execução não validada |
-| formulario-babel | [formulario-babel](formulario-babel/) | Fonte publicado preservado; execução não validada |
-| marcelo-meinster | [marcelo-meinster](marcelo-meinster/) | Fonte publicado preservado; execução não validada |
-| site-plano-rifas | [site-plano-rifas](site-plano-rifas/) | Fonte publicado preservado; execução não validada |
+## Apps Ativos
 
-## Configuração
+| App | Tipo | Como Rodar | Dono | Status |
+|-----|------|-----------|------|--------|
+| `comercial-babel` | Vite/Rolldown | `npm run dev` | Carlos | ✅ Build OK, Supabase local |
+| `formulario-babel` | Vite | `npm run dev` | Carlos | ✅ Build OK, Google Sheets backend |
+| `marcelo-meinster` | Vite | `npm run dev` | Carlos | ✅ Build OK, OpenRouter AI |
+| `plataforma-limpa-vite-react` | Vite (front principal) | `cd ../.. && npm run dev` | Dominic | ✅ Build OK, Supabase local |
+| `apresentacao-babel-os` | HTML estático | Abrir `index.html` | Carlos | ✅ Deploy Vercel |
+| `babel-identidade` | HTML estático | Abrir `index.html` | Carlos | ✅ Deploy Vercel |
+| `custos-babel` | HTML estático | Abrir `index.html` | Carlos | ✅ Deploy Vercel |
+| `site-plano-rifas` | HTML estático | Abrir `index.html` | Carlos | ✅ Deploy Vercel |
+| `babel-instalador` | WASM | Abrir `public/babel-chat.html` | Carlos | ✅ Arquivos presentes |
 
-Os `.env` e valores remotos estão em `../../dados/complementos-20260926-1919/vercel/<projeto>/`, privados. Cada `.env.example` local contém somente os nomes e placeholders. O build local não usa produção. Não executar scripts/importações da aplicação contra clientes reais durante o ensaio.
+## Configuração Local (Apps Node)
 
-O projeto Vercel `src` é um fragmento do frontend Babel sem package.json na publicação. Foi preservado em dados como referência separada, sem substituir a aplicação principal. Os 59 arquivos adicionais da captura principal são metadados, documentação e backend aninhado antigo; também ficam na captura privada.
+1. Copie `.env.example` para `.env` no diretório do app
+2. Preencha as variáveis conforme o backend alvo:
+   - **Supabase local:** `VITE_SUPABASE_URL=http://127.0.0.1:54321` + chave anon do `supabase status`
+   - **Google Sheets (formulario-babel):** `PLANILHA_WEBAPP_URL=<URL do Web App>`
+   - **OpenRouter (marcelo-meinster):** `OPENROUTER_API_KEY=<chave>` + `OPENROUTER_MODEL=<modelo>`
+3. Instale dependências: `npm install`
+4. Rode: `npm run dev`
 
-Os fontes do Formulário incluem handlers Node e Apps Script. A planilha Google, suas propriedades e a URL publicada ainda exigem acesso Google. O PABX/Reunião precisam também do VPS HostGator.
+## Endpoints Compartilhados
 
-[Estado consolidado](../../dados/complementos-20260926-1919/README.md) · [Catálogo de recursos](../../dados/catalogo-integracoes/README.md)
+Ver `INVENTARIO-CARLOS.md` para lista completa de RPCs, Edge Functions e tabelas Supabase usadas pelo `comercial-babel`.
+
+## Notas
+
+- Apps estáticos não possuem build step; são servidos diretamente via Vercel ou arquivo local.
+- Para rebuild limpo (fix native binding x64): `rm -rf node_modules package-lock.json && npm install`
+- Os `.env` de produção estão em `../../dados/complementos-20260926-1919/vercel/<projeto>/` (privados).
