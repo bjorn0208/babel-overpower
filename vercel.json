@@ -1,0 +1,36 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "framework": "vite"
+    },
+    "babel-pabx": {
+      "root": "frontend/aplicativos/babel-pabx",
+      "framework": "vite"
+    },
+    "comercial-babel": {
+      "root": "frontend/aplicativos/comercial-babel",
+      "framework": "vite"
+    },
+    "formulario-babel": {
+      "root": "frontend/aplicativos/formulario-babel",
+      "framework": "vite"
+    },
+    "marcelo-meinster": {
+      "root": "frontend/aplicativos/marcelo-meinster",
+      "framework": "vite"
+    },
+    "nova-frontend": {
+      "root": "nova-frontend-babel"
+    }
+  },
+  "rewrites": [
+    { "source": "/pabx(/.*)?", "destination": { "service": "babel-pabx" } },
+    { "source": "/comercial(/.*)?", "destination": { "service": "comercial-babel" } },
+    { "source": "/formulario(/.*)?", "destination": { "service": "formulario-babel" } },
+    { "source": "/marcelo(/.*)?", "destination": { "service": "marcelo-meinster" } },
+    { "source": "/nova(/.*)?", "destination": { "service": "nova-frontend" } },
+    { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ]
+}
