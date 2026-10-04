@@ -1,3 +1,4 @@
+import { autorizarCron } from "../_shared/auth-cron.ts";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { tenantsPausados } from "../_shared/pausa-tenant.ts";
 import { corsHeaders } from "../_shared/cors.ts"
@@ -15,6 +16,9 @@ type CampaignRow = Campaign & ThrottleConfig & {
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders })
+
+  const { ok: authOk } = await autorizarCron(req);
+  if (!authOk) return new Response(JSON.stringify({ ok: false, erro: "nao_autorizado" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
   if (Deno.env.get("CAMPANHA_DISABLED") === "true") {
     return new Response(JSON.stringify({ skipped: true }), {

@@ -1,3 +1,4 @@
+import { autorizarCron } from "../_shared/auth-cron.ts";
 /// <reference types="jsr:@supabase/functions-js/edge-runtime.d.ts" />
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -22,6 +23,9 @@ Deno.serve(async (req: Request) => {
     return new Response("ok", {
       headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*" },
     });
+
+  const { ok: authOk } = await autorizarCron(req);
+  if (!authOk) return new Response(JSON.stringify({ ok: false, erro: "nao_autorizado" }), { status: 401, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" } });
   }
 
   try {

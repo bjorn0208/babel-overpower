@@ -5,9 +5,13 @@
 // action_type='retomada_agente_propria' e status='pending' cujo scheduled_at venceu.
 // Para cada ação, invoca chat com [RETOMADA_AGENTE_PROPRIA] e atualiza o status.
 
+import { autorizarCron } from "../_shared/auth-cron.ts";
 import { criarClienteAdmin } from "../_shared/supabase.ts";
 
-Deno.serve(async (_req) => {
+Deno.serve(async (req) => {
+  const { ok: authOk } = await autorizarCron(req);
+  if (!authOk) return new Response(JSON.stringify({ ok: false, erro: "nao_autorizado" }), { status: 401, headers: { "Content-Type": "application/json" } });
+
   const supabase = criarClienteAdmin();
   const t0 = Date.now();
 
