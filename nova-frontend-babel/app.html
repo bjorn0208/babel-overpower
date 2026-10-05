@@ -8,7 +8,7 @@
 <!-- Entrada do Babel OS: login (Supabase Auth) + carga de dados reais nos mocks do babel-os.html.
      O babel-os.html não é editado: é lido por fetch e recebe um gancho antes do primeiro render(). -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap"></noscript>
 <style>
 :root{--espaco:#03050f;--vidro:rgba(14,22,52,.52);--vidro2:rgba(8,13,34,.62);--linha:rgba(140,170,255,.16);--linha2:rgba(140,170,255,.32);
   --texto:#e8f0ff;--nevoa:#8c9bc7;--ciano:#2fd9ff;--violeta:#8a4bff;--magenta:#ff4fd8;--erro:#ff6d7a;--ok:#7dffc4}
@@ -32,35 +32,35 @@ main{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:co
   background:radial-gradient(circle,rgba(47,217,255,.22),rgba(138,75,255,.10) 55%,transparent 72%);animation:acende 1.6s ease-out both}
 .marca img{width:112px;height:112px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(47,217,255,.45)) drop-shadow(0 0 40px rgba(138,75,255,.35))}
 @keyframes acende{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
-.card{width:100%;max-width:420px;padding:38px 36px 28px;border-radius:24px;background:linear-gradient(180deg,var(--vidro),var(--vidro2));
-  border:1px solid var(--linha);box-shadow:0 30px 80px -30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06);
-  -webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%)}
-h1{font:400 32px/1.15 'Exo 2',system-ui,sans-serif;letter-spacing:.01em;text-align:center;margin:0;
-  background:linear-gradient(100deg,#f2f6ff 30%,#9fe9ff 70%,#c9b2ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--nevoa);text-align:center;margin:10px 0 28px;font-size:14.5px}
-.campo{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:rgba(3,6,18,.45);border:1px solid var(--linha);margin-bottom:14px;transition:border-color .2s,box-shadow .2s}
-.campo:focus-within{border-color:rgba(47,217,255,.55);box-shadow:0 0 0 3px rgba(47,217,255,.12)}
-.campo svg{flex:none;width:20px;height:20px;color:var(--nevoa)}
-.campo .t{flex:1;min-width:0}
-.campo label{display:block;font-size:12.5px;font-weight:500;color:#cfd9f5;margin-bottom:2px}
-.campo input{width:100%;border:0;outline:0;background:transparent;color:var(--texto);font:15px 'Instrument Sans',system-ui,sans-serif;padding:0}
-.campo input::placeholder{color:#5f6d96}
-.olho{background:none;border:0;padding:4px;cursor:pointer;color:var(--nevoa);border-radius:8px}
-.olho:focus-visible,.link:focus-visible,.social:focus-visible,#go:focus-visible{outline:2px solid var(--ciano);outline-offset:2px}
-.linhaacao{display:flex;justify-content:flex-end;margin:-2px 0 20px}
-.link{background:none;border:0;padding:0;font:inherit;font-size:13.5px;color:#7fe3ff;cursor:pointer;text-decoration:none}
-.link:hover{text-decoration:underline}
-#go{width:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:15px 18px;border-radius:14px;border:1px solid rgba(140,170,255,.22);cursor:pointer;
-  font:500 16px 'Instrument Sans',system-ui,sans-serif;color:#fff;
-  background:linear-gradient(95deg,rgba(18,28,62,.9) 0%,rgba(30,60,140,.85) 45%,rgba(47,217,255,.75) 78%,rgba(138,75,255,.85) 100%);box-shadow:0 10px 30px -12px rgba(47,217,255,.55)}
-#go svg{position:absolute;right:18px;width:20px;height:20px}
-#go:disabled{opacity:.6;cursor:wait}
-.ou{display:flex;align-items:center;gap:12px;color:var(--nevoa);font-size:13.5px;margin:24px 0 16px}
-.ou::before,.ou::after{content:'';flex:1;height:1px;background:var(--linha)}
-.sociais{display:flex;justify-content:center;gap:14px}
-.social{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;cursor:pointer;background:rgba(3,6,18,.45);border:1px solid var(--linha)}
-.social:hover{border-color:var(--linha2)}
-.rodape{border-top:1px solid var(--linha);margin-top:26px;padding-top:18px;text-align:center;color:var(--nevoa);font-size:14px}
+/* login conversacional, tema Noite: a Babel pergunta, a pessoa responde na caixa embaixo */
+:root{--n-fundo:#070b12;--n-fundo2:#0b1220;--n-card:#0e1521;--n-ela:#152033;--n-texto:#e9f0f6;--n-apagado:#93a4b6;--n-menta:#7dffc4;--n-linha:rgba(147,164,182,.18)}
+.card{width:100%;max-width:440px;padding:28px 24px 22px;border-radius:20px;background:var(--n-card);border:1px solid var(--n-linha);box-shadow:0 24px 60px -30px rgba(0,0,0,.8);color:var(--n-texto)}
+h1{font:500 26px/1.2 'Exo 2',system-ui,sans-serif;letter-spacing:.01em;text-align:center;margin:0;color:var(--n-texto)}
+.sub{color:var(--n-apagado);text-align:center;margin:6px 0 20px;font-size:14.5px}
+#fio{display:flex;flex-direction:column;gap:8px;max-height:clamp(140px,calc(100svh - 500px),340px);overflow-y:auto;padding:2px 6px 2px 2px;margin-bottom:12px;scrollbar-width:thin;scrollbar-color:#24324a transparent}
+.bolha{max-width:85%;margin:0;padding:10px 14px;border-radius:16px;border:1px solid transparent;font:inherit;font-size:15.5px;line-height:1.4;text-align:left;color:var(--n-texto);overflow-wrap:anywhere;animation:entra .18s ease-out both}
+.bolha.ela{align-self:flex-start;background:var(--n-ela);border-bottom-left-radius:6px}
+.bolha.eu{align-self:flex-end;background:rgba(125,255,196,.10);border-color:rgba(125,255,196,.24);border-bottom-right-radius:6px}
+button.bolha{cursor:pointer}button.bolha:hover{border-color:rgba(125,255,196,.5)}
+.digitando{display:flex;gap:5px;padding:15px 14px}
+.digitando i{width:6px;height:6px;border-radius:50%;background:var(--n-apagado);animation:pisca 1s ease-in-out infinite}
+.digitando i:nth-child(2){animation-delay:.15s}.digitando i:nth-child(3){animation-delay:.3s}
+@keyframes entra{from{opacity:0;transform:translateY(4px)}}
+@keyframes pisca{50%{opacity:.3}}
+.atalhos{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{min-height:32px;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--n-linha);background:transparent;color:var(--n-apagado);font:inherit;font-size:13.5px;cursor:pointer}
+.chip:hover{color:var(--n-texto);border-color:rgba(147,164,182,.4)}
+.caixa{display:flex;align-items:center;gap:4px;padding:5px 5px 5px 16px;border-radius:16px;background:var(--n-fundo);border:1px solid var(--n-linha)}
+.caixa:focus-within{border-color:rgba(125,255,196,.55)}
+.caixa input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--n-texto);font:16px 'Instrument Sans',system-ui,sans-serif;padding:9px 0}
+.caixa input::placeholder{color:#7d8da0}
+.olho{flex:none;width:40px;height:40px;display:grid;place-items:center;background:none;border:0;cursor:pointer;color:var(--n-apagado);border-radius:10px}
+#go{flex:none;width:42px;height:42px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--n-menta);color:var(--n-fundo);cursor:pointer}
+#go svg{width:20px;height:20px}
+.card button:disabled{opacity:.5;cursor:wait}
+.card :focus-visible{outline:2px solid var(--n-menta);outline-offset:2px}.caixa input:focus-visible{outline:0}
+#blocoSocial{display:flex;justify-content:center;margin-top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .msg{margin-top:14px;text-align:center;font-size:13.5px;color:var(--erro)}
 .msg:empty{display:none}
 .msg.ok{color:var(--ok)}
@@ -69,8 +69,8 @@ h1{font:400 32px/1.15 'Exo 2',system-ui,sans-serif;letter-spacing:.01em;text-ali
 #wait{display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--nevoa)}
 .pulso{width:42px;height:42px;border-radius:50%;border:2px solid rgba(47,217,255,.25);border-top-color:var(--ciano);animation:gira 1s linear infinite}
 @keyframes gira{to{transform:rotate(360deg)}}
-@media (max-width:480px){.card{padding:32px 22px 24px;border-radius:20px}h1{font-size:27px}.marca{margin-bottom:8px}.marca .halo{width:132px;height:132px}.marca img{width:88px;height:88px}}
-@media (prefers-reduced-motion:reduce){.nebulosa,.marca .halo,.pulso{animation:none}}
+@media (max-width:480px){.card{padding:24px 16px 18px;border-radius:18px}h1{font-size:23px}.marca{margin-bottom:8px}.marca .halo{width:132px;height:132px}.marca img{width:88px;height:88px}}
+@media (prefers-reduced-motion:reduce){.nebulosa,.marca .halo,.pulso,.bolha,.digitando i{animation:none}}
 </style>
 <script src="config.js"></script>
 <script src="vendor/supabase.js"></script>
@@ -80,30 +80,26 @@ h1{font:400 32px/1.15 'Exo 2',system-ui,sans-serif;letter-spacing:.01em;text-ali
 <canvas id="ceu" aria-hidden="true"></canvas><div class="nebulosa" aria-hidden="true"></div>
 <main>
   <div class="marca"><div class="halo"><img src="b-logo.png" alt="Babel"></div></div>
-  <form class="card hidden" id="login" novalidate>
+  <form class="card hidden" id="login" novalidate aria-label="Entrar conversando com a Babel">
     <h1 id="titulo">Bem-vindo de volta</h1>
     <p class="sub" id="subt">Entre para ver o que a Babel resolveu por você.</p>
-    <div class="campo hidden" id="cNome">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.6 4.4-5.4 8-5.4s6.5 1.8 8 5.4"/></svg>
-      <div class="t"><label for="nm">Seu nome</label><input id="nm" autocomplete="name" placeholder="Como a Babel vai te chamar"></div>
+    <div id="fio" role="log" aria-live="polite" aria-label="Conversa com a Babel"></div>
+    <div class="atalhos">
+      <button type="button" class="chip" id="trocar" data-f="email">Criar conta</button>
+      <button type="button" class="chip" id="esqueci" data-f="email senha">Esqueci minha senha</button>
+      <button type="button" class="chip" id="trocaEm" data-f="senha cad-senha">Trocar e-mail</button>
+      <button type="button" class="chip" id="jaTenho" data-f="nome cad-email cad-senha">Já tenho conta</button>
+      <button type="button" class="chip" id="voltar" data-f="recuperar">Lembrei a senha</button>
     </div>
-    <div class="campo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
-      <div class="t"><label for="em">E-mail ou usuário</label><input id="em" type="text" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="seu@email.com" required></div>
+    <div class="caixa">
+      <label class="sr" for="nm">Seu nome</label><input id="nm" class="hidden" autocomplete="name" placeholder="Como a Babel vai te chamar">
+      <label class="sr" for="em">E-mail ou usuário</label><input id="em" type="text" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="seu@email.com ou usuário">
+      <label class="sr" for="pw">Senha</label><input id="pw" class="hidden" type="password" autocomplete="current-password" placeholder="Sua senha">
+      <button type="button" class="olho hidden" id="olho" aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path id="risco" d="M4 4l16 16"/></svg></button>
+      <button id="go" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
-    <div class="campo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.2"/></svg>
-      <div class="t"><label for="pw">Senha</label><input id="pw" type="password" autocomplete="current-password" placeholder="Sua senha" required></div>
-      <button type="button" class="olho" id="olho" aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path id="risco" d="M4 4l16 16"/></svg></button>
-    </div>
-    <div class="linhaacao" id="lEsq"><button type="button" class="link" id="esqueci">Esqueci minha senha</button></div>
-    <button id="go"><span id="goTxt">Entrar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     <div class="msg" id="err" role="status" aria-live="polite"></div>
-    <div id="blocoSocial" class="hidden">
-      <div class="ou">ou entre com</div>
-      <div class="sociais"><button type="button" class="social" id="google" aria-label="Entrar com Google"><svg viewBox="0 0 48 48" width="24" height="24"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></button></div>
-    </div>
-    <div class="rodape" id="rod"><span id="rodTxt">Ainda não tem conta?</span> <button type="button" class="link" id="trocar">Criar conta</button></div>
+    <div id="blocoSocial" class="hidden"><button type="button" class="chip" id="google"><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Entrar com Google</button></div>
   </form>
   <p class="copy" id="copy"></p>
   <div id="wait"><div class="pulso"></div><span>Abrindo a sua Babel…</span></div>
@@ -178,9 +174,10 @@ function gancho(dados){return function(m){
 async function abrir(){
   $('login').classList.add('hidden');$('wait').classList.remove('hidden');$('wait').style.display='';
   try{
-    const [dados,,html]=await Promise.all([carregar(),window.BabelBanco.preparar(sb).then(()=>null,e=>{console.error('babel-banco preparar',e);return null;}),fetch('babel-os.html',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('babel-os.html '+r.status);return r.text();})]);
-    const ALVO='render();Leads.arm();';
-    if(!html.includes(ALVO))throw new Error('ponto de carga não encontrado no babel-os.html');
+    const [dados,,html]=await Promise.all([carregar(),window.BabelBanco.preparar(sb).then(()=>null,e=>{console.error('babel-banco preparar',e);return null;}),fetch('babel-os.html',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('babel-os.html '+r.status);return r.text();})]);
+    // ponto onde os dados reais entram: a linha do primeiro render() do babel-os.html (aceita a forma antiga e a atual)
+    const ALVO=['render();Leads.arm();','render();/* Leads.arm()'].find(a=>html.includes(a));
+    if(!ALVO)throw new Error('ponto de carga não encontrado no babel-os.html');
     window.__babelHook=gancho(dados);
     const sair='<style>@media (max-width:900px){#babelSair{top:calc(8px + env(safe-area-inset-top,0px))!important;bottom:auto!important;left:10px!important;right:auto!important}#babelSync{top:calc(44px + env(safe-area-inset-top,0px))!important;bottom:auto!important;left:12px!important;right:auto!important;font-size:10px!important;max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}</style><span id="babelSync" style="position:fixed;right:64px;bottom:16px;z-index:99999;font:11px system-ui;color:#7fa8dc"></span><button id="babelSair" title="Sair" style="position:fixed;right:10px;bottom:10px;z-index:99999;padding:6px 10px;border-radius:8px;border:1px solid rgba(56,190,255,.42);background:rgba(2,6,22,.7);color:#e8f4ff;font:12px system-ui;cursor:pointer">Sair</button>'
       +'<script>(function(){const b=document.getElementById("babelSair"),bk=sessionStorage.getItem("babel_admin_backup");'
@@ -199,39 +196,67 @@ async function abrir(){
   }
 }
 
-let modo='entrar';
+let modo='entrar',fase='email',ocupado=false;
 /* marca (Aparência · branding_sistema, leitura pública): nome, textos, logo e favicon; as cores só mudam se o admin trocou as de fábrica */
 const MARCA={nome:'Babel',titulo:'Bem-vindo de volta',sub:'Entre para ver o que a Babel resolveu por você.'};
 const CORES_FABRICA=['#6366f1','#a855f7','#0b0f1a'];
 // usuário curto (sem @) = conta de teste local: babel123 → babel123@babel.local
 const emailDe=v=>{v=String(v||'').trim().toLowerCase();return v&&v.indexOf('@')<0?v+'@babel.local':v;};
-const aviso=(t,ok)=>{$('err').textContent=t||'';$('err').classList.toggle('ok',!!ok);};
-const ERROS={'Invalid login credentials':'E-mail ou senha incorretos.','Email not confirmed':'Confirme seu e-mail pelo link que enviamos antes de entrar.',
-  'User already registered':'Este e-mail já tem conta. Entre com ele ou use "Esqueci minha senha".','Password should be at least 6 characters':'A senha precisa ter pelo menos 6 caracteres.'};
-const traduz=m=>ERROS[m]||m;
-function trocarModo(m){modo=m;const novo=m==='criar';
-  $('titulo').textContent=novo?'Criar sua conta':MARCA.titulo;$('subt').textContent=novo?'Leva um minuto. Depois a '+MARCA.nome+' te guia pelo resto.':MARCA.sub;
-  $('cNome').classList.toggle('hidden',!novo);$('lEsq').classList.toggle('hidden',novo);$('goTxt').textContent=novo?'Criar conta':'Entrar';
-  $('rodTxt').textContent=novo?'Já tem conta?':'Ainda não tem conta?';$('trocar').textContent=novo?'Entrar':'Criar conta';
-  $('pw').autocomplete=novo?'new-password':'current-password';aviso('');(novo?$('nm'):$('em')).focus();}
-$('trocar').addEventListener('click',()=>trocarModo(modo==='entrar'?'criar':'entrar'));
-$('olho').addEventListener('click',()=>{const v=$('pw').type==='password';$('pw').type=v?'text':'password';$('olho').setAttribute('aria-pressed',v);$('olho').setAttribute('aria-label',v?'Esconder senha':'Mostrar senha');$('risco').style.display=v?'none':'';});
-$('esqueci').addEventListener('click',async()=>{const em=emailDe($('em').value);if(!em){aviso('Digite seu e-mail acima e toque de novo em "Esqueci minha senha".');$('em').focus();return;}
-  const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});aviso(error?traduz(error.message):'Se este e-mail tiver conta, chega um link para criar uma senha nova.',!error);});
-$('google').addEventListener('click',async()=>{const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});if(error)aviso(traduz(error.message));});
+const emailOk=v=>v.indexOf('@')<0?/^\S+$/.test(v):/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const ERROS={'Invalid login credentials':'E-mail ou senha incorretos. Quer tentar de novo?','Email not confirmed':'Falta confirmar seu e-mail. Abra o link que enviamos e depois tente de novo.',
+  'User already registered':'Este e-mail já tem conta. Toque em "Já tenho conta" para entrar.','Password should be at least 6 characters':'A senha precisa ter pelo menos 6 caracteres.'};
+const traduz=e=>{const m=String((e&&e.message)||e||'');return ERROS[m]||(/fetch|network|load failed/i.test(m)||(e&&e.status===0)?'Não consegui falar com o servidor agora. Confira sua internet e tente de novo.'
+  :/rate limit|too many/i.test(m)?'Foram muitas tentativas seguidas. Espere um pouco e tente de novo.':m);};
+/* a conversa: cada fala vira um balão; o e-mail da pessoa é um botão que deixa corrigir */
+const fio=$('fio');
+function fala(quem,t,toque){const b=document.createElement(toque?'button':'p');b.className='bolha '+quem;b.textContent=t;
+  if(toque){b.type='button';b.setAttribute('aria-label','Trocar e-mail ('+t+')');b.onclick=toque;}fio.append(b);fio.scrollTop=fio.scrollHeight;}
+const ela=t=>fala('ela',t);
+function pensando(sim){ocupado=sim;for(const el of $('login').elements)el.disabled=sim;
+  if(sim){const d=document.createElement('p');d.className='bolha ela digitando';d.id='digitando';d.setAttribute('aria-hidden','true');d.innerHTML='<i></i><i></i><i></i>';fio.append(d);fio.scrollTop=fio.scrollHeight;}
+  else if($('digitando'))$('digitando').remove();}
+// mostra só o campo da fase (nome, e-mail ou senha) e os atalhos dela; os campos ficam no form para o gerenciador de senhas
+function pedir(f){fase=f;const c=f==='nome'?'nm':/senha/.test(f)?'pw':'em';
+  for(const id of ['nm','em','pw'])$(id).classList.toggle('hidden',id!==c);
+  $('olho').classList.toggle('hidden',c!=='pw');$('pw').type='password';$('olho').setAttribute('aria-pressed','false');$('olho').setAttribute('aria-label','Mostrar senha');$('risco').style.display='';
+  $('pw').value='';$('pw').autocomplete=f==='cad-senha'?'new-password':'current-password';$('pw').placeholder=f==='cad-senha'?'Crie uma senha (6 ou mais)':'Sua senha';
+  $('em').placeholder=f==='email'?'seu@email.com ou usuário':'seu@email.com';
+  for(const b of document.querySelectorAll('[data-f]'))b.classList.toggle('hidden',!b.dataset.f.split(' ').includes(f));
+  $(c).focus();}
+function marcaModo(m){modo=m;const novo=m==='criar';
+  $('titulo').textContent=novo?'Criar sua conta':MARCA.titulo;$('subt').textContent=novo?'Leva um minuto. Depois a '+MARCA.nome+' te guia pelo resto.':MARCA.sub;}
+function trocarModo(m){marcaModo(m);if(m==='criar'){ela('Que bom! Como posso te chamar?');pedir('nome');}else{ela('Combinado. Qual é o seu e-mail ou usuário?');pedir('email');}}
+function trocarEmail(){if(ocupado)return;if(/email|recuperar/.test(fase)){$('em').select();return;}
+  ela('Tudo bem. Qual é o e-mail certo?');pedir(modo==='criar'?'cad-email':'email');$('em').select();}
+async function recuperar(){const em=emailDe($('em').value);pensando(true);
+  const r=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname}).catch(e=>({error:e}));pensando(false);
+  if(r.error){ela(traduz(r.error));pedir(fase);return;}
+  ela('Se '+em+' tiver conta, chega um link para criar uma senha nova. Confira também o spam.');pedir('senha');}
+// atalhos: o texto do botão vira a fala da pessoa, depois a Babel responde
+const ACAO={trocar:()=>trocarModo('criar'),jaTenho:()=>trocarModo('entrar'),voltar:()=>trocarModo('entrar'),trocaEm:trocarEmail,
+  esqueci:()=>{if(fase==='senha')return recuperar();ela('Sem problema. Qual é o seu e-mail? Eu mando um link para criar uma senha nova.');pedir('recuperar');}};
+for(const id in ACAO)$(id).addEventListener('click',()=>{if(ocupado)return;fala('eu',$(id).textContent);ACAO[id]();});
+$('olho').addEventListener('click',()=>{const v=$('pw').type==='password';$('pw').type=v?'text':'password';$('olho').setAttribute('aria-pressed',v);$('olho').setAttribute('aria-label',v?'Esconder senha':'Mostrar senha');$('risco').style.display=v?'none':'';$('pw').focus();});
+$('google').addEventListener('click',async()=>{const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});if(error)ela(traduz(error));});
 fetch(SUPABASE_URL+'/auth/v1/settings',{headers:{apikey:SUPABASE_KEY}}).then(r=>r.json()).then(j=>{if(j&&j.external&&j.external.google)$('blocoSocial').classList.remove('hidden');}).catch(()=>{});
 $('login').addEventListener('submit',async ev=>{
-  ev.preventDefault();aviso('');const em=emailDe($('em').value),pw=$('pw').value;
-  if(!em||!pw){aviso('Preencha e-mail e senha.');return;}
-  $('go').disabled=true;
-  if(modo==='criar'){const nome=$('nm').value.trim();if(!nome){$('go').disabled=false;aviso('Diga como a Babel vai te chamar.');$('nm').focus();return;}
-    const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:nome},emailRedirectTo:location.origin+location.pathname}});$('go').disabled=false;
-    if(error){aviso(traduz(error.message));return;}if(data&&data.session){abrir();return;}
-    aviso('Conta criada. Confirme pelo link que enviamos para '+em+' e depois entre.',true);trocarModo('entrar');$('em').value=em;return;}
-  const {error}=await sb.auth.signInWithPassword({email:em,password:pw});
-  $('go').disabled=false;
-  if(error){aviso(traduz(error.message));return;}
-  abrir();
+  ev.preventDefault();if(ocupado)return;$('err').textContent='';
+  if(fase==='nome'){const n=$('nm').value.trim();if(!n)return;fala('eu',n);ela('Prazer, '+n.split(/\s+/)[0]+'! Qual é o seu e-mail?');pedir('cad-email');return;}
+  if(fase==='email'||fase==='cad-email'||fase==='recuperar'){const v=$('em').value.trim();if(!v)return;
+    if(!emailOk(v)){ela('Esse e-mail parece incompleto. Pode conferir para mim?');$('em').select();return;}
+    fala('eu',v,()=>{if(ocupado)return;if(!/email|recuperar/.test(fase))fala('eu','Trocar e-mail');trocarEmail();});
+    if(fase==='recuperar'){recuperar();return;}
+    const cad=fase==='cad-email';ela(cad?'Agora crie uma senha com pelo menos 6 caracteres.':'Agora a sua senha. Ela não aparece na conversa.');pedir(cad?'cad-senha':'senha');return;}
+  const pw=$('pw').value,em=emailDe($('em').value);if(!pw)return;
+  if(fase==='cad-senha'&&pw.length<6){ela('Essa senha ficou curta. Crie uma com pelo menos 6 caracteres.');$('pw').value='';return;}
+  fala('eu','••••••');pensando(true);
+  const r=await (modo==='criar'?sb.auth.signUp({email:em,password:pw,options:{data:{full_name:$('nm').value.trim()},emailRedirectTo:location.origin+location.pathname}})
+    :sb.auth.signInWithPassword({email:em,password:pw})).catch(e=>({error:e}));
+  pensando(false);
+  if(r.error){ela(traduz(r.error));pedir(fase);return;}
+  if(r.data&&r.data.session){abrir();return;}
+  // cadastro que pede confirmação por e-mail: volta para o modo entrar com o e-mail já preenchido
+  marcaModo('entrar');ela('Conta criada! Mandei um link de confirmação para '+em+'. Depois de confirmar, digite sua senha aqui para entrar.');pedir('senha');
 });
 
 function aplicarMarca(b){if(!b||typeof b!=='object')return;const nome=String(b.nome_produto||'').trim()||'Babel';MARCA.nome=nome;
@@ -247,9 +272,9 @@ try{aplicarMarca(JSON.parse(localStorage.getItem('babel_marca')||'null'));}catch
 (async()=>{try{const {data}=await sb.from('branding_sistema').select('nome_produto,logo_url,favicon_url,cor_fundo,cor_acento,cor_acento_secundaria,login_form_titulo,login_form_subtitulo,login_copyright').eq('ativo',true).limit(1);
   const b=data&&data[0];if(!b)return;try{localStorage.setItem('babel_marca',JSON.stringify(b));}catch(e){}aplicarMarca(b);}catch(e){}})();
 const {data:{session}}=await sb.auth.getSession();
-// localhost sem sessão: pula o login e abre as telas em modo demo (mocks do babel-os.html).
+// localhost sem sessão: pula o login e abre as telas em modo demo (mocks do babel-os.html); com ?login=1 mostra o login mesmo assim.
 const local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-if(session)abrir();else if(local)location.replace('babel-os.html');else{$('wait').classList.add('hidden');$('login').classList.remove('hidden');$('em').focus();}
+if(session)abrir();else if(local&&new URLSearchParams(location.search).get('login')!=='1')location.replace('babel-os.html');else{$('wait').classList.add('hidden');$('login').classList.remove('hidden');ela('Oi! Qual é o seu e-mail ou usuário?');pedir('email');}
 })();
 </script>
 </body>

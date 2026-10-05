@@ -16,6 +16,7 @@ Uso:  python3 servir.py [porta]      (padrao 8080)
 """
 import os
 import sys
+import gzip
 import functools
 import http.client
 import http.server
@@ -27,6 +28,9 @@ DESTINOS = {"/sb": ("127.0.0.1", 54321), "/cerebro": ("127.0.0.1", 3078), "/voz"
 # cabeçalhos que não atravessam o repasse (hop-by-hop e os de navegador que os servidores locais recusariam)
 NAO_REPASSA = {"host", "connection", "keep-alive", "proxy-connection", "te", "trailer", "transfer-encoding", "upgrade",
                "origin", "referer", "sec-fetch-site", "sec-fetch-mode", "sec-fetch-dest", "accept-encoding"}
+# texto que vale comprimir (o babel-os.html cai de 1,5 MB para cerca de 430 KB)
+COMPRIME = {".html", ".js", ".css", ".json", ".svg", ".txt"}
+_GZ = {}  # caminho -> (etag, bytes gzip); refeito só quando o arquivo muda
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -80,11 +84,42 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-Length", "0")
             self.end_headers()
             return
-        super().do_GET()
+        if not self._gzip():
+            super().do_GET()
 
     def do_HEAD(self):
-        if not self._repassa():
+        if not self._repassa() and not self._gzip():
             super().do_HEAD()
+
+    def _gzip(self):
+        """Entrega texto comprimido (gzip) com ETag quando o navegador aceita; False segue o fluxo normal."""
+        if "gzip" not in (self.headers.get("Accept-Encoding") or ""):
+            return False
+        caminho = self.translate_path(self.path)
+        if os.path.splitext(caminho)[1].lower() not in COMPRIME or not os.path.isfile(caminho):
+            return False
+        st = os.stat(caminho)
+        etag = '"%x-%x-gz"' % (st.st_mtime_ns, st.st_size)
+        if self.headers.get("If-None-Match") == etag:
+            self.send_response(304)
+            self.send_header("ETag", etag)
+            self.end_headers()
+            return True
+        c = _GZ.get(caminho)
+        if not c or c[0] != etag:
+            with open(caminho, "rb") as f:
+                c = (etag, gzip.compress(f.read(), 6))
+            _GZ[caminho] = c
+        self.send_response(200)
+        self.send_header("Content-Type", self.guess_type(caminho))
+        self.send_header("Content-Encoding", "gzip")
+        self.send_header("Content-Length", str(len(c[1])))
+        self.send_header("ETag", etag)
+        self.send_header("Vary", "Accept-Encoding")
+        self.end_headers()
+        if self.command != "HEAD":
+            self.wfile.write(c[1])
+        return True
 
     def do_POST(self):
         if not self._repassa():
@@ -99,9 +134,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
     def end_headers(self):
-        # cache desligado: durante o teste cada F5 pega o HTML atual
+        # revalida a cada uso: cada F5 pega o arquivo atual, mas sem baixar de novo o que não mudou (304)
         if not self._destino()[0]:
-            self.send_header("Cache-Control", "no-store, max-age=0")
+            self.send_header("Cache-Control", "no-cache")
         super().end_headers()
 
     def log_message(self, fmt, *args):
@@ -116,6 +151,17 @@ class Servidor(socketserver.ThreadingMixIn, socketserver.TCPServer):
 def main():
     porta = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
     handler = functools.partial(Handler, directory=RAIZ)
+    # voz neural (Francisca): sobe junto se estiver instalada e a porta 3100 estiver livre
+    voz = os.path.join(RAIZ, "edge-tts", ".venv", "bin", "python")
+    if os.path.exists(voz):
+        import socket
+        import subprocess
+        with socket.socket() as s:
+            livre = s.connect_ex(("127.0.0.1", 3100)) != 0
+        if livre:
+            subprocess.Popen([voz, os.path.join(RAIZ, "edge-tts", "server.py"), "--port", "3100"],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+            print("Voz neural (Francisca) em http://localhost:3100")
     with Servidor(("127.0.0.1", porta), handler) as httpd:
         print(f"Babel OS em http://localhost:{porta}/  ->  {ENTRADA}")
         print("Repasse: /sb -> :54321 · /cerebro -> :3078 · /voz -> :3100")

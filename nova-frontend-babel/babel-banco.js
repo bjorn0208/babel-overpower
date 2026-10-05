@@ -1250,6 +1250,9 @@ window.BabelBanco={
   get admin(){return admin;},
   get gestao(){return gesOk;},
   uuid:uuid4,
+  // a Babel conta leads por período (voz): só leitura, leads do dono, sem apagados
+  // ponytail: não separa os de teste (tag lead_de_teste); o teste do agente apaga o dele ao terminar
+  async contarLeads(de,ate){let q=sb.from('leads').select('id',{count:'exact',head:true}).eq('tenant_id',uid).is('deleted_at',null).gte('created_at',de.toISOString());if(ate)q=q.lt('created_at',ate.toISOString());return contar(q);},
   subirMidiaProduto,
   pedirCompraLoja,
   atualizarDock(){try{if(ajustarAppsNoDock())window.__babelEval('renderNav')();}catch(e){}},

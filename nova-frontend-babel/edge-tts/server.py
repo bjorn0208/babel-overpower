@@ -20,6 +20,7 @@ import os
 import re
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, "cache")
@@ -51,6 +52,13 @@ def synth(text, voice, path, rate=None, pitch=None):
         await comm.save(path)
 
     asyncio.run(go())
+
+
+def cache_path(text, voice, rate, pitch):
+    key = hashlib.sha1(
+        ("%s\n%s\n%s\n%s" % (voice, rate or "", pitch or "", text)).encode("utf-8")
+    ).hexdigest()
+    return key, os.path.join(CACHE, key + ".mp3")
 
 
 def valid_voice(v):
@@ -105,10 +113,72 @@ class H(BaseHTTPRequestHandler):
             self.wfile.write(body)
         elif self.path == "/health":
             self._json({"ok": True, "default_voice": DEFAULT_VOICE})
+        elif self.path.startswith("/tts-stream?"):
+            self._stream()
         elif self.path == "/voices":
             self._json({"voices": [{"id": v, "label": l} for v, l in VOICES]})
         else:
             self._json({"error": "rota desconhecida"}, 404)
+
+    def _stream(self):
+        """GET /tts-stream?text=...&voice=...: o audio sai enquanto a Microsoft sintetiza
+        (1o som em ~1s, contra ~2s esperando o mp3 inteiro); no fim grava no cache."""
+        if edge_tts is None:
+            self._json({"error": "edge-tts nao instalado. Rode: pip install edge-tts"}, 500)
+            return
+        q = parse_qs(urlparse(self.path).query)
+        text = (q.get("text", [""])[0]).strip()
+        voice = q.get("voice", [DEFAULT_VOICE])[0]
+        rate = q.get("rate", [None])[0]
+        pitch = q.get("pitch", [None])[0]
+        if not text or len(text) > MAX_TEXT or not valid_voice(voice) \
+                or (rate is not None and not valid_pct(rate)) or (pitch is not None and not valid_pitch(pitch)):
+            self._json({"error": "pedido invalido"}, 400)
+            return
+        key, path = cache_path(text, voice, rate, pitch)
+        if os.path.exists(path):
+            with open(path, "rb") as f:
+                audio = f.read()
+            self.send_response(200)
+            self.send_header("Content-Type", "audio/mpeg")
+            self.send_header("Content-Length", str(len(audio)))
+            self._cors()
+            self.end_headers()
+            self.wfile.write(audio)
+            return
+        self.send_response(200)
+        self.send_header("Content-Type", "audio/mpeg")
+        self.send_header("Cache-Control", "no-store")
+        self._cors()
+        self.end_headers()
+        partes = []
+
+        async def go():
+            kw = {}
+            if rate:
+                kw["rate"] = rate
+            if pitch:
+                kw["pitch"] = pitch
+            async for c in edge_tts.Communicate(text, voice, **kw).stream():
+                if c["type"] == "audio":
+                    self.wfile.write(c["data"])
+                    self.wfile.flush()
+                    partes.append(c["data"])
+
+        try:
+            asyncio.run(go())
+        except (BrokenPipeError, ConnectionResetError):
+            return  # o app parou de ouvir (fechou a conversa)
+        except Exception as e:
+            sys.stderr.write("falha no streaming: %s\n" % e)
+            return
+        tmp = path + ".tmp"
+        try:
+            with open(tmp, "wb") as f:
+                f.write(b"".join(partes))
+            os.replace(tmp, path)
+        except OSError:
+            pass
 
     def do_POST(self):
         if self.path != "/tts":
@@ -148,10 +218,7 @@ class H(BaseHTTPRequestHandler):
         if pitch is not None and not valid_pitch(pitch):
             self._json({"error": "pitch invalido (ex.: +2Hz)"}, 400)
             return
-        key = hashlib.sha1(
-            ("%s\n%s\n%s\n%s" % (voice, rate or "", pitch or "", text)).encode("utf-8")
-        ).hexdigest()
-        path = os.path.join(CACHE, key + ".mp3")
+        key, path = cache_path(text, voice, rate, pitch)
         if not os.path.exists(path):
             tmp = path + ".tmp"
             try:
